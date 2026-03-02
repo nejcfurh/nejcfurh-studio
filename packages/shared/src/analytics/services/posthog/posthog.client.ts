@@ -1,4 +1,3 @@
-/* eslint-disable import-x/no-named-as-default-member */
 import { AppEnvironment } from '@shared-utils/enums/common.enums';
 import { posthog } from 'posthog-js';
 

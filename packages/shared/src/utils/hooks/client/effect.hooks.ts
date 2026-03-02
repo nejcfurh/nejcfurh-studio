@@ -12,7 +12,6 @@ export const useMount = (callback: EffectCallback): void => {
 
       return callback();
     }
-    // eslint-disable-next-line
   }, []);
 };
 

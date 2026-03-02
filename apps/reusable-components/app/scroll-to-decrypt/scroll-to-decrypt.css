@@ -1,0 +1,74 @@
+/* Departure Mono Font */
+@font-face {
+    font-family: 'Departure Mono';
+    src: url('https://assets.codepen.io/605876/DepartureMono-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Fluid Typography */
+:root {
+    --font-size-min: 16;
+    --font-size-max: 20;
+    --font-ratio-min: 1.2;
+    --font-ratio-max: 1.33;
+    --font-width-min: 375;
+    --font-width-max: 1500;
+}
+
+.fluid,
+.fluid * {
+    --font-level: 3.5;
+    --fluid-min: calc(var(--font-size-min) * pow(var(--font-ratio-min), var(--font-level, 0)));
+    --fluid-max: calc(var(--font-size-max) * pow(var(--font-ratio-max), var(--font-level, 0)));
+    --fluid-preferred: calc((var(--fluid-max) - var(--fluid-min)) / (var(--font-width-max) - var(--font-width-min)));
+    --fluid-type: clamp(calc(var(--fluid-min) / 16 * 1rem),
+            calc((var(--fluid-min) / 16 * 1rem) - (var(--fluid-preferred) * var(--font-width-min) / 16 * 1rem) + (var(--fluid-preferred) * 100vi)),
+            calc(var(--fluid-max) / 16 * 1rem));
+    font-size: var(--fluid-type);
+}
+
+/* Scroll-driven animation */
+[data-char] span {
+    animation: track both steps(var(--track, 10));
+    animation-timeline: --heading;
+    animation-range: contain calc(0% + (var(--char-index) * var(--step-start))) calc(50% + (var(--char-index) * var(--step-end)));
+}
+
+@keyframes track {
+    to {
+        translate: -50% calc(100% - 1lh);
+    }
+}
+
+/* Grid background */
+body::before {
+    --size: 45px;
+    --line: color-mix(in lch, canvasText, transparent 70%);
+    content: '';
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    background: linear-gradient(90deg,
+            var(--line) 1px,
+            transparent 1px var(--size)) 50% 50% / var(--size) var(--size),
+        linear-gradient(var(--line) 1px, transparent 1px var(--size)) 50% 50% / var(--size) var(--size);
+    mask: linear-gradient(-20deg, transparent 50%, white);
+    top: 0;
+    transform-style: flat;
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* Screen reader only utility */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}

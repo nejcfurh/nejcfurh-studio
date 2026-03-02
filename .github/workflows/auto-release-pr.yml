@@ -21,7 +21,7 @@ jobs:
       - name: Check for existing PR
         id: check_pr
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.ORG_GITHUB_WRITE_TOKEN}}
         run: |
           PR_EXISTS=$(gh pr list --base main --head develop --state open --json number --jq length)
           echo "pr_exists=$PR_EXISTS" >> $GITHUB_OUTPUT
@@ -29,7 +29,7 @@ jobs:
       - name: Get latest release version
         id: get_version
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.ORG_GITHUB_WRITE_TOKEN }}
         run: |
           LATEST_TAG=$(gh release list --limit 1 --json tagName --jq '.[0].tagName' 2>/dev/null || git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0")
           echo "latest_tag=$LATEST_TAG" >> $GITHUB_OUTPUT
@@ -79,7 +79,7 @@ jobs:
       - name: Create or update PR
         if: steps.analyze.outputs.has_commits == 'true' && steps.analyze.outputs.bump_type != 'none'
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.ORG_GITHUB_WRITE_TOKEN }}
         run: |
           BUMP_TYPE="${{ steps.analyze.outputs.bump_type }}"
           LATEST_TAG="${{ steps.get_version.outputs.latest_tag }}"
