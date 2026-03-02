@@ -1,0 +1,13 @@
+{
+  "extends": "tsconfig/react-library.json",
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "paths": {
+      "@shared-analytics/*": ["analytics/*"],
+      "@shared-observability/*": ["observability/*"],
+      "@shared-utils/*": ["utils/*"]
+    }
+  },
+  "include": ["."],
+  "exclude": ["dist", "build", "node_modules"]
+}

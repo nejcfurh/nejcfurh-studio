@@ -1,0 +1,43 @@
+# IDE
+.idea
+.vscode/*
+!.vscode/settings.json
+
+# dependencies
+node_modules
+/.pnp
+.pnp.js
+
+# env files
+.envrc
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Cache
+.cache/
+.eslintcache
+
+# Test Coverage
+coverage/
+**/coverage/
+test-results/
+
+# Turbo
+.turbo
+out
+
+# TypeScript
+tsconfig.tsbuildinfo
+
+# Vercel
+.vercel
+
+# Next.js
+.next
+
+# OS
+.DS_Store
+Thumbs.db

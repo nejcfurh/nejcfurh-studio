@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json.schemastore.org/prettierrc",
+  "printWidth": 80,
+  "jsxSingleQuote": false,
+  "bracketSameLine": false,
+  "semi": true,
+  "arrowParens": "always",
+  "singleQuote": true,
+  "bracketSpacing": true,
+  "tabWidth": 2,
+  "useTabs": false,
+  "trailingComma": "none",
+  "plugins": [
+    "@ianvs/prettier-plugin-sort-imports",
+    "prettier-plugin-tailwindcss"
+  ],
+  "importOrder": [
+    "<THIRD_PARTY_MODULES>",
+    "",
+    "^@config/(.*)$|^@utils/(.*)$",
+    "",
+    "^@store/(.*)$",
+    "",
+    "^@hooks/(.*)$",
+    "",
+    "^@components/(.*)$",
+    "",
+    "^@public/(.*)$",
+    "",
+    "^(?:.*\\.s?css)$",
+    "",
+    "^[./]"
+  ]
+}

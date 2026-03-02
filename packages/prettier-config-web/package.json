@@ -1,0 +1,10 @@
+{
+  "name": "prettier-config-web",
+  "version": "0.0.0",
+  "private": true,
+  "main": "index.json",
+  "dependencies": {
+    "@ianvs/prettier-plugin-sort-imports": "^4.4.0",
+    "prettier-plugin-tailwindcss": "^0.7.2"
+  }
+}
