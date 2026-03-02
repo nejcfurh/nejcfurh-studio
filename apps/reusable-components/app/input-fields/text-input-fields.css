@@ -1,0 +1,38 @@
+.input__field:placeholder-shown~.input__label {
+  font-size: 1rem;
+  cursor: text;
+  color: var(--secondary-input);
+  top: 1.5rem;
+}
+
+label,
+.input__field:focus~.input__label {
+  position: absolute;
+  top: 0.375rem;
+  padding: 0 0.25rem;
+  background-color: var(--box-background-input);
+  display: block;
+  font-size: 0.875rem;
+  left: 0.5rem;
+  color: var(--secondary-input);
+  transition: 0.3s;
+}
+
+.input__field:focus~.input__label {
+  color: var(--primary-input);
+}
+
+.input__field:focus {
+  outline: 1.5px solid var(--primary-input);
+}
+
+.input__icon {
+  position: absolute;
+  right: -0.625rem;
+  bottom: -0.625rem;
+  width: 1.75rem;
+  height: 1.75rem;
+  transform: translate(-50%, -50%);
+  transform-origin: center;
+  cursor: pointer;
+}
