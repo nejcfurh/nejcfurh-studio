@@ -15,7 +15,8 @@
     "format:eslint": "turbo format:eslint",
     "type:check": "turbo type:check",
     "prepare": "husky",
-    "reusable-components": "turbo dev --filter=reusable-components"
+    "reusable-components": "turbo dev --filter=reusable-components",
+    "n-drive": "turbo dev --filter=n-drive"
   },
   "devDependencies": {
     "@commitlint/cli": "20.4.2",
