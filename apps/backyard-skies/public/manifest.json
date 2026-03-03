@@ -1,0 +1,27 @@
+{
+  "name": "Backyard Skies — Wings of Survival",
+  "short_name": "Backyard Skies",
+  "description": "Fly as a bird in a 3D suburban world. Choose your species and survive!",
+  "start_url": "/",
+  "display": "fullscreen",
+  "orientation": "portrait",
+  "background_color": "#0a1628",
+  "theme_color": "#00AEEF",
+  "icons": [
+    {
+      "src": "/192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/48.png",
+      "sizes": "48x48",
+      "type": "image/png"
+    }
+  ]
+}

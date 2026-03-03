@@ -16,7 +16,8 @@
     "type:check": "turbo type:check",
     "prepare": "husky",
     "reusable-components": "turbo dev --filter=reusable-components",
-    "n-drive": "turbo dev --filter=n-drive"
+    "n-drive": "turbo dev --filter=n-drive",
+    "backyard-skies": "turbo dev --filter=backyard-skies"
   },
   "devDependencies": {
     "@commitlint/cli": "20.4.2",
