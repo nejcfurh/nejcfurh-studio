@@ -7,7 +7,8 @@
       "env": [
         "CLERK_SECRET_KEY",
         "CLERK_WEBHOOK_SECRET",
-        "CONVEX_DEPLOYMENT"
+        "CONVEX_DEPLOYMENT",
+        "GOOGLE_GENERATIVE_AI_API_KEY"
       ],
       "outputs": ["dist/**", ".next/**", "!.next/cache/**"]
     },
