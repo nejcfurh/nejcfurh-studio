@@ -1,7 +1,7 @@
 {
   "private": true,
   "version": "1.1.0",
-  "packageManager": "pnpm@10.30.3",
+  "packageManager": "pnpm@9.15.9",
   "scripts": {
     "build": "turbo build",
     "start": "turbo start",
@@ -33,6 +33,14 @@
         "react-dom": "19",
         "next": "16"
       }
-    }
+    },
+    "onlyBuiltDependencies": [
+      "@clerk/shared",
+      "core-js",
+      "esbuild",
+      "protobufjs",
+      "sharp",
+      "unrs-resolver"
+    ]
   }
 }
