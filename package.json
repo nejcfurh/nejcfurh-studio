@@ -1,7 +1,7 @@
 {
   "private": true,
   "version": "1.4.0",
-  "packageManager": "pnpm@9.15.9",
+  "packageManager": "pnpm@10.30.3",
   "scripts": {
     "build": "turbo build",
     "start": "turbo start",
@@ -19,7 +19,8 @@
     "n-drive": "turbo dev --filter=n-drive",
     "backyard-skies": "turbo dev --filter=backyard-skies",
     "desktop-weather": "turbo dev --filter=desktop-weather",
-    "reviews-analyser": "turbo dev --filter=reviews-analyser"
+    "reviews-analyser": "turbo dev --filter=reviews-analyser",
+    "friends-of-nature": "turbo dev --filter=friends-of-nature"
   },
   "devDependencies": {
     "@commitlint/cli": "20.4.2",

@@ -6,7 +6,16 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "base:prettier": "prettier './**/*.{ts,tsx,html,json,md,css}' --config .prettierrc --cache",
+    "base:eslint": "eslint ./ --cache",
+    "lint:prettier": "pnpm base:prettier --check",
+    "lint:eslint": "pnpm base:eslint",
+    "lint": "pnpm lint:prettier && pnpm lint:eslint",
+    "format:prettier": "pnpm base:prettier --write",
+    "format:eslint": "pnpm base:eslint --fix",
+    "format": "pnpm format:prettier && pnpm format:eslint",
+    "format-silent": "pnpm format:prettier --loglevel silent && pnpm format:eslint --quiet",
+    "type:check": "tsc --noEmit"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.7",
