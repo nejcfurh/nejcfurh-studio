@@ -1,12 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
-import { useEffect, useState } from 'react';
-import Card from './Card';
-import { animate, useMotionValue } from 'motion/react';
-import useMeasure from 'react-use-measure';
 import AnimatedDiv from '@/components/animation-core/AnimatedDiv';
+import { animate, useMotionValue } from 'motion/react';
+import { useEffect, useState } from 'react';
 import { FaSpinner } from 'react-icons/fa6';
+import useMeasure from 'react-use-measure';
+
+import Card from './Card';
 
 const API_ADDRESS = 'https://spotify-api-wrapper.appspot.com';
 const ARTIST_QUERY = 'Coldplay';
@@ -40,7 +41,7 @@ const InfiniteCarousel = () => {
           setMustFinishAnimation(false);
           setReRender(!reRender);
         },
-        ease: 'linear',
+        ease: 'linear'
       });
     } else {
       controls = animate(xTranslate, finalPosition, {
@@ -48,7 +49,7 @@ const InfiniteCarousel = () => {
         ease: 'linear',
         repeat: Infinity,
         repeatType: 'loop',
-        repeatDelay: 0,
+        repeatDelay: 0
       });
     }
 
@@ -86,7 +87,7 @@ const InfiniteCarousel = () => {
 
   if (isLoading) {
     return (
-      <div className="font-bold text-white mx-auto flex items-center justify-center py-32 animate-spin">
+      <div className="mx-auto flex animate-spin items-center justify-center py-32 font-bold text-white">
         <FaSpinner className="size-20" />
       </div>
     );
@@ -94,7 +95,7 @@ const InfiniteCarousel = () => {
 
   if (error) {
     return (
-      <div className="text-5xl w-full text-center font-bold text-white py-32">
+      <div className="w-full py-32 text-center text-5xl font-bold text-white">
         Error: {error}
       </div>
     );
@@ -106,13 +107,13 @@ const InfiniteCarousel = () => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.75, ease: 'easeInOut' }}
-      className="py-20 relative overflow-hidden w-screen h-screen"
+      className="relative h-screen w-screen overflow-hidden py-20"
     >
       {items && (
         <AnimatedDiv
           ref={ref}
           style={{ x: xTranslate }}
-          className="absolute left-0 flex gap-4 justify-center"
+          className="absolute left-0 flex justify-center gap-4"
           onHoverStart={() => {
             setDuration(SLOW_DURATION);
             setMustFinishAnimation(true);

@@ -1,10 +1,10 @@
+import { cn } from '@/utils/utils';
 import Link from 'next/link';
 import { IoArrowBack } from 'react-icons/io5';
-import { cn } from '@/utils/utils';
 
 const BackButton = ({
   href = '/',
-  className,
+  className
 }: {
   href?: string;
   className: string;
@@ -13,7 +13,7 @@ const BackButton = ({
     <Link
       href={href}
       className={cn(
-        'absolute top-5 left-5 bg-amber-50 z-10 p-4 rounded-full backdrop-blur-3xl hover:opacity-80 hover:scale-[1.10] transition-all duration-300 cursor-pointer',
+        'absolute top-5 left-5 z-10 cursor-pointer rounded-full bg-amber-50 p-4 backdrop-blur-3xl transition-all duration-300 hover:scale-[1.10] hover:opacity-80',
         className
       )}
     >

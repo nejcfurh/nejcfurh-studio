@@ -1,10 +1,10 @@
 // Pure feeder generation, culling, and spacing logic.
 // No React, no store — called by gameStore and FeederSpawner.
 
-import { FeederData } from '@/types';
 import { isSafeFeederPosition } from '@/lib/terrain/terrainCollision';
+import { FeederData } from '@/types';
+import { BIRDBATH_COUNT, FEEDER_COUNT } from '@/utils/constants';
 import { seededRandom } from '@/utils/seededRandom';
-import { FEEDER_COUNT, BIRDBATH_COUNT } from '@/utils/constants';
 
 let feederIdCounter = 0;
 
@@ -17,7 +17,12 @@ export function nextFeederId(): number {
 }
 
 /** Check minimum spacing against existing feeders */
-function isFarEnough(x: number, z: number, feeders: FeederData[], minSpacing: number): boolean {
+function isFarEnough(
+  x: number,
+  z: number,
+  feeders: FeederData[],
+  minSpacing: number
+): boolean {
   for (const f of feeders) {
     const dx = f.position[0] - x;
     const dz = f.position[2] - z;
@@ -37,7 +42,10 @@ export function generateFeeders(centerX = 0, centerZ = 0): FeederData[] {
       const s = attempt < 50 ? spread : spread * 1.5;
       const x = centerX + (Math.random() - 0.5) * s;
       const z = centerZ + (Math.random() - 0.5) * s;
-      if (isSafeFeederPosition(x, z) && isFarEnough(x, z, feeders, MIN_SPACING)) {
+      if (
+        isSafeFeederPosition(x, z) &&
+        isFarEnough(x, z, feeders, MIN_SPACING)
+      ) {
         return [x, 0, z];
       }
     }
@@ -51,7 +59,7 @@ export function generateFeeders(centerX = 0, centerZ = 0): FeederData[] {
         id: nextFeederId(),
         position: pos,
         hasCat: Math.random() > 0.6,
-        type: 'feeder',
+        type: 'feeder'
       });
     }
   }
@@ -63,7 +71,7 @@ export function generateFeeders(centerX = 0, centerZ = 0): FeederData[] {
         id: nextFeederId(),
         position: pos,
         hasCat: Math.random() > 0.7,
-        type: 'birdbath',
+        type: 'birdbath'
       });
     }
   }
@@ -76,9 +84,9 @@ export function cullDistantFeeders(
   feeders: FeederData[],
   playerX: number,
   playerZ: number,
-  maxDist: number,
+  maxDist: number
 ): FeederData[] {
-  return feeders.filter(f => {
+  return feeders.filter((f) => {
     const dx = f.position[0] - playerX;
     const dz = f.position[2] - playerZ;
     return Math.sqrt(dx * dx + dz * dz) < maxDist;
@@ -93,9 +101,9 @@ export function spawnNearbyFeeders(
   targetCount: number,
   spawnDistance: number,
   minSpacing: number,
-  seedBase: number,
+  seedBase: number
 ): FeederData[] {
-  const nearbyCount = existing.filter(f => {
+  const nearbyCount = existing.filter((f) => {
     const dx = f.position[0] - playerX;
     const dz = f.position[2] - playerZ;
     return Math.sqrt(dx * dx + dz * dz) < spawnDistance;
@@ -119,12 +127,15 @@ export function spawnNearbyFeeders(
       if (!isSafeFeederPosition(nx, nz)) continue;
 
       const isBath = rand() > 0.55;
-      updated = [...updated, {
-        id: nextFeederId(),
-        position: [nx, 0, nz] as [number, number, number],
-        hasCat: rand() > 0.65,
-        type: isBath ? 'birdbath' : 'feeder',
-      }];
+      updated = [
+        ...updated,
+        {
+          id: nextFeederId(),
+          position: [nx, 0, nz] as [number, number, number],
+          hasCat: rand() > 0.65,
+          type: isBath ? 'birdbath' : 'feeder'
+        }
+      ];
       placed = true;
     }
   }

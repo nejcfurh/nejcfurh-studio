@@ -1,9 +1,9 @@
 'use client';
 
-import { useRef, useMemo, useEffect } from 'react';
-import { useFrame } from '@react-three/fiber';
-import { useGameStore } from '@/store/gameStore';
 import { BIRD_SPECIES } from '@/lib/birdSpecies';
+import { useGameStore } from '@/store/gameStore';
+import { useFrame } from '@react-three/fiber';
+import { useEffect, useMemo, useRef } from 'react';
 import * as THREE from 'three';
 
 const FEATHER_COUNT = 25;
@@ -30,7 +30,7 @@ export default function FeatherBurst() {
 
   // WATCH FOR DYING TRANSITION
   useEffect(() => {
-    const unsub = useGameStore.subscribe(state => {
+    const unsub = useGameStore.subscribe((state) => {
       if (state.gameState === 'dying' && prevGameState.current !== 'dying') {
         // TRIGGER BURST
         const pos = state.position;
@@ -41,25 +41,25 @@ export default function FeatherBurst() {
           position: new THREE.Vector3(
             pos[0] + (Math.random() - 0.5) * 0.5,
             pos[1] + (Math.random() - 0.5) * 0.5,
-            pos[2] + (Math.random() - 0.5) * 0.5,
+            pos[2] + (Math.random() - 0.5) * 0.5
           ),
           velocity: new THREE.Vector3(
             (Math.random() - 0.5) * 6,
             Math.random() * 4 + 1,
-            (Math.random() - 0.5) * 6,
+            (Math.random() - 0.5) * 6
           ),
           rotation: new THREE.Euler(
             Math.random() * Math.PI * 2,
             Math.random() * Math.PI * 2,
-            Math.random() * Math.PI * 2,
+            Math.random() * Math.PI * 2
           ),
           rotationSpeed: new THREE.Vector3(
             (Math.random() - 0.5) * 8,
             (Math.random() - 0.5) * 8,
-            (Math.random() - 0.5) * 4,
+            (Math.random() - 0.5) * 4
           ),
           age: 0,
-          alive: true,
+          alive: true
         }));
         activeRef.current = true;
       }
@@ -111,7 +111,7 @@ export default function FeatherBurst() {
       matrixHelper.compose(
         f.position,
         quaternionHelper,
-        new THREE.Vector3(scale, scale * 0.3, scale),
+        new THREE.Vector3(scale, scale * 0.3, scale)
       );
       meshRef.current.setMatrixAt(i, matrixHelper);
     }

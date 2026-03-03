@@ -1,9 +1,10 @@
 'use node';
 
-import { v } from 'convex/values';
-import { internalAction } from './_generated/server';
-import { Webhook } from 'svix';
 import type { WebhookEvent } from '@clerk/clerk-sdk-node';
+import { v } from 'convex/values';
+import { Webhook } from 'svix';
+
+import { internalAction } from './_generated/server';
 
 const webhookSecret = process.env.CLERK_WEBHOOK_SECRET;
 
@@ -17,8 +18,8 @@ export const fulfill = internalAction({
     headers: v.object({
       svix_id: v.string(),
       svix_timestamp: v.string(),
-      svix_signature: v.string(),
-    }),
+      svix_signature: v.string()
+    })
   },
   handler: async (ctx, args) => {
     const wh = new Webhook(webhookSecret);
@@ -26,8 +27,8 @@ export const fulfill = internalAction({
     const payload = wh.verify(args.payload, {
       'svix-id': args.headers.svix_id,
       'svix-timestamp': args.headers.svix_timestamp,
-      'svix-signature': args.headers.svix_signature,
+      'svix-signature': args.headers.svix_signature
     }) as WebhookEvent;
     return payload;
-  },
+  }
 });

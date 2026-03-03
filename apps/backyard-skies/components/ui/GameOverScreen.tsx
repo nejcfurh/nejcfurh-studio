@@ -1,34 +1,34 @@
 'use client';
 
-import { useState, useEffect } from 'react';
 import { useGameStore } from '@/store/gameStore';
-import { PiBird } from 'react-icons/pi';
-import { BiChevronLeft } from 'react-icons/bi';
 import { SCORE_EAGLE_DODGE_BONUS } from '@/utils/constants';
+import { useEffect, useState } from 'react';
+import { BiChevronLeft } from 'react-icons/bi';
+import { PiBird } from 'react-icons/pi';
 
 const DEATH_MESSAGES: Record<string, { title: string; subtitle: string }> = {
   food: {
     title: 'Starved Mid-Flight',
-    subtitle: 'Your bird could not fly anymore!',
+    subtitle: 'Your bird could not fly anymore!'
   },
   water: {
     title: 'Dehydrated',
-    subtitle: 'Lack of hydration brought your bird down!',
+    subtitle: 'Lack of hydration brought your bird down!'
   },
   ground: {
     title: 'Grounded!',
-    subtitle: 'A cat caught your bird on the ground!',
+    subtitle: 'A cat caught your bird on the ground!'
   },
   eagle: { title: 'Snatched!', subtitle: 'An eagle caught your bird mid-air!' },
   cat: {
     title: 'Ambushed!',
-    subtitle: 'A cat caught your bird at the feeder!',
-  },
+    subtitle: 'A cat caught your bird at the feeder!'
+  }
 };
 
 const DEFAULT_DEATH = {
   title: 'Flight Over',
-  subtitle: 'Your bird has landed!',
+  subtitle: 'Your bird has landed!'
 };
 
 function useCountUp(target: number, duration: number, delay: number) {
@@ -62,16 +62,16 @@ function useCountUp(target: number, duration: number, delay: number) {
 }
 
 export default function GameOverScreen() {
-  const score = useGameStore(s => s.score);
-  const distance = useGameStore(s => s.distance);
-  const deathReason = useGameStore(s => s.deathReason);
-  const leaderboard = useGameStore(s => s.leaderboard);
-  const setGameState = useGameStore(s => s.setGameState);
-  const startGame = useGameStore(s => s.startGame);
-  const saveScore = useGameStore(s => s.saveScore);
-  const storedName = useGameStore(s => s.playerName);
-  const eagleDodges = useGameStore(s => s.eagleDodges);
-  const feedingScore = useGameStore(s => s.feedingScore);
+  const score = useGameStore((s) => s.score);
+  const distance = useGameStore((s) => s.distance);
+  const deathReason = useGameStore((s) => s.deathReason);
+  const leaderboard = useGameStore((s) => s.leaderboard);
+  const setGameState = useGameStore((s) => s.setGameState);
+  const startGame = useGameStore((s) => s.startGame);
+  const saveScore = useGameStore((s) => s.saveScore);
+  const storedName = useGameStore((s) => s.playerName);
+  const eagleDodges = useGameStore((s) => s.eagleDodges);
+  const feedingScore = useGameStore((s) => s.feedingScore);
   const [playerName, setPlayerName] = useState(storedName || '');
   const [saved, setSaved] = useState(false);
 
@@ -82,7 +82,7 @@ export default function GameOverScreen() {
   const eagleBonus = eagleDodges * SCORE_EAGLE_DODGE_BONUS;
   const flightScore = Math.max(
     0,
-    Math.floor(score) - eagleBonus - Math.floor(feedingScore),
+    Math.floor(score) - eagleBonus - Math.floor(feedingScore)
   );
 
   // Staggered animated count-ups
@@ -99,18 +99,18 @@ export default function GameOverScreen() {
   };
 
   return (
-    <div className="w-full h-full z-50 flex flex-col bg-linear-to-b from-[#0a0a1a] via-[#1a1a2e] to-[#0a0a1a]">
-      <div className="flex flex-col items-center justify-between h-full pt-3 px-6 pb-8 gap-2">
+    <div className="z-50 flex h-full w-full flex-col bg-linear-to-b from-[#0a0a1a] via-[#1a1a2e] to-[#0a0a1a]">
+      <div className="flex h-full flex-col items-center justify-between gap-2 px-6 pt-3 pb-8">
         {/* Title */}
         <div className="text-center">
           <h1 className="text-4xl font-black text-white">{death.title}</h1>
-          <p className="text-white/35 text-[13px] my-1">{death.subtitle}</p>
+          <p className="my-1 text-[13px] text-white/35">{death.subtitle}</p>
         </div>
 
         {/* Score breakdown */}
-        <div className="w-full max-w-80 bg-white/4 backdrop-blur-xl rounded-[18px] px-6 py-3 flex flex-col items-center gap-3">
+        <div className="flex w-full max-w-80 flex-col items-center gap-3 rounded-[18px] bg-white/4 px-6 py-3 backdrop-blur-xl">
           {/* Breakdown lines */}
-          <div className="w-full flex flex-col ">
+          <div className="flex w-full flex-col">
             <ScoreRow
               label="Flight"
               value={flight.value}
@@ -128,13 +128,13 @@ export default function GameOverScreen() {
               visible={eagles.visible}
             />
 
-            <div className="w-full h-px bg-white/10 my-1" />
+            <div className="my-1 h-px w-full bg-white/10" />
             {/* Total */}
             <div
               className="flex items-center justify-between transition-opacity duration-300"
               style={{ opacity: total.visible ? 1 : 0 }}
             >
-              <span className="text-[11px] text-white/50 uppercase tracking-wider font-bold">
+              <span className="text-[11px] font-bold tracking-wider text-white/50 uppercase">
                 Total
               </span>
               <span className="text-3xl font-semibold text-white">
@@ -145,7 +145,7 @@ export default function GameOverScreen() {
               className="flex items-center justify-between transition-opacity duration-300"
               style={{ opacity: total.visible ? 1 : 0 }}
             >
-              <span className="text-[11px] text-white/50 uppercase tracking-wider font-bold">
+              <span className="text-[11px] font-bold tracking-wider text-white/50 uppercase">
                 Distance
               </span>
               <span className="text-lg font-light text-white/50">
@@ -155,18 +155,18 @@ export default function GameOverScreen() {
           </div>
 
           {!saved ? (
-            <div className="w-full flex gap-2">
+            <div className="flex w-full gap-2">
               <input
                 type="text"
                 value={playerName}
-                onChange={e => setPlayerName(e.target.value)}
+                onChange={(e) => setPlayerName(e.target.value)}
                 placeholder="Enter your name..."
                 maxLength={16}
-                className="flex-1 py-2.5 px-3.5 rounded-xl bg-white/8 border-none text-white text-[13px] outline-none"
+                className="flex-1 rounded-xl border-none bg-white/8 px-3.5 py-2.5 text-[13px] text-white outline-none"
               />
               <button
                 onClick={handleSave}
-                className="py-2.5 px-[18px] rounded-xl bg-[#00AEEF] border-none text-white text-[13px] font-bold cursor-pointer"
+                className="cursor-pointer rounded-xl border-none bg-[#00AEEF] px-[18px] py-2.5 text-[13px] font-bold text-white"
               >
                 Save
               </button>
@@ -177,10 +177,10 @@ export default function GameOverScreen() {
         </div>
 
         {/* Leaderboard */}
-        <div className="w-full max-w-80 bg-white/4 backdrop-blur-xl rounded-[18px] py-4 px-[18px]">
-          <div className="flex items-center justify-between mb-3">
+        <div className="w-full max-w-80 rounded-[18px] bg-white/4 px-[18px] py-4 backdrop-blur-xl">
+          <div className="mb-3 flex items-center justify-between">
             <span className="text-sm font-bold text-white">High Flyers</span>
-            <span className="text-[9px] font-bold text-[#FFD700] uppercase tracking-wider bg-[rgba(255,215,0,0.1)] py-[3px] px-2 rounded-[10px]">
+            <span className="rounded-[10px] bg-[rgba(255,215,0,0.1)] px-2 py-[3px] text-[9px] font-bold tracking-wider text-[#FFD700] uppercase">
               World Records
             </span>
           </div>
@@ -190,11 +190,11 @@ export default function GameOverScreen() {
               {topPlayers.map((entry, i) => (
                 <div key={i} className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <span className="text-[11px] text-white/30 w-4 font-bold">
+                    <span className="w-4 text-[11px] font-bold text-white/30">
                       {i + 1}.
                     </span>
                     <div>
-                      <p className="text-[13px] text-white font-medium">
+                      <p className="text-[13px] font-medium text-white">
                         {entry.name}
                       </p>
                       <p className="text-[9px] text-white/30 capitalize">
@@ -202,24 +202,24 @@ export default function GameOverScreen() {
                       </p>
                     </div>
                   </div>
-                  <span className="text-[13px] text-white font-bold">
+                  <span className="text-[13px] font-bold text-white">
                     {entry.score.toLocaleString()}
                   </span>
                 </div>
               ))}
             </div>
           ) : (
-            <p className="text-[13px] text-white/20 text-center py-3">
+            <p className="py-3 text-center text-[13px] text-white/20">
               No records yet
             </p>
           )}
         </div>
 
         {/* Buttons */}
-        <div className="w-full max-w-80 flex flex-col gap-2.5">
+        <div className="flex w-full max-w-80 flex-col gap-2.5">
           <button
             onClick={() => startGame()}
-            className="w-full mt-1 py-[18px] rounded-2xl font-bold text-[17px] text-white bg-linear-to-br from-[#00AEEF] to-[#0077BB] shadow-[0_6px_30px_rgba(0,174,239,0.35)] border-none cursor-pointer flex items-center justify-center gap-2"
+            className="mt-1 flex w-full cursor-pointer items-center justify-center gap-2 rounded-2xl border-none bg-linear-to-br from-[#00AEEF] to-[#0077BB] py-[18px] text-[17px] font-bold text-white shadow-[0_6px_30px_rgba(0,174,239,0.35)]"
           >
             FLY AGAIN{' '}
             <span>
@@ -229,7 +229,7 @@ export default function GameOverScreen() {
 
           <button
             onClick={() => setGameState('menu')}
-            className="flex items-center justify-center gap-2 w-full rounded-2xl font-thin text-lg text-white/50  border-none cursor-pointer mt-1"
+            className="mt-1 flex w-full cursor-pointer items-center justify-center gap-2 rounded-2xl border-none text-lg font-thin text-white/50"
           >
             <BiChevronLeft className="scale-150" /> Back to Menu
           </button>
@@ -242,7 +242,7 @@ export default function GameOverScreen() {
 function ScoreRow({
   label,
   value,
-  visible,
+  visible
 }: {
   label: string;
   value: number;
@@ -253,10 +253,10 @@ function ScoreRow({
       className="flex items-center justify-between transition-all duration-300"
       style={{
         opacity: visible ? 1 : 0,
-        transform: visible ? 'translateY(0)' : 'translateY(8px)',
+        transform: visible ? 'translateY(0)' : 'translateY(8px)'
       }}
     >
-      <span className="text-[11px] text-white/40 uppercase tracking-wider">
+      <span className="text-[11px] tracking-wider text-white/40 uppercase">
         {label}
       </span>
       <span className="text-lg font-bold text-white/80">

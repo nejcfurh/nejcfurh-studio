@@ -1,12 +1,13 @@
 'use client';
 
 import '@/app/globals.css';
+
 import SideNavigation from '@/components/SideNavigation';
 import { useSession } from '@clerk/nextjs';
 import { redirect } from 'next/navigation';
 
 export default function DashboardLayout({
-  children,
+  children
 }: Readonly<{
   children: React.ReactNode;
 }>) {
@@ -19,10 +20,10 @@ export default function DashboardLayout({
   }
 
   return (
-    <main className="container mx-auto py-12 px-12">
+    <main className="container mx-auto px-12 py-12">
       <div className="flex gap-8">
         <SideNavigation />
-        <div className="w-full min-h-screen">{children}</div>
+        <div className="min-h-screen w-full">{children}</div>
       </div>
     </main>
   );

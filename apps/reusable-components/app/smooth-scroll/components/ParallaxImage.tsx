@@ -4,7 +4,7 @@ import {
   motion,
   useMotionTemplate,
   useScroll,
-  useTransform,
+  useTransform
 } from 'motion/react';
 import { useRef } from 'react';
 
@@ -21,12 +21,12 @@ const ParallaxImage = ({
   alt,
   src,
   start,
-  end,
+  end
 }: ParallaxImageProps) => {
   const imageRef = useRef<HTMLImageElement>(null);
   const { scrollYProgress } = useScroll({
     target: imageRef,
-    offset: [`${start}px end`, `end ${end * -1}px`],
+    offset: [`${start}px end`, `end ${end * -1}px`]
   });
 
   const opacity = useTransform(scrollYProgress, [0.75, 1], [1, 0]);

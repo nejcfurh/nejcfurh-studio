@@ -1,6 +1,6 @@
 // Leaderboard localStorage persistence — no store dependency.
 
-import { LeaderboardEntry, BirdSpeciesId } from '@/types';
+import { BirdSpeciesId, LeaderboardEntry } from '@/types';
 
 const STORAGE_KEY = 'backyard-skies-leaderboard';
 const MAX_ENTRIES = 20;
@@ -19,7 +19,7 @@ export function saveLeaderboardEntry(
   name: string,
   species: BirdSpeciesId,
   score: number,
-  distance: number,
+  distance: number
 ): LeaderboardEntry[] {
   const leaderboard = loadLeaderboardFromStorage();
   leaderboard.push({
@@ -27,7 +27,7 @@ export function saveLeaderboardEntry(
     species,
     score,
     distance: Math.round(distance * 100) / 100,
-    date: new Date().toISOString(),
+    date: new Date().toISOString()
   });
   leaderboard.sort((a, b) => b.score - a.score);
   const top = leaderboard.slice(0, MAX_ENTRIES);

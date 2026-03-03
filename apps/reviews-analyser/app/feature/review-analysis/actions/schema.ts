@@ -12,14 +12,14 @@ export const reviewAnalysisSchema = z.object({
     software: z.enum(['good', 'bad', 'neutral']),
     privacy: z.enum(['good', 'bad', 'neutral']),
     pricing: z.enum(['good', 'bad', 'neutral']),
-    ease_of_use: z.enum(['good', 'bad', 'neutral']),
+    ease_of_use: z.enum(['good', 'bad', 'neutral'])
   }),
   summary: z.object({
     overall_experience: z.string().optional(),
     main_complaint: z.string().optional(),
     main_praise: z.string().optional(),
-    recommendation: z.string(),
-  }),
+    recommendation: z.string()
+  })
 });
 
 export type ReviewAnalysis = z.infer<typeof reviewAnalysisSchema>;

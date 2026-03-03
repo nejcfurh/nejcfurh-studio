@@ -4,7 +4,7 @@ import KeyInsights from './KeyInsights';
 import OverallSentiment from './OverallSentiment';
 
 export function ReviewAnalysisDisplay({
-  analysis,
+  analysis
 }: {
   analysis: ReviewAnalysis;
 }) {

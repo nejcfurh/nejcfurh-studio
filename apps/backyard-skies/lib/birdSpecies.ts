@@ -16,7 +16,7 @@ export const BIRD_SPECIES: Record<string, BirdSpecies> = {
       feedRate: 10,
       drinkRate: 8,
       foodDrain: 2.0,
-      waterDrain: 1.5,
+      waterDrain: 1.5
     },
     colors: {
       body: '#C41E3A',
@@ -26,11 +26,11 @@ export const BIRD_SPECIES: Record<string, BirdSpecies> = {
       beak: '#FF8C00',
       eye: '#1A1A1A',
       tail: '#8B1525',
-      accent: '#000000', // black face mask
+      accent: '#000000' // black face mask
     },
     bodyScale: [1.0, 0.9, 1.2],
     wingSpan: 1.3,
-    hasCrest: true,
+    hasCrest: true
   },
 
   tanager: {
@@ -48,7 +48,7 @@ export const BIRD_SPECIES: Record<string, BirdSpecies> = {
       feedRate: 8,
       drinkRate: 7,
       foodDrain: 2.8,
-      waterDrain: 2.0,
+      waterDrain: 2.0
     },
     colors: {
       body: '#FF2400',
@@ -57,11 +57,11 @@ export const BIRD_SPECIES: Record<string, BirdSpecies> = {
       belly: '#FF4433',
       beak: '#E8D44D',
       eye: '#1A1A1A',
-      tail: '#1A1A1A',
+      tail: '#1A1A1A'
     },
     bodyScale: [0.9, 0.85, 1.25],
     wingSpan: 1.2,
-    hasCrest: false,
+    hasCrest: false
   },
 
   bunting: {
@@ -79,7 +79,7 @@ export const BIRD_SPECIES: Record<string, BirdSpecies> = {
       feedRate: 12,
       drinkRate: 10,
       foodDrain: 1.5,
-      waterDrain: 1.2,
+      waterDrain: 1.2
     },
     colors: {
       body: '#00416A',
@@ -88,11 +88,11 @@ export const BIRD_SPECIES: Record<string, BirdSpecies> = {
       belly: '#1A6DB5',
       beak: '#8C8C8C',
       eye: '#1A1A1A',
-      tail: '#002E4F',
+      tail: '#002E4F'
     },
     bodyScale: [0.75, 0.7, 1.0],
     wingSpan: 1.0,
-    hasCrest: false,
+    hasCrest: false
   },
 
   starling: {
@@ -110,7 +110,7 @@ export const BIRD_SPECIES: Record<string, BirdSpecies> = {
       feedRate: 7,
       drinkRate: 6,
       foodDrain: 1.8,
-      waterDrain: 1.3,
+      waterDrain: 1.3
     },
     colors: {
       body: '#2A2A35',
@@ -120,12 +120,12 @@ export const BIRD_SPECIES: Record<string, BirdSpecies> = {
       beak: '#FFD700',
       eye: '#1A1A1A',
       tail: '#1A1A2E',
-      accent: '#4A7C59', // iridescent green spots
+      accent: '#4A7C59' // iridescent green spots
     },
     bodyScale: [1.1, 1.0, 1.15],
     wingSpan: 1.4,
-    hasCrest: false,
-  },
+    hasCrest: false
+  }
 };
 
 export const SPECIES_LIST = Object.values(BIRD_SPECIES);

@@ -1,10 +1,11 @@
 'use client';
 
-import Link from 'next/link';
-import { Button } from './ui/button';
-import { FileIcon, HeartIcon, TrashIcon } from 'lucide-react';
-import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
+import { FileIcon, HeartIcon, TrashIcon } from 'lucide-react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+
+import { Button } from './ui/button';
 
 const SideNavigation = () => {
   const pathname = usePathname();
@@ -12,12 +13,12 @@ const SideNavigation = () => {
   const isActive = (path: string) => pathname.includes(path);
 
   return (
-    <div className="w-40 flex flex-col gap-4 pt-2">
+    <div className="flex w-40 flex-col gap-4 pt-2">
       <Link href="/dashboard/files">
         <Button
           variant="link"
           className={cn(
-            'flex gap-2 items-center text-base cursor-pointer',
+            'flex cursor-pointer items-center gap-2 text-base',
             isActive('/dashboard/files') && 'font-bold'
           )}
         >
@@ -29,7 +30,7 @@ const SideNavigation = () => {
         <Button
           variant="link"
           className={cn(
-            'flex gap-2 items-center text-base cursor-pointer',
+            'flex cursor-pointer items-center gap-2 text-base',
             isActive('/dashboard/favorites') && 'text-underline font-bold'
           )}
         >
@@ -41,7 +42,7 @@ const SideNavigation = () => {
         <Button
           variant="link"
           className={cn(
-            'flex gap-2 items-center text-base cursor-pointer',
+            'flex cursor-pointer items-center gap-2 text-base',
             isActive('/dashboard/trash') && 'text-underline font-bold'
           )}
         >

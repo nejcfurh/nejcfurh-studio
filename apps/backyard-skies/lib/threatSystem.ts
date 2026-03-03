@@ -1,14 +1,14 @@
 // Pure eagle + cat threat state machines — no store, no audio.
 
+import { ThreatType } from '@/types';
 import {
-  EAGLE_WARNING_TIME,
-  EAGLE_DODGE_WINDOW,
   EAGLE_ALTITUDE_THRESHOLD,
+  EAGLE_DODGE_WINDOW,
+  EAGLE_WARNING_TIME,
   THREAT_METER_BASE_RATE,
   THREAT_METER_CAT_MULTIPLIER,
-  THREAT_METER_MAX,
+  THREAT_METER_MAX
 } from '@/utils/constants';
-import { ThreatType } from '@/types';
 
 export interface EagleThreatInput {
   altitude: number;
@@ -48,7 +48,7 @@ export function tickEagleThreat(input: EagleThreatInput): EagleThreatResult {
     eagleDodgeTaps,
     eagleAltitudeHunt,
     threatType,
-    threatWarningActive,
+    threatWarningActive
   } = input;
   let { eagleTimer, eagleDodgeWindow } = input;
 
@@ -57,7 +57,7 @@ export function tickEagleThreat(input: EagleThreatInput): EagleThreatResult {
     return {
       action: { type: 'start_altitude_hunt' },
       eagleTimer: 4,
-      eagleDodgeWindow,
+      eagleDodgeWindow
     };
   }
 
@@ -69,7 +69,7 @@ export function tickEagleThreat(input: EagleThreatInput): EagleThreatResult {
     return {
       action: { type: 'end_altitude_hunt' },
       eagleTimer: 30 + Math.random() * 60,
-      eagleDodgeWindow,
+      eagleDodgeWindow
     };
   }
 
@@ -81,7 +81,7 @@ export function tickEagleThreat(input: EagleThreatInput): EagleThreatResult {
     return {
       action: { type: 'altitude_caught' },
       eagleTimer,
-      eagleDodgeWindow,
+      eagleDodgeWindow
     };
   }
 
@@ -94,7 +94,7 @@ export function tickEagleThreat(input: EagleThreatInput): EagleThreatResult {
     return {
       action: { type: 'start_warning' },
       eagleTimer,
-      eagleDodgeWindow,
+      eagleDodgeWindow
     };
   }
 
@@ -104,7 +104,7 @@ export function tickEagleThreat(input: EagleThreatInput): EagleThreatResult {
       return {
         action: { type: 'start_dodge_window' },
         eagleTimer,
-        eagleDodgeWindow: EAGLE_DODGE_WINDOW,
+        eagleDodgeWindow: EAGLE_DODGE_WINDOW
       };
     }
 
@@ -161,6 +161,6 @@ export function tickCatThreat(input: CatThreatInput): CatThreatResult {
   return {
     threatMeter: Math.min(THREAT_METER_MAX, threatMeter),
     caught,
-    warning,
+    warning
   };
 }

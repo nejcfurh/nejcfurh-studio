@@ -1,39 +1,44 @@
 'use client';
 
 import { api } from '@/convex/_generated/api';
-import { useMutation, useQuery } from 'convex/react';
 import { Doc } from '@/convex/_generated/dataModel';
-import { toast } from 'sonner';
+import { Protect } from '@clerk/nextjs';
+import { useMutation, useQuery } from 'convex/react';
+import {
+  DownloadIcon,
+  EllipsisVerticalIcon,
+  HeartIcon,
+  Trash2Icon,
+  Undo2Icon
+} from 'lucide-react';
+import Link from 'next/link';
 import { useState } from 'react';
+import { toast } from 'sonner';
+
 import {
   AlertDialog,
-  AlertDialogHeader,
+  AlertDialogAction,
+  AlertDialogCancel,
   AlertDialogContent,
-  AlertDialogTitle,
   AlertDialogDescription,
   AlertDialogFooter,
-  AlertDialogCancel,
-  AlertDialogAction,
+  AlertDialogHeader,
+  AlertDialogTitle
 } from './ui/alert-dialog';
+import { Button } from './ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuSeparator,
-  DropdownMenuTrigger,
+  DropdownMenuTrigger
 } from './ui/dropdown-menu';
-import { Button } from './ui/button';
-import { EllipsisVerticalIcon, Trash2Icon, Undo2Icon } from 'lucide-react';
-import { Protect } from '@clerk/nextjs';
-import Link from 'next/link';
-import { DownloadIcon } from 'lucide-react';
-import { HeartIcon } from 'lucide-react';
 
 export const ActionsDropdownMenu = ({
   file,
   fileUrl,
-  isFavorite,
+  isFavorite
 }: {
   file: Doc<'files'>;
   fileUrl: string | null | undefined;
@@ -71,7 +76,7 @@ export const ActionsDropdownMenu = ({
     <>
       <AlertDialog
         open={isConfirmationOpen}
-        onOpenChange={open => setIsConfirmationOpen(open)}
+        onOpenChange={(open) => setIsConfirmationOpen(open)}
       >
         <AlertDialogContent>
           <AlertDialogHeader>
@@ -85,7 +90,7 @@ export const ActionsDropdownMenu = ({
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
             <AlertDialogAction
-              className="bg-red-500 hover:bg-red-600 cursor-pointer"
+              className="cursor-pointer bg-red-500 hover:bg-red-600"
               onClick={handleDelete}
             >
               DELETE
@@ -102,17 +107,17 @@ export const ActionsDropdownMenu = ({
         <DropdownMenuContent>
           <DropdownMenuGroup>
             <Protect
-              condition={check => {
+              condition={(check) => {
                 return (
                   check({
-                    role: 'org:admin',
+                    role: 'org:admin'
                   }) || file.userId === me?._id
                 );
               }}
             >
               {file.markedForDeletion && (
                 <DropdownMenuItem
-                  className="flex items-center justify-center gap-2 cursor-pointer"
+                  className="flex cursor-pointer items-center justify-center gap-2"
                   onClick={handleRestore}
                 >
                   <Undo2Icon className="size-4 text-green-500" />
@@ -121,7 +126,7 @@ export const ActionsDropdownMenu = ({
               )}
               {!file.markedForDeletion && (
                 <DropdownMenuItem
-                  className="flex items-center justify-center gap-2 cursor-pointer"
+                  className="flex cursor-pointer items-center justify-center gap-2"
                   onClick={() => setIsConfirmationOpen(true)}
                 >
                   <Trash2Icon className="size-4 text-red-500" />
@@ -131,7 +136,7 @@ export const ActionsDropdownMenu = ({
               <DropdownMenuSeparator />
             </Protect>
             {fileUrl && (
-              <DropdownMenuItem className="flex items-center justify-center gap-2 cursor-pointer">
+              <DropdownMenuItem className="flex cursor-pointer items-center justify-center gap-2">
                 <DownloadIcon className="size-4" />
                 <Link target="_blank" href={fileUrl}>
                   Download
@@ -142,7 +147,7 @@ export const ActionsDropdownMenu = ({
               <>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem
-                  className="flex items-center justify-center gap-2 cursor-pointer"
+                  className="flex cursor-pointer items-center justify-center gap-2"
                   onClick={handleToggleFavorites}
                 >
                   {isFavorite ? (

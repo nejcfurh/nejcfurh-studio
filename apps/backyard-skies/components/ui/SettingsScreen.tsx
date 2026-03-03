@@ -1,19 +1,20 @@
 'use client';
 
-import { useState } from 'react';
 import { useGameStore } from '@/store/gameStore';
+import { useState } from 'react';
 import { BiChevronLeft, BiChevronRight } from 'react-icons/bi';
 import { BsQuestion } from 'react-icons/bs';
+
 import TermsConditions from './TermsConditions';
 import Tips from './Tips';
 
 export default function SettingsScreen() {
-  const setGameState = useGameStore(s => s.setGameState);
-  const playerName = useGameStore(s => s.playerName);
-  const setPlayerName = useGameStore(s => s.setPlayerName);
+  const setGameState = useGameStore((s) => s.setGameState);
+  const playerName = useGameStore((s) => s.playerName);
+  const setPlayerName = useGameStore((s) => s.setPlayerName);
   const [name, setName] = useState(playerName);
-  const isMuted = useGameStore(s => s.isMuted);
-  const setMuted = useGameStore(s => s.setMuted);
+  const isMuted = useGameStore((s) => s.isMuted);
+  const setMuted = useGameStore((s) => s.setMuted);
   const [saved, setSaved] = useState(false);
   const [showTerms, setShowTerms] = useState(false);
   const [showTips, setShowTips] = useState(false);
@@ -36,57 +37,57 @@ export default function SettingsScreen() {
   }
 
   return (
-    <div className="w-full h-full z-50 flex flex-col bg-[url('/menu-bg.jpg')] bg-no-repeat bg-center bg-cover bg-fixed">
-      <div className="flex flex-col justify-between py-6 px-6  h-100dvh">
+    <div className="z-50 flex h-full w-full flex-col bg-[url('/menu-bg.jpg')] bg-cover bg-fixed bg-center bg-no-repeat">
+      <div className="h-100dvh flex flex-col justify-between px-6 py-6">
         {/* HEADER */}
-        <div className="flex items-center justify-between gap-3 mb-4">
+        <div className="mb-4 flex items-center justify-between gap-3">
           {!isFirstTime ? (
             <button
               onClick={() => setGameState('menu')}
-              className="w-10 h-10 rounded-full flex items-center justify-center bg-black/8 border border-black/10 text-black text-lg cursor-pointer"
+              className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-black/10 bg-black/8 text-lg text-black"
             >
               <BiChevronLeft />
             </button>
           ) : (
             <div className="w-10" />
           )}
-          <span className="text-lg font-bold text-black/70 tracking-[0.25em] uppercase">
+          <span className="text-lg font-bold tracking-[0.25em] text-black/70 uppercase">
             {isFirstTime ? 'Welcome' : 'Settings'}
           </span>
           <button
             onClick={() => setShowTips(true)}
-            className="w-10 h-10 rounded-full flex items-center justify-center bg-black/8 border border-black/10 text-black text-lg cursor-pointer"
+            className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-black/10 bg-black/8 text-lg text-black"
           >
             <BsQuestion />
           </button>
         </div>
 
         {/* PLAYER NAME SECTION */}
-        <div className="w-full max-w-[360px] mx-auto mb-4 bg-black/40 backdrop-blur-xl rounded-[20px] p-5 border border-black/6">
-          <p className="text-base text-white/70 tracking-[0.2em] uppercase font-semibold mb-3">
+        <div className="mx-auto mb-4 w-full max-w-[360px] rounded-[20px] border border-black/6 bg-black/40 p-5 backdrop-blur-xl">
+          <p className="mb-3 text-base font-semibold tracking-[0.2em] text-white/70 uppercase">
             Player Name
           </p>
 
           <div className="flex gap-2">
             <div
-              className="flex-1 relative"
-              onPointerDown={e => e.stopPropagation()}
+              className="relative flex-1"
+              onPointerDown={(e) => e.stopPropagation()}
             >
               <input
                 type="text"
                 value={name}
-                onChange={e => {
+                onChange={(e) => {
                   setName(e.target.value);
                   setSaved(false);
                 }}
                 placeholder="Enter your name..."
                 maxLength={16}
-                className="w-full py-3 px-3.5 rounded-xl bg-white/40 border border-black/10 text-black text-sm outline-none font-[inherit] placeholder:text-black/30"
+                className="w-full rounded-xl border border-black/10 bg-white/40 px-3.5 py-3 font-[inherit] text-sm text-black outline-none placeholder:text-black/30"
               />
             </div>
             <button
               onClick={handleSave}
-              className={`py-3 px-5 rounded-xl border-none text-white text-[13px] font-bold cursor-pointer transition-colors ${
+              className={`cursor-pointer rounded-xl border-none px-5 py-3 text-[13px] font-bold text-white transition-colors ${
                 saved ? 'bg-[#4CAF50]' : 'bg-[#3f494c]'
               }`}
             >
@@ -96,16 +97,16 @@ export default function SettingsScreen() {
         </div>
 
         {/* SOUND */}
-        <div className="w-full max-w-[360px] mx-auto bg-black/30 backdrop-blur-xl rounded-[20px] p-5 border border-black/6">
-          <p className="text-base text-white/70 tracking-[0.2em] uppercase font-semibold mb-3.5">
+        <div className="mx-auto w-full max-w-[360px] rounded-[20px] border border-black/6 bg-black/30 p-5 backdrop-blur-xl">
+          <p className="mb-3.5 text-base font-semibold tracking-[0.2em] text-white/70 uppercase">
             Sound
           </p>
           <button
             onClick={() => setMuted(!isMuted)}
-            className={`w-full py-3.5 px-4 rounded-xl flex items-center justify-between cursor-pointer ${
+            className={`flex w-full cursor-pointer items-center justify-between rounded-xl px-4 py-3.5 ${
               isMuted
-                ? 'bg-black/3 border-2 border-white/6'
-                : 'bg-[rgba(0,174,239,0.12)] border-2 border-[#00AEEF]'
+                ? 'border-2 border-white/6 bg-black/3'
+                : 'border-2 border-[#00AEEF] bg-[rgba(0,174,239,0.12)]'
             }`}
           >
             <span className="text-[13px] font-bold text-white/80">
@@ -121,7 +122,7 @@ export default function SettingsScreen() {
 
         <button
           onClick={() => setShowTerms(true)}
-          className="w-full my-5 flex items-center justify-between py-3.5 px-4 rounded-xl bg-black/3 border border-white/40 text-white cursor-pointer"
+          className="my-5 flex w-full cursor-pointer items-center justify-between rounded-xl border border-white/40 bg-black/3 px-4 py-3.5 text-white"
         >
           <div className="flex items-center gap-3">
             <span className="text-base font-semibold text-white/80">
@@ -140,14 +141,14 @@ export default function SettingsScreen() {
             }
             setGameState('species-select');
           }}
-          className="w-full max-w-[360px] mx-auto my-5 py-[18px] rounded-2xl font-extrabold text-[17px] text-white bg-linear-to-br from-[#00AEEF] to-[#0077BB] shadow-[0_6px_28px_rgba(0,174,239,0.40)] border-none cursor-pointer flex items-center justify-center gap-2.5 tracking-wide"
+          className="mx-auto my-5 flex w-full max-w-[360px] cursor-pointer items-center justify-center gap-2.5 rounded-2xl border-none bg-linear-to-br from-[#00AEEF] to-[#0077BB] py-[18px] text-[17px] font-extrabold tracking-wide text-white shadow-[0_6px_28px_rgba(0,174,239,0.40)]"
         >
           CHOOSE YOUR BIRD
         </button>
 
         {/* APP INFO */}
-        <div className=" fixed bottom-0 left-0 right-0 text-center mt-2 mb-4">
-          <p className="text-[10px] text-white/20 mt-1">
+        <div className="fixed right-0 bottom-0 left-0 mt-2 mb-4 text-center">
+          <p className="mt-1 text-[10px] text-white/20">
             Version 0.0.1 · by Nejc Furh
           </p>
         </div>

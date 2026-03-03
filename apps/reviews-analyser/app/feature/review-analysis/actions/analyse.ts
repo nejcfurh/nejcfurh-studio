@@ -1,9 +1,10 @@
 'use server';
 
 import { generateObject, google } from '@repo/shared/ai-sdk';
-import { AnalyseReviewState } from './types';
-import { reviewAnalysisSchema } from './schema';
 import z from 'zod';
+
+import { reviewAnalysisSchema } from './schema';
+import { AnalyseReviewState } from './types';
 
 export async function analyseReview(
   _: AnalyseReviewState,
@@ -21,8 +22,8 @@ export async function analyseReview(
     if (!validationResult.success) {
       return {
         success: false,
-        errors: validationResult.error.issues.map(err => err.message),
-        content: typeof content === 'string' ? content : '',
+        errors: validationResult.error.issues.map((err) => err.message),
+        content: typeof content === 'string' ? content : ''
       };
     }
 
@@ -56,22 +57,22 @@ export async function analyseReview(
            - recommendation: One sentence business action for improvement
 
         If a category is not mentioned in the review, mark it as "neutral". If the review is not related to the product return nothing. Keep the review as is and do not modify it. Make sure to be as concise as possible. Do not add any information that is not in the review. If any other product is mentioned in the review, ignore it.
-      `,
+      `
     });
 
     return {
       success: true,
       result: object,
-      content: typeof content === 'string' ? content : '',
+      content: typeof content === 'string' ? content : ''
     };
   } catch (error) {
     console.error('Error analysing review:', error);
     return {
       success: false,
       errors: [
-        'An error occurred while analysing the review. Please try again.',
+        'An error occurred while analysing the review. Please try again.'
       ],
-      content: '',
+      content: ''
     };
   }
 }

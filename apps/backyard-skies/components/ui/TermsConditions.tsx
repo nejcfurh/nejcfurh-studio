@@ -2,34 +2,34 @@ import { BiChevronLeft } from 'react-icons/bi';
 
 const TermsConditions = ({ handleBack }: { handleBack: () => void }) => {
   return (
-    <div className="fixed inset-0 z-50 flex flex-col bg-[url('/menu-bg.jpg')] bg-no-repeat bg-center bg-cover bg-fixed">
-      <div className="flex flex-col h-full pt-6 px-6 pb-6">
+    <div className="fixed inset-0 z-50 flex flex-col bg-[url('/menu-bg.jpg')] bg-cover bg-fixed bg-center bg-no-repeat">
+      <div className="flex h-full flex-col px-6 pt-6 pb-6">
         {/* Header */}
-        <div className="flex items-center justify-between gap-3 mb-4">
+        <div className="mb-4 flex items-center justify-between gap-3">
           <button
             onClick={handleBack}
-            className="w-10 h-10 rounded-full flex items-center justify-center bg-black/8 border border-black/10 text-black text-base cursor-pointer"
+            className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-black/10 bg-black/8 text-base text-black"
           >
             <BiChevronLeft />
           </button>
-          <span className="text-lg font-bold uppercase text-black/70 tracking-[0.05em]">
+          <span className="text-lg font-bold tracking-[0.05em] text-black/70 uppercase">
             Terms & Conditions
           </span>
-          <div className="w-10 h-10" />
+          <div className="h-10 w-10" />
         </div>
 
         {/* Terms content */}
         <div
           style={{ scrollbarWidth: 'none' }}
-          className="flex-1 overflow-auto bg-black/5 backdrop-blur-2xl rounded-2xl p-5 border border-black/6"
+          className="flex-1 overflow-auto rounded-2xl border border-black/6 bg-black/5 p-5 backdrop-blur-2xl"
         >
-          <div className="text-xs text-black/60 leading-[1.8]">
-            <p className="font-bold text-black text-sm mb-3">
+          <div className="text-xs leading-[1.8] text-black/60">
+            <p className="mb-3 text-sm font-bold text-black">
               Backyard Skies - Terms & Conditions
             </p>
             <p className="mb-3">Last updated: February 2026</p>
 
-            <p className="font-bold text-black/80 mb-1.5">
+            <p className="mb-1.5 font-bold text-black/80">
               1. Acceptance of Terms
             </p>
             <p className="mb-4">
@@ -38,7 +38,7 @@ const TermsConditions = ({ handleBack }: { handleBack: () => void }) => {
               If you do not agree, please do not use the Game.
             </p>
 
-            <p className="font-bold text-black/80 mb-1.5">
+            <p className="mb-1.5 font-bold text-black/80">
               2. Game Description
             </p>
             <p className="mb-4">
@@ -48,7 +48,7 @@ const TermsConditions = ({ handleBack }: { handleBack: () => void }) => {
               leaderboards.
             </p>
 
-            <p className="font-bold text-black/80 mb-1.5">3. User Data</p>
+            <p className="mb-1.5 font-bold text-black/80">3. User Data</p>
             <p className="mb-4">
               The Game stores your player name and high scores locally on your
               device using browser storage. No personal data is transmitted to
@@ -56,7 +56,7 @@ const TermsConditions = ({ handleBack }: { handleBack: () => void }) => {
               your browser storage.
             </p>
 
-            <p className="font-bold text-black/80 mb-1.5">
+            <p className="mb-1.5 font-bold text-black/80">
               4. Intellectual Property
             </p>
             <p className="mb-4">
@@ -66,7 +66,7 @@ const TermsConditions = ({ handleBack }: { handleBack: () => void }) => {
               laws.
             </p>
 
-            <p className="font-bold text-black/80 mb-1.5">5. User Conduct</p>
+            <p className="mb-1.5 font-bold text-black/80">5. User Conduct</p>
             <p className="mb-4">
               You agree not to exploit bugs, use automated tools, or engage in
               any activity that disrupts the intended gameplay experience.
@@ -74,7 +74,7 @@ const TermsConditions = ({ handleBack }: { handleBack: () => void }) => {
               prohibited.
             </p>
 
-            <p className="font-bold text-black/80 mb-1.5">
+            <p className="mb-1.5 font-bold text-black/80">
               6. Disclaimer of Warranties
             </p>
             <p className="mb-4">
@@ -83,7 +83,7 @@ const TermsConditions = ({ handleBack }: { handleBack: () => void }) => {
               uninterrupted or error-free gameplay.
             </p>
 
-            <p className="font-bold text-black/80 mb-1.5">
+            <p className="mb-1.5 font-bold text-black/80">
               7. Limitation of Liability
             </p>
             <p className="mb-4">
@@ -92,7 +92,7 @@ const TermsConditions = ({ handleBack }: { handleBack: () => void }) => {
               Game.
             </p>
 
-            <p className="font-bold text-black/80 mb-1.5">
+            <p className="mb-1.5 font-bold text-black/80">
               8. Changes to Terms
             </p>
             <p className="mb-4">
@@ -101,7 +101,7 @@ const TermsConditions = ({ handleBack }: { handleBack: () => void }) => {
               the updated Terms.
             </p>
 
-            <p className="font-bold text-black/80 mb-1.5">9. Contact</p>
+            <p className="mb-1.5 font-bold text-black/80">9. Contact</p>
             <p className="mb-4">
               For questions regarding these Terms, please contact us at
               support@backyardskies.com.

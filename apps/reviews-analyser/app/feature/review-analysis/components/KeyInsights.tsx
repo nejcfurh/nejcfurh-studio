@@ -5,10 +5,10 @@ import { MdInsights } from 'react-icons/md';
 
 const KeyInsights = ({ summary }: { summary: Record<string, string> }) => {
   return (
-    <div className="bg-linear-to-br from-amber-50 to-orange-50 rounded-xl p-6 shadow-sm border border-amber-100">
-      <div className="flex items-center justify-center gap-4 mb-6">
-        <div className="p-2 bg-amber-500 rounded-full shadow-sm">
-          <MdInsights className="w-8 h-8 text-white" />
+    <div className="rounded-xl border border-amber-100 bg-linear-to-br from-amber-50 to-orange-50 p-6 shadow-sm">
+      <div className="mb-6 flex items-center justify-center gap-4">
+        <div className="rounded-full bg-amber-500 p-2 shadow-sm">
+          <MdInsights className="h-8 w-8 text-white" />
         </div>
         <h3 className="text-xl font-bold text-gray-900">Key Insights</h3>
       </div>
@@ -16,16 +16,16 @@ const KeyInsights = ({ summary }: { summary: Record<string, string> }) => {
       <div className="space-y-4">
         {/* OVERALL EXPERIENCE */}
         {summary.overall_experience && (
-          <div className="group p-5 bg-linear-to-r from-white to-amber-50 border border-yellow-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-300">
+          <div className="group rounded-xl border border-yellow-200 bg-linear-to-r from-white to-amber-50 p-5 shadow-sm transition-all duration-300 hover:shadow-md">
             <div className="flex items-start gap-3">
-              <div className="shrink-0 w-10 h-10 bg-yellow-500 rounded-full flex items-center justify-center shadow-sm">
-                <MdInsights className="w-6 h-6 text-white" />
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-yellow-500 shadow-sm">
+                <MdInsights className="h-6 w-6 text-white" />
               </div>
               <div className="flex-1">
-                <h4 className="font-semibold text-yellow-900 mb-2 flex items-center gap-2">
+                <h4 className="mb-2 flex items-center gap-2 font-semibold text-yellow-900">
                   Overall Experience
                 </h4>
-                <p className="text-yellow-800 leading-relaxed">
+                <p className="leading-relaxed text-yellow-800">
                   {summary.overall_experience}
                 </p>
               </div>
@@ -35,19 +35,19 @@ const KeyInsights = ({ summary }: { summary: Record<string, string> }) => {
 
         {/* MAIN PRAISE */}
         {summary.main_praise && (
-          <div className="group p-5 bg-linear-to-r from-green-50 to-emerald-50 border border-green-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-300">
+          <div className="group rounded-xl border border-green-200 bg-linear-to-r from-green-50 to-emerald-50 p-5 shadow-sm transition-all duration-300 hover:shadow-md">
             <div className="flex items-start gap-3">
-              <div className="shrink-0 w-10 h-10 bg-green-500 rounded-full flex items-center justify-center shadow-sm">
-                <IoIosCheckmark className="w-10 h-10 text-white" />
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-green-500 shadow-sm">
+                <IoIosCheckmark className="h-10 w-10 text-white" />
               </div>
               <div className="flex-1">
-                <h4 className="font-semibold text-green-900 mb-2 flex items-center gap-2">
+                <h4 className="mb-2 flex items-center gap-2 font-semibold text-green-900">
                   Main Praise
-                  <span className="text-xs px-2 py-0.5 bg-green-200 rounded-full">
+                  <span className="rounded-full bg-green-200 px-2 py-0.5 text-xs">
                     Strength
                   </span>
                 </h4>
-                <p className="text-green-800 leading-relaxed">
+                <p className="leading-relaxed text-green-800">
                   {summary.main_praise}
                 </p>
               </div>
@@ -57,19 +57,19 @@ const KeyInsights = ({ summary }: { summary: Record<string, string> }) => {
 
         {/* MAIN COMPLAINT */}
         {summary.main_complaint && (
-          <div className="group p-5 bg-linear-to-r from-red-50 to-rose-50 border border-red-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-300">
+          <div className="group rounded-xl border border-red-200 bg-linear-to-r from-red-50 to-rose-50 p-5 shadow-sm transition-all duration-300 hover:shadow-md">
             <div className="flex items-start gap-3">
-              <div className="shrink-0 w-10 h-10 bg-red-500 rounded-full flex items-center justify-center shadow-sm">
-                <IoAlertCircleOutline className="w-8 h-8 text-white" />
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-red-500 shadow-sm">
+                <IoAlertCircleOutline className="h-8 w-8 text-white" />
               </div>
               <div className="flex-1">
-                <h4 className="font-semibold text-red-900 mb-2 flex items-center gap-2">
+                <h4 className="mb-2 flex items-center gap-2 font-semibold text-red-900">
                   Main Complaint
-                  <span className="text-xs px-2 py-0.5 bg-red-200 rounded-full">
+                  <span className="rounded-full bg-red-200 px-2 py-0.5 text-xs">
                     Weakness
                   </span>
                 </h4>
-                <p className="text-red-800 leading-relaxed">
+                <p className="leading-relaxed text-red-800">
                   {summary.main_complaint}
                 </p>
               </div>
@@ -78,19 +78,19 @@ const KeyInsights = ({ summary }: { summary: Record<string, string> }) => {
         )}
 
         {/* BUSINESS RECOMMENDATION */}
-        <div className="group p-5 bg-linear-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-300">
+        <div className="group rounded-xl border border-blue-200 bg-linear-to-r from-blue-50 to-indigo-50 p-5 shadow-sm transition-all duration-300 hover:shadow-md">
           <div className="flex items-start gap-3">
-            <div className="shrink-0 w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center shadow-sm">
-              <BsLightningCharge className="w-5 h-5" />
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-blue-500 shadow-sm">
+              <BsLightningCharge className="h-5 w-5" />
             </div>
             <div className="flex-1">
-              <h4 className="font-semibold text-blue-900 mb-2 flex items-center gap-2">
+              <h4 className="mb-2 flex items-center gap-2 font-semibold text-blue-900">
                 Business Recommendation
-                <span className="text-xs px-2 py-0.5 bg-blue-200 rounded-full">
+                <span className="rounded-full bg-blue-200 px-2 py-0.5 text-xs">
                   Action
                 </span>
               </h4>
-              <p className="text-blue-800 leading-relaxed">
+              <p className="leading-relaxed text-blue-800">
                 {summary.recommendation}
               </p>
             </div>

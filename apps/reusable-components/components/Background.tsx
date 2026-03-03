@@ -2,7 +2,7 @@ import { cn } from '@/utils/utils';
 
 const Background = ({
   children,
-  className,
+  className
 }: {
   children: React.ReactNode;
   className?: string;
@@ -10,7 +10,7 @@ const Background = ({
   return (
     <div
       className={cn(
-        'min-h-screen bg-linear-to-br from-gray-950 via-black to-gray-900 relative',
+        'relative min-h-screen bg-linear-to-br from-gray-950 via-black to-gray-900',
         className
       )}
     >

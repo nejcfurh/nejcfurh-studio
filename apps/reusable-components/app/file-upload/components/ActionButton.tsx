@@ -1,6 +1,6 @@
 const ActionButton = ({
   type,
-  className,
+  className
 }: {
   type: 'reset' | 'submit';
   className: string;

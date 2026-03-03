@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { FaFire, FaTrash } from 'react-icons/fa6';
 
 const DeleteArea = ({
-  setCards,
+  setCards
 }: {
   setCards: React.Dispatch<React.SetStateAction<CardDataType[]>>;
 }) => {
@@ -22,7 +22,7 @@ const DeleteArea = ({
     const cardId = e.dataTransfer.getData('cardId');
     if (cardId) {
       setCards((prevCards: CardDataType[]) =>
-        prevCards.filter(card => card.id !== cardId)
+        prevCards.filter((card) => card.id !== cardId)
       );
     }
     e.dataTransfer.clearData();

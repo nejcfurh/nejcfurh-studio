@@ -3,7 +3,7 @@ import { MenuItem } from '@/features/buttons-menus/multi-option-button/types';
 const OptionButton = ({
   item,
   index,
-  handleItemClick,
+  handleItemClick
 }: {
   item: MenuItem;
   index: number;

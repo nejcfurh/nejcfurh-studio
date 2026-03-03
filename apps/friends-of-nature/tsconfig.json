@@ -1,0 +1,27 @@
+{
+  "extends": "tsconfig/nextjs.json",
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "baseUrl": ".",
+    "types": ["node", "react", "react-dom"],
+    "paths": {
+      "@components/*": ["./components/*"],
+      "@features/*": ["./features/*"],
+      "@config/*": ["config/*"],
+      "@public/*": ["./public/*"],
+      "@shared-analytics/*": ["../../packages/shared/src/analytics/*"], // We need it because of direct compile without building
+      "@shared-observability/*": ["../../packages/shared/src/observability/*"], // We need it because of direct compile without building
+      "@shared-utils/*": ["../../packages/shared/src/utils/*"] // We need it because of direct compile without building
+    },
+    "plugins": [{ "name": "next" }]
+  },
+  "include": [
+    "global.d.ts",
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "../desktop-weather/middleware.ts"
+  ],
+  "exclude": ["node_modules"]
+}

@@ -1,12 +1,12 @@
 'use client';
 
 import { useChat } from '@repo/shared/ai-sdk';
-import { useState, useRef, useEffect } from 'react';
-import { CiChat2 } from 'react-icons/ci';
-import { HiOutlineXMark } from 'react-icons/hi2';
-import { FaSpinner } from 'react-icons/fa';
+import { useEffect, useRef, useState } from 'react';
 import { BiSend } from 'react-icons/bi';
+import { CiChat2 } from 'react-icons/ci';
+import { FaSpinner } from 'react-icons/fa';
 import { GrGoogle } from 'react-icons/gr';
+import { HiOutlineXMark } from 'react-icons/hi2';
 
 const REVEAL_INTERVAL_MS = 65; // slower = higher (e.g. 80–100)
 const CHARS_PER_TICK = 2;
@@ -36,16 +36,16 @@ const Chatbox = () => {
     messages[messages.length - 1]?.parts?.reduce(
       (sum, p) =>
         sum + ('text' in p && typeof p.text === 'string' ? p.text.length : 0),
-      0,
+      0
     ) ?? 0;
 
   // ARTIFICIALLY SLOW CHARACTER-BY-CHARACTER REVEAL FOR ASSISTANT TEXT
   useEffect(() => {
     const id = setInterval(() => {
-      setRevealedLengths(prev => {
+      setRevealedLengths((prev) => {
         let next = prev;
         let hasChange = false;
-        messages.forEach(msg => {
+        messages.forEach((msg) => {
           if (msg.role !== 'assistant') return;
           msg.parts.forEach((p, pi) => {
             if (!('text' in p) || typeof p.text !== 'string') return;
@@ -84,53 +84,53 @@ const Chatbox = () => {
       ));
 
   return (
-    <div className="fixed z-50 bottom-10 right-10">
+    <div className="fixed right-10 bottom-10 z-50">
       {!isInputOpen && (
         <button
           onClick={() => setIsInputOpen(true)}
           aria-label="Open chat"
-          className="rounded-full p-3 backdrop-blur-md bg-white/10 border border-white/20 shadow-lg hover:bg-white/20 hover:border-white/30 hover:shadow-[0_0_24px_rgba(168,85,247,0.25)] transition-all duration-300"
+          className="rounded-full border border-white/20 bg-white/10 p-3 shadow-lg backdrop-blur-md transition-all duration-300 hover:border-white/30 hover:bg-white/20 hover:shadow-[0_0_24px_rgba(168,85,247,0.25)]"
         >
-          <CiChat2 className="w-10 h-10 pt-1 text-white" />
+          <CiChat2 className="h-10 w-10 pt-1 text-white" />
         </button>
       )}
 
       {isInputOpen && (
-        <div className="w-72 min-h-[40vh] max-h-[50vh] flex flex-col rounded-2xl shadow-2xl backdrop-blur-xl bg-gray-900/95 border border-white/20 overflow-hidden animate-fade-in">
+        <div className="animate-fade-in flex max-h-[50vh] min-h-[40vh] w-72 flex-col overflow-hidden rounded-2xl border border-white/20 bg-gray-900/95 shadow-2xl backdrop-blur-xl">
           {/* HEADER */}
-          <div className="flex items-center justify-between px-4 py-4 border-b border-white/10 bg-white/5">
-            <span className="text-sm font-semibold text-white flex items-center justify-center gap-2">
+          <div className="flex items-center justify-between border-b border-white/10 bg-white/5 px-4 py-4">
+            <span className="flex items-center justify-center gap-2 text-sm font-semibold text-white">
               Reviews Analyser AI Chat
-              <GrGoogle className="w-3 h-3 inline-block align-middle" />
+              <GrGoogle className="inline-block h-3 w-3 align-middle" />
             </span>
             <button
               type="button"
               onClick={() => setIsInputOpen(false)}
               aria-label="Close chat"
-              className="rounded-full p-1 text-gray-400 hover:text-white hover:bg-white/10 transition-colors"
+              className="rounded-full p-1 text-gray-400 transition-colors hover:bg-white/10 hover:text-white"
             >
-              <HiOutlineXMark className="w-5 h-5" />
+              <HiOutlineXMark className="h-5 w-5" />
             </button>
           </div>
 
           {/* MESSAGES */}
           <div
             ref={messagesContainerRef}
-            className="flex-1 overflow-y-auto p-3 space-y-3 min-h-0"
+            className="min-h-0 flex-1 space-y-3 overflow-y-auto p-3"
           >
             {messages.length === 0 && (
-              <div className="flex flex-col h-full items-center justify-between gap-4">
-                <p className="text-center text-gray-500 text-sm py-4">
+              <div className="flex h-full flex-col items-center justify-between gap-4">
+                <p className="py-4 text-center text-sm text-gray-500">
                   Ask me anything <br /> about customer reviews.
                   <br />
                 </p>
-                <span className="flex items-center justify-center text-gray-400 text-xs gap-2 text-center mt-18">
+                <span className="mt-18 flex items-center justify-center gap-2 text-center text-xs text-gray-400">
                   Powered by Gemini{' '}
-                  <GrGoogle className="w-4 h-4 inline-block align-middle" />
+                  <GrGoogle className="inline-block h-4 w-4 align-middle" />
                 </span>
               </div>
             )}
-            {messages.map(message => (
+            {messages.map((message) => (
               <div
                 key={message.id}
                 className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
@@ -138,8 +138,8 @@ const Chatbox = () => {
                 <div
                   className={`max-w-[85%] rounded-2xl px-3 py-2 text-sm ${
                     message.role === 'user'
-                      ? 'bg-purple-500/25 border border-purple-400/30 text-white'
-                      : 'bg-white/10 border border-white/10 text-gray-200'
+                      ? 'border border-purple-400/30 bg-purple-500/25 text-white'
+                      : 'border border-white/10 bg-white/10 text-gray-200'
                   }`}
                 >
                   {message.parts.map((part, i) => {
@@ -151,7 +151,7 @@ const Chatbox = () => {
                         <span key={i}>
                           {message.role === 'assistant'
                             ? renderStreamedText(
-                                part.text.slice(0, Math.max(0, revealed)),
+                                part.text.slice(0, Math.max(0, revealed))
                               )
                             : part.text}
                         </span>
@@ -161,10 +161,10 @@ const Chatbox = () => {
                       return (
                         <span
                           key={i}
-                          className="italic text-gray-400 block mt-1"
+                          className="mt-1 block text-gray-400 italic"
                         >
                           {renderStreamedText(
-                            part.text.slice(0, Math.max(0, revealed)),
+                            part.text.slice(0, Math.max(0, revealed))
                           )}
                         </span>
                       );
@@ -174,7 +174,7 @@ const Chatbox = () => {
                   {lastIsAssistant &&
                     message.id === lastMessage?.id &&
                     isStreaming && (
-                      <span className="inline-block w-0.5 h-4 ml-0.5 bg-purple-400/80 animate-pulse align-middle" />
+                      <span className="ml-0.5 inline-block h-4 w-0.5 animate-pulse bg-purple-400/80 align-middle" />
                     )}
                 </div>
               </div>
@@ -184,24 +184,24 @@ const Chatbox = () => {
           {/* INPUT */}
           <form
             onSubmit={handleSubmit}
-            className="p-3 border-t border-white/10 bg-white/5 flex gap-2"
+            className="flex gap-2 border-t border-white/10 bg-white/5 p-3"
           >
             <input
               value={input}
-              onChange={e => setInput(e.target.value)}
+              onChange={(e) => setInput(e.target.value)}
               placeholder="Type a message..."
               disabled={status !== 'ready'}
-              className="flex-1 px-3 py-2 bg-white/10 border border-white/20 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent disabled:opacity-50 transition-all"
+              className="flex-1 rounded-xl border border-white/20 bg-white/10 px-3 py-2 text-white placeholder-gray-500 transition-all focus:border-transparent focus:ring-2 focus:ring-purple-400 focus:outline-none disabled:opacity-50"
             />
             <button
               type="submit"
               disabled={status !== 'ready' || !input.trim()}
-              className="bg-linear-to-r from-purple-500 to-pink-500 text-white rounded-full font-medium px-3 hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center"
+              className="flex items-center justify-center rounded-full bg-linear-to-r from-purple-500 to-pink-500 px-3 font-medium text-white transition-all hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
             >
               {isStreaming ? (
-                <FaSpinner className="w-4 h-4 animate-spin" />
+                <FaSpinner className="h-4 w-4 animate-spin" />
               ) : (
-                <BiSend className="w-4 h-4" />
+                <BiSend className="h-4 w-4" />
               )}
             </button>
           </form>

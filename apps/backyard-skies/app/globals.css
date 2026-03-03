@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @theme inline {
   --color-background: #0a1628;
@@ -8,7 +8,6 @@
 }
 
 @layer base {
-
   *,
   *::before,
   *::after {
@@ -38,7 +37,13 @@
     overflow: hidden;
     background: #0a1628;
     color: #ffffff;
-    font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif);
+    font-family: var(
+      --font-sans,
+      -apple-system,
+      BlinkMacSystemFont,
+      'Segoe UI',
+      sans-serif
+    );
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     -webkit-tap-highlight-color: transparent;
@@ -87,7 +92,6 @@
 
 /* Game animations */
 @keyframes pulse {
-
   0%,
   100% {
     opacity: 1;
@@ -99,7 +103,6 @@
 }
 
 @keyframes pulse-fast {
-
   0%,
   100% {
     opacity: 1;
@@ -111,7 +114,6 @@
 }
 
 @keyframes bounce-y {
-
   0%,
   100% {
     transform: translateY(0);
@@ -123,7 +125,6 @@
 }
 
 @keyframes float-particle {
-
   0%,
   100% {
     transform: translateY(0) scale(1);

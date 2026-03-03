@@ -114,11 +114,11 @@ class AudioManager {
     chirp.frequency.setValueAtTime(pitchBase * rate, now);
     chirp.frequency.exponentialRampToValueAtTime(
       pitchBase * rate * 1.8,
-      now + 0.06,
+      now + 0.06
     );
     chirp.frequency.exponentialRampToValueAtTime(
       pitchBase * rate * 0.7,
-      now + 0.12,
+      now + 0.12
     );
     const chirpGain = ctx.createGain();
     chirpGain.gain.setValueAtTime(0, now);
@@ -387,7 +387,7 @@ class AudioManager {
     this.muted = m;
     if (m) {
       // Mute all active loops
-      this.activeLoops.forEach(loop => {
+      this.activeLoops.forEach((loop) => {
         loop.gain.gain.value = 0;
       });
     }

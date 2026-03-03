@@ -1,12 +1,12 @@
-import Link from 'next/link';
 import { SocialMediaButtonsItem } from '@/features/buttons-menus/social-media-buttons/types';
+import Link from 'next/link';
 
 const SingleSocialButton = ({
   name,
   label,
   icon,
   className,
-  href,
+  href
 }: SocialMediaButtonsItem) => {
   return (
     <Link

@@ -12,7 +12,7 @@ const OverlayCopy = ({ subheading, heading }: OverlayCopyProps) => {
 
   const { scrollYProgress } = useScroll({
     target: targetRef,
-    offset: ['start end', 'end start'],
+    offset: ['start end', 'end start']
   });
 
   const yPosition = useTransform(scrollYProgress, [0, 1], [250, -250]);
@@ -22,12 +22,12 @@ const OverlayCopy = ({ subheading, heading }: OverlayCopyProps) => {
     <AnimatedDiv
       ref={targetRef}
       style={{ y: yPosition, opacity }}
-      className="absolute left-0 top-0 flex h-screen w-full flex-col items-center justify-center text-white"
+      className="absolute top-0 left-0 flex h-screen w-full flex-col items-center justify-center text-white"
     >
       <p className="mb-2 text-center text-xl md:mb-4 md:text-3xl">
         {subheading}
       </p>
-      <p className="text-center text-4xl md:text-7xl font-bold">{heading}</p>
+      <p className="text-center text-4xl font-bold md:text-7xl">{heading}</p>
     </AnimatedDiv>
   );
 };

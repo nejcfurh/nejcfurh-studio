@@ -1,6 +1,7 @@
 import { IMG_PADDING } from '@/features/scroll-animation/constants';
-import StickyImage from './StickyImage';
+
 import OverlayCopy from './OverlayCopy';
+import StickyImage from './StickyImage';
 
 interface TextParallaxContentProps {
   imgUrl: string;
@@ -13,7 +14,7 @@ const TextParallaxContent = ({
   imgUrl,
   subheading,
   heading,
-  children,
+  children
 }: TextParallaxContentProps) => {
   return (
     <div style={{ paddingLeft: IMG_PADDING, paddingRight: IMG_PADDING }}>

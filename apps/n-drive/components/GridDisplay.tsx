@@ -1,16 +1,17 @@
 import { Doc } from '@/convex/_generated/dataModel';
+
 import FileCard from './FileCard';
 
 const GridDisplay = ({
   files,
-  allFavorites,
+  allFavorites
 }: {
   files: Doc<'files'>[];
   allFavorites: Doc<'favorites'>[];
 }) => {
   return (
-    <div className="grid grid-cols-3 gap-4 mt-12">
-      {files?.map(file => (
+    <div className="mt-12 grid grid-cols-3 gap-4">
+      {files?.map((file) => (
         <FileCard
           key={file._id}
           file={file}

@@ -1,16 +1,16 @@
 const SwitchVariantButton = ({
   variant,
-  handleSwitchVariant,
+  handleSwitchVariant
 }: {
   variant: 'circular' | 'horizontal';
   handleSwitchVariant: () => void;
 }) => {
   return (
     <button
-      className="flex mt-10 bg-amber-50 text-black z-10 px-4 py-2 rounded-full backdrop-blur-3xl hover:opacity-80 hover:scale-[1.10] transition-all duration-300 cursor-pointer"
+      className="z-10 mt-10 flex cursor-pointer rounded-full bg-amber-50 px-4 py-2 text-black backdrop-blur-3xl transition-all duration-300 hover:scale-[1.10] hover:opacity-80"
       onClick={handleSwitchVariant}
     >
-      <span className="text-black text-base font-light">
+      <span className="text-base font-light text-black">
         {variant === 'circular' ? 'Change to Horizontal' : 'Change to Circular'}
       </span>
     </button>

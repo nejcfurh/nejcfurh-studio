@@ -1,8 +1,8 @@
 'use client';
 
-import { useRef, useMemo, useEffect } from 'react';
-import { useFrame } from '@react-three/fiber';
 import { useGameStore } from '@/store/gameStore';
+import { useFrame } from '@react-three/fiber';
+import { useEffect, useMemo, useRef } from 'react';
 import * as THREE from 'three';
 
 const PARTICLE_COUNT = 12;
@@ -25,7 +25,7 @@ export default function LandingParticles() {
 
   // WATCH FOR LANDING TRANSITIONS
   useEffect(() => {
-    const unsub = useGameStore.subscribe(state => {
+    const unsub = useGameStore.subscribe((state) => {
       const isLanding =
         state.gameState === 'feeding' || state.gameState === 'drinking';
       const wasFlying = prevGameState.current === 'flight';
@@ -41,15 +41,15 @@ export default function LandingParticles() {
           position: new THREE.Vector3(
             pos[0] + (Math.random() - 0.5) * 0.3,
             pos[1],
-            pos[2] + (Math.random() - 0.5) * 0.3,
+            pos[2] + (Math.random() - 0.5) * 0.3
           ),
           velocity: new THREE.Vector3(
             (Math.random() - 0.5) * 2,
             Math.random() * 3 + 1,
-            (Math.random() - 0.5) * 2,
+            (Math.random() - 0.5) * 2
           ),
           age: 0,
-          alive: true,
+          alive: true
         }));
         activeRef.current = true;
 

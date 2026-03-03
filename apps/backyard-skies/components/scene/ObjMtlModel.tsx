@@ -1,9 +1,9 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
-import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader.js';
 import type { Group } from 'three';
+import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader.js';
+import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
 
 interface ObjMtlModelProps {
   /** BASE URL WITHOUT EXTENSION, E.G. "/models/cat/model". LOADS model.obj AND model.mtl FROM SAME FOLDER. */
@@ -31,7 +31,7 @@ export function ObjMtlModel({
   scale = 0.2,
   position,
   rotation,
-  children,
+  children
 }: ObjMtlModelProps) {
   const [group, setGroup] = useState<Group | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -48,7 +48,7 @@ export function ObjMtlModel({
 
     mtlLoader.load(
       mtlFilename,
-      materials => {
+      (materials) => {
         if (cancelled) return;
         materials.preload();
 
@@ -56,15 +56,15 @@ export function ObjMtlModel({
         objLoader.setMaterials(materials);
         objLoader.load(
           objUrl,
-          object => {
+          (object) => {
             if (!cancelled) setGroup(object);
           },
           undefined,
-          err => setError((err as Error)?.message || 'Failed to load OBJ'),
+          (err) => setError((err as Error)?.message || 'Failed to load OBJ')
         );
       },
       undefined,
-      err => setError((err as Error)?.message || 'Failed to load MTL'),
+      (err) => setError((err as Error)?.message || 'Failed to load MTL')
     );
 
     return () => {

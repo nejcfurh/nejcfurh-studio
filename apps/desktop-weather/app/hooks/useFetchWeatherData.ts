@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
-import { useUserLocation } from './useUserLocation';
+
 import { HOURLY_INTERVAL } from '../utils/constants';
+import { useUserLocation } from './useUserLocation';
 
 interface WeatherData {
   temperature: number;

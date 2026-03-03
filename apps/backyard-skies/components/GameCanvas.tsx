@@ -1,24 +1,24 @@
 'use client';
 
-import { memo, Suspense, useRef } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { useGameStore } from '@/store/gameStore';
-import PlayerBird from '@/components/scene/PlayerBird';
-import ThirdPersonCamera from '@/components/scene/ThirdPersonCamera';
-import SuburbanWorld from '@/components/scene/SuburbanWorld';
-import FeederSpawner from '@/components/scene/FeederSpawner';
-import Eagle from '@/components/scene/Eagle';
-import GameEnvironment from '@/components/scene/GameEnvironment';
 import GameLoopRunner from '@/components/GameLoopRunner';
-import FeatherBurst from '@/components/scene/FeatherBurst';
-import LandingParticles from '@/components/scene/LandingParticles';
 import DeathCat from '@/components/scene/DeathCat';
+import Eagle from '@/components/scene/Eagle';
+import FeatherBurst from '@/components/scene/FeatherBurst';
+import FeederSpawner from '@/components/scene/FeederSpawner';
+import GameEnvironment from '@/components/scene/GameEnvironment';
+import LandingParticles from '@/components/scene/LandingParticles';
+import PlayerBird from '@/components/scene/PlayerBird';
+import SuburbanWorld from '@/components/scene/SuburbanWorld';
+import ThirdPersonCamera from '@/components/scene/ThirdPersonCamera';
+import { useGameStore } from '@/store/gameStore';
+import { Canvas, useFrame } from '@react-three/fiber';
 import {
-  EffectComposer,
-  Vignette,
   Bloom,
   ChromaticAberration,
+  EffectComposer,
+  Vignette
 } from '@react-three/postprocessing';
+import { memo, Suspense, useRef } from 'react';
 import * as THREE from 'three';
 
 function DyingChromaticAberration() {
@@ -53,7 +53,7 @@ function PostProcessing() {
 }
 
 function SceneContent() {
-  const gameState = useGameStore(s => s.gameState);
+  const gameState = useGameStore((s) => s.gameState);
   const isPlaying =
     gameState === 'flight' ||
     gameState === 'feeding' ||
@@ -94,7 +94,7 @@ const StableCanvas = memo(function StableCanvas() {
 });
 
 export default function GameCanvas() {
-  const gameState = useGameStore(s => s.gameState);
+  const gameState = useGameStore((s) => s.gameState);
   const showCanvas =
     gameState === 'flight' ||
     gameState === 'feeding' ||
