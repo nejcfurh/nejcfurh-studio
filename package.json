@@ -17,12 +17,13 @@
     "prepare": "husky",
     "reusable-components": "turbo dev --filter=reusable-components",
     "n-drive": "turbo dev --filter=n-drive",
-    "backyard-skies": "turbo dev --filter=backyard-skies"
+    "backyard-skies": "turbo dev --filter=backyard-skies",
+    "desktop-weather": "turbo dev --filter=desktop-weather"
   },
   "devDependencies": {
     "@commitlint/cli": "20.4.2",
     "@commitlint/config-conventional": "20.3.1",
-    "eslint": "9.39.2",
+    "eslint": "^9",
     "husky": "9.1.7",
     "tsconfig": "workspace:*",
     "turbo": "2.8.0"

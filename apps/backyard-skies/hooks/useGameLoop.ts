@@ -4,7 +4,11 @@ import { useRef, MutableRefObject } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { useGameStore } from '@/store/gameStore';
 import { BIRD_SPECIES } from '@/lib/birdSpecies';
-import { FEEDER_PROXIMITY, DISTANCE_PER_UNIT, GROUND_DEATH_TIME } from '@/utils/constants';
+import {
+  FEEDER_PROXIMITY,
+  DISTANCE_PER_UNIT,
+  GROUND_DEATH_TIME,
+} from '@/utils/constants';
 import { audioManager } from '@/lib/audioManager';
 import { computeFlightStep } from '@/lib/flightPhysics';
 import { tickEagleThreat, tickCatThreat } from '@/lib/threatSystem';
@@ -45,8 +49,8 @@ export function useGameLoop(joystickXRef: MutableRefObject<number>) {
       // Audio: modulate wind volume
       const speed = Math.sqrt(
         state.velocity[0] * state.velocity[0] +
-        state.velocity[1] * state.velocity[1] +
-        state.velocity[2] * state.velocity[2]
+          state.velocity[1] * state.velocity[1] +
+          state.velocity[2] * state.velocity[2],
       );
       audioManager.setWindVolume(Math.min(0.15, speed * 0.012));
 
@@ -59,7 +63,15 @@ export function useGameLoop(joystickXRef: MutableRefObject<number>) {
         eagleSoundPlayed.current = false;
       }
 
-      updateFlight(state, species, joystickX, clamped, scoreAccumulator, lastPosition, flapApplied);
+      updateFlight(
+        state,
+        species,
+        joystickX,
+        clamped,
+        scoreAccumulator,
+        lastPosition,
+        flapApplied,
+      );
 
       // Periodically refresh feeders
       feederRefreshTimer.current += clamped;
@@ -67,7 +79,10 @@ export function useGameLoop(joystickXRef: MutableRefObject<number>) {
         feederRefreshTimer.current = 0;
         state.refreshFeeders();
       }
-    } else if (state.gameState === 'feeding' || state.gameState === 'drinking') {
+    } else if (
+      state.gameState === 'feeding' ||
+      state.gameState === 'drinking'
+    ) {
       updateFeeding(state, species, clamped);
     }
   });
@@ -114,7 +129,11 @@ function updateFlight(
 
   // --- Resources ---
   const resources = depleteResources(
-    state.food, state.water, state.stamina - flight.staminaCost, attrs, delta,
+    state.food,
+    state.water,
+    state.stamina - flight.staminaCost,
+    attrs,
+    delta,
   );
 
   if (resources.depletedResource) {
@@ -127,11 +146,19 @@ function updateFlight(
   scoreAccumulator.current = score.newAccumulator;
 
   const dist = computeDistance(
-    lastPosition.current.x, lastPosition.current.y, lastPosition.current.z,
-    flight.position[0], flight.position[1], flight.position[2],
+    lastPosition.current.x,
+    lastPosition.current.y,
+    lastPosition.current.z,
+    flight.position[0],
+    flight.position[1],
+    flight.position[2],
   );
   if (dist > 0.01) {
-    lastPosition.current.set(flight.position[0], flight.position[1], flight.position[2]);
+    lastPosition.current.set(
+      flight.position[0],
+      flight.position[1],
+      flight.position[2],
+    );
   }
 
   // --- Feeder proximity ---
@@ -144,7 +171,10 @@ function updateFlight(
       const dy = flight.position[1] - feeder.position[1];
       const dz = flight.position[2] - feeder.position[2];
       const distToFeeder = Math.sqrt(dx * dx + dy * dy + dz * dz);
-      if (distToFeeder < FEEDER_PROXIMITY && flight.position[1] < feeder.position[1] + 4) {
+      if (
+        distToFeeder < FEEDER_PROXIMITY &&
+        flight.position[1] < feeder.position[1] + 4
+      ) {
         state.landOnFeeder(feeder);
         landed = true;
         break;
@@ -261,6 +291,7 @@ function updateFeeding(
   species: (typeof BIRD_SPECIES)[string],
   delta: number,
 ) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { activeFeeder, gameState, perchTime } = state;
   if (!activeFeeder) return;
 
@@ -268,7 +299,11 @@ function updateFeeding(
 
   // Replenish resources
   const replenish = replenishFromFeeder(
-    state.food, state.water, activeFeeder.type, attrs, delta,
+    state.food,
+    state.water,
+    activeFeeder.type,
+    attrs,
+    delta,
   );
 
   // Cat threat

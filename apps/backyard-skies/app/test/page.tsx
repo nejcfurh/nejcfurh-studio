@@ -295,6 +295,7 @@ export default function TestPage() {
   );
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function GrassTestModel({ scale }: { scale: number }) {
   const { scene } = useGLTF('/models/grass/Tuft%20of%20grass.glb');
   const clone = useMemo(() => scene.clone(true), [scene]);

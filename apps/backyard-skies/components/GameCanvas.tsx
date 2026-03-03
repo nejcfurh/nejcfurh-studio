@@ -13,7 +13,12 @@ import GameLoopRunner from '@/components/GameLoopRunner';
 import FeatherBurst from '@/components/scene/FeatherBurst';
 import LandingParticles from '@/components/scene/LandingParticles';
 import DeathCat from '@/components/scene/DeathCat';
-import { EffectComposer, Vignette, Bloom, ChromaticAberration } from '@react-three/postprocessing';
+import {
+  EffectComposer,
+  Vignette,
+  Bloom,
+  ChromaticAberration,
+} from '@react-three/postprocessing';
 import * as THREE from 'three';
 
 function DyingChromaticAberration() {
@@ -33,6 +38,7 @@ function DyingChromaticAberration() {
     }
   });
 
+  // eslint-disable-next-line react-hooks/refs
   return <ChromaticAberration offset={offsetRef.current} />;
 }
 
@@ -47,8 +53,12 @@ function PostProcessing() {
 }
 
 function SceneContent() {
-  const gameState = useGameStore((s) => s.gameState);
-  const isPlaying = gameState === 'flight' || gameState === 'feeding' || gameState === 'drinking' || gameState === 'dying';
+  const gameState = useGameStore(s => s.gameState);
+  const isPlaying =
+    gameState === 'flight' ||
+    gameState === 'feeding' ||
+    gameState === 'drinking' ||
+    gameState === 'dying';
 
   if (!isPlaying) return null;
 
@@ -84,8 +94,12 @@ const StableCanvas = memo(function StableCanvas() {
 });
 
 export default function GameCanvas() {
-  const gameState = useGameStore((s) => s.gameState);
-  const showCanvas = gameState === 'flight' || gameState === 'feeding' || gameState === 'drinking' || gameState === 'dying';
+  const gameState = useGameStore(s => s.gameState);
+  const showCanvas =
+    gameState === 'flight' ||
+    gameState === 'feeding' ||
+    gameState === 'drinking' ||
+    gameState === 'dying';
 
   if (!showCanvas) return null;
 
