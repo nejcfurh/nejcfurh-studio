@@ -1,59 +1,59 @@
 .word {
-    opacity: 0;
-    display: inline;
-    --start: calc(var(--i) * var(--pxPerWord));
-    --end: calc((var(--i) + 1) * var(--pxPerWord));
-    animation: unblur-word;
-    animation-timeline: --section;
-    animation-fill-mode: forwards;
-    animation-range: var(--start) var(--end);
+  opacity: 0;
+  display: inline;
+  --start: calc(var(--i) * var(--pxPerWord));
+  --end: calc((var(--i) + 1) * var(--pxPerWord));
+  animation: unblur-word;
+  animation-timeline: --section;
+  animation-fill-mode: forwards;
+  animation-range: var(--start) var(--end);
 }
 
 @keyframes unblur-word {
-    0% {
-        filter: blur(80px);
-        opacity: 0;
-        transform: scale(0.3) translateY(20px);
-    }
+  0% {
+    filter: blur(80px);
+    opacity: 0;
+    transform: scale(0.3) translateY(20px);
+  }
 
-    50% {
-        filter: blur(40px);
-        opacity: 0.6;
-        transform: scale(1.15) translateY(-5px);
-    }
+  50% {
+    filter: blur(40px);
+    opacity: 0.6;
+    transform: scale(1.15) translateY(-5px);
+  }
 
-    75% {
-        filter: blur(10px);
-        opacity: 0.9;
-        transform: scale(0.95) translateY(2px);
-    }
+  75% {
+    filter: blur(10px);
+    opacity: 0.9;
+    transform: scale(0.95) translateY(2px);
+  }
 
-    100% {
-        filter: blur(0px);
-        opacity: 1;
-        transform: scale(1) translateY(0);
-    }
+  100% {
+    filter: blur(0px);
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
 }
 
 /* FALLBACK FOR BROWSERS THAT DON'T SUPPORT SCROLL-TIMELINE */
 @supports not (animation-timeline: --section) {
-    .word {
-        opacity: 1;
-        filter: blur(0px);
-        animation: none;
-    }
+  .word {
+    opacity: 1;
+    filter: blur(0px);
+    animation: none;
+  }
 
-    .scroll-unblur-container::before {
-        content: "Your browser doesn't support scroll-driven animations. Please use Chrome 115+ or Edge 115+";
-        position: fixed;
-        top: 1rem;
-        left: 50%;
-        transform: translateX(-50%);
-        background: rgba(0, 0, 0, 0.8);
-        color: white;
-        padding: 1rem 2rem;
-        border-radius: 0.5rem;
-        z-index: 1000;
-        font-size: 0.875rem;
-    }
+  .scroll-unblur-container::before {
+    content: "Your browser doesn't support scroll-driven animations. Please use Chrome 115+ or Edge 115+";
+    position: fixed;
+    top: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 0.5rem;
+    z-index: 1000;
+    font-size: 0.875rem;
+  }
 }

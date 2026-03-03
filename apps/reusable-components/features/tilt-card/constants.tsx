@@ -2,7 +2,6 @@ import { FaNodeJs, FaReact } from 'react-icons/fa';
 import { FaCss3, FaHtml5, FaJs } from 'react-icons/fa6';
 import { GrGraphQl } from 'react-icons/gr';
 import { IoLogoVercel } from 'react-icons/io5';
-import { TbBrandTailwind } from 'react-icons/tb';
 import {
   SiExpress,
   SiFramer,
@@ -11,50 +10,52 @@ import {
   SiPrisma,
   SiRedux,
   SiTypescript,
-  SiVercel,
+  SiVercel
 } from 'react-icons/si';
+import { TbBrandTailwind } from 'react-icons/tb';
+
 import { TechStackItem } from './types';
 
 export const TECH_STACK_DATA: TechStackItem[] = [
   {
     name: 'HTML',
-    icon: <FaHtml5 />,
+    icon: <FaHtml5 />
   },
   {
     name: 'CSS',
-    icon: <FaCss3 />,
+    icon: <FaCss3 />
   },
   {
     name: 'JavaScript',
-    icon: <FaJs />,
+    icon: <FaJs />
   },
   {
     name: 'TypeScript',
-    icon: <SiTypescript />,
+    icon: <SiTypescript />
   },
   {
     name: 'React',
-    icon: <FaReact />,
+    icon: <FaReact />
   },
   {
     name: 'Next.js',
-    icon: <IoLogoVercel />,
+    icon: <IoLogoVercel />
   },
   {
     name: 'Node.js',
-    icon: <FaNodeJs />,
+    icon: <FaNodeJs />
   },
   {
     name: 'Express.js',
-    icon: <SiExpress />,
+    icon: <SiExpress />
   },
   {
     name: 'MongoDB',
-    icon: <SiMongodb />,
+    icon: <SiMongodb />
   },
   {
     name: 'PostgreSQL',
-    icon: <SiPostgresql />,
+    icon: <SiPostgresql />
   },
   { name: 'Redux Toolkit', icon: <SiRedux /> },
   { name: 'Prisma', icon: <SiPrisma /> },
@@ -62,10 +63,10 @@ export const TECH_STACK_DATA: TechStackItem[] = [
   { name: 'Framer Motion', icon: <SiFramer /> },
   {
     name: 'Tailwind CSS',
-    icon: <TbBrandTailwind />,
+    icon: <TbBrandTailwind />
   },
   {
     name: 'GraphQL',
-    icon: <GrGraphQl />,
-  },
+    icon: <GrGraphQl />
+  }
 ];

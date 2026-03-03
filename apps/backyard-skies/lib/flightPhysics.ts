@@ -2,11 +2,11 @@
 
 import { BirdAttributes } from '@/types';
 import {
-  GRAVITY,
   FORWARD_SPEED_BASE,
-  TURN_SPEED,
+  GRAVITY,
   MAX_ALTITUDE,
   MIN_ALTITUDE,
+  TURN_SPEED
 } from '@/utils/constants';
 
 export interface FlightInput {
@@ -33,7 +33,15 @@ export interface FlightResult {
 }
 
 export function computeFlightStep(input: FlightInput): FlightResult {
-  const { position, velocity, isFlapping, flapStrength, joystickX, attrs, delta } = input;
+  const {
+    position,
+    velocity,
+    isFlapping,
+    flapStrength,
+    joystickX,
+    attrs,
+    delta
+  } = input;
 
   // Update rotation from joystick
   const rotation = input.rotation + joystickX * TURN_SPEED * delta;
@@ -86,6 +94,6 @@ export function computeFlightStep(input: FlightInput): FlightResult {
     flapCooldown,
     flapApplied,
     staminaCost,
-    onGround,
+    onGround
   };
 }

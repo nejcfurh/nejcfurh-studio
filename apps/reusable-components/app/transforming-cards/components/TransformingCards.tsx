@@ -1,7 +1,5 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
-import Image from 'next/image';
 import { CARD_IMAGES } from '@/features/transforming-cards/constants';
 import {
   Camera,
@@ -9,15 +7,18 @@ import {
   Particle,
   Particles,
   Renderer,
-  Scene,
+  Scene
 } from '@/features/transforming-cards/types';
 import {
   createAsciiUpdateInterval,
-  generateCode,
+  generateCode
 } from '@/features/transforming-cards/utils';
+import Image from 'next/image';
+import { useEffect, useRef, useState } from 'react';
+
 import Controls from './Controls';
-import SpeedIndicator from './SpeedIndicator';
 import Footer from './Footer';
+import SpeedIndicator from './SpeedIndicator';
 
 export default function TransformingCards() {
   //   STATE
@@ -51,7 +52,7 @@ export default function TransformingCards() {
       newCards.push({
         id: i,
         imageUrl: CARD_IMAGES[i % CARD_IMAGES.length],
-        asciiCode: generateCode(66, 19),
+        asciiCode: generateCode(66, 19)
       });
     }
 
@@ -119,7 +120,7 @@ export default function TransformingCards() {
 
       let anyScanningActive = false;
 
-      document.querySelectorAll('.card-wrapper').forEach(wrapper => {
+      document.querySelectorAll('.card-wrapper').forEach((wrapper) => {
         const rect = wrapper.getBoundingClientRect();
         const cardLeft = rect.left;
         const cardRight = rect.right;
@@ -331,7 +332,7 @@ export default function TransformingCards() {
         const rend = new THREE.WebGLRenderer({
           canvas: particleCanvasRef.current!,
           alpha: true,
-          antialias: true,
+          antialias: true
         });
         rend.setSize(window.innerWidth, 250);
         rend.setClearColor(0x000000, 0);
@@ -400,7 +401,7 @@ export default function TransformingCards() {
         const material = new THREE.ShaderMaterial({
           uniforms: {
             pointTexture: { value: texture },
-            size: { value: 15.0 },
+            size: { value: 15.0 }
           },
           vertexShader: `
             attribute float alpha;
@@ -428,7 +429,7 @@ export default function TransformingCards() {
           transparent: true,
           blending: THREE.AdditiveBlending,
           depthWrite: false,
-          vertexColors: true,
+          vertexColors: true
         });
 
         const pts = new THREE.Points(geometry, material);
@@ -571,7 +572,7 @@ export default function TransformingCards() {
         time: 0,
         twinkleSpeed: (Math.random() * 0.06 + 0.02) * speedMultiplier,
         twinkleAmount: Math.random() * 0.15 + 0.1,
-        originalAlpha: 0,
+        originalAlpha: 0
       };
     };
 
@@ -861,7 +862,7 @@ export default function TransformingCards() {
             onMouseDown={startDrag}
             onTouchStart={startDrag}
           >
-            {cards.map(card => (
+            {cards.map((card) => (
               <div key={card.id} className="card-wrapper">
                 <div className="card card-normal">
                   <Image

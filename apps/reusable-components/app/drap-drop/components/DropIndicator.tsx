@@ -1,6 +1,6 @@
 const DropIndicator = ({
   beforeId,
-  column,
+  column
 }: {
   beforeId: string;
   column: string;

@@ -1,11 +1,12 @@
 'use client';
 
+import AnimatedDiv from '@/components/animation-core/AnimatedDiv';
 import { useState } from 'react';
-import SubmitButton from './SubmitButton';
+
+import CustomInputField from './CustomInputField';
 import Header from './Header';
 import ShowPasswordButton from './ShowPasswordButton';
-import CustomInputField from './CustomInputField';
-import AnimatedDiv from '@/components/animation-core/AnimatedDiv';
+import SubmitButton from './SubmitButton';
 
 const TextInputFields = ({ inputType }: { inputType: 'login' | 'signup' }) => {
   const [viewPassword, setViewPassword] = useState(false);
@@ -32,7 +33,7 @@ const TextInputFields = ({ inputType }: { inputType: 'login' | 'signup' }) => {
   };
 
   return (
-    <AnimatedDiv className="w-full max-w-md rounded-2xl border border-gray-200 bg-white p-8 shadow-xl transition-all duration-300 hover:shadow-2xl dark:border-gray-800 dark:bg-gray-900 z-50">
+    <AnimatedDiv className="z-50 w-full max-w-md rounded-2xl border border-gray-200 bg-white p-8 shadow-xl transition-all duration-300 hover:shadow-2xl dark:border-gray-800 dark:bg-gray-900">
       <Header inputType={inputType} />
 
       {inputType === 'signup' && (
@@ -42,7 +43,7 @@ const TextInputFields = ({ inputType }: { inputType: 'login' | 'signup' }) => {
             type="text"
             name="first-name"
             value={firstNameValue}
-            onChange={e => setFirstNameValue(e.target.value)}
+            onChange={(e) => setFirstNameValue(e.target.value)}
             onFocus={() => setFirstNameFocused(true)}
             onBlur={() => setFirstNameFocused(false)}
             placeholder=""
@@ -54,7 +55,7 @@ const TextInputFields = ({ inputType }: { inputType: 'login' | 'signup' }) => {
             type="text"
             name="last-name"
             value={lastNameValue}
-            onChange={e => setLastNameValue(e.target.value)}
+            onChange={(e) => setLastNameValue(e.target.value)}
             onFocus={() => setLastNameFocused(true)}
             onBlur={() => setLastNameFocused(false)}
             placeholder=""
@@ -70,7 +71,7 @@ const TextInputFields = ({ inputType }: { inputType: 'login' | 'signup' }) => {
         type="email"
         name="email"
         value={emailValue}
-        onChange={e => setEmailValue(e.target.value)}
+        onChange={(e) => setEmailValue(e.target.value)}
         onFocus={() => setEmailFocused(true)}
         onBlur={() => setEmailFocused(false)}
         placeholder=""
@@ -84,7 +85,7 @@ const TextInputFields = ({ inputType }: { inputType: 'login' | 'signup' }) => {
         type={viewPassword ? 'text' : 'password'}
         name="password"
         value={passwordValue}
-        onChange={e => setPasswordValue(e.target.value)}
+        onChange={(e) => setPasswordValue(e.target.value)}
         onFocus={() => setPasswordFocused(true)}
         onBlur={() => setPasswordFocused(false)}
         placeholder=""

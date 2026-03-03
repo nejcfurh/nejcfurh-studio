@@ -1,10 +1,10 @@
 'use client';
 
-import { useEffect, useMemo } from 'react';
-import { useGLTF } from '@react-three/drei';
-import * as THREE from 'three';
-import { HouseData } from '@/lib/terrain/chunkGenerator';
 import { HOUSE_MODELS } from '@/lib/terrain/chunkConstants';
+import { HouseData } from '@/lib/terrain/chunkGenerator';
+import { useGLTF } from '@react-three/drei';
+import { useEffect, useMemo } from 'react';
+import * as THREE from 'three';
 
 export default function House({ x, z, rot, modelIndex }: HouseData) {
   const url = HOUSE_MODELS[modelIndex % HOUSE_MODELS.length];
@@ -13,12 +13,12 @@ export default function House({ x, z, rot, modelIndex }: HouseData) {
 
   useEffect(() => {
     return () => {
-      clone.traverse(child => {
+      clone.traverse((child) => {
         if ((child as THREE.Mesh).isMesh) {
           const mesh = child as THREE.Mesh;
           mesh.geometry?.dispose();
           if (Array.isArray(mesh.material)) {
-            mesh.material.forEach(m => m.dispose());
+            mesh.material.forEach((m) => m.dispose());
           } else {
             mesh.material?.dispose();
           }

@@ -31,7 +31,7 @@ export const useUserLocation = (): {
             latitude: data.latitude,
             longitude: data.longitude,
             city: data.cityName,
-            country: data.countryName,
+            country: data.countryName
           });
         } else {
           throw new Error('Unable to determine location');
@@ -42,7 +42,7 @@ export const useUserLocation = (): {
         // FALLBACK TO LJUBLJANA COORDINATES
         setLocation({
           latitude: 46.05,
-          longitude: 14.51,
+          longitude: 14.51
         });
       } finally {
         setLoading(false);

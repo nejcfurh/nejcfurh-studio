@@ -2,10 +2,11 @@
 
 import {
   motion,
-  useScroll,
-  useTransform,
   useMotionTemplate,
+  useScroll,
+  useTransform
 } from 'motion/react';
+
 import ParallaxImages from './ParallaxImages';
 
 const SECTION_HEIGHT = 1500;
@@ -44,11 +45,11 @@ const Hero = () => {
           clipPath,
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
-          opacity,
+          opacity
         }}
       />
       {/* GRADIENT BUFFER BETWEEN SECTIONS */}
-      <div className="absolute bottom-0 h-72 left-0 right-0 bg-linear-to-b from-transparent to-zinc-950" />
+      <div className="absolute right-0 bottom-0 left-0 h-72 bg-linear-to-b from-transparent to-zinc-950" />
       <ParallaxImages />
     </div>
   );

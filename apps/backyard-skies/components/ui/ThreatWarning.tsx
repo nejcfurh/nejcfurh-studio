@@ -29,12 +29,13 @@ export default function ThreatWarning() {
     <>
       {/* Predator detected — centered red text */}
       {isEagle && !isDodgePhase && !eagleAltitudeHunt && (
-        <div className="fixed inset-0 z-30 flex items-center justify-center pointer-events-none">
+        <div className="pointer-events-none fixed inset-0 z-30 flex items-center justify-center">
           <span
-            className="text-2xl font-black uppercase tracking-widest animate-[pulse_0.8s_ease-in-out_infinite]"
+            className="animate-[pulse_0.8s_ease-in-out_infinite] text-2xl font-black tracking-widest uppercase"
             style={{
               color: '#FF3D00',
-              textShadow: '0 0 20px rgba(255,61,0,0.6), 0 2px 8px rgba(0,0,0,0.5)',
+              textShadow:
+                '0 0 20px rgba(255,61,0,0.6), 0 2px 8px rgba(0,0,0,0.5)'
             }}
           >
             PREDATOR DETECTED
@@ -42,21 +43,24 @@ export default function ThreatWarning() {
         </div>
       )}
 
-
       {/* Screen vignette */}
       {(isDodgePhase || eagleAltitudeHunt || (isCat && isPerched)) && (
-        <div className="fixed inset-0 z-20 pointer-events-none bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(255,61,0,0.35)_100%)] animate-[pulse_1s_ease-in-out_infinite]" />
+        <div className="pointer-events-none fixed inset-0 z-20 animate-[pulse_1s_ease-in-out_infinite] bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(255,61,0,0.35)_100%)]" />
       )}
 
       {/* Altitude hunt countdown */}
       {isEagle && eagleAltitudeHunt && !isDodgePhase && (
-        <div className="fixed inset-0 z-30 flex items-center justify-center pointer-events-none">
-          <div className="bg-black/65 backdrop-blur-xl rounded-[18px] py-6 px-9 flex flex-col items-center gap-2 border border-[rgba(255,61,0,0.3)]">
-            <span className="text-xs text-[#FF5252] font-bold tracking-wider">TOO HIGH</span>
-            <span className="text-[48px] font-black text-white leading-none">
+        <div className="pointer-events-none fixed inset-0 z-30 flex items-center justify-center">
+          <div className="flex flex-col items-center gap-2 rounded-[18px] border border-[rgba(255,61,0,0.3)] bg-black/65 px-9 py-6 backdrop-blur-xl">
+            <span className="text-xs font-bold tracking-wider text-[#FF5252]">
+              TOO HIGH
+            </span>
+            <span className="text-[48px] leading-none font-black text-white">
               {Math.ceil(Math.max(0, eagleTimer))}
             </span>
-            <span className="text-sm text-white/60 font-semibold">FLY LOWER TO ESCAPE</span>
+            <span className="text-sm font-semibold text-white/60">
+              FLY LOWER TO ESCAPE
+            </span>
             <span className="text-[10px] text-white/30">STOP FLAPPING</span>
           </div>
         </div>
@@ -64,19 +68,31 @@ export default function ThreatWarning() {
 
       {/* Eagle dodge prompt */}
       {isDodgePhase && (
-        <div className="fixed inset-0 z-30 flex items-center justify-center pointer-events-none">
-          <div className="bg-black/65 backdrop-blur-xl rounded-[18px] py-6 px-9 flex flex-col items-center gap-2 border border-[rgba(255,61,0,0.3)] animate-[bounce-y_0.6s_ease-in-out_infinite]">
-            <span className="text-xs text-[#FF5252] font-bold tracking-wider">ESCAPE NOW</span>
+        <div className="pointer-events-none fixed inset-0 z-30 flex items-center justify-center">
+          <div className="flex animate-[bounce-y_0.6s_ease-in-out_infinite] flex-col items-center gap-2 rounded-[18px] border border-[rgba(255,61,0,0.3)] bg-black/65 px-9 py-6 backdrop-blur-xl">
+            <span className="text-xs font-bold tracking-wider text-[#FF5252]">
+              ESCAPE NOW
+            </span>
             {nearAltitudeLimit ? (
               <>
-                <span className="text-[26px] font-black text-white">TAP TO FLAP</span>
-                <span className="text-lg text-white/70 font-bold">{tapsRemaining} {tapsRemaining === 1 ? 'tap' : 'taps'} left</span>
-                <span className="text-[10px] text-white/40">FLAP RAPIDLY TO SCARE IT OFF</span>
+                <span className="text-[26px] font-black text-white">
+                  TAP TO FLAP
+                </span>
+                <span className="text-lg font-bold text-white/70">
+                  {tapsRemaining} {tapsRemaining === 1 ? 'tap' : 'taps'} left
+                </span>
+                <span className="text-[10px] text-white/40">
+                  FLAP RAPIDLY TO SCARE IT OFF
+                </span>
               </>
             ) : (
               <>
-                <span className="text-[26px] font-black text-white">TURN 90°</span>
-                <span className="text-[10px] text-white/40">CHANGE DIRECTION TO EVADE</span>
+                <span className="text-[26px] font-black text-white">
+                  TURN 90°
+                </span>
+                <span className="text-[10px] text-white/40">
+                  CHANGE DIRECTION TO EVADE
+                </span>
               </>
             )}
           </div>
@@ -86,22 +102,30 @@ export default function ThreatWarning() {
       {/* Cat flee prompt — tap anywhere to flee */}
       {isCat && isPerched && (
         <div
-          onPointerDown={(e) => { e.stopPropagation(); flyAway(); }}
-          className="fixed inset-0 z-30 flex flex-col items-center justify-end pb-[140px] pointer-events-auto cursor-pointer"
+          onPointerDown={(e) => {
+            e.stopPropagation();
+            flyAway();
+          }}
+          className="pointer-events-auto fixed inset-0 z-30 flex cursor-pointer flex-col items-center justify-end pb-[140px]"
         >
           <span
-            className="text-2xl font-black uppercase tracking-widest animate-[pulse_0.8s_ease-in-out_infinite] mb-4"
+            className="mb-4 animate-[pulse_0.8s_ease-in-out_infinite] text-2xl font-black tracking-widest uppercase"
             style={{
               color: '#FF3D00',
-              textShadow: '0 0 20px rgba(255,61,0,0.6), 0 2px 8px rgba(0,0,0,0.5)',
+              textShadow:
+                '0 0 20px rgba(255,61,0,0.6), 0 2px 8px rgba(0,0,0,0.5)'
             }}
           >
             PREDATOR DETECTED
           </span>
-          <div className="bg-[rgba(183,28,28,0.85)] backdrop-blur-[10px] rounded-[18px] py-4 px-8 flex flex-col items-center gap-1 border border-[rgba(255,61,0,0.3)] animate-[bounce-y_0.6s_ease-in-out_infinite]">
-            <span className="text-xs text-[rgba(255,200,200,0.8)] font-bold">ESCAPE!</span>
+          <div className="flex animate-[bounce-y_0.6s_ease-in-out_infinite] flex-col items-center gap-1 rounded-[18px] border border-[rgba(255,61,0,0.3)] bg-[rgba(183,28,28,0.85)] px-8 py-4 backdrop-blur-[10px]">
+            <span className="text-xs font-bold text-[rgba(255,200,200,0.8)]">
+              ESCAPE!
+            </span>
             <span className="text-[22px] font-black text-white">FLY AWAY</span>
-            <span className="text-[9px] text-[rgba(255,200,200,0.5)]">TAP ANYWHERE</span>
+            <span className="text-[9px] text-[rgba(255,200,200,0.5)]">
+              TAP ANYWHERE
+            </span>
           </div>
         </div>
       )}
@@ -109,15 +133,21 @@ export default function ThreatWarning() {
       {/* Grounded warning — flap to take off before cat catches you */}
       {isOnGround && !isPerched && (
         <>
-          <div className="fixed inset-0 z-20 pointer-events-none bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(255,61,0,0.35)_100%)] animate-[pulse_1s_ease-in-out_infinite]" />
-          <div className="fixed inset-0 z-30 flex items-center justify-center pointer-events-none">
-            <div className="bg-black/65 backdrop-blur-xl rounded-[18px] py-6 px-9 flex flex-col items-center gap-2 border border-[rgba(255,61,0,0.3)] animate-[bounce-y_0.6s_ease-in-out_infinite]">
-              <span className="text-xs text-[#FF5252] font-bold tracking-wider">GROUNDED</span>
-              <span className="text-[48px] font-black text-white leading-none">
+          <div className="pointer-events-none fixed inset-0 z-20 animate-[pulse_1s_ease-in-out_infinite] bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(255,61,0,0.35)_100%)]" />
+          <div className="pointer-events-none fixed inset-0 z-30 flex items-center justify-center">
+            <div className="flex animate-[bounce-y_0.6s_ease-in-out_infinite] flex-col items-center gap-2 rounded-[18px] border border-[rgba(255,61,0,0.3)] bg-black/65 px-9 py-6 backdrop-blur-xl">
+              <span className="text-xs font-bold tracking-wider text-[#FF5252]">
+                GROUNDED
+              </span>
+              <span className="text-[48px] leading-none font-black text-white">
                 {Math.ceil(Math.max(0, 3 - groundTimer))}
               </span>
-              <span className="text-sm text-white/60 font-semibold">TAP TO FLY</span>
-              <span className="text-[10px] text-white/30">A CAT IS APPROACHING</span>
+              <span className="text-sm font-semibold text-white/60">
+                TAP TO FLY
+              </span>
+              <span className="text-[10px] text-white/30">
+                A CAT IS APPROACHING
+              </span>
             </div>
           </div>
         </>

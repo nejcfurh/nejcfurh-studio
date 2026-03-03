@@ -8,17 +8,17 @@
  * @module
  */
 
-import type * as clerk from "../clerk.js";
-import type * as crons from "../crons.js";
-import type * as files from "../files.js";
-import type * as http from "../http.js";
-import type * as users from "../users.js";
-
 import type {
   ApiFromModules,
   FilterApi,
-  FunctionReference,
-} from "convex/server";
+  FunctionReference
+} from 'convex/server';
+
+import type * as clerk from '../clerk.js';
+import type * as crons from '../crons.js';
+import type * as files from '../files.js';
+import type * as http from '../http.js';
+import type * as users from '../users.js';
 
 declare const fullApi: ApiFromModules<{
   clerk: typeof clerk;
@@ -38,7 +38,7 @@ declare const fullApi: ApiFromModules<{
  */
 export declare const api: FilterApi<
   typeof fullApi,
-  FunctionReference<any, "public">
+  FunctionReference<any, 'public'>
 >;
 
 /**
@@ -51,7 +51,7 @@ export declare const api: FilterApi<
  */
 export declare const internal: FilterApi<
   typeof fullApi,
-  FunctionReference<any, "internal">
+  FunctionReference<any, 'internal'>
 >;
 
 export declare const components: {};

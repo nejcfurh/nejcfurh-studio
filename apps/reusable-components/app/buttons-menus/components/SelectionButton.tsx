@@ -1,7 +1,7 @@
 const SelectionButton = ({
   selected,
   handleSelection,
-  children,
+  children
 }: {
   selected: boolean;
   handleSelection: () => void;
@@ -10,7 +10,7 @@ const SelectionButton = ({
   return (
     <button
       data-selected={selected}
-      className="border-2 border-amber-50 text-white z-10 px-4 py-2 rounded-full backdrop-blur-3xl hover:scale-[0.97] transition-all duration-300 cursor-pointer data-[selected=true]:border-white data-[selected=true]:text-black data-[selected=true]:bg-white"
+      className="z-10 cursor-pointer rounded-full border-2 border-amber-50 px-4 py-2 text-white backdrop-blur-3xl transition-all duration-300 hover:scale-[0.97] data-[selected=true]:border-white data-[selected=true]:bg-white data-[selected=true]:text-black"
       onClick={handleSelection}
     >
       {children}

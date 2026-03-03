@@ -14,24 +14,24 @@ export function WeatherTop() {
     hour12: false,
     hour: '2-digit',
     minute: '2-digit',
-    second: '2-digit',
+    second: '2-digit'
   });
 
   const dateString = currentTime.toLocaleString('sl-SI', {
     day: '2-digit',
     month: 'long',
-    year: 'numeric',
+    year: 'numeric'
   });
 
   const icon = data ? mapWeatherCodeToIcon(data.weathercode) : null;
 
   return (
-    <div className="flex flex-col items-center justify-center h-full">
-      <div className="text-center mb-8">
-        <div className="font-roboto text-9xl font-bold mb-2">{timeString}</div>
+    <div className="flex h-full flex-col items-center justify-center">
+      <div className="mb-8 text-center">
+        <div className="font-roboto mb-2 text-9xl font-bold">{timeString}</div>
         <div className="font-roboto text-4xl text-gray-400">{dateString}</div>
         {location && location.city && (
-          <div className="font-roboto font-light text-2xl text-white/80 mt-5">
+          <div className="font-roboto mt-5 text-2xl font-light text-white/80">
             {location.city === 'Rače'
               ? 'Hotinja vas' // DISPLAY ACTUAL LOCATION OF THE SURFACE TABLET
               : location.city}

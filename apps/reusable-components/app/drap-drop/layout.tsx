@@ -1,13 +1,14 @@
 import type { Metadata } from 'next';
+
 import '@/app/globals.css';
 
 export const metadata: Metadata = {
   title: 'Drag & Drop',
-  description: 'Drag & Drop component',
+  description: 'Drag & Drop component'
 };
 
 export default function Layout({
-  children,
+  children
 }: Readonly<{
   children: React.ReactNode;
 }>) {

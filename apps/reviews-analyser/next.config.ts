@@ -8,16 +8,16 @@ const nextConfig: NextConfig = {
     removeConsole:
       process.env.NODE_ENV === 'production'
         ? { exclude: ['error', 'warn'] }
-        : false,
+        : false
   },
   images: {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: '**',
-      },
-    ],
-  },
+        hostname: '**'
+      }
+    ]
+  }
 };
 
 export default nextConfig;

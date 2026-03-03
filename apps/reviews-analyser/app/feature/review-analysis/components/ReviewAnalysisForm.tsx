@@ -1,31 +1,32 @@
 'use client';
 
 import { useActionState, useRef, useState } from 'react';
+import { BsLightningCharge } from 'react-icons/bs';
+import { FaExclamationTriangle, FaSpinner, FaTrash } from 'react-icons/fa';
+
 import { analyseReview } from '../actions/analyse';
 import { ReviewAnalysisDisplay } from './ReviewAnalysisDisplay';
-import { FaExclamationTriangle, FaSpinner, FaTrash } from 'react-icons/fa';
-import { BsLightningCharge } from 'react-icons/bs';
 
 export function ReviewAnalysisForm() {
   // STATE
   const [isTextAreaEmpty, setIsTextAreaEmpty] = useState(false);
   const [state, formAction, isPending] = useActionState(analyseReview, {
-    success: false,
+    success: false
   });
 
   // REFS
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   return (
-    <div className="max-w-4xl mx-auto p-6 space-y-8 my-5 py-12">
+    <div className="mx-auto my-5 max-w-4xl space-y-8 p-6 py-12">
       {/* HEADER */}
-      <div className="text-center space-y-4">
+      <div className="space-y-4 text-center">
         <div className="inline-block">
-          <h1 className="text-6xl font-bold bg-linear-to-r from-purple-200 via-pink-200 to-amber-200 bg-clip-text text-transparent mb-3">
+          <h1 className="mb-3 bg-linear-to-r from-purple-200 via-pink-200 to-amber-200 bg-clip-text text-6xl font-bold text-transparent">
             Product Review Analyser
           </h1>
         </div>
-        <p className="text-gray-300 max-w-2xl text-lg mx-auto leading-relaxed">
+        <p className="mx-auto max-w-2xl text-lg leading-relaxed text-gray-300">
           Paste a customer review to get insights on sentiment, key themes, and
           actionable recommendations for your product.
         </p>
@@ -33,17 +34,17 @@ export function ReviewAnalysisForm() {
 
       {/* FORM */}
       <form
-        action={formData => {
+        action={(formData) => {
           setIsTextAreaEmpty(false);
           formAction(formData);
         }}
-        className="space-y-6 backdrop-blur-xl bg-white/10 border border-white/20 rounded-2xl p-8 shadow-2xl w-full flex flex-col items-center justify-center"
+        className="flex w-full flex-col items-center justify-center space-y-6 rounded-2xl border border-white/20 bg-white/10 p-8 shadow-2xl backdrop-blur-xl"
       >
-        <div className="w-full relative">
+        <div className="relative w-full">
           {/* CLEAR BUTTON */}
           <button
             type="button"
-            className="bg-red-500/70 text-white rounded-full p-2 hover:bg-red-600 absolute bottom-4 right-2 z-10 hover:cursor-pointer transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="absolute right-2 bottom-4 z-10 rounded-full bg-red-500/70 p-2 text-white transition-all duration-300 hover:cursor-pointer hover:bg-red-600 disabled:cursor-not-allowed disabled:opacity-50"
             disabled={isPending}
             onClick={() => {
               if (textareaRef.current) {
@@ -52,7 +53,7 @@ export function ReviewAnalysisForm() {
               }
             }}
           >
-            <FaTrash className="w-4 h-4" />
+            <FaTrash className="h-4 w-4" />
           </button>
 
           {/* TEXTAREA */}
@@ -62,7 +63,7 @@ export function ReviewAnalysisForm() {
             aria-label="Customer review content"
             name="content"
             rows={6}
-            className={`w-full text-lg px-5 py-4 bg-white/10 backdrop-blur-sm border-2 text-white rounded-xl shadow-lg focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent transition-all placeholder-white-60 resize-none ${
+            className={`placeholder-white-60 w-full resize-none rounded-xl border-2 bg-white/10 px-5 py-4 text-lg text-white shadow-lg backdrop-blur-sm transition-all focus:border-transparent focus:ring-2 focus:ring-purple-400 focus:outline-none ${
               state.errors
                 ? 'border-red-500 focus:ring-red-400'
                 : 'border-white/30'
@@ -72,9 +73,9 @@ export function ReviewAnalysisForm() {
             defaultValue={state.content ?? ''}
           />
           {state.errors && (
-            <div className="mt-2 p-3 bg-red-500/20 border border-red-500/50 rounded-lg">
-              <p className="text-sm text-red-200 flex items-center gap-2">
-                <FaExclamationTriangle className="w-5 h-5" />
+            <div className="mt-2 rounded-lg border border-red-500/50 bg-red-500/20 p-3">
+              <p className="flex items-center gap-2 text-sm text-red-200">
+                <FaExclamationTriangle className="h-5 w-5" />
                 {state.errors.join('. ')}
               </p>
             </div>
@@ -85,16 +86,16 @@ export function ReviewAnalysisForm() {
         <button
           type="submit"
           disabled={isPending}
-          className="bg-linear-to-r from-purple-500 to-pink-500 text-white py-4 px-10 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2 focus:ring-offset-slate-900 disabled:opacity-50 disabled:cursor-not-allowed transition-all font-semibold text-lg shadow-lg hover:shadow-xl flex items-center justify-center gap-2 duration-300 hover:opacity-90 hover:cursor-pointer"
+          className="flex items-center justify-center gap-2 rounded-xl bg-linear-to-r from-purple-500 to-pink-500 px-10 py-4 text-lg font-semibold text-white shadow-lg transition-all duration-300 hover:cursor-pointer hover:opacity-90 hover:shadow-xl focus:ring-2 focus:ring-purple-400 focus:ring-offset-2 focus:ring-offset-slate-900 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
         >
           {isPending ? (
             <>
-              <FaSpinner className="w-5 h-5 animate-spin" />
+              <FaSpinner className="h-5 w-5 animate-spin" />
               Analysing Review...
             </>
           ) : (
             <>
-              <BsLightningCharge className="w-5 h-5" />
+              <BsLightningCharge className="h-5 w-5" />
               Analyse Review
             </>
           )}

@@ -1,6 +1,6 @@
 const Footer = () => {
   return (
-    <div className="text-white/50 mb-20 w-full text-center text-sm">
+    <div className="mb-20 w-full text-center text-sm text-white/50">
       All images are official SpaceX photos, licensed as{' '}
       <strong>CC BY-NC 2.0</strong>. Built by{' '}
       <a

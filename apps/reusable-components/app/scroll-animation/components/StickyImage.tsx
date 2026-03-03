@@ -12,7 +12,7 @@ const StickyImage = ({ imgUrl }: StickyImageProps) => {
 
   const { scrollYProgress } = useScroll({
     target: targetRef,
-    offset: ['end end', 'end start'],
+    offset: ['end end', 'end start']
   });
 
   const scale = useTransform(scrollYProgress, [0, 1], [1, 0.85]);
@@ -27,7 +27,7 @@ const StickyImage = ({ imgUrl }: StickyImageProps) => {
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         height: `calc(100vh - ${IMG_PADDING * 2}px)`,
-        top: IMG_PADDING,
+        top: IMG_PADDING
       }}
       className="sticky z-0 overflow-hidden rounded-3xl"
     >

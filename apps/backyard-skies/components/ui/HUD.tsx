@@ -1,19 +1,19 @@
 'use client';
 
-import { useGameStore } from '@/store/gameStore';
 import { BIRD_SPECIES } from '@/lib/birdSpecies';
+import { useGameStore } from '@/store/gameStore';
 import {
-  RESOURCE_WARNING_THRESHOLD,
   RESOURCE_CRITICAL_THRESHOLD,
+  RESOURCE_WARNING_THRESHOLD
 } from '@/utils/constants';
 
 export default function HUD() {
-  const food = useGameStore(s => s.food);
-  const water = useGameStore(s => s.water);
-  const score = useGameStore(s => s.score);
-  const distance = useGameStore(s => s.distance);
-  const selectedSpecies = useGameStore(s => s.selectedSpecies);
-  const gameState = useGameStore(s => s.gameState);
+  const food = useGameStore((s) => s.food);
+  const water = useGameStore((s) => s.water);
+  const score = useGameStore((s) => s.score);
+  const distance = useGameStore((s) => s.distance);
+  const selectedSpecies = useGameStore((s) => s.selectedSpecies);
+  const gameState = useGameStore((s) => s.gameState);
 
   const species = BIRD_SPECIES[selectedSpecies];
   const foodPct = (food / species.attributes.maxFood) * 100;
@@ -22,9 +22,9 @@ export default function HUD() {
   const showFeedingState = gameState === 'feeding' || gameState === 'drinking';
 
   return (
-    <div className="fixed inset-0 pointer-events-none z-50">
+    <div className="pointer-events-none fixed inset-0 z-50">
       {/* TOP BAR */}
-      <div className="flex justify-between items-start px-4 pt-[max(16px,env(safe-area-inset-top))]">
+      <div className="flex items-start justify-between px-4 pt-[max(16px,env(safe-area-inset-top))]">
         {/* FOOD CIRCLE + WARNING - LEFT */}
         <div className="flex flex-col items-center gap-1.5">
           <ResourceCircle
@@ -34,7 +34,7 @@ export default function HUD() {
             icon="🌾"
           />
           {foodPct < RESOURCE_WARNING_THRESHOLD && foodPct > 0 && (
-            <span className="text-[9px] font-bold text-[#FF9800] bg-black/50 py-1 px-2.5 rounded-xl backdrop-blur-md animate-[pulse_1.5s_ease-in-out_infinite] whitespace-nowrap">
+            <span className="animate-[pulse_1.5s_ease-in-out_infinite] rounded-xl bg-black/50 px-2.5 py-1 text-[9px] font-bold whitespace-nowrap text-[#FF9800] backdrop-blur-md">
               FIND FEEDER
             </span>
           )}
@@ -45,7 +45,7 @@ export default function HUD() {
           <span className="text-6xl font-black text-white">
             {Math.floor(score).toLocaleString()}
           </span>
-          <span className="text-xs text-white/50 font-medium">
+          <span className="text-xs font-medium text-white/50">
             {distance.toFixed(1)} km
           </span>
         </div>
@@ -59,7 +59,7 @@ export default function HUD() {
             icon="💧"
           />
           {waterPct < RESOURCE_WARNING_THRESHOLD && waterPct > 0 && (
-            <span className="text-[9px] font-bold text-[#4FC3F7] bg-black/50 py-1 px-2.5 rounded-xl backdrop-blur-md animate-[pulse_1.5s_ease-in-out_infinite] whitespace-nowrap">
+            <span className="animate-[pulse_1.5s_ease-in-out_infinite] rounded-xl bg-black/50 px-2.5 py-1 text-[9px] font-bold whitespace-nowrap text-[#4FC3F7] backdrop-blur-md">
               FIND BATH
             </span>
           )}
@@ -76,7 +76,7 @@ function ResourceCircle({
   value,
   color,
   bgColor,
-  icon,
+  icon
 }: {
   value: number;
   color: string;
@@ -126,20 +126,20 @@ function ResourceCircle({
 }
 
 function FeedingIndicator({ gameState }: { gameState: string }) {
-  const threatMeter = useGameStore(s => s.threatMeter);
+  const threatMeter = useGameStore((s) => s.threatMeter);
   const label = gameState === 'feeding' ? 'EATING' : 'DRINKING';
   const color = gameState === 'feeding' ? '#4CAF50' : '#00AEEF';
 
   return (
-    <div className="absolute top-[120px] left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
+    <div className="absolute top-[120px] left-1/2 flex -translate-x-1/2 flex-col items-center gap-2">
       <span
-        className="text-[10px] font-bold py-1 px-3.5 rounded-xl backdrop-blur-lg"
+        className="rounded-xl px-3.5 py-1 text-[10px] font-bold backdrop-blur-lg"
         style={{ background: `${color}30`, color }}
       >
         {label}
       </span>
 
-      <div className="w-40 h-1.5 bg-black/40 rounded-[3px] overflow-hidden backdrop-blur-md">
+      <div className="h-1.5 w-40 overflow-hidden rounded-[3px] bg-black/40 backdrop-blur-md">
         <div
           className="h-full rounded-[3px] transition-[width] duration-200"
           style={{
@@ -149,12 +149,12 @@ function FeedingIndicator({ gameState }: { gameState: string }) {
                 ? '#FF3D00'
                 : threatMeter > 30
                   ? '#FF9800'
-                  : '#4CAF50',
+                  : '#4CAF50'
           }}
         />
       </div>
       {threatMeter > 30 && (
-        <span className="text-[10px] text-[#FF3D00] font-bold animate-[pulse_0.8s_ease-in-out_infinite] pointer-events-auto">
+        <span className="pointer-events-auto animate-[pulse_0.8s_ease-in-out_infinite] text-[10px] font-bold text-[#FF3D00]">
           DANGER — TAP TO FLY AWAY
         </span>
       )}

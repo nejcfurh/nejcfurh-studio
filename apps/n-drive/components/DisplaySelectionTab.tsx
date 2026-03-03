@@ -3,7 +3,7 @@ import { GridIcon, Rows2Icon } from 'lucide-react';
 
 const DisplaySelectionTab = ({
   display,
-  handleChange,
+  handleChange
 }: {
   display: 'grid' | 'table';
   handleChange: (display: 'grid' | 'table') => void;

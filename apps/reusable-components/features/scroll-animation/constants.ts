@@ -12,5 +12,5 @@ export const MULTI_COLUMN_SCROLL_IMAGES = [
   '/images/scroll-animation/img-9.jpg',
   '/images/scroll-animation/img-10.jpg',
   '/images/scroll-animation/img-11.jpg',
-  '/images/scroll-animation/img-12.jpg',
+  '/images/scroll-animation/img-12.jpg'
 ];

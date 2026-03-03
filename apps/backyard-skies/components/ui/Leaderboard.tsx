@@ -3,23 +3,23 @@ import { BiChevronLeft } from 'react-icons/bi';
 
 const Leaderboard = ({
   handleBack,
-  leaderboard,
+  leaderboard
 }: {
   handleBack: () => void;
   leaderboard: LeaderboardEntry[];
 }) => {
   return (
-    <div className="fixed inset-0 z-60 flex flex-col bg-[url('/menu-bg.jpg')] bg-no-repeat bg-center bg-cover bg-fixed">
-      <div className="flex flex-col h-full pt-6 px-6">
+    <div className="fixed inset-0 z-60 flex flex-col bg-[url('/menu-bg.jpg')] bg-cover bg-fixed bg-center bg-no-repeat">
+      <div className="flex h-full flex-col px-6 pt-6">
         {/* HEADER */}
-        <div className="relative flex items-center justify-center mb-6">
+        <div className="relative mb-6 flex items-center justify-center">
           <button
             onClick={handleBack}
-            className="absolute left-0 w-10 h-10 rounded-full flex items-center justify-center bg-black/8 border border-black/10 text-black text-lg cursor-pointer"
+            className="absolute left-0 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-black/10 bg-black/8 text-lg text-black"
           >
             <BiChevronLeft />
           </button>
-          <span className="text-lg font-bold text-black/70 tracking-[0.25em] uppercase">
+          <span className="text-lg font-bold tracking-[0.25em] text-black/70 uppercase">
             All Rankings
           </span>
         </div>
@@ -34,20 +34,20 @@ const Leaderboard = ({
               {leaderboard.map((entry, i) => (
                 <div
                   key={i}
-                  className={`flex items-center justify-between px-4 py-3 rounded-2xl ${
+                  className={`flex items-center justify-between rounded-2xl px-4 py-3 ${
                     i < 3
-                      ? 'bg-[rgba(255,215,0,0.15)] border border-[rgba(255,215,0,0.2)]'
-                      : 'bg-black/40 border border-white/6'
+                      ? 'border border-[rgba(255,215,0,0.2)] bg-[rgba(255,215,0,0.15)]'
+                      : 'border border-white/6 bg-black/40'
                   } backdrop-blur-xl`}
                 >
                   <div className="flex items-center gap-3">
                     <span
-                      className={`text-lg font-bold w-7 ${i < 3 ? 'text-[#FFD700]' : 'text-white/50'}`}
+                      className={`w-7 text-lg font-bold ${i < 3 ? 'text-[#FFD700]' : 'text-white/50'}`}
                     >
                       {i + 1}.
                     </span>
                     <div>
-                      <p className="text-base text-white font-medium">
+                      <p className="text-base font-medium text-white">
                         {entry.name}
                       </p>
                       <p className="text-xs text-white/50 capitalize">
@@ -56,7 +56,7 @@ const Leaderboard = ({
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className="text-base text-white font-bold">
+                    <p className="text-base font-bold text-white">
                       {Math.floor(entry.score).toLocaleString()}
                     </p>
                     <p className="text-xs text-white/40">
@@ -67,7 +67,7 @@ const Leaderboard = ({
               ))}
             </div>
           ) : (
-            <p className="text-[13px] text-white/20 text-center py-12">
+            <p className="py-12 text-center text-[13px] text-white/20">
               No flights yet. Be the first!
             </p>
           )}

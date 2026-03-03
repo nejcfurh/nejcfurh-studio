@@ -1,9 +1,9 @@
+import AnimatedDiv from '@/components/animation-core/AnimatedDiv';
+import AnimatedTitle from '@/components/animation-core/AnimatedTitle';
+import { AnimatePresence } from 'motion/react';
 import Image from 'next/image';
 import { useState } from 'react';
-import { AnimatePresence } from 'motion/react';
-import AnimatedTitle from '@/components/animation-core/AnimatedTitle';
 import { FaSpotify } from 'react-icons/fa6';
-import AnimatedDiv from '@/components/animation-core/AnimatedDiv';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const Card = ({ track }: { track: any }) => {
@@ -13,7 +13,7 @@ const Card = ({ track }: { track: any }) => {
     <AnimatedDiv
       onHoverStart={() => setShowOverlay(true)}
       onHoverEnd={() => setShowOverlay(false)}
-      className="relative w-56 h-56 rounded-2xl overflow-hidden"
+      className="relative h-56 w-56 overflow-hidden rounded-2xl"
     >
       <AnimatePresence>
         {showOverlay && (
@@ -22,15 +22,15 @@ const Card = ({ track }: { track: any }) => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="absolute inset-0 flex items-center z-10 justify-center"
+            className="absolute inset-0 z-10 flex items-center justify-center"
           >
-            <div className="absolute w-full h-full bg-black/50 pointer-events-none" />
+            <div className="pointer-events-none absolute h-full w-full bg-black/50" />
             <AnimatedTitle
               initial={{ y: 10 }}
               animate={{ y: 0 }}
               exit={{ y: 10 }}
               transition={{ duration: 0.3 }}
-              className="bg-white font-semibold text-sm rounded-full z-10 px-3 py-2 flex items-center gap-2 hover:opacity-75 text-black"
+              className="z-10 flex items-center gap-2 rounded-full bg-white px-3 py-2 text-sm font-semibold text-black hover:opacity-75"
             >
               <a
                 href={track.external_urls?.spotify || '#'}
@@ -51,7 +51,7 @@ const Card = ({ track }: { track: any }) => {
         alt={track.name}
         width={1000}
         height={1000}
-        className="w-full h-full object-cover"
+        className="h-full w-full object-cover"
       />
       <AnimatePresence>
         {!showOverlay && (
@@ -60,7 +60,7 @@ const Card = ({ track }: { track: any }) => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="p-4 absolute bottom-0 left-0 right-0 bg-linear-to-t from-black/90 to-transparent"
+            className="absolute right-0 bottom-0 left-0 bg-linear-to-t from-black/90 to-transparent p-4"
           >
             <h2 className="text-xs font-semibold">{track.name}</h2>
             <p className="text-sm text-white">{track.artists[0].name}</p>

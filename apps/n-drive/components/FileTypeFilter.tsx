@@ -3,13 +3,13 @@ import {
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue,
+  SelectValue
 } from '@/components/ui/select';
 import { Doc } from '@/convex/_generated/dataModel';
 
 const FileTypeFilter = ({
   handleChangeType,
-  fileType,
+  fileType
 }: {
   handleChangeType: (value: Doc<'files'>['type'] | 'all') => void;
   fileType: Doc<'files'>['type'] | 'all';

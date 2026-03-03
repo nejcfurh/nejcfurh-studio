@@ -1,10 +1,11 @@
 'use client';
 
 import { MULTI_COLUMN_SCROLL_IMAGES } from '@/features/scroll-animation/constants';
-import Column from './Column';
-import { useRef } from 'react';
-import { useScroll, useTransform } from 'motion/react';
 import { useDimension } from '@/hooks/useDimension';
+import { useScroll, useTransform } from 'motion/react';
+import { useRef } from 'react';
+
+import Column from './Column';
 
 const MultiColumnScroll = () => {
   const { height } = useDimension();
@@ -12,7 +13,7 @@ const MultiColumnScroll = () => {
 
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ['start end', 'end start'],
+    offset: ['start end', 'end start']
   });
 
   const y = useTransform(scrollYProgress, [0, 1], [0, height * 2]);
@@ -25,7 +26,7 @@ const MultiColumnScroll = () => {
       {/* GALLERY */}
       <div
         ref={ref}
-        className="h-[175vh] bg-[#454545] flex gap-[2vw] p-[2vw] box-border overflow-hidden"
+        className="box-border flex h-[175vh] gap-[2vw] overflow-hidden bg-[#454545] p-[2vw]"
       >
         <Column images={[...MULTI_COLUMN_SCROLL_IMAGES].slice(0, 3)} y={y} />
         <Column images={[...MULTI_COLUMN_SCROLL_IMAGES].slice(3, 6)} y={y2} />

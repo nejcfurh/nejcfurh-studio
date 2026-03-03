@@ -1,16 +1,16 @@
 'use client';
 
-import { useMemo, useRef, useState } from 'react';
-import { useFrame } from '@react-three/fiber';
+import { ObjMtlModel } from '@/components/scene/ObjMtlModel';
 import { useGameStore } from '@/store/gameStore';
 import { FeederData } from '@/types';
-import { ObjMtlModel } from '@/components/scene/ObjMtlModel';
+import { useFrame } from '@react-three/fiber';
+import { useMemo, useRef, useState } from 'react';
 import * as THREE from 'three';
 
 const dangerGlowMaterial = new THREE.ShaderMaterial({
   uniforms: {
     uColor: { value: new THREE.Color('#FF3D00') },
-    uTime: { value: 0 },
+    uTime: { value: 0 }
   },
   vertexShader: /* glsl */ `
     varying vec3 vNormal;
@@ -37,7 +37,7 @@ const dangerGlowMaterial = new THREE.ShaderMaterial({
   `,
   transparent: true,
   depthWrite: false,
-  side: THREE.FrontSide,
+  side: THREE.FrontSide
 });
 
 /** BASIN DISH WITH INDENTED BOTTOM EDGE (RECEDED RIM, NOT EXTRUDED). */
@@ -48,7 +48,7 @@ function createBasinGeometry(): THREE.LatheGeometry {
     new THREE.Vector2(1.08, 0.04),
     new THREE.Vector2(1.35, 0.1), // FLARE TO MAIN BOWL
     new THREE.Vector2(1.3, 0.2),
-    new THREE.Vector2(1.25, 0.25), // TOP RIM
+    new THREE.Vector2(1.25, 0.25) // TOP RIM
   ];
   return new THREE.LatheGeometry(pts, 32);
 }
@@ -58,7 +58,7 @@ function createRoundedStripGeometry(
   width: number,
   height: number,
   depth: number,
-  cornerRadius: number,
+  cornerRadius: number
 ): THREE.ExtrudeGeometry {
   const shape = new THREE.Shape();
   const r = Math.min(cornerRadius, width / 2, height / 2);
@@ -83,13 +83,15 @@ interface FeederProps {
 export default function Feeder({ data }: FeederProps) {
   const glowRef = useRef<THREE.Mesh>(null);
   const markerRef = useRef<THREE.Group>(null);
-  const position = useGameStore(s => s.position);
+  const position = useGameStore((s) => s.position);
   const [isLocked, setIsLocked] = useState(false);
   const prevLockedRef = useRef(false);
 
   const glowMat = useMemo(() => {
     const mat = dangerGlowMaterial.clone();
-    mat.uniforms.uColor.value = new THREE.Color(data.hasCat ? '#FF3D00' : '#FF9800');
+    mat.uniforms.uColor.value = new THREE.Color(
+      data.hasCat ? '#FF3D00' : '#FF9800'
+    );
     return mat;
   }, [data.hasCat]);
 
@@ -215,7 +217,7 @@ export function BirdbuddyFeeder() {
         position={[-0.125, 1.95, 0.3]}
         geometry={useMemo(
           () => createRoundedStripGeometry(0.25, 0.6, 0.02, 0.5),
-          [],
+          []
         )}
       >
         <meshStandardMaterial color="#E8E4E0" roughness={0.3} metalness={0.1} />
@@ -249,7 +251,7 @@ export function BirdbuddyFeeder() {
         <meshStandardMaterial color="#f33737" roughness={0.6} />
       </mesh>
       {/* TRAY LIP - SIDES */}
-      {[-1, 1].map(side => (
+      {[-1, 1].map((side) => (
         <mesh key={`tl${side}`} position={[side * 0.48, 1.8, 0.44]}>
           <boxGeometry args={[0.06, 0.06, 0.8]} />
           <meshStandardMaterial color="#f33737" roughness={0.6} />
@@ -269,7 +271,7 @@ export function BirdbuddyFeeder() {
           key: `ts${i}`,
           x: xMin + rng() * (xMax - xMin),
           z: zMin + rng() * (zMax - zMin),
-          color: colors[i % 3],
+          color: colors[i % 3]
         }));
       }, []).map(({ key, x, z, color }) => (
         <mesh key={key} position={[x, 1.82, z]}>
@@ -360,7 +362,7 @@ export function BirdbuddyBath() {
           position={[-0.09, 0.19, 0.22]}
           geometry={useMemo(
             () => createRoundedStripGeometry(0.18, 0.45, 0.04, 0.5),
-            [],
+            []
           )}
         >
           <meshStandardMaterial

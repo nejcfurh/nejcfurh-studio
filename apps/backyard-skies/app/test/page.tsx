@@ -1,12 +1,11 @@
 'use client';
 
-import { Canvas } from '@react-three/fiber';
-import { OrbitControls, Grid } from '@react-three/drei';
-import { BirdbuddyFeeder, BirdbuddyBath } from '@/components/scene/Feeder';
-import { ObjMtlModel } from '@/components/scene/ObjMtlModel';
+import { BirdbuddyBath, BirdbuddyFeeder } from '@/components/scene/Feeder';
 import GltfBirdModel from '@/components/scene/GltfBirdModel';
-import { useState, Suspense, useMemo } from 'react';
-import { useGLTF } from '@react-three/drei';
+import { ObjMtlModel } from '@/components/scene/ObjMtlModel';
+import { Grid, OrbitControls, useGLTF } from '@react-three/drei';
+import { Canvas } from '@react-three/fiber';
+import { Suspense, useMemo, useState } from 'react';
 
 export default function TestPage() {
   const [showFeeder, setShowFeeder] = useState(true);
@@ -36,7 +35,7 @@ export default function TestPage() {
           gap: '8px',
           color: 'white',
           fontSize: '13px',
-          fontFamily: 'monospace',
+          fontFamily: 'monospace'
         }}
       >
         <span style={{ fontWeight: 'bold', fontSize: '14px', marginBottom: 4 }}>
@@ -47,7 +46,7 @@ export default function TestPage() {
             display: 'flex',
             alignItems: 'center',
             gap: 8,
-            cursor: 'pointer',
+            cursor: 'pointer'
           }}
         >
           <input
@@ -62,7 +61,7 @@ export default function TestPage() {
             display: 'flex',
             alignItems: 'center',
             gap: 8,
-            cursor: 'pointer',
+            cursor: 'pointer'
           }}
         >
           <input
@@ -77,7 +76,7 @@ export default function TestPage() {
             display: 'flex',
             alignItems: 'center',
             gap: 8,
-            cursor: 'pointer',
+            cursor: 'pointer'
           }}
         >
           <input
@@ -92,7 +91,7 @@ export default function TestPage() {
             display: 'flex',
             alignItems: 'center',
             gap: 8,
-            cursor: 'pointer',
+            cursor: 'pointer'
           }}
         >
           <input
@@ -107,7 +106,7 @@ export default function TestPage() {
             display: 'flex',
             alignItems: 'center',
             gap: 8,
-            cursor: 'pointer',
+            cursor: 'pointer'
           }}
         >
           <input
@@ -122,7 +121,7 @@ export default function TestPage() {
             display: 'flex',
             alignItems: 'center',
             gap: 8,
-            cursor: 'pointer',
+            cursor: 'pointer'
           }}
         >
           <input
@@ -137,7 +136,7 @@ export default function TestPage() {
             display: 'flex',
             alignItems: 'center',
             gap: 8,
-            cursor: 'pointer',
+            cursor: 'pointer'
           }}
         >
           <input
@@ -156,7 +155,7 @@ export default function TestPage() {
               max="50"
               step="0.1"
               value={grassScale}
-              onChange={e => setGrassScale(parseFloat(e.target.value))}
+              onChange={(e) => setGrassScale(parseFloat(e.target.value))}
               style={{ width: 100 }}
             />
           </label>
@@ -165,7 +164,7 @@ export default function TestPage() {
           style={{
             border: 'none',
             borderTop: '1px solid rgba(255,255,255,0.15)',
-            margin: '4px 0',
+            margin: '4px 0'
           }}
         />
         <button
@@ -181,7 +180,7 @@ export default function TestPage() {
             color: 'white',
             fontWeight: 'bold',
             cursor: 'pointer',
-            fontSize: 13,
+            fontSize: 13
           }}
         >
           Flap GLTF Bird
@@ -310,7 +309,7 @@ function GrassTestModel({ scale }: { scale: number }) {
 function HeightMarker({
   y,
 
-  color = '#69db7c',
+  color = '#69db7c'
 }: {
   y: number;
 

@@ -1,25 +1,26 @@
 import { BiChevronLeft } from 'react-icons/bi';
+
 import TipSection from './TipSection';
 
 const Tips = ({ handleBack }: { handleBack: () => void }) => {
   return (
-    <div className="fixed inset-0 z-50 flex flex-col bg-[url('/menu-bg.jpg')] bg-no-repeat bg-center bg-cover bg-fixed">
-      <div className="flex flex-col h-full pt-7.5 px-6">
-        <div className="relative flex items-center justify-center mb-6">
+    <div className="fixed inset-0 z-50 flex flex-col bg-[url('/menu-bg.jpg')] bg-cover bg-fixed bg-center bg-no-repeat">
+      <div className="flex h-full flex-col px-6 pt-7.5">
+        <div className="relative mb-6 flex items-center justify-center">
           <button
             onClick={handleBack}
-            className="absolute left-0 w-10 h-10 rounded-full flex items-center justify-center bg-black/8 border border-black/10 text-black text-lg cursor-pointer"
+            className="absolute left-0 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-black/10 bg-black/8 text-lg text-black"
           >
             <BiChevronLeft />
           </button>
-          <span className="text-lg font-bold text-black/70 tracking-[0.25em] uppercase">
+          <span className="text-lg font-bold tracking-[0.25em] text-black/70 uppercase">
             Tips & Tricks
           </span>
         </div>
 
         <div
           style={{ scrollbarWidth: 'none' }}
-          className="flex-1 overflow-auto flex flex-col gap-3"
+          className="flex flex-1 flex-col gap-3 overflow-auto"
         >
           <TipSection title="Flying" icon="🕊">
             <li>Tap the screen to flap and gain altitude</li>

@@ -1,12 +1,13 @@
 import { seededRandom } from '@/utils/seededRandom';
+
 import {
   CHUNK_SIZE,
-  HOUSES_PER_CHUNK,
-  TREES_PER_CHUNK,
-  HOUSE_MODELS,
-  ROOF_COLORS,
-  WALL_COLORS,
   FENCE_COLORS,
+  HOUSE_MODELS,
+  HOUSES_PER_CHUNK,
+  ROOF_COLORS,
+  TREES_PER_CHUNK,
+  WALL_COLORS
 } from './chunkConstants';
 
 export interface HouseData {
@@ -78,7 +79,7 @@ export function generateChunkData(cx: number, cz: number): ChunkData {
         rot: sz > 0 ? Math.PI : 0,
         fenceColor: FENCE_COLORS[Math.floor(rng() * FENCE_COLORS.length)],
         hasPatio: rng() > 0.65,
-        modelIndex: Math.floor(rng() * HOUSE_MODELS.length),
+        modelIndex: Math.floor(rng() * HOUSE_MODELS.length)
       });
     }
   } else {
@@ -98,7 +99,7 @@ export function generateChunkData(cx: number, cz: number): ChunkData {
         rot: side > 0 ? Math.PI : 0,
         fenceColor: FENCE_COLORS[Math.floor(rng() * FENCE_COLORS.length)],
         hasPatio: rng() > 0.65,
-        modelIndex: Math.floor(rng() * HOUSE_MODELS.length),
+        modelIndex: Math.floor(rng() * HOUSE_MODELS.length)
       });
     }
   }
@@ -111,7 +112,7 @@ export function generateChunkData(cx: number, cz: number): ChunkData {
       x: (rng() - 0.5) * CHUNK_SIZE,
       z: (rng() - 0.5) * CHUNK_SIZE,
       height: 3 + rng() * 4,
-      type: types[Math.floor(rng() * types.length)],
+      type: types[Math.floor(rng() * types.length)]
     });
   }
 
@@ -123,7 +124,7 @@ export function generateChunkData(cx: number, cz: number): ChunkData {
         x: houses[i].x + (rng() - 0.5) * 3,
         z: houses[i].z + (rng() > 0.5 ? 4 : -4),
         rot: houses[i].rot,
-        w: 1.5 + rng() * 2,
+        w: 1.5 + rng() * 2
       });
     }
   }
@@ -133,6 +134,6 @@ export function generateChunkData(cx: number, cz: number): ChunkData {
     hasRoadZ,
     houses,
     trees,
-    gardenBeds,
+    gardenBeds
   };
 }

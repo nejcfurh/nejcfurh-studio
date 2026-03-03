@@ -1,6 +1,6 @@
 const FloatingParticles = () => {
   return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+    <div className="pointer-events-none absolute inset-0 overflow-hidden">
       {[...Array(100)].map((_, i) => (
         <div
           key={i}
@@ -11,7 +11,7 @@ const FloatingParticles = () => {
             left: `${(i * 17) % 100}%`,
             top: `${(i * 23) % 100}%`,
             animation: `float-particle ${3 + (i % 4)}s ease-in-out infinite`,
-            animationDelay: `${(i * 0.3) % 3}s`,
+            animationDelay: `${(i * 0.3) % 3}s`
           }}
         />
       ))}

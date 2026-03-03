@@ -1,5 +1,7 @@
 import BackButton from '@/components/buttons/BackButton';
+
 import TransformingCards from './components/TransformingCards';
+
 import './transforming-cards.css';
 
 export default function Home() {

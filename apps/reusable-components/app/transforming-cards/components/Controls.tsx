@@ -2,7 +2,7 @@ const Controls = ({
   toggleAnimation,
   resetPosition,
   changeDirection,
-  isAnimating,
+  isAnimating
 }: {
   toggleAnimation: () => void;
   resetPosition: () => void;
@@ -10,9 +10,9 @@ const Controls = ({
   isAnimating: boolean;
 }) => {
   return (
-    <div className="z-10 top-5 left-1/2 -translate-x-1/2 absolute flex flex-row gap-4">
+    <div className="absolute top-5 left-1/2 z-10 flex -translate-x-1/2 flex-row gap-4">
       <button
-        className="control-btn border border-amber-50/50 "
+        className="control-btn border border-amber-50/50"
         onClick={toggleAnimation}
       >
         <span>{isAnimating ? 'Pause' : 'Play'}</span>

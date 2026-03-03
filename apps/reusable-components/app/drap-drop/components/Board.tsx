@@ -1,7 +1,8 @@
-import { useState } from 'react';
-import Column from './Column';
-import { CardDataType } from '@/features/drag-drop/types';
 import { CARD_DATA } from '@/features/drag-drop/constants';
+import { CardDataType } from '@/features/drag-drop/types';
+import { useState } from 'react';
+
+import Column from './Column';
 import DeleteArea from './DeleteArea';
 import Header from './Header';
 
@@ -9,7 +10,7 @@ const Board = () => {
   const [cards, setCards] = useState<CardDataType[]>(CARD_DATA);
 
   return (
-    <div className="flex flex-col h-screen w-full py-10 justify-start gap-3">
+    <div className="flex h-screen w-full flex-col justify-start gap-3 py-10">
       <Header />
       <div className="flex w-full justify-center gap-3">
         <Column

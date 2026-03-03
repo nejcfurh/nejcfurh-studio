@@ -1,27 +1,30 @@
-import { create } from 'zustand';
-import {
-  BirdSpeciesId,
-  GameState,
-  ThreatType,
-  DeathReason,
-  LeaderboardEntry,
-  FeederData,
-} from '@/types';
+import { audioManager } from '@/lib/audioManager';
 import { BIRD_SPECIES } from '@/lib/birdSpecies';
 import {
-  SCORE_FEED_BONUS,
+  cullDistantFeeders,
+  generateFeeders,
+  spawnNearbyFeeders
+} from '@/lib/feederManager';
+import {
+  loadLeaderboardFromStorage,
+  saveLeaderboardEntry
+} from '@/lib/leaderboard';
+import { computePerchPosition } from '@/lib/perchPositions';
+import {
+  BirdSpeciesId,
+  DeathReason,
+  FeederData,
+  GameState,
+  LeaderboardEntry,
+  ThreatType
+} from '@/types';
+import {
+  DISTANCE_PER_UNIT,
   SCORE_DRINK_BONUS,
   SCORE_EAGLE_DODGE_BONUS,
-  DISTANCE_PER_UNIT,
+  SCORE_FEED_BONUS
 } from '@/utils/constants';
-import { audioManager } from '@/lib/audioManager';
-import {
-  generateFeeders,
-  cullDistantFeeders,
-  spawnNearbyFeeders,
-} from '@/lib/feederManager';
-import { computePerchPosition } from '@/lib/perchPositions';
-import { loadLeaderboardFromStorage, saveLeaderboardEntry } from '@/lib/leaderboard';
+import { create } from 'zustand';
 
 interface GameStore {
   // Game state
@@ -125,7 +128,6 @@ interface GameStore {
   saveScore: (name: string) => void;
 }
 
-
 export const useGameStore = create<GameStore>((set, get) => ({
   // Initial state
   gameState: 'menu',
@@ -174,17 +176,21 @@ export const useGameStore = create<GameStore>((set, get) => ({
   feedingScore: 0,
 
   // Initialize audio mute state from stored preference
-  ...(typeof window !== 'undefined' && localStorage.getItem('backyard-skies-muted') === 'true'
-    ? (() => { audioManager.setMuted(true); return {}; })()
+  ...(typeof window !== 'undefined' &&
+  localStorage.getItem('backyard-skies-muted') === 'true'
+    ? (() => {
+        audioManager.setMuted(true);
+        return {};
+      })()
     : {}),
 
   // State transitions
-  setGameState: state => {
+  setGameState: (state) => {
     audioManager.stopAllLoops();
     set({ gameState: state });
   },
 
-  selectSpecies: species => set({ selectedSpecies: species }),
+  selectSpecies: (species) => set({ selectedSpecies: species }),
 
   startGame: () => {
     audioManager.stopAllLoops();
@@ -217,7 +223,7 @@ export const useGameStore = create<GameStore>((set, get) => ({
       isPaused: false,
       deathReason: null,
       eagleDodges: 0,
-      feedingScore: 0,
+      feedingScore: 0
     });
   },
 
@@ -227,7 +233,7 @@ export const useGameStore = create<GameStore>((set, get) => ({
   },
   resumeGame: () => set({ isPaused: false }),
 
-  gameOver: reason => {
+  gameOver: (reason) => {
     set({ gameState: 'dying', deathReason: reason || null });
     audioManager.stopAllLoops();
     audioManager.play('death');
@@ -237,7 +243,10 @@ export const useGameStore = create<GameStore>((set, get) => ({
     const { score, distance, selectedSpecies, playerName } = get();
     set({ gameState: 'game-over' });
     const leaderboard = saveLeaderboardEntry(
-      playerName || 'Player', selectedSpecies, score, distance,
+      playerName || 'Player',
+      selectedSpecies,
+      score,
+      distance
     );
     set({ leaderboard });
   },
@@ -249,7 +258,7 @@ export const useGameStore = create<GameStore>((set, get) => ({
       stamina,
       gameState,
       eagleDodgeWindow,
-      eagleDodgeTaps,
+      eagleDodgeTaps
     } = get();
     if (flapCooldown > 0 || stamina <= 0) return;
     if (gameState !== 'flight') return;
@@ -261,57 +270,57 @@ export const useGameStore = create<GameStore>((set, get) => ({
     setTimeout(() => set({ isFlapping: false }), 200);
   },
 
-  setRotation: rotation => set({ rotation }),
-  updatePosition: position => set({ position }),
-  updateVelocity: velocity => set({ velocity }),
-  setFlapCooldown: cooldown => set({ flapCooldown: cooldown }),
+  setRotation: (rotation) => set({ rotation }),
+  updatePosition: (position) => set({ position }),
+  updateVelocity: (velocity) => set({ velocity }),
+  setFlapCooldown: (cooldown) => set({ flapCooldown: cooldown }),
 
   // Resources
-  depleteFood: amount => {
+  depleteFood: (amount) => {
     const food = Math.max(0, get().food - amount);
     set({ food });
     if (food <= 0) get().gameOver('food');
   },
 
-  depleteWater: amount => {
+  depleteWater: (amount) => {
     const water = Math.max(0, get().water - amount);
     set({ water });
     if (water <= 0) get().gameOver('water');
   },
 
-  depleteStamina: amount =>
+  depleteStamina: (amount) =>
     set({ stamina: Math.max(0, get().stamina - amount) }),
 
-  replenishFood: amount => {
+  replenishFood: (amount) => {
     const species = BIRD_SPECIES[get().selectedSpecies];
     set({ food: Math.min(species.attributes.maxFood, get().food + amount) });
   },
 
-  replenishWater: amount => {
+  replenishWater: (amount) => {
     const species = BIRD_SPECIES[get().selectedSpecies];
     set({ water: Math.min(species.attributes.maxWater, get().water + amount) });
   },
 
-  replenishStamina: amount => {
+  replenishStamina: (amount) => {
     const species = BIRD_SPECIES[get().selectedSpecies];
     set({
-      stamina: Math.min(species.attributes.stamina, get().stamina + amount),
+      stamina: Math.min(species.attributes.stamina, get().stamina + amount)
     });
   },
 
-  addScore: amount => set({ score: get().score + amount }),
+  addScore: (amount) => set({ score: get().score + amount }),
 
-  addDistance: amount =>
+  addDistance: (amount) =>
     set({ distance: get().distance + amount * DISTANCE_PER_UNIT }),
 
   // Threats
-  setThreat: type => set({ threatType: type }),
-  setThreatMeter: value =>
+  setThreat: (type) => set({ threatType: type }),
+  setThreatMeter: (value) =>
     set({ threatMeter: Math.min(100, Math.max(0, value)) }),
-  setThreatWarning: active => set({ threatWarningActive: active }),
-  setEagleTimer: time => set({ eagleTimer: time }),
-  setEagleDodgeWindow: time => set({ eagleDodgeWindow: time }),
-  setEagleAltitudeHunt: active => set({ eagleAltitudeHunt: active }),
+  setThreatWarning: (active) => set({ threatWarningActive: active }),
+  setEagleTimer: (time) => set({ eagleTimer: time }),
+  setEagleDodgeWindow: (time) => set({ eagleDodgeWindow: time }),
+  setEagleAltitudeHunt: (active) => set({ eagleAltitudeHunt: active }),
 
   dodgeEagle: () => {
     set({
@@ -320,14 +329,14 @@ export const useGameStore = create<GameStore>((set, get) => ({
       eagleDodgeWindow: 0,
       eagleAltitudeHunt: false,
       eagleTimer: 30 + Math.random() * 60,
-      eagleDodges: get().eagleDodges + 1,
+      eagleDodges: get().eagleDodges + 1
     });
     get().addScore(SCORE_EAGLE_DODGE_BONUS);
     audioManager.play('dodge');
   },
 
   // Feeders
-  landOnFeeder: feeder => {
+  landOnFeeder: (feeder) => {
     const newState = feeder.type === 'feeder' ? 'feeding' : 'drinking';
     const perch = computePerchPosition(feeder);
 
@@ -338,7 +347,7 @@ export const useGameStore = create<GameStore>((set, get) => ({
       perchTime: 0,
       position: perch.position,
       rotation: perch.rotation,
-      velocity: [0, 0, 0],
+      velocity: [0, 0, 0]
     });
     audioManager.stopLoop('wind');
     const soundName = feeder.type === 'feeder' ? 'eat' : 'drink';
@@ -354,8 +363,8 @@ export const useGameStore = create<GameStore>((set, get) => ({
       activeFeeder.type === 'feeder' ? SCORE_FEED_BONUS : SCORE_DRINK_BONUS;
     // Lock this feeder for 60 seconds (predator assumed nearby)
     const lockTime = Date.now() + 60_000;
-    const updatedFeeders = feeders.map(f =>
-      f.id === activeFeeder.id ? { ...f, lockedUntil: lockTime } : f,
+    const updatedFeeders = feeders.map((f) =>
+      f.id === activeFeeder.id ? { ...f, lockedUntil: lockTime } : f
     );
     set({
       gameState: 'flight',
@@ -366,13 +375,13 @@ export const useGameStore = create<GameStore>((set, get) => ({
       feederCooldown: 1.5,
       feeders: updatedFeeders,
       position: [position[0], position[1] + 5, position[2]],
-      velocity: [0, 3, 0],
+      velocity: [0, 3, 0]
     });
     get().addScore(bonus);
     set({ feedingScore: get().feedingScore + bonus });
   },
 
-  setFeederCooldown: time => set({ feederCooldown: time }),
+  setFeederCooldown: (time) => set({ feederCooldown: time }),
 
   refreshFeeders: () => {
     const { position, feeders } = get();
@@ -383,18 +392,20 @@ export const useGameStore = create<GameStore>((set, get) => ({
     } else {
       // Maintain density with incremental spawning
       const withSpawns = spawnNearbyFeeders(
-        culled, position[0], position[2],
+        culled,
+        position[0],
+        position[2],
         /* targetCount */ 4,
         /* spawnDistance */ 50,
         /* minSpacing */ 15,
-        /* seedBase */ Date.now(),
+        /* seedBase */ Date.now()
       );
       set({ feeders: withSpawns });
     }
   },
 
   // Player profile
-  setPlayerName: name => {
+  setPlayerName: (name) => {
     localStorage.setItem('backyard-skies-name', name);
     set({ playerName: name });
   },
@@ -409,9 +420,14 @@ export const useGameStore = create<GameStore>((set, get) => ({
   // Leaderboard
   loadLeaderboard: () => set({ leaderboard: loadLeaderboardFromStorage() }),
 
-  saveScore: name => {
+  saveScore: (name) => {
     const { score, distance, selectedSpecies } = get();
-    const leaderboard = saveLeaderboardEntry(name, selectedSpecies, score, distance);
+    const leaderboard = saveLeaderboardEntry(
+      name,
+      selectedSpecies,
+      score,
+      distance
+    );
     set({ leaderboard });
-  },
+  }
 }));

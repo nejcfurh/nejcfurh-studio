@@ -1,9 +1,9 @@
 'use client';
 
-import { useRef, useState, MouseEvent, TouchEvent, useEffect } from 'react';
+import ItemsList from '@/app/staggered-animation/components/ItemsList';
 import { motion, MotionStyle, useMotionValue, useSpring } from 'motion/react';
 import Image from 'next/image';
-import ItemsList from '@/app/staggered-animation/components/ItemsList';
+import { MouseEvent, TouchEvent, useEffect, useRef, useState } from 'react';
 
 interface HolographicCardProps {
   name: string;
@@ -18,7 +18,7 @@ export default function HolographicCard({
   title,
   imageUrl,
   logo,
-  className = '',
+  className = ''
 }: HolographicCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [isFlipped, setIsFlipped] = useState(false);
@@ -110,10 +110,10 @@ export default function HolographicCard({
   };
 
   return (
-    <div className="perspective-distant w-80 h-120 sm:w-96 sm:h-144 ">
+    <div className="h-120 w-80 perspective-distant sm:h-144 sm:w-96">
       <motion.div
         ref={cardRef}
-        className={`holographic-card relative w-full h-full will-change-transform cursor-pointer transform-3d overflow-hidden ${className}`}
+        className={`holographic-card relative h-full w-full cursor-pointer overflow-hidden will-change-transform transform-3d ${className}`}
         data-active={isActive}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
@@ -124,7 +124,7 @@ export default function HolographicCard({
             rotateX,
             rotateY,
             '--pointer-x': pointerX,
-            '--pointer-y': pointerY,
+            '--pointer-y': pointerY
           } as unknown as MotionStyle
         }
         initial={{ opacity: 0, scale: 0.8 }}
@@ -135,34 +135,34 @@ export default function HolographicCard({
           onClick={handleFlip}
           aria-label="Flip card"
           aria-pressed={isFlipped}
-          className="absolute inset-0 z-100 cursor-pointer opacity-0 bg-none border-none"
+          className="absolute inset-0 z-100 cursor-pointer border-none bg-none opacity-0"
         />
 
         <motion.div
-          className="relative w-full h-full transform-3d"
+          className="relative h-full w-full transform-3d"
           animate={{ rotateY: isFlipped ? 180 : 0 }}
           transition={{ duration: 0.6, ease: 'easeOut' }}
           style={{ transformStyle: 'preserve-3d' }}
         >
           {/* CARD REAR */}
           <div
-            className="absolute inset-0 backface-hidden rounded-2xl bg-linear-to-br from-black via-slate-900 to-black flex items-center justify-center transform-[rotateY(180deg)] overflow-hidden"
+            className="absolute inset-0 flex transform-[rotateY(180deg)] items-center justify-center overflow-hidden rounded-2xl bg-linear-to-br from-black via-slate-900 to-black backface-hidden"
             style={{
               backfaceVisibility: 'hidden',
               WebkitBackfaceVisibility: 'hidden',
               visibility: isFlipped ? 'visible' : 'hidden',
-              transition: 'visibility 0.5s',
+              transition: 'visibility 0.5s'
             }}
           >
             {isFlipped && (
-              <div className="relative w-full h-full flex flex-col items-center justify-center p-8">
+              <div className="relative flex h-full w-full flex-col items-center justify-center p-8">
                 {/* TITLE */}
                 <motion.h2
-                  className="text-xl sm:text-3xl text-gray-200 mb-3 sm:mb-8 tracking-wider font-light"
+                  className="mb-3 text-xl font-light tracking-wider text-gray-200 sm:mb-8 sm:text-3xl"
                   initial={{ opacity: 0, y: -20 }}
                   animate={{
                     opacity: isFlipped ? 1 : 0,
-                    y: isFlipped ? 0 : -20,
+                    y: isFlipped ? 0 : -20
                   }}
                   transition={{ delay: 0.3 }}
                 >
@@ -170,14 +170,14 @@ export default function HolographicCard({
                 </motion.h2>
                 {/* GRID */}
                 <ItemsList
-                  className="grid grid-cols-2 gap-3 w-full max-w-sm text-gray-200"
+                  className="grid w-full max-w-sm grid-cols-2 gap-3 text-gray-200"
                   classNameItems="relative text-xs sm:text-sm rounded-xl p-1 flex gap-2 items-center justify-center border border-white/30"
                 />
               </div>
             )}
 
             {/* LOGO ELEMENTS */}
-            <div className="absolute scale-90 sm:scale-100 sm:top-4 sm:right-4 right-2 top-2 z-60 pointer-events-none">
+            <div className="pointer-events-none absolute top-2 right-2 z-60 scale-90 sm:top-4 sm:right-4 sm:scale-100">
               <Image
                 src="/images/tilt-card/Logo.png"
                 alt="Logo Alt"
@@ -186,7 +186,7 @@ export default function HolographicCard({
                 priority
               />
             </div>
-            <div className="absolute scale-90 sm:scale-100 sm:bottom-4 sm:left-4 bottom-2 left-2 z-60 pointer-events-none">
+            <div className="pointer-events-none absolute bottom-2 left-2 z-60 scale-90 sm:bottom-4 sm:left-4 sm:scale-100">
               <Image
                 src="/images/tilt-card/Logo.png"
                 alt="Logo Alt"
@@ -197,17 +197,17 @@ export default function HolographicCard({
             </div>
 
             {/* BORDER */}
-            <div className="absolute inset-0 border-[5px] border-white/30 rounded-2xl pointer-events-none z-50 shadow-[0_10px_30px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.1)]" />
+            <div className="pointer-events-none absolute inset-0 z-50 rounded-2xl border-[5px] border-white/30 shadow-[0_10px_30px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.1)]" />
           </div>
 
           {/* CARD FRONT */}
           <div
-            className="absolute inset-0 backface-hidden rounded-2xl bg-black overflow-hidden"
+            className="absolute inset-0 overflow-hidden rounded-2xl bg-black backface-hidden"
             style={{
               backfaceVisibility: 'hidden',
               WebkitBackfaceVisibility: 'hidden',
               visibility: isFlipped ? 'hidden' : 'visible',
-              transition: 'visibility 0.5s',
+              transition: 'visibility 0.5s'
             }}
           >
             {/* BASE IMAGE LAYER */}
@@ -215,7 +215,7 @@ export default function HolographicCard({
               <Image
                 src={imageUrl}
                 alt={name}
-                className="absolute bottom-[-10] w-full h-full object-cover scale-x-[1.04]"
+                className="absolute bottom-[-10] h-full w-full scale-x-[1.04] object-cover"
                 width={2500}
                 height={2000}
                 priority
@@ -232,17 +232,17 @@ export default function HolographicCard({
             </div>
 
             {/* DETAILS LAYER */}
-            <div className="card__details p-6 flex flex-col justify-between pointer-events-none">
+            <div className="card__details pointer-events-none flex flex-col justify-between p-6">
               <motion.div
                 className="text-right [text-shadow:2px_2px_4px_rgba(0,0,0,0.5)]"
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: isActive ? 1 : 0, y: isActive ? 0 : -20 }}
                 transition={{ delay: 1 }}
               >
-                <h3 className="text-3xl sm:text-5xl font-bold m-0 text-white line-height-1 [text-shadow:-1px_-1px_0_#000,1px_-1px_0_#000,-1px_1px_0_#000,1px_1px_0_#000,2px_2px_8px_rgba(0,0,0,0.5)]">
+                <h3 className="line-height-1 m-0 text-3xl font-bold text-white [text-shadow:-1px_-1px_0_#000,1px_-1px_0_#000,-1px_1px_0_#000,1px_1px_0_#000,2px_2px_8px_rgba(0,0,0,0.5)] sm:text-5xl">
                   {name}
                 </h3>
-                <p className="text-xl sm:text-2xl font-sans font-medium m-0 text-white line-height-1 [text-shadow:-1px_-1px_0_#00000083,1px_-1px_0_#00000083,-1px_1px_0_#00000083,1px_1px_0_#00000083,2px_2px_8px_rgba(0,0,0,0.5)]">
+                <p className="line-height-1 m-0 font-sans text-xl font-medium text-white [text-shadow:-1px_-1px_0_#00000083,1px_-1px_0_#00000083,-1px_1px_0_#00000083,1px_1px_0_#00000083,2px_2px_8px_rgba(0,0,0,0.5)] sm:text-2xl">
                   {title}
                 </p>
               </motion.div>
@@ -250,11 +250,11 @@ export default function HolographicCard({
               {/* LOGO  */}
               {logo && (
                 <motion.div
-                  className="absolute bottom-6 left-6 drop-shadow-lg/70 rounded-full p-3 h-24 w-24 sm:h-32 sm:w-32"
+                  className="absolute bottom-6 left-6 h-24 w-24 rounded-full p-3 drop-shadow-lg/70 sm:h-32 sm:w-32"
                   initial={{ opacity: 0, scale: 0 }}
                   animate={{
                     opacity: isActive ? 1 : 0,
-                    scale: isActive ? 1 : 0,
+                    scale: isActive ? 1 : 0
                   }}
                   transition={{ delay: 1.2 }}
                 >
@@ -269,11 +269,11 @@ export default function HolographicCard({
               )}
 
               <motion.div
-                className="absolute bottom-0 right-0 drop-shadow-lg/70 rounded-full p-3 sm:h-40 sm:w-40 h-32 w-32 object-contain"
+                className="absolute right-0 bottom-0 h-32 w-32 rounded-full object-contain p-3 drop-shadow-lg/70 sm:h-40 sm:w-40"
                 initial={{ opacity: 0, scale: 0 }}
                 animate={{
                   opacity: isActive ? 1 : 0,
-                  scale: isActive ? 1 : 0,
+                  scale: isActive ? 1 : 0
                 }}
                 transition={{ delay: 1.2 }}
               >
@@ -290,7 +290,7 @@ export default function HolographicCard({
               <div className="card__spotlight" />
 
               {/* Border for front face */}
-              <div className="absolute inset-0 border-[5px] border-white/30 rounded-2xl pointer-events-none shadow-[0_10px_30px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.1)]" />
+              <div className="pointer-events-none absolute inset-0 rounded-2xl border-[5px] border-white/30 shadow-[0_10px_30px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.1)]" />
             </div>
           </div>
         </motion.div>

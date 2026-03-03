@@ -1,11 +1,11 @@
+import Form from '@/components/Form';
+import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
   DialogTitle,
-  DialogTrigger,
+  DialogTrigger
 } from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
-import Form from '@/components/Form';
 import { useState } from 'react';
 import { toast } from 'sonner';
 
@@ -15,7 +15,7 @@ const UploadFile = ({ organizationId }: { organizationId: string }) => {
   const handleSuccess = () => {
     setModalOpen(false);
     toast.success('File uploaded successfully.', {
-      duration: 3000,
+      duration: 3000
       // ADD ICON
     });
   };
@@ -24,7 +24,7 @@ const UploadFile = ({ organizationId }: { organizationId: string }) => {
     <Dialog open={modalOpen} onOpenChange={setModalOpen}>
       <DialogTrigger asChild>
         <Button
-          className="text-lg font-semibold p-6 cursor-pointer"
+          className="cursor-pointer p-6 text-lg font-semibold"
           onClick={() => setModalOpen(true)}
         >
           Upload File

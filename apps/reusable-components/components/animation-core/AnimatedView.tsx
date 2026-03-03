@@ -1,6 +1,7 @@
 'use client';
 
 import type { PropsWithChildren } from 'react';
+
 import AnimatedDiv from './AnimatedDiv';
 
 interface Props extends PropsWithChildren {

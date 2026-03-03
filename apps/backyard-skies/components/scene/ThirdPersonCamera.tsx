@@ -1,8 +1,8 @@
 'use client';
 
-import { useRef } from 'react';
-import { useFrame, useThree } from '@react-three/fiber';
 import { useGameStore } from '@/store/gameStore';
+import { useFrame, useThree } from '@react-three/fiber';
+import { useRef } from 'react';
 import * as THREE from 'three';
 
 const CHASE_DISTANCE = 10;
@@ -48,7 +48,7 @@ export default function ThirdPersonCamera() {
       _targetPos.set(
         position[0] - sinR * dist,
         position[1] + height,
-        position[2] - cosR * dist,
+        position[2] - cosR * dist
       );
       // SLOWER LERP FOR CINEMATIC FEEL
       cameraPosition.current.lerp(_targetPos, LERP_SPEED * dt * 0.4);
@@ -84,7 +84,7 @@ export default function ThirdPersonCamera() {
       _targetPos.set(
         position[0] - sinR * CHASE_DISTANCE,
         position[1] + CHASE_HEIGHT,
-        position[2] - cosR * CHASE_DISTANCE,
+        position[2] - cosR * CHASE_DISTANCE
       );
       cameraPosition.current.lerp(_targetPos, LERP_SPEED * dt);
 
@@ -92,7 +92,7 @@ export default function ThirdPersonCamera() {
       _targetLook.set(
         position[0] + sinR * LOOK_AHEAD,
         position[1],
-        position[2] + cosR * LOOK_AHEAD,
+        position[2] + cosR * LOOK_AHEAD
       );
       cameraTarget.current.lerp(_targetLook, LERP_SPEED * dt);
     }

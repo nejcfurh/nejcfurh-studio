@@ -17,24 +17,24 @@ export default defineSchema({
     name: v.string(),
     organizationId: v.string(),
     markedForDeletion: v.optional(v.boolean()),
-    userId: v.id('users'),
+    userId: v.id('users')
   })
     .index('by_organization', ['organizationId'])
     .index('by_marked_for_deletion', ['markedForDeletion']),
   favorites: defineTable({
     fileId: v.id('files'),
     organizationId: v.string(),
-    userId: v.id('users'),
+    userId: v.id('users')
   }).index('by_user_organization_file', ['userId', 'organizationId', 'fileId']),
   users: defineTable({
     tokenIdentifier: v.string(),
     organizationIds: v.array(
       v.object({
         organizationId: v.string(),
-        role: roles,
+        role: roles
       })
     ),
     name: v.optional(v.string()),
-    imageUrl: v.optional(v.string()),
-  }).index('by_tokenIdentifier', ['tokenIdentifier']),
+    imageUrl: v.optional(v.string())
+  }).index('by_tokenIdentifier', ['tokenIdentifier'])
 });

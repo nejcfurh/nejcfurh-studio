@@ -14,7 +14,7 @@ export function depleteResources(
   water: number,
   stamina: number,
   attrs: BirdAttributes,
-  delta: number,
+  delta: number
 ): DepletionResult {
   const newFood = Math.max(0, food - attrs.foodDrain * delta);
   const newWater = Math.max(0, water - attrs.waterDrain * delta);
@@ -25,7 +25,12 @@ export function depleteResources(
   if (newFood <= 0) depletedResource = 'food';
   else if (newWater <= 0) depletedResource = 'water';
 
-  return { food: newFood, water: newWater, stamina: newStamina, depletedResource };
+  return {
+    food: newFood,
+    water: newWater,
+    stamina: newStamina,
+    depletedResource
+  };
 }
 
 export interface ReplenishResult {
@@ -39,21 +44,21 @@ export function replenishFromFeeder(
   water: number,
   feederType: 'feeder' | 'birdbath',
   attrs: BirdAttributes,
-  delta: number,
+  delta: number
 ): ReplenishResult {
   if (feederType === 'feeder') {
     const amount = attrs.feedRate * delta;
     return {
       food: Math.min(attrs.maxFood, food + amount),
       water,
-      scoreGained: amount * 2,
+      scoreGained: amount * 2
     };
   } else {
     const amount = attrs.drinkRate * delta;
     return {
       food,
       water: Math.min(attrs.maxWater, water + amount),
-      scoreGained: amount * 2,
+      scoreGained: amount * 2
     };
   }
 }

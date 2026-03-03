@@ -3,9 +3,9 @@
 import { FileInfo } from '@/features/file-upload/types';
 import { useRef, useState } from 'react';
 
-import Header from './Header';
-import DropzoneArea from './DropzoneArea';
 import ActionButton from './ActionButton';
+import DropzoneArea from './DropzoneArea';
+import Header from './Header';
 
 const FileUpload = () => {
   const [isDragOver, setIsDragOver] = useState(false);
@@ -17,7 +17,7 @@ const FileUpload = () => {
       name: file.name,
       size: Math.round(file.size / 1024), // Convert to KB
       type: file.type || 'Unknown',
-      file: file,
+      file: file
     });
   };
 
@@ -59,7 +59,7 @@ const FileUpload = () => {
       <div className="mt-8 flex gap-4">
         <ActionButton
           type="reset"
-          className="group flex-1 rounded-lg border border-gray-300 bg-white px-6 py-3 text-lg font-medium text-gray-700 transition-all duration-300 hover:scale-[1.02] hover:border-gray-400 hover:bg-gray-400/50 hover:shadow-md active:scale-[0.98] dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:hover:border-gray-600 dark:hover:bg-gray-750"
+          className="group dark:hover:bg-gray-750 flex-1 rounded-lg border border-gray-300 bg-white px-6 py-3 text-lg font-medium text-gray-700 transition-all duration-300 hover:scale-[1.02] hover:border-gray-400 hover:bg-gray-400/50 hover:shadow-md active:scale-[0.98] dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:hover:border-gray-600"
         />
         <ActionButton
           type="submit"

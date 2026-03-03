@@ -5,7 +5,7 @@ const baseConfig: NextConfig = {
   turbopack: {},
   generateBuildId: async () => {
     return `build-${Date.now()}`;
-  },
+  }
 };
 
 // Only apply next-pwa for production builds (webpack).
@@ -27,11 +27,11 @@ if (process.env.NODE_ENV === 'production') {
           cacheName: 'weather-api',
           expiration: {
             maxEntries: 10,
-            maxAgeSeconds: 60 * 60, // 1 hour
-          },
-        },
-      },
-    ],
+            maxAgeSeconds: 60 * 60 // 1 hour
+          }
+        }
+      }
+    ]
   });
   nextConfig = withPWA(baseConfig);
 }

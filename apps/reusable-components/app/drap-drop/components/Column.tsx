@@ -1,16 +1,17 @@
-import { useState } from 'react';
-import CardItem from './CardItem';
-import DropIndicator from './DropIndicator';
-import AddTask from './AddTask';
 import { CardDataType } from '@/features/drag-drop/types';
 import { AnimatePresence } from 'motion/react';
+import { useState } from 'react';
+
+import AddTask from './AddTask';
+import CardItem from './CardItem';
+import DropIndicator from './DropIndicator';
 
 const Column = ({
   title,
   headingColor,
   column,
   cards,
-  setCards,
+  setCards
 }: {
   title: string;
   headingColor: string;
@@ -41,7 +42,7 @@ const Column = ({
   const clearHighlights = (elements?: Element[]) => {
     const indicators = elements || getIndicators();
 
-    indicators.forEach(indicator => {
+    indicators.forEach((indicator) => {
       (indicator as HTMLElement).style.opacity = '0';
     });
   };
@@ -62,7 +63,7 @@ const Column = ({
       },
       {
         offset: Number.NEGATIVE_INFINITY,
-        element: indicators[indicators.length - 1],
+        element: indicators[indicators.length - 1]
       }
     );
 
@@ -95,7 +96,7 @@ const Column = ({
 
       let cardToTransfer: CardDataType | undefined;
 
-      cardToTransfer = cardsCopy.find(card => card.id === cardId);
+      cardToTransfer = cardsCopy.find((card) => card.id === cardId);
 
       if (!cardToTransfer) {
         return;
@@ -103,14 +104,14 @@ const Column = ({
 
       cardToTransfer = { ...cardToTransfer, column };
 
-      cardsCopy = cardsCopy.filter(card => card.id !== cardId);
+      cardsCopy = cardsCopy.filter((card) => card.id !== cardId);
 
       const moveToBack = before === '-1';
 
       if (moveToBack) {
         cardsCopy.push(cardToTransfer);
       } else {
-        const insertAtIndex = cardsCopy.findIndex(card => card.id === before);
+        const insertAtIndex = cardsCopy.findIndex((card) => card.id === before);
         if (insertAtIndex === undefined) {
           return;
         }
@@ -121,13 +122,13 @@ const Column = ({
     }
   };
 
-  const filteredCards = cards.filter(card => card.column === column);
+  const filteredCards = cards.filter((card) => card.column === column);
 
   return (
-    <div className="w-72 h-full shrink-0">
-      <div className="px-5 py-1.5 flex items-center justify-between">
-        <h3 className={`font-medium text-xl ${headingColor}`}>{title}</h3>
-        <span className="rounded-full text-lg text-neutral-100 font-bold">
+    <div className="h-full w-72 shrink-0">
+      <div className="flex items-center justify-between px-5 py-1.5">
+        <h3 className={`text-xl font-medium ${headingColor}`}>{title}</h3>
+        <span className="rounded-full text-lg font-bold text-neutral-100">
           {filteredCards.length} <span className="text-sm">tasks</span>
         </span>
       </div>
@@ -135,10 +136,10 @@ const Column = ({
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
         onDrop={handleDragEnd}
-        className={`h-full w-full rounded overflow-scroll transition-colors px-1.5 ${active ? 'bg-neutral-800/50' : 'bg-neutral-800/0'}`}
+        className={`h-full w-full overflow-scroll rounded px-1.5 transition-colors ${active ? 'bg-neutral-800/50' : 'bg-neutral-800/0'}`}
       >
         <AnimatePresence mode="popLayout">
-          {filteredCards.map(card => (
+          {filteredCards.map((card) => (
             <CardItem key={card.id} {...card} onDragStart={handleDragStart} />
           ))}
         </AnimatePresence>

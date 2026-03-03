@@ -1,10 +1,11 @@
 'use client';
 
-import { useRef } from 'react';
-import { useFrame } from '@react-three/fiber';
 import { useGameStore } from '@/store/gameStore';
-import GltfBirdModel from './GltfBirdModel';
+import { useFrame } from '@react-three/fiber';
+import { useRef } from 'react';
 import * as THREE from 'three';
+
+import GltfBirdModel from './GltfBirdModel';
 
 // REUSABLE VECTOR3 FOR POSITION LERP — AVOIDS ALLOCATION PER FRAME
 const _birdTarget = new THREE.Vector3();
@@ -16,11 +17,11 @@ export default function PlayerBird() {
   const dyingFallSpeed = useRef(0);
   const dyingFinalized = useRef(false);
 
-  const position = useGameStore(s => s.position);
-  const rotation = useGameStore(s => s.rotation);
-  const isFlapping = useGameStore(s => s.isFlapping);
-  const selectedSpecies = useGameStore(s => s.selectedSpecies);
-  const gameState = useGameStore(s => s.gameState);
+  const position = useGameStore((s) => s.position);
+  const rotation = useGameStore((s) => s.rotation);
+  const isFlapping = useGameStore((s) => s.isFlapping);
+  const selectedSpecies = useGameStore((s) => s.selectedSpecies);
+  const gameState = useGameStore((s) => s.gameState);
 
   const isPerched = gameState === 'feeding' || gameState === 'drinking';
   const isDying = gameState === 'dying';
@@ -75,14 +76,14 @@ export default function PlayerBird() {
     groupRef.current.rotation.y = THREE.MathUtils.lerp(
       groupRef.current.rotation.y,
       rotation,
-      0.1,
+      0.1
     );
 
     // KEEP BIRD LEVEL — NO PITCH ROTATION ON FLAP
     groupRef.current.rotation.x = THREE.MathUtils.lerp(
       groupRef.current.rotation.x,
       0,
-      0.1,
+      0.1
     );
 
     // SUBTLE BANK ON TURNS ONLY (NO BANK WHEN PERCHED)
@@ -93,7 +94,7 @@ export default function PlayerBird() {
     groupRef.current.rotation.z = THREE.MathUtils.lerp(
       groupRef.current.rotation.z,
       bankTarget,
-      0.08,
+      0.08
     );
 
     // PERCHED PECKING/BOBBING ANIMATION
@@ -107,25 +108,25 @@ export default function PlayerBird() {
         birdRef.current.rotation.x = THREE.MathUtils.lerp(
           birdRef.current.rotation.x,
           dip,
-          0.25,
+          0.25
         );
         // SLIGHT SIDE-TO-SIDE LOOK BETWEEN BOBS
         const look = Math.sin(t * 0.8) * 0.1;
         birdRef.current.rotation.y = THREE.MathUtils.lerp(
           birdRef.current.rotation.y,
           look,
-          0.1,
+          0.1
         );
       } else {
         birdRef.current.rotation.x = THREE.MathUtils.lerp(
           birdRef.current.rotation.x,
           0,
-          0.15,
+          0.15
         );
         birdRef.current.rotation.y = THREE.MathUtils.lerp(
           birdRef.current.rotation.y,
           0,
-          0.15,
+          0.15
         );
       }
     }

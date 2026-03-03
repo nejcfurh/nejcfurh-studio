@@ -1,7 +1,7 @@
-@import "tailwindcss";
-@import "./scroll-to-decrypt/scroll-to-decrypt.css";
-@import "./file-upload/file-upload.css";
-@import "./scroll-to-unblur/scroll-to-unblur.css";
+@import 'tailwindcss';
+@import './scroll-to-decrypt/scroll-to-decrypt.css';
+@import './file-upload/file-upload.css';
+@import './scroll-to-unblur/scroll-to-unblur.css';
 
 :root {
   --background: #ffffff;
@@ -21,7 +21,7 @@
   --primary-input: #ffffff;
   --secondary-input: rgb(255, 255, 255);
   --background-input: #b1afaf;
-  --box-background-input: #1E1E1E;
+  --box-background-input: #1e1e1e;
   --multio-option-menu-fg: #696667;
   --multio-option-menu-bg: #8bc34a;
   --multio-option-menu-items: 6;
@@ -46,8 +46,9 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: 'SF Pro Text', 'SF Pro Icons', 'AOS Icons', 'Helvetica Neue',
-    Helvetica, Arial, sans-serif, system-ui;
+  font-family:
+    'SF Pro Text', 'SF Pro Icons', 'AOS Icons', 'Helvetica Neue', Helvetica,
+    Arial, sans-serif, system-ui;
 }
 
 .font-mono {
@@ -60,7 +61,7 @@ ul.slidey {
   height: 100vh;
 }
 
-ul.slidey>li {
+ul.slidey > li {
   grid-area: 1 / 1;
   transition: clip-path 0.5s ease;
   will-change: clip-path;
@@ -75,8 +76,8 @@ ul.slidey .foreground {
   mix-blend-mode: multiply;
 }
 
-ul.slidey>li:hover .foreground,
-ul.slidey>li:focus-within .foreground {
+ul.slidey > li:hover .foreground,
+ul.slidey > li:focus-within .foreground {
   opacity: 0.75;
   transition: opacity 0.5s 0.3s ease-in-out;
 }
@@ -90,7 +91,7 @@ ul.slidey .fg_content h1 {
   transform: translateX(0);
 }
 
-ul.slidey>li:hover .fg_content h1 {
+ul.slidey > li:hover .fg_content h1 {
   transform: translateX(var(--text-slide-distance));
 }
 
@@ -248,7 +249,7 @@ ul.slidey>li:hover .fg_content h1 {
 }
 
 .menu-horizontal.menu-open-state .menu-item {
-  transition-timing-function: cubic-bezier(0.165, 0.840, 0.440, 1.000);
+  transition-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 .menu-horizontal.menu-open-state .menu-item:nth-child(2) {
@@ -271,7 +272,6 @@ ul.slidey>li:hover .fg_content h1 {
   transform: translate3d(440px, 0, 0);
 }
 
-
 /* HOLOGRAPHIC CARD  */
 
 .card__image-layer,
@@ -290,8 +290,10 @@ ul.slidey>li:hover .fg_content h1 {
 
 .card__image-layer img {
   filter: brightness(0.9) contrast(1.1);
-  transform: translate(calc(var(--pointer-x, 0) * 3%),
-      calc(var(--pointer-y, 0) * 3%));
+  transform: translate(
+    calc(var(--pointer-x, 0) * 3%),
+    calc(var(--pointer-y, 0) * 3%)
+  );
   transition: transform 0.1s ease-out;
 }
 
@@ -312,12 +314,14 @@ ul.slidey>li:hover .fg_content h1 {
   position: absolute;
   width: 200%;
   height: 200%;
-  background: radial-gradient(circle at center,
-      transparent 10%,
-      rgba(255, 50, 50, 0.3) 25%,
-      rgba(50, 255, 150, 0.3) 45%,
-      rgba(50, 150, 255, 0.3) 65%,
-      transparent 85%);
+  background: radial-gradient(
+    circle at center,
+    transparent 10%,
+    rgba(255, 50, 50, 0.3) 25%,
+    rgba(50, 255, 150, 0.3) 45%,
+    rgba(50, 150, 255, 0.3) 65%,
+    transparent 85%
+  );
   filter: blur(50px);
   will-change: transform;
 }
@@ -325,15 +329,19 @@ ul.slidey>li:hover .fg_content h1 {
 .refraction-1 {
   top: -50%;
   left: -50%;
-  transform: translate(calc(var(--pointer-x, 0) * 20%),
-      calc(var(--pointer-y, 0) * 20%));
+  transform: translate(
+    calc(var(--pointer-x, 0) * 20%),
+    calc(var(--pointer-y, 0) * 20%)
+  );
 }
 
 .refraction-2 {
   bottom: -50%;
   right: -50%;
-  transform: translate(calc(var(--pointer-x, 0) * -20%),
-      calc(var(--pointer-y, 0) * -20%));
+  transform: translate(
+    calc(var(--pointer-x, 0) * -20%),
+    calc(var(--pointer-y, 0) * -20%)
+  );
 }
 
 .card__details {
@@ -348,10 +356,13 @@ ul.slidey>li:hover .fg_content h1 {
   opacity: 0;
   transition: opacity 0.3s ease-out;
   border-radius: 24px;
-  background: radial-gradient(600px circle at calc(50% + (var(--pointer-x, 0) * 20%)) calc(50% + (var(--pointer-y, 0) * 20%)),
-      rgba(255, 255, 255, 0.3) 0%,
-      rgba(255, 255, 255, 0.05) 20%,
-      transparent 50%);
+  background: radial-gradient(
+    600px circle at calc(50% + (var(--pointer-x, 0) * 20%))
+      calc(50% + (var(--pointer-y, 0) * 20%)),
+    rgba(255, 255, 255, 0.3) 0%,
+    rgba(255, 255, 255, 0.05) 20%,
+    transparent 50%
+  );
 }
 
 .holographic-card[data-active='true']:hover .card__spotlight {

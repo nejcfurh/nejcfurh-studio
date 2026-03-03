@@ -2,8 +2,8 @@ import { FiArrowUpRight } from 'react-icons/fi';
 
 const ExampleTextComponent = () => {
   return (
-    <div className="mx-auto grid max-w-5xl grid-cols-1 gap-8 px-4 pb-24 pt-12 md:grid-cols-12">
-      <h2 className="col-span-1 text-3xl font-bold md:col-span-4 text-black">
+    <div className="mx-auto grid max-w-5xl grid-cols-1 gap-8 px-4 pt-12 pb-24 md:grid-cols-12">
+      <h2 className="col-span-1 text-3xl font-bold text-black md:col-span-4">
         Additional content explaining the above card here.
       </h2>
       <div className="col-span-1 md:col-span-8">

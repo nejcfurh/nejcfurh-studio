@@ -9,7 +9,14 @@ export interface YardFenceProps {
   fenceColor: string;
 }
 
-export default function YardFence({ x, z, w, d, rot, fenceColor }: YardFenceProps) {
+export default function YardFence({
+  x,
+  z,
+  w,
+  d,
+  rot,
+  fenceColor
+}: YardFenceProps) {
   const halfW = w / 2;
   const halfD = d / 2;
   const h = 0.85;
@@ -20,7 +27,7 @@ export default function YardFence({ x, z, w, d, rot, fenceColor }: YardFenceProp
         [-halfW, halfD],
         [halfW, halfD],
         [-halfW, -halfD],
-        [halfW, -halfD],
+        [halfW, -halfD]
       ].map(([px, pz], i) => (
         <mesh key={i} position={[px, h / 2, pz]}>
           <boxGeometry args={[0.06, h, 0.06]} />

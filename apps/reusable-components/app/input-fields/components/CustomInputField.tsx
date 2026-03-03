@@ -1,4 +1,5 @@
 import { cn } from '@/utils/utils';
+
 import InputContainer from './InputContainer';
 
 const CustomInputField = ({
@@ -14,7 +15,7 @@ const CustomInputField = ({
   required = false,
   label,
   labelClassName,
-  className,
+  className
 }: {
   children?: React.ReactNode;
   id: string;
@@ -43,14 +44,14 @@ const CustomInputField = ({
         placeholder={placeholder}
         required={required}
         className={cn(
-          'peer w-full rounded-lg border-2 border-gray-300 bg-transparent p-4 text-base text-gray-900 outline-none transition-all duration-300 focus:border-blue-500 dark:border-gray-700 dark:text-gray-100 dark:focus:border-blue-400',
+          'peer w-full rounded-lg border-2 border-gray-300 bg-transparent p-4 text-base text-gray-900 transition-all duration-300 outline-none focus:border-blue-500 dark:border-gray-700 dark:text-gray-100 dark:focus:border-blue-400',
           className
         )}
       />
       <label
         htmlFor={id}
         className={cn(
-          'pointer-events-none absolute left-2 top-4 bg-white px-2 py-1 text-base text-gray-500 transition-all duration-300 peer-focus:-top-3.5 peer-focus:text-sm peer-focus:font-medium peer-focus:text-blue-500 peer-[:not(:placeholder-shown)]:-top-3.5 peer-[:not(:placeholder-shown)]:text-xs peer-[:not(:placeholder-shown)]:font-medium peer-[:not(:placeholder-shown)]:text-blue-500 dark:bg-gray-900 dark:text-gray-400 dark:peer-focus:text-blue-400 dark:peer-[:not(:placeholder-shown)]:text-blue-400',
+          'pointer-events-none absolute top-4 left-2 bg-white px-2 py-1 text-base text-gray-500 transition-all duration-300 peer-focus:-top-3.5 peer-focus:text-sm peer-focus:font-medium peer-focus:text-blue-500 peer-[:not(:placeholder-shown)]:-top-3.5 peer-[:not(:placeholder-shown)]:text-xs peer-[:not(:placeholder-shown)]:font-medium peer-[:not(:placeholder-shown)]:text-blue-500 dark:bg-gray-900 dark:text-gray-400 dark:peer-focus:text-blue-400 dark:peer-[:not(:placeholder-shown)]:text-blue-400',
           labelClassName
         )}
       >

@@ -1,0 +1,53 @@
+{
+  "name": "friends-of-nature",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "clean": "rm -rf .next && rm -rf .turbo",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "base:prettier": "prettier './**/*.{ts,tsx,html,json,md,css}' --config .prettierrc --cache",
+    "base:eslint": "eslint ./ --cache",
+    "lint:prettier": "pnpm base:prettier --check",
+    "lint:eslint": "pnpm base:eslint",
+    "lint": "pnpm lint:prettier && pnpm lint:eslint",
+    "format:prettier": "pnpm base:prettier --write",
+    "format:eslint": "pnpm base:eslint --fix",
+    "format": "pnpm format:prettier && pnpm format:eslint",
+    "format-silent": "pnpm format:prettier --loglevel silent && pnpm format:eslint --quiet",
+    "type:check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@headlessui/react": "^2.2.0",
+    "@hookform/resolvers": "^3.9.1",
+    "@repo/shared": "workspace:*",
+    "canvas-confetti": "^1.9.3",
+    "clsx": "^2.1.1",
+    "embla-carousel-autoplay": "^8.1.8",
+    "embla-carousel-react": "^8.1.8",
+    "flubber": "^0.4.2",
+    "framer-motion": "^11.18.0",
+    "lucide-react": "^0.469.0",
+    "next": "16.1.6",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "react-hook-form": "^7.71.1",
+    "swiper": "11.0.4",
+    "tailwind-merge": "^3.4.0",
+    "zod": "^4.3.5"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "browserslist-config-web": "workspace:*",
+    "eslint": "^9",
+    "eslint-config-web": "workspace:*",
+    "prettier-config-web": "workspace:*",
+    "tailwindcss": "^4",
+    "tsconfig": "workspace:*",
+    "typescript": "^5"
+  }
+}

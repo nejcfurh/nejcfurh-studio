@@ -1,15 +1,15 @@
 'use client';
 
-import { useRef } from 'react';
-import { useFrame } from '@react-three/fiber';
 import { useGameStore } from '@/store/gameStore';
+import { useFrame } from '@react-three/fiber';
+import { useRef } from 'react';
 import * as THREE from 'three';
 
 export default function DeathCat() {
   const groupRef = useRef<THREE.Group>(null);
-  const gameState = useGameStore(s => s.gameState);
-  const deathReason = useGameStore(s => s.deathReason);
-  const activeFeeder = useGameStore(s => s.activeFeeder);
+  const gameState = useGameStore((s) => s.gameState);
+  const deathReason = useGameStore((s) => s.deathReason);
+  const activeFeeder = useGameStore((s) => s.activeFeeder);
 
   // ONLY SHOW WHEN DYING FROM CAT
   if (gameState !== 'dying' || deathReason !== 'cat' || !activeFeeder)

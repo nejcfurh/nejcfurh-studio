@@ -63,5 +63,5 @@ export const COLORS = {
   textMuted: '#9E9E9E',
   success: '#4CAF50',
   ground: '#4A7C59',
-  sky: '#87CEEB',
+  sky: '#87CEEB'
 } as const;

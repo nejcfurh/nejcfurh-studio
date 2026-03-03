@@ -1,15 +1,16 @@
 'use client';
 
-import { useState } from 'react';
-import SVGFilters from './SVGFilters';
+import { MULTI_OPTION_BUTTONS_DATA } from '@/features/buttons-menus/multi-option-button/constants';
 import {
   MenuItem,
-  MenuVariant,
+  MenuVariant
 } from '@/features/buttons-menus/multi-option-button/types';
-import { MULTI_OPTION_BUTTONS_DATA } from '@/features/buttons-menus/multi-option-button/constants';
-import OptionButton from './OptionButton';
-import MenuButton from './MenuButton';
+import { useState } from 'react';
+
 import Footer from './Footer';
+import MenuButton from './MenuButton';
+import OptionButton from './OptionButton';
+import SVGFilters from './SVGFilters';
 
 export interface MultiOptionButtonsProps {
   items?: MenuItem[];
@@ -18,7 +19,7 @@ export interface MultiOptionButtonsProps {
 
 const MultiOptionButtons: React.FC<MultiOptionButtonsProps> = ({
   items = MULTI_OPTION_BUTTONS_DATA,
-  variant = 'circular',
+  variant = 'circular'
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 

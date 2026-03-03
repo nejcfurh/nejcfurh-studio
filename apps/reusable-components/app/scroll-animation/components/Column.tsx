@@ -4,7 +4,7 @@ import Image from 'next/image';
 
 const Column = ({
   images,
-  y,
+  y
 }: {
   images: string[];
   y?: MotionValue<number>;
@@ -12,11 +12,11 @@ const Column = ({
   return (
     <AnimatedDiv
       style={{ y }}
-      className="w-[25%] h-full flex flex-col gap-[2vw] min-w-[250px] relative nth-of-type-[1]:top-[-45%] nth-of-type-[2]:top-[-95%] nth-of-type-[3]:top-[-25%] nth-of-type-[4]:top-[-70%]"
+      className="relative flex h-full w-[25%] min-w-[250px] flex-col gap-[2vw] nth-of-type-[1]:top-[-45%] nth-of-type-[2]:top-[-95%] nth-of-type-[3]:top-[-25%] nth-of-type-[4]:top-[-70%]"
     >
-      {images.map(image => (
+      {images.map((image) => (
         <div
-          className="w-full h-full relative rounded-[1vw] overflow-hidden"
+          className="relative h-full w-full overflow-hidden rounded-[1vw]"
           key={image}
         >
           <Image src={image} alt={image} fill className="object-cover" />
