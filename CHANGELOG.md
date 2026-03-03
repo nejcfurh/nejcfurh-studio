@@ -1,5 +1,20 @@
 # Changelog
 
+## v1.5.0 (2026-03-03)
+
+
+### Features
+
+- feat(nejcfurh-studio): Added friends-of-nature to apps (#14) (57b54d2)
+- feat(nejcfurh-studio): Added friends-of-nature to apps (ca06f5b)
+
+
+### Bug Fixes & Improvements
+
+- fix(ci): Code quality check fix (e4774da)
+
+# Changelog
+
 ## v1.4.0 (2026-03-03)
 
 
