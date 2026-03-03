@@ -1,5 +1,21 @@
 # Changelog
 
+## v1.4.0 (2026-03-03)
+
+
+### Features
+
+- feat(nejcfurh-studio): Added reviews-analyser to apps and ai-sdk to s… (#11) (85ea6d2)
+- feat(nejcfurh-studio): Added reviews-analyser to apps and ai-sdk to shared (dbf58c6)
+
+
+### Bug Fixes & Improvements
+
+- fix(ci): Deploy issues for reviews analyser (#13) (9781469)
+- fix(ci): Deploy issues for reviews analyser (0079d39)
+
+# Changelog
+
 ## v1.3.0 (2026-03-03)
 
 
