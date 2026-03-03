@@ -15,7 +15,7 @@ const DropzoneArea = ({
   handleFile,
   setIsDragOver,
   inputRef,
-  fileInfo,
+  fileInfo
 }: DropzoneAreaProps) => {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
@@ -60,7 +60,7 @@ const DropzoneArea = ({
       className={`group relative flex min-h-[200px] cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed p-8 transition-all duration-300 ${
         isDragOver
           ? 'scale-[1.02] border-blue-500 bg-blue-50 shadow-lg dark:border-blue-400 dark:bg-blue-950/20'
-          : 'border-gray-300 bg-gray-50 hover:scale-[1.01] hover:border-blue-400 hover:bg-gray-400/50 hover:shadow-md dark:border-gray-700 dark:bg-gray-800 dark:hover:border-blue-500 dark:hover:bg-gray-750'
+          : 'dark:hover:bg-gray-750 border-gray-300 bg-gray-50 hover:scale-[1.01] hover:border-blue-400 hover:bg-gray-400/50 hover:shadow-md dark:border-gray-700 dark:bg-gray-800 dark:hover:border-blue-500'
       }`}
     >
       <input
@@ -84,7 +84,7 @@ const DropzoneArea = ({
           </p>
         </>
       ) : (
-        <div className="flex w-full items-center gap-4 rounded-lg bg-white p-4 border border-gray-300 transition-all duration-300 hover:shadow-md dark:bg-gray-800">
+        <div className="flex w-full items-center gap-4 rounded-lg border border-gray-300 bg-white p-4 transition-all duration-300 hover:shadow-md dark:bg-gray-800">
           <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-linear-to-br from-blue-500 to-indigo-500 text-2xl transition-transform duration-300 hover:scale-110 hover:rotate-6">
             {getFileIcon(fileInfo.type)}
           </div>

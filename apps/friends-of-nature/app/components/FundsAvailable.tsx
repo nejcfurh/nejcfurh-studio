@@ -1,9 +1,9 @@
 'use client';
 
-import { ChevronDown } from 'lucide-react';
-import { useState } from 'react';
 import AnimatedDiv from 'app/components/AnimatedDiv';
 import { cn } from 'lib/utils';
+import { ChevronDown } from 'lucide-react';
+import { useState } from 'react';
 
 const FundsAvailable = ({
   moneyRaised
@@ -35,21 +35,21 @@ const FundsAvailable = ({
           }}
           viewport={{ once: true }}
         />
-        <div className="absolute top-0 mt-1 flex w-full items-center justify-center font-decoy text-2xl font-bold text-[#1a5632]">
+        <div className="font-decoy absolute top-0 mt-1 flex w-full items-center justify-center text-2xl font-bold text-[#1a5632]">
           {' '}
           ${moneyRaised.toLocaleString()}
         </div>
       </div>
-      <div className="mt-2 font-archivo text-lg text-black/75">
+      <div className="font-archivo mt-2 text-lg text-black/75">
         Funds available for your yard makeovers
       </div>
       <button
         type="button"
-        className="mt-4 flex w-fit cursor-pointer flex-col justify-between rounded-lg no-tap-highlight lg:m-0 lg:w-full"
+        className="no-tap-highlight mt-4 flex w-fit cursor-pointer flex-col justify-between rounded-lg lg:m-0 lg:w-full"
         onClick={(): void => toggleExpand()}
       >
         <div className="flex w-full flex-row items-center justify-between">
-          <div className="my-5 w-full px-5 text-left font-decoy text-3xl font-bold text-[#1a5632]">
+          <div className="font-decoy my-5 w-full px-5 text-left text-3xl font-bold text-[#1a5632]">
             Who is eligible?
           </div>
           <div
@@ -65,7 +65,7 @@ const FundsAvailable = ({
             isExpanded ? 'max-h-28 opacity-100' : 'max-h-0 opacity-0'
           )}
         >
-          <p className="mb-5 px-5 !text-left font-archivo !text-lg !text-black/75">
+          <p className="font-archivo mb-5 px-5 !text-left !text-lg !text-black/75">
             Anyone who is part of the Friends of Nature movement and has
             completed their first-week streak.
           </p>

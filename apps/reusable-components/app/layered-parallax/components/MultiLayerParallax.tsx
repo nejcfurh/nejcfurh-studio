@@ -1,16 +1,16 @@
 'use client';
 
+import AnimatedDiv from '@/components/animation-core/AnimatedDiv';
+import AnimatedTitle from '@/components/animation-core/AnimatedTitle';
 import { useScroll, useTransform } from 'motion/react';
 import { useRef } from 'react';
-import AnimatedTitle from '@/components/animation-core/AnimatedTitle';
-import AnimatedDiv from '@/components/animation-core/AnimatedDiv';
 
 const MultiLayerParallax = () => {
   const wrappingDivRef = useRef<HTMLDivElement>(null);
 
   const { scrollYProgress } = useScroll({
     target: wrappingDivRef,
-    offset: ['start start', 'end start'],
+    offset: ['start start', 'end start']
   });
 
   const backgroundImageYPosition = useTransform(
@@ -24,11 +24,11 @@ const MultiLayerParallax = () => {
   return (
     <div
       ref={wrappingDivRef}
-      className="w-full h-screen overflow-hidden relative grid place-items-center"
+      className="relative grid h-screen w-full place-items-center overflow-hidden"
     >
       <AnimatedTitle
         style={{ y: textYPosition }}
-        className="text-7xl md:text-9xl text-white font-bold relative z-10 mb-48"
+        className="relative z-10 mb-48 text-7xl font-bold text-white md:text-9xl"
       >
         Mountaintopia
       </AnimatedTitle>
@@ -38,7 +38,7 @@ const MultiLayerParallax = () => {
           y: backgroundImageYPosition,
           backgroundImage: `url('/images/layered-parallax/full-image.jpg')`,
           backgroundSize: 'cover',
-          backgroundPosition: 'bottom',
+          backgroundPosition: 'bottom'
         }}
       />
       <AnimatedDiv
@@ -46,7 +46,7 @@ const MultiLayerParallax = () => {
         style={{
           backgroundImage: `url('/images/layered-parallax/parallax-image.png')`,
           backgroundSize: 'cover',
-          backgroundPosition: 'bottom',
+          backgroundPosition: 'bottom'
         }}
       />
     </div>

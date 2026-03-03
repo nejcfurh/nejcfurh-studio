@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
 import { cn } from 'lib/utils';
+import React, { useEffect, useState } from 'react';
 
 import type {
   Option,
@@ -87,15 +87,15 @@ const WonderblocksOptionsSelector = ({
                       backgroundColor: isMaterialOption
                         ? 'transparent'
                         : isSelected
-                        ? '#3B9858'
-                        : 'rgba(255, 255, 255, 0.1)',
+                          ? '#3B9858'
+                          : 'rgba(255, 255, 255, 0.1)',
                       color: isMaterialOption
                         ? isSelected
                           ? 'green'
                           : '#003333'
                         : isSelected
-                        ? 'white'
-                        : '#003333',
+                          ? 'white'
+                          : '#003333',
                       backgroundImage: option.image
                         ? `url(${option.image})`
                         : 'none',

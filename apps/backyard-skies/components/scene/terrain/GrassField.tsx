@@ -1,15 +1,15 @@
 'use client';
 
-import { useEffect, useMemo, useRef } from 'react';
-import { useGLTF } from '@react-three/drei';
-import * as THREE from 'three';
-import { HouseData } from '@/lib/terrain/chunkGenerator';
 import { CHUNK_SIZE, GRASS_MODEL } from '@/lib/terrain/chunkConstants';
+import { HouseData } from '@/lib/terrain/chunkGenerator';
+import { useGLTF } from '@react-three/drei';
+import { useEffect, useMemo, useRef } from 'react';
+import * as THREE from 'three';
 
 export default function GrassField({
   houses,
   hasRoadX,
-  hasRoadZ,
+  hasRoadZ
 }: {
   houses: HouseData[];
   hasRoadX: boolean;
@@ -25,7 +25,7 @@ export default function GrassField({
     let mat: THREE.Material | null = null;
     const mMatrix = new THREE.Matrix4();
 
-    scene.traverse(child => {
+    scene.traverse((child) => {
       if (!geo && (child as THREE.Mesh).isMesh) {
         const mesh = child as THREE.Mesh;
         geo = mesh.geometry;
@@ -60,7 +60,7 @@ export default function GrassField({
           x: gx + hash * 0.5 - 0.25,
           z: gz + hash2 * 0.5 - 0.25,
           rot: hash * Math.PI * 2,
-          s: 0.008 + hash2 * 0.006,
+          s: 0.008 + hash2 * 0.006
         });
       }
     }
@@ -69,7 +69,7 @@ export default function GrassField({
       geometry: geo!,
       material: mat!,
       meshMatrix: mMatrix,
-      positions: pos,
+      positions: pos
     };
   }, [scene, houses, hasRoadX, hasRoadZ]);
 

@@ -1,6 +1,6 @@
 const MenuButton = ({
   handleToggle,
-  isOpen,
+  isOpen
 }: {
   handleToggle: () => void;
   isOpen: boolean;

@@ -2,14 +2,15 @@
 
 import { ArrowLeftIcon, ArrowRightIcon, MapPin } from 'lucide-react';
 import Image from 'next/image';
+
 import 'swiper/css';
 import 'swiper/css/navigation';
+
+import { cn } from 'lib/utils';
 import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { cn } from 'lib/utils';
 
 import AnimatedDiv from './AnimatedDiv';
-
 
 const campaigns = [
   {
@@ -109,13 +110,13 @@ const CampaignsSwiper = (): React.ReactNode => {
                   height={400}
                   className="object-cover"
                 />
-                <div className="absolute left-3 top-3 flex flex-row items-center justify-center gap-2 rounded-full bg-gray-500/80 px-2 font-archivo text-sm text-white">
+                <div className="font-archivo absolute top-3 left-3 flex flex-row items-center justify-center gap-2 rounded-full bg-gray-500/80 px-2 text-sm text-white">
                   <MapPin size={14} />{' '}
                   <span className="mt-1">{campaign.location}</span>
                 </div>
               </div>
               <div className="flex flex-col gap-4 p-5 text-white">
-                <h3 className="font-regular w-2/3 font-decoy text-3xl">
+                <h3 className="font-regular font-decoy w-2/3 text-3xl">
                   {campaign.title}
                 </h3>
                 <p className="font-work-sans text-sm opacity-80">
@@ -131,7 +132,7 @@ const CampaignsSwiper = (): React.ReactNode => {
                 </div>
                 <AnimatedDiv
                   className={cn(
-                    'h-10 rounded-br-3xl rounded-tr-3xl bg-[#B4BD02]'
+                    'h-10 rounded-tr-3xl rounded-br-3xl bg-[#B4BD02]'
                   )}
                   initial={{ width: '10%', opacity: 1 }}
                   whileInView={{
@@ -152,13 +153,13 @@ const CampaignsSwiper = (): React.ReactNode => {
       {/* Custom Navigation Arrows */}
       <button
         type="button"
-        className="swiper-prev absolute left-7 top-[40%] z-20 -translate-y-1/2 rounded-full bg-[#618ec6ba] p-3 text-white shadow-md"
+        className="swiper-prev absolute top-[40%] left-7 z-20 -translate-y-1/2 rounded-full bg-[#618ec6ba] p-3 text-white shadow-md"
       >
         <ArrowLeftIcon size={24} />
       </button>
       <button
         type="button"
-        className="swiper-next absolute right-7 top-[40%] z-20 -translate-y-1/2 rounded-full bg-[#618ec6ba] p-3 text-white shadow-md"
+        className="swiper-next absolute top-[40%] right-7 z-20 -translate-y-1/2 rounded-full bg-[#618ec6ba] p-3 text-white shadow-md"
       >
         <ArrowRightIcon size={24} />
       </button>
@@ -167,7 +168,7 @@ const CampaignsSwiper = (): React.ReactNode => {
       <div className="text-center">
         <button
           type="button"
-          className="rounded-full border-2 border-[#F0E5B2] border-opacity-50 px-6 py-3 text-lg font-semibold text-[#F0E5B2]"
+          className="border-opacity-50 rounded-full border-2 border-[#F0E5B2] px-6 py-3 text-lg font-semibold text-[#F0E5B2]"
         >
           Discover all Campaigns
         </button>

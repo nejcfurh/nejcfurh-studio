@@ -1,8 +1,8 @@
 'use client';
 
-import { useRef, useEffect } from 'react';
 import { useGameLoop } from '@/hooks/useGameLoop';
 import { useGameStore } from '@/store/gameStore';
+import { useEffect, useRef } from 'react';
 
 export default function GameLoopRunner() {
   const joystickXRef = useRef(0);

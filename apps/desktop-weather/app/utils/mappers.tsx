@@ -1,12 +1,12 @@
 import {
-  Sun,
-  CloudRain,
-  Snowflake,
-  CloudSun,
   Cloud,
   CloudFog,
-  Zap,
+  CloudRain,
+  CloudSun,
   Droplets,
+  Snowflake,
+  Sun,
+  Zap
 } from 'lucide-react';
 import React from 'react';
 

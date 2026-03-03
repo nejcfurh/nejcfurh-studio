@@ -13,7 +13,7 @@ const NatureManifest = (): React.ReactNode => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.2, delay: 0.2 }}
-          className="mt-10 font-decoy text-3xl text-[#9B445E]"
+          className="font-decoy mt-10 text-3xl text-[#9B445E]"
         >
           Conservation starts with You. Me. All of us.{' '}
         </AnimatedTitle>
@@ -37,7 +37,7 @@ const NatureManifest = (): React.ReactNode => {
         >
           <Link
             href="/manifesto"
-            className="w-full rounded-full bg-[#396089] py-4 text-center text-base font-bold text-[#F0E5B2] transition-all duration-300 ease-in-out no-tap-highlight hover:opacity-75 md:w-1/3"
+            className="no-tap-highlight w-full rounded-full bg-[#396089] py-4 text-center text-base font-bold text-[#F0E5B2] transition-all duration-300 ease-in-out hover:opacity-75 md:w-1/3"
           >
             Read Our Manifesto
           </Link>

@@ -2,10 +2,10 @@
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { AnimatePresence, motion, useInView } from 'framer-motion';
+import { cn } from 'lib/utils';
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 import type { ReactElement, RefObject } from 'react';
-import { cn } from 'lib/utils';
 
 interface InteractiveSectionProps {
   titles: string[];
@@ -48,7 +48,9 @@ const InteractiveSection = ({
     amount: 0.5
   });
 
-  const getCorrectRefObject = (index: number): RefObject<HTMLDivElement | null> => {
+  const getCorrectRefObject = (
+    index: number
+  ): RefObject<HTMLDivElement | null> => {
     if (index === 0) {
       return firstImageRef;
     }

@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 
-
 import './globals.css';
 
 const PPMoriRegular = localFont({
@@ -23,9 +22,9 @@ const RootLayout = ({
       <head>
         <link rel="stylesheet" href="https://use.typekit.net/piz6hxo.css" />
       </head>
-        <body className={`antialiased bg-white ${PPMoriRegular.className}`}>
-          {children}
-        </body>
+      <body className={`bg-white antialiased ${PPMoriRegular.className}`}>
+        {children}
+      </body>
     </html>
   );
 };

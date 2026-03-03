@@ -78,7 +78,7 @@ const FriendsOfNature = (): React.ReactNode => {
             </span>{' '}
           </ParallaxTitle>
         </div>
-        <div className="pt-10 font-archivo">
+        <div className="font-archivo pt-10">
           <ScrollText text={text} />
         </div>
       </section>
@@ -87,7 +87,7 @@ const FriendsOfNature = (): React.ReactNode => {
         <StackedCards />
         <div className="absolute bottom-0 flex w-full flex-col items-center justify-center gap-10 px-10">
           <Link
-            className="w-[80%] rounded-full bg-[#B4BD02] py-3 text-center font-archivo font-semibold text-[#1A5632] shadow-sm shadow-primary md:w-1/4 md:py-5 md:text-2xl"
+            className="font-archivo shadow-primary w-[80%] rounded-full bg-[#B4BD02] py-3 text-center font-semibold text-[#1A5632] shadow-sm md:w-1/4 md:py-5 md:text-2xl"
             href="/how-to-help"
           >
             Start now
@@ -114,14 +114,14 @@ const FriendsOfNature = (): React.ReactNode => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.2, delay: 0 }}
-            className="absolute bottom-0 h-[60%] w-[85vw] rounded-br-3xl rounded-tl-3xl rounded-tr-3xl bg-[#FBB603] p-6 md:h-full md:w-[45vw]"
+            className="absolute bottom-0 h-[60%] w-[85vw] rounded-tl-3xl rounded-tr-3xl rounded-br-3xl bg-[#FBB603] p-6 md:h-full md:w-[45vw]"
           >
             <AnimatedTitle
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.2, delay: 0 }}
-              className="mb-10 text-left font-decoy text-3xl text-[#863E11] md:text-5xl"
+              className="font-decoy mb-10 text-left text-3xl text-[#863E11] md:text-5xl"
             >
               Get a yard makeover. On us.
             </AnimatedTitle>
@@ -130,7 +130,7 @@ const FriendsOfNature = (): React.ReactNode => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.2, delay: 0.2 }}
-              className="my-5 font-archivo text-xl text-[#863E11]"
+              className="font-archivo my-5 text-xl text-[#863E11]"
             >
               Anyone who is part of the Friends of Nature movement and has{' '}
               <span className="font-bold">
@@ -165,7 +165,7 @@ const FriendsOfNature = (): React.ReactNode => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.2, delay: 0.2 }}
-              className="h-full text-left font-decoy text-4xl text-[#1A5632] md:text-6xl md:leading-tight"
+              className="font-decoy h-full text-left text-4xl text-[#1A5632] md:text-6xl md:leading-tight"
             >
               Read our
               <br /> Manifesto
@@ -177,7 +177,7 @@ const FriendsOfNature = (): React.ReactNode => {
               transition={{ duration: 0.2, delay: 0 }}
             >
               <Link href="/manifesto" className="no-tap-highlight">
-                <div className="mb-8 rounded-full border-2 border-[#B4BD02] p-2 font-archivo text-[#1A5632] md:mb-0 md:mt-10 md:p-4">
+                <div className="font-archivo mb-8 rounded-full border-2 border-[#B4BD02] p-2 text-[#1A5632] md:mt-10 md:mb-0 md:p-4">
                   <ArrowRight size={24} />
                 </div>
               </Link>
@@ -202,13 +202,13 @@ const FriendsOfNature = (): React.ReactNode => {
         <div className="hidden h-full rounded-3xl bg-[#76A5D8]">
           <NatureManifest />
           {/* WHAT OTHERS ARE DOING -- CURRENTLY HIDDEN */}
-          <div className="hidden h-full w-full rounded-3xl bg-[#76A5D8] pb-16 pt-10">
+          <div className="hidden h-full w-full rounded-3xl bg-[#76A5D8] pt-10 pb-16">
             <AnimatedTitle
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.2, delay: 0.2 }}
-              className="mb-10 text-center font-decoy text-5xl font-bold text-[#F0E5B2]"
+              className="font-decoy mb-10 text-center text-5xl font-bold text-[#F0E5B2]"
             >
               <ParallaxTitle color="#F0E5B2">
                 What others are doing{' '}
@@ -276,13 +276,13 @@ const FriendsOfNature = (): React.ReactNode => {
         {/* YARD MAKEOVER */}
         <div className="mb-20 flex h-[70vh] w-full flex-col items-center justify-center">
           <div className="relative mx-10 flex h-full w-full max-w-[1360px] flex-row overflow-hidden rounded-r-3xl">
-            <AnimatedDiv className="absolute left-0 z-20 flex h-full flex-col justify-end rounded-br-3xl rounded-tl-3xl rounded-tr-3xl bg-[#FBB603] p-10 md:w-2/5">
+            <AnimatedDiv className="absolute left-0 z-20 flex h-full flex-col justify-end rounded-tl-3xl rounded-tr-3xl rounded-br-3xl bg-[#FBB603] p-10 md:w-2/5">
               <AnimatedTitle
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.2, delay: 0 }}
-                className="my-5 text-left font-decoy text-3xl text-[#863E11] md:text-5xl"
+                className="font-decoy my-5 text-left text-3xl text-[#863E11] md:text-5xl"
               >
                 Get a yard <br /> makeover. On us.
               </AnimatedTitle>
@@ -291,7 +291,7 @@ const FriendsOfNature = (): React.ReactNode => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.2, delay: 0.2 }}
-                className="my-5 font-archivo text-xl text-[#863E11]"
+                className="font-archivo my-5 text-xl text-[#863E11]"
               >
                 Anyone who is part of the Friends of Nature movement and has{' '}
                 <span className="font-bold">
@@ -305,7 +305,7 @@ const FriendsOfNature = (): React.ReactNode => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.2, delay: 0.4 }}
-                className="mb-3 font-archivo text-xl text-[#863E11]"
+                className="font-archivo mb-3 text-xl text-[#863E11]"
               >
                 We are allocating <span className="font-bold">$100.000</span>{' '}
                 for your yard makeovers.
@@ -334,7 +334,7 @@ const FriendsOfNature = (): React.ReactNode => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.2, delay: 0.2 }}
-              className="h-full text-left font-decoy text-4xl text-[#1A5632] md:text-6xl md:leading-tight"
+              className="font-decoy h-full text-left text-4xl text-[#1A5632] md:text-6xl md:leading-tight"
             >
               Read our
               <br /> Manifesto
@@ -346,7 +346,7 @@ const FriendsOfNature = (): React.ReactNode => {
               transition={{ duration: 0.2, delay: 0 }}
             >
               <Link href="/manifesto" className="no-tap-highlight">
-                <div className="mb-8 rounded-full border-2 border-[#B4BD02] p-2 font-archivo text-[#1A5632] md:mb-0 md:mt-10 md:p-4">
+                <div className="font-archivo mb-8 rounded-full border-2 border-[#B4BD02] p-2 text-[#1A5632] md:mt-10 md:mb-0 md:p-4">
                   <ArrowRight size={24} />
                 </div>
               </Link>
@@ -371,13 +371,13 @@ const FriendsOfNature = (): React.ReactNode => {
         <div className="hidden h-full rounded-3xl bg-[#76A5D8]">
           <NatureManifest />
           {/* WHAT OTHERS ARE DOING -- CURRENTLY HIDDEN */}
-          <div className="hidden h-full w-full rounded-3xl bg-[#76A5D8] pb-16 pt-10">
+          <div className="hidden h-full w-full rounded-3xl bg-[#76A5D8] pt-10 pb-16">
             <AnimatedTitle
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.2, delay: 0.2 }}
-              className="mb-10 text-center font-decoy text-5xl font-bold text-[#F0E5B2]"
+              className="font-decoy mb-10 text-center text-5xl font-bold text-[#F0E5B2]"
             >
               <ParallaxTitle color="#F0E5B2">
                 What others are doing{' '}
@@ -424,7 +424,7 @@ const FriendsOfNature = (): React.ReactNode => {
           <Link
             href="https://www.instagram.com/wearefriendsofnature/"
             target="_blank"
-            className="transition-all duration-300 ease-in-out no-tap-highlight hover:opacity-60"
+            className="no-tap-highlight transition-all duration-300 ease-in-out hover:opacity-60"
           >
             <Image
               src="/images/instagram.png"
@@ -437,7 +437,7 @@ const FriendsOfNature = (): React.ReactNode => {
           <Link
             href="https://www.facebook.com/profile.php?id=61574106477241"
             target="_blank"
-            className="transition-all duration-300 ease-in-out no-tap-highlight hover:opacity-60"
+            className="no-tap-highlight transition-all duration-300 ease-in-out hover:opacity-60"
           >
             <Image
               src="/images/facebook.png"
@@ -450,7 +450,7 @@ const FriendsOfNature = (): React.ReactNode => {
           <Link
             href="https://www.tiktok.com/@wearefriendsofnature"
             target="_blank"
-            className="transition-all duration-300 ease-in-out no-tap-highlight hover:opacity-60"
+            className="no-tap-highlight transition-all duration-300 ease-in-out hover:opacity-60"
           >
             <Image
               src="/images/tiktok.png"
@@ -490,12 +490,12 @@ const FriendsOfNature = (): React.ReactNode => {
           />
         </div>
         {/* SOCIAL MEDIA LINKS */}
-        <div className="mb-10 mt-10 flex flex-row items-center gap-16">
+        <div className="mt-10 mb-10 flex flex-row items-center gap-16">
           {/* INSTAGRAM */}
           <Link
             href="https://www.instagram.com/wearefriendsofnature/"
             target="_blank"
-            className="transition-all duration-300 ease-in-out no-tap-highlight hover:opacity-60"
+            className="no-tap-highlight transition-all duration-300 ease-in-out hover:opacity-60"
           >
             <Image
               src="/images/instagram.png"
@@ -508,7 +508,7 @@ const FriendsOfNature = (): React.ReactNode => {
           <Link
             href="https://www.facebook.com/profile.php?id=61574106477241"
             target="_blank"
-            className="transition-all duration-300 ease-in-out no-tap-highlight hover:opacity-60"
+            className="no-tap-highlight transition-all duration-300 ease-in-out hover:opacity-60"
           >
             <Image
               src="/images/facebook.png"
@@ -521,7 +521,7 @@ const FriendsOfNature = (): React.ReactNode => {
           <Link
             href="https://www.tiktok.com/@wearefriendsofnature"
             target="_blank"
-            className="transition-all duration-300 ease-in-out no-tap-highlight hover:opacity-60"
+            className="no-tap-highlight transition-all duration-300 ease-in-out hover:opacity-60"
           >
             <Image
               src="/images/tiktok.png"

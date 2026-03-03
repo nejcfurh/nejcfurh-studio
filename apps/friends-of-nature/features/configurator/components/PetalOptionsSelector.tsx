@@ -1,12 +1,11 @@
 'use client';
 
+import { cn } from 'lib/utils';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
-import { cn } from 'lib/utils';
 
-import type { Option, ProductState, petalConfigurator } from '../types/types';
+import type { Option, petalConfigurator, ProductState } from '../types/types';
 import PetalMountingOptions from './PetalMountingOptions';
-
 
 type Props = {
   configuratorOptions: petalConfigurator[];
@@ -88,19 +87,19 @@ const PetalOptionsSelector = ({
                         isFovOption || isMaterialOption
                           ? 'transparent'
                           : isSelected
-                          ? '#3B9858'
-                          : 'rgba(255, 255, 255, 0.1)',
+                            ? '#3B9858'
+                            : 'rgba(255, 255, 255, 0.1)',
                       color: isMaterialOption
                         ? isSelected
                           ? 'green'
                           : '#003333'
                         : isFovOption
-                        ? isSelected
-                          ? 'white'
-                          : '#003333'
-                        : isSelected
-                        ? 'white'
-                        : '#003333',
+                          ? isSelected
+                            ? 'white'
+                            : '#003333'
+                          : isSelected
+                            ? 'white'
+                            : '#003333',
                       backgroundImage:
                         (isFovOption || isMaterialOption) && option.image
                           ? `url(${option.image})`
@@ -127,7 +126,7 @@ const PetalOptionsSelector = ({
                         'flex flex-row items-center justify-center text-center font-bold',
                         isFovOption
                           ? 'mb-12 w-full items-start justify-center rounded-lg bg-white/70 px-1 py-1 text-xs font-bold'
-                          : ' w-full items-center text-center text-sm',
+                          : 'w-full items-center text-center text-sm',
                         isRecordingTimeOption
                           ? 'ml-2 w-full items-start justify-start'
                           : '',
@@ -179,7 +178,7 @@ const PetalOptionsSelector = ({
                           alt={option.name}
                           width={85}
                           height={85}
-                          className="absolute bottom-0 right-0"
+                          className="absolute right-0 bottom-0"
                         />
                       )}
                       {option.value === 'solar' && option.image && (

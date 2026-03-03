@@ -1,9 +1,9 @@
 'use client';
 
+import { cn } from 'lib/utils';
 import localFont from 'next/font/local';
 import Image from 'next/image';
 import { useState } from 'react';
-import { cn } from 'lib/utils';
 
 const SFProTextUltraLight = localFont({
   src: '../../../public/fonts/SF-Pro-Text-Ultralight.otf'
@@ -59,7 +59,7 @@ const EmailForm = ({
               <div>
                 <p
                   className={cn(
-                    'text-left  text-xl text-[#2F2F2F]',
+                    'text-left text-xl text-[#2F2F2F]',
                     SFProTextUltraLight.className,
                     isModalUsage && 'mt-2'
                   )}
@@ -85,7 +85,7 @@ const EmailForm = ({
                     src="/images/form_flower.png"
                     alt="flower image with butterfly"
                     className={cn(
-                      'absolute right-[-70px] top-px h-full w-full max-w-[160px] object-contain object-top'
+                      'absolute top-px right-[-70px] h-full w-full max-w-[160px] object-contain object-top'
                     )}
                     sizes="100%"
                     width={0}
@@ -120,7 +120,7 @@ const EmailForm = ({
               {isModalUsage && isEarlyBird ? (
                 <p
                   className={cn(
-                    'mt-2  -rotate-3  self-center text-2xl text-[#5F6368]',
+                    'mt-2 -rotate-3 self-center text-2xl text-[#5F6368]',
                     AnnieUseYourTelescope.className
                   )}
                 >
@@ -132,7 +132,7 @@ const EmailForm = ({
               <Image
                 src="/images/petal/petal_device_small.png"
                 alt="petal camera device"
-                className="absolute right-[-20px] top-[-15px] h-[390px] w-[160px] md:right-[-20px] md:top-[-30px] md:h-[480px] md:w-[200px]"
+                className="absolute top-[-15px] right-[-20px] h-[390px] w-[160px] md:top-[-30px] md:right-[-20px] md:h-[480px] md:w-[200px]"
                 sizes="100%"
                 width={0}
                 height={0}

@@ -1,4 +1,3 @@
-
 import Image from 'next/image';
 
 import { gardenCameraAddOns } from '../constants/constants';
@@ -44,7 +43,7 @@ const PetalMountingOptions = ({
             <button
               type="button"
               key={addOn.id}
-              className="relative flex h-[120px] w-[120px] flex-1 flex-grow flex-col items-center justify-between rounded-lg no-tap-highlight md:flex-none"
+              className="no-tap-highlight relative flex h-[120px] w-[120px] flex-1 flex-grow flex-col items-center justify-between rounded-lg md:flex-none"
               style={{
                 border: '1px solid rgba(255, 255, 255, 0.7)',
                 backgroundColor: isSelected
@@ -79,9 +78,9 @@ const PetalMountingOptions = ({
           );
         })}
       </div>
-      <div className="mb-10 mt-3 flex w-full flex-col items-center justify-center font-bold text-[#003333]">
+      <div className="mt-3 mb-10 flex w-full flex-col items-center justify-center font-bold text-[#003333]">
         {selectedMountingOptions.length}/{maxAddOns} selected
-        <div className="mt-2 text-center text-xs font-light italic text-[#003333]">
+        <div className="mt-2 text-center text-xs font-light text-[#003333] italic">
           {bundle === 'starter' && (
             <p className="text-xs text-[#003333]">
               *You can only select {maxAddOns}{' '}

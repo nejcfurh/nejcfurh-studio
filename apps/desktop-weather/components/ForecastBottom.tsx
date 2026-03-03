@@ -1,4 +1,5 @@
 'use client';
+
 import { useFetchWeatherData } from '../app/hooks/useFetchWeatherData';
 import { mapWeatherCodeToIcon } from '../app/utils/mappers';
 
@@ -11,21 +12,21 @@ export function ForecastBottom() {
     const date = new Date(dateString);
     return date.toLocaleDateString('sl-SI', {
       day: 'numeric',
-      month: 'long',
+      month: 'long'
     });
   };
 
   return (
-    <div className="flex mx-auto overflow-x-hidden justify-center h-full items-center w-full">
+    <div className="mx-auto flex h-full w-full items-center justify-center overflow-x-hidden">
       {forecast.time?.map((date: string, idx: number) => (
         <div
           key={date}
-          className="shrink-0 flex flex-col mx-5 items-center justify-center p-2 rounded min-w-[30]"
+          className="mx-5 flex min-w-[30] shrink-0 flex-col items-center justify-center rounded p-2"
         >
-          <div className="font-bold text-lg mb-2">{formatDate(date)}</div>
+          <div className="mb-2 text-lg font-bold">{formatDate(date)}</div>
           <div className="flex flex-col items-center gap-4">
             {mapWeatherCodeToIcon(forecast.weathercode[idx])}
-            <div className="text-center text-lg mt-2 gap-2 flex flex-col">
+            <div className="mt-2 flex flex-col gap-2 text-center text-lg">
               <p className="font-thing">
                 <span className="font-bold">Max:</span>{' '}
                 {Math.round(forecast.temperature_2m_max[idx])}°C

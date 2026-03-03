@@ -10,7 +10,6 @@ import AnimatedTitle from '../components/AnimatedTitle';
 import ManifestoCard from '../components/ManifestoCard';
 import { PageName } from '../constants/data/page.data';
 
-
 const manifestoCards = [
   {
     id: 0,
@@ -127,7 +126,7 @@ const Manifesto = (): React.ReactNode => {
           >
             <Link
               href="/"
-              className="transition-all duration-300 ease-in-out no-tap-highlight hover:opacity-60"
+              className="no-tap-highlight transition-all duration-300 ease-in-out hover:opacity-60"
             >
               <div className="rounded-full border-2 border-[#1A5632] p-3">
                 <ArrowLeft size={28} color="#1A5632" />
@@ -139,7 +138,7 @@ const Manifesto = (): React.ReactNode => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.3, delay: 0.1 }}
-              className="hidden w-full px-5 font-decoy text-[40px] text-[#1A5632] md:block"
+              className="font-decoy hidden w-full px-5 text-[40px] text-[#1A5632] md:block"
             >
               Friends of Nature Manifesto
               <span className="mx-3 inline-block align-middle">
@@ -165,7 +164,7 @@ const Manifesto = (): React.ReactNode => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.3, delay: 0.1 }}
-          className="mt-8 w-full px-5 font-decoy text-[40px] text-[#1A5632] md:hidden md:text-center"
+          className="font-decoy mt-8 w-full px-5 text-[40px] text-[#1A5632] md:hidden md:text-center"
         >
           Friends of Nature Manifesto
           <span className="mx-3 inline-block align-middle">
@@ -188,7 +187,7 @@ const Manifesto = (): React.ReactNode => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.3, delay: 0.1 }}
-          className="mt-10 px-5 font-archivo text-xl text-[#1e1e1e]/75 md:text-2xl"
+          className="font-archivo mt-10 px-5 text-xl text-[#1e1e1e]/75 md:text-2xl"
         >
           We, the Friends of Nature, stand united by our shared reverence for
           the living world and our unwavering commitment to protect, nurture,
@@ -226,7 +225,7 @@ const Manifesto = (): React.ReactNode => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.3, delay: 0.1 }}
-          className="mt-10 w-full px-5 font-decoy text-[40px] font-bold text-[#1A5632] md:text-center"
+          className="font-decoy mt-10 w-full px-5 text-[40px] font-bold text-[#1A5632] md:text-center"
         >
           Conclusion
         </AnimatedTitle>
@@ -235,7 +234,7 @@ const Manifesto = (): React.ReactNode => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.3, delay: 0.1 }}
-          className="mb-20 mt-5 px-5 font-archivo text-xl text-[#1e1e1e]/75 md:pb-20 md:text-2xl"
+          className="font-archivo mt-5 mb-20 px-5 text-xl text-[#1e1e1e]/75 md:pb-20 md:text-2xl"
         >
           We, the Friends of Nature, stand united by our shared reverence for
           the living world and our unwavering commitment to protect, nurture,
@@ -265,7 +264,7 @@ const Manifesto = (): React.ReactNode => {
           <Link
             href="https://www.instagram.com/wearefriendsofnature/"
             target="_blank"
-            className="transition-all duration-300 ease-in-out no-tap-highlight hover:opacity-60"
+            className="no-tap-highlight transition-all duration-300 ease-in-out hover:opacity-60"
           >
             <Image
               src="/images/instagram.png"
@@ -278,7 +277,7 @@ const Manifesto = (): React.ReactNode => {
           <Link
             href="https://www.facebook.com/profile.php?id=61574106477241"
             target="_blank"
-            className="transition-all duration-300 ease-in-out no-tap-highlight hover:opacity-60"
+            className="no-tap-highlight transition-all duration-300 ease-in-out hover:opacity-60"
           >
             <Image
               src="/images/facebook.png"
@@ -291,7 +290,7 @@ const Manifesto = (): React.ReactNode => {
           <Link
             href="https://www.tiktok.com/@wearefriendsofnature"
             target="_blank"
-            className="transition-all duration-300 ease-in-out no-tap-highlight hover:opacity-60"
+            className="no-tap-highlight transition-all duration-300 ease-in-out hover:opacity-60"
           >
             <Image
               src="/images/tiktok.png"
@@ -331,12 +330,12 @@ const Manifesto = (): React.ReactNode => {
           />
         </div>
         {/* SOCIAL MEDIA LINKS */}
-        <div className="mb-10 mt-10 flex flex-row items-center gap-16">
+        <div className="mt-10 mb-10 flex flex-row items-center gap-16">
           {/* INSTAGRAM */}
           <Link
             href="https://www.instagram.com/wearefriendsofnature/"
             target="_blank"
-            className="transition-all duration-300 ease-in-out no-tap-highlight hover:opacity-60"
+            className="no-tap-highlight transition-all duration-300 ease-in-out hover:opacity-60"
           >
             <Image
               src="/images/instagram.png"
@@ -349,7 +348,7 @@ const Manifesto = (): React.ReactNode => {
           <Link
             href="https://www.facebook.com/profile.php?id=61574106477241"
             target="_blank"
-            className="transition-all duration-300 ease-in-out no-tap-highlight hover:opacity-60"
+            className="no-tap-highlight transition-all duration-300 ease-in-out hover:opacity-60"
           >
             <Image
               src="/images/facebook.png"
@@ -362,7 +361,7 @@ const Manifesto = (): React.ReactNode => {
           <Link
             href="https://www.tiktok.com/@wearefriendsofnature"
             target="_blank"
-            className="transition-all duration-300 ease-in-out no-tap-highlight hover:opacity-60"
+            className="no-tap-highlight transition-all duration-300 ease-in-out hover:opacity-60"
           >
             <Image
               src="/images/tiktok.png"

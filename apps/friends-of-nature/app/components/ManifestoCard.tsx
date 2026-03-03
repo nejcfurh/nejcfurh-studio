@@ -20,19 +20,19 @@ const ManifestoCard = ({
   return (
     <div className="w-full rounded-3xl p-6" style={{ backgroundColor: color }}>
       <h2
-        className="mb-4 font-decoy text-2xl font-bold md:text-3xl"
+        className="font-decoy mb-4 text-2xl font-bold md:text-3xl"
         style={{ color: titleColor }}
       >
         {index + 1}. {name}
       </h2>
 
-      <p className="mb-6 font-archivo text-[#1e1e1e]/75 md:text-lg ">
+      <p className="font-archivo mb-6 text-[#1e1e1e]/75 md:text-lg">
         {content}
       </p>
 
       <div>
         <h3
-          className="mb-3 font-decoy text-xl font-semibold md:text-2xl"
+          className="font-decoy mb-3 text-xl font-semibold md:text-2xl"
           style={{ color: titleColor }}
         >
           Our commitment

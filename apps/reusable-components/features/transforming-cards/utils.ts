@@ -8,19 +8,19 @@ export const generateCode = (width: number, height: number): string => {
     'const SCAN_WIDTH = 8;',
     'const FADE_ZONE = 35;',
     'const MAX_PARTICLES = 2500;',
-    'const TRANSITION = 0.05;',
+    'const TRANSITION = 0.05;'
   ];
 
   const helpers = [
     'function clamp(n, a, b) { return Math.max(a, Math.min(b, n)); }',
     'function lerp(a, b, t) { return a + (b - a) * t; }',
     'const now = () => performance.now();',
-    'function rng(min, max) { return Math.random() * (max - min) + min; }',
+    'function rng(min, max) { return Math.random() * (max - min) + min; }'
   ];
 
   const library: string[] = [];
-  header.forEach(l => library.push(l));
-  helpers.forEach(l => library.push(l));
+  header.forEach((l) => library.push(l));
+  helpers.forEach((l) => library.push(l));
 
   for (let i = 0; i < 40; i++) {
     const n1 = randInt(1, 9);
@@ -54,7 +54,7 @@ export const generateCode = (width: number, height: number): string => {
 export const createAsciiUpdateInterval = () => {
   return setInterval(() => {
     if (typeof document !== 'undefined') {
-      document.querySelectorAll('.ascii-content').forEach(content => {
+      document.querySelectorAll('.ascii-content').forEach((content) => {
         if (Math.random() < 0.15) {
           content.textContent = generateCode(66, 19);
         }

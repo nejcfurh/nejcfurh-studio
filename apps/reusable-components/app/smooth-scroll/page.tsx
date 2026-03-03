@@ -1,9 +1,10 @@
-import NavBar from './components/NavBar';
-import Hero from './components/Hero';
-import Schedule from './components/Schedule';
-import { ReactLenis } from 'lenis/react';
-import Footer from './components/Footer';
 import BackButton from '@/components/buttons/BackButton';
+import { ReactLenis } from 'lenis/react';
+
+import Footer from './components/Footer';
+import Hero from './components/Hero';
+import NavBar from './components/NavBar';
+import Schedule from './components/Schedule';
 import ZoomParallaxGallery from './components/ZoomParallaxGallery';
 
 const SmoothScrollPage = () => {

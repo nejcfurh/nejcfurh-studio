@@ -1,19 +1,19 @@
 'use client';
 
-import { useRef, MutableRefObject } from 'react';
-import { useFrame } from '@react-three/fiber';
-import { useGameStore } from '@/store/gameStore';
-import { BIRD_SPECIES } from '@/lib/birdSpecies';
-import {
-  FEEDER_PROXIMITY,
-  DISTANCE_PER_UNIT,
-  GROUND_DEATH_TIME,
-} from '@/utils/constants';
 import { audioManager } from '@/lib/audioManager';
+import { BIRD_SPECIES } from '@/lib/birdSpecies';
 import { computeFlightStep } from '@/lib/flightPhysics';
-import { tickEagleThreat, tickCatThreat } from '@/lib/threatSystem';
 import { depleteResources, replenishFromFeeder } from '@/lib/resourceSystem';
-import { computeFlightScore, computeDistance } from '@/lib/scoring';
+import { computeDistance, computeFlightScore } from '@/lib/scoring';
+import { tickCatThreat, tickEagleThreat } from '@/lib/threatSystem';
+import { useGameStore } from '@/store/gameStore';
+import {
+  DISTANCE_PER_UNIT,
+  FEEDER_PROXIMITY,
+  GROUND_DEATH_TIME
+} from '@/utils/constants';
+import { useFrame } from '@react-three/fiber';
+import { MutableRefObject, useRef } from 'react';
 import * as THREE from 'three';
 
 export function useGameLoop(joystickXRef: MutableRefObject<number>) {
@@ -50,7 +50,7 @@ export function useGameLoop(joystickXRef: MutableRefObject<number>) {
       const speed = Math.sqrt(
         state.velocity[0] * state.velocity[0] +
           state.velocity[1] * state.velocity[1] +
-          state.velocity[2] * state.velocity[2],
+          state.velocity[2] * state.velocity[2]
       );
       audioManager.setWindVolume(Math.min(0.15, speed * 0.012));
 
@@ -70,7 +70,7 @@ export function useGameLoop(joystickXRef: MutableRefObject<number>) {
         clamped,
         scoreAccumulator,
         lastPosition,
-        flapApplied,
+        flapApplied
       );
 
       // Periodically refresh feeders
@@ -95,7 +95,7 @@ function updateFlight(
   delta: number,
   scoreAccumulator: MutableRefObject<number>,
   lastPosition: MutableRefObject<THREE.Vector3>,
-  flapAppliedRef: MutableRefObject<boolean>,
+  flapAppliedRef: MutableRefObject<boolean>
 ) {
   const attrs = species.attributes;
 
@@ -110,7 +110,7 @@ function updateFlight(
     flapApplied: flapAppliedRef.current,
     joystickX,
     attrs,
-    delta,
+    delta
   });
 
   flapAppliedRef.current = flight.flapApplied;
@@ -133,7 +133,7 @@ function updateFlight(
     state.water,
     state.stamina - flight.staminaCost,
     attrs,
-    delta,
+    delta
   );
 
   if (resources.depletedResource) {
@@ -151,13 +151,13 @@ function updateFlight(
     lastPosition.current.z,
     flight.position[0],
     flight.position[1],
-    flight.position[2],
+    flight.position[2]
   );
   if (dist > 0.01) {
     lastPosition.current.set(
       flight.position[0],
       flight.position[1],
-      flight.position[2],
+      flight.position[2]
     );
   }
 
@@ -195,7 +195,7 @@ function updateFlight(
     eagleDodgeTaps: state.eagleDodgeTaps,
     eagleAltitudeHunt: state.eagleAltitudeHunt,
     threatType: state.threatType,
-    threatWarningActive: state.threatWarningActive,
+    threatWarningActive: state.threatWarningActive
   });
 
   // Handle eagle actions
@@ -205,7 +205,7 @@ function updateFlight(
         eagleAltitudeHunt: true,
         threatWarningActive: true,
         threatType: 'eagle',
-        eagleTimer: eagle.eagleTimer,
+        eagleTimer: eagle.eagleTimer
       });
       useGameStore.setState({
         position: flight.position,
@@ -218,7 +218,7 @@ function updateFlight(
         score: state.score + score.points,
         distance: state.distance + (dist > 0.01 ? dist * DISTANCE_PER_UNIT : 0),
         feederCooldown: Math.max(0, state.feederCooldown - delta),
-        groundTimer,
+        groundTimer
       });
       return;
     case 'end_altitude_hunt':
@@ -226,7 +226,7 @@ function updateFlight(
         eagleAltitudeHunt: false,
         threatType: null,
         threatWarningActive: false,
-        eagleTimer: eagle.eagleTimer,
+        eagleTimer: eagle.eagleTimer
       });
       break;
     case 'altitude_caught':
@@ -237,7 +237,7 @@ function updateFlight(
       useGameStore.setState({
         threatWarningActive: true,
         threatType: 'eagle',
-        eagleTimer: eagle.eagleTimer,
+        eagleTimer: eagle.eagleTimer
       });
       break;
     case 'start_dodge_window':
@@ -245,7 +245,7 @@ function updateFlight(
         eagleDodgeWindow: eagle.eagleDodgeWindow,
         eagleDodgeStartRotation: flight.rotation,
         eagleDodgeTaps: 0,
-        eagleTimer: eagle.eagleTimer,
+        eagleTimer: eagle.eagleTimer
       });
       useGameStore.setState({
         position: flight.position,
@@ -258,7 +258,7 @@ function updateFlight(
         score: state.score + score.points,
         distance: state.distance + (dist > 0.01 ? dist * DISTANCE_PER_UNIT : 0),
         feederCooldown: Math.max(0, state.feederCooldown - delta),
-        groundTimer,
+        groundTimer
       });
       return;
     case 'dodged':
@@ -282,14 +282,14 @@ function updateFlight(
     feederCooldown: Math.max(0, state.feederCooldown - delta),
     eagleTimer: eagle.eagleTimer,
     eagleDodgeWindow: eagle.eagleDodgeWindow,
-    groundTimer,
+    groundTimer
   });
 }
 
 function updateFeeding(
   state: ReturnType<typeof useGameStore.getState>,
   species: (typeof BIRD_SPECIES)[string],
-  delta: number,
+  delta: number
 ) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { activeFeeder, gameState, perchTime } = state;
@@ -303,7 +303,7 @@ function updateFeeding(
     state.water,
     activeFeeder.type,
     attrs,
-    delta,
+    delta
   );
 
   // Cat threat
@@ -311,7 +311,7 @@ function updateFeeding(
     threatMeter: state.threatMeter,
     hasCat: activeFeeder.hasCat,
     delta,
-    threatWarningActive: state.threatWarningActive,
+    threatWarningActive: state.threatWarningActive
   });
 
   if (cat.caught) {
@@ -325,7 +325,7 @@ function updateFeeding(
     food: replenish.food,
     water: replenish.water,
     score: state.score + replenish.scoreGained,
-    threatMeter: cat.threatMeter,
+    threatMeter: cat.threatMeter
   };
 
   if (cat.warning) {

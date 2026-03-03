@@ -1,9 +1,9 @@
 'use client';
 
-import { useRef, useCallback, useMemo, useEffect } from 'react';
-import { useFrame } from '@react-three/fiber';
-import { useGLTF, useTexture } from '@react-three/drei';
 import { BirdSpeciesId } from '@/types';
+import { useGLTF, useTexture } from '@react-three/drei';
+import { useFrame } from '@react-three/fiber';
+import { useCallback, useEffect, useMemo, useRef } from 'react';
 import * as THREE from 'three';
 
 // MAP SPECIES ID TO TEXTURE FILE NAME
@@ -11,7 +11,7 @@ const SPECIES_TEXTURE: Record<BirdSpeciesId, string> = {
   cardinal: '/models/mybird/textures/lambert2_baseColor.png',
   tanager: '/models/mybird/textures/lambert2_baseColor-scarlet.png',
   bunting: '/models/mybird/textures/lambert2_baseColor-indigo.png',
-  starling: '/models/mybird/textures/lambert2_baseColor-starling.png',
+  starling: '/models/mybird/textures/lambert2_baseColor-starling.png'
 };
 
 interface GltfBirdModelProps {
@@ -29,17 +29,17 @@ export default function GltfBirdModel({
   isFlapping,
   isPerched = false,
   scale = 1,
-  speciesId = 'cardinal',
+  speciesId = 'cardinal'
 }: GltfBirdModelProps) {
   const { scene } = useGLTF('/models/mybird/scene.gltf');
   const speciesTexture = useTexture(
-    SPECIES_TEXTURE[speciesId] || SPECIES_TEXTURE.cardinal,
+    SPECIES_TEXTURE[speciesId] || SPECIES_TEXTURE.cardinal
   );
 
   // DEEP CLONE INCLUDING GEOMETRY BUFFERS SO VERTEX EDITS DON'T CORRUPT THE CACHED ORIGINAL
   const clonedScene = useMemo(() => {
     const clone = scene.clone(true);
-    clone.traverse(child => {
+    clone.traverse((child) => {
       if (child instanceof THREE.Mesh && child.geometry) {
         child.geometry = child.geometry.clone();
       }
@@ -53,7 +53,7 @@ export default function GltfBirdModel({
     speciesTexture.flipY = false;
     speciesTexture.colorSpace = THREE.SRGBColorSpace;
     speciesTexture.needsUpdate = true;
-    clonedScene.traverse(child => {
+    clonedScene.traverse((child) => {
       if (child instanceof THREE.Mesh && child.material) {
         const mat = child.material as THREE.MeshStandardMaterial;
         mat.map = speciesTexture;
@@ -66,18 +66,18 @@ export default function GltfBirdModel({
   const flapTime = useRef(-1);
   const flapActive = useRef(false);
   const originalPositions = useRef<Map<THREE.BufferGeometry, Float32Array>>(
-    new Map(),
+    new Map()
   );
 
   const initOriginals = useCallback(() => {
     if (originalPositions.current.size > 0) return;
-    clonedScene.traverse(child => {
+    clonedScene.traverse((child) => {
       if (child instanceof THREE.Mesh && child.geometry) {
         const pos = child.geometry.attributes.position;
         if (pos) {
           originalPositions.current.set(
             child.geometry,
-            new Float32Array(pos.array),
+            new Float32Array(pos.array)
           );
         }
       }
@@ -129,9 +129,9 @@ export default function GltfBirdModel({
 function applyWingLift(
   scene: THREE.Object3D,
   originals: Map<THREE.BufferGeometry, Float32Array>,
-  lift: number,
+  lift: number
 ) {
-  scene.traverse(child => {
+  scene.traverse((child) => {
     if (child instanceof THREE.Mesh && child.geometry) {
       const posAttr = child.geometry.attributes.position;
       const orig = originals.get(child.geometry);
@@ -155,9 +155,9 @@ function applyWingLift(
 
 function resetVertices(
   scene: THREE.Object3D,
-  originals: Map<THREE.BufferGeometry, Float32Array>,
+  originals: Map<THREE.BufferGeometry, Float32Array>
 ) {
-  scene.traverse(child => {
+  scene.traverse((child) => {
     if (child instanceof THREE.Mesh && child.geometry) {
       const posAttr = child.geometry.attributes.position;
       const orig = originals.get(child.geometry);
@@ -170,4 +170,4 @@ function resetVertices(
 }
 
 // PRELOAD ALL SPECIES TEXTURES
-Object.values(SPECIES_TEXTURE).forEach(url => useTexture.preload(url));
+Object.values(SPECIES_TEXTURE).forEach((url) => useTexture.preload(url));

@@ -2,12 +2,12 @@
 
 import { api } from '@/convex/_generated/api';
 import { Doc, Id } from '@/convex/_generated/dataModel';
-import { Avatar, AvatarImage } from '@radix-ui/react-avatar';
-import { AvatarFallback } from '@radix-ui/react-avatar';
+import { Avatar, AvatarFallback, AvatarImage } from '@radix-ui/react-avatar';
 import { ColumnDef } from '@tanstack/react-table';
 import { useQuery } from 'convex/react';
 import { formatRelative } from 'date-fns';
 import { UserIcon } from 'lucide-react';
+
 import ActionsDropdownMenu from './ActionsDropdownMenu';
 
 const UserCell = ({ userId }: { userId: Id<'users'> }) => {
@@ -18,13 +18,13 @@ const UserCell = ({ userId }: { userId: Id<'users'> }) => {
         <AvatarImage
           src={user?.imageUrl ?? ''}
           alt={user?.name ?? ''}
-          className="object-cover object-top h-full w-full rounded-full"
+          className="h-full w-full rounded-full object-cover object-top"
         />
         <AvatarFallback>
           <UserIcon className="size-6 rounded-full" />
         </AvatarFallback>
       </Avatar>
-      <span className="text-xs font-medium text-muted-foreground">
+      <span className="text-muted-foreground text-xs font-medium">
         {user?.name}
       </span>
     </div>
@@ -34,11 +34,11 @@ const UserCell = ({ userId }: { userId: Id<'users'> }) => {
 const ActionsCell = ({ file }: { file: Doc<'files'> }) => {
   const fileUrl = useQuery(api.files.getStorage, { fileId: file.fileId });
   const allFavorites = useQuery(api.files.queryAllFavorites, {
-    organizationId: file.organizationId ?? '',
+    organizationId: file.organizationId ?? ''
   });
 
   const isFavorite = (fileId: Id<'files'>) =>
-    allFavorites?.some(favorite => favorite.fileId === fileId);
+    allFavorites?.some((favorite) => favorite.fileId === fileId);
 
   return (
     <ActionsDropdownMenu
@@ -52,31 +52,31 @@ const ActionsCell = ({ file }: { file: Doc<'files'> }) => {
 export const columns: ColumnDef<Doc<'files'>>[] = [
   {
     accessorKey: 'name',
-    header: 'Name',
+    header: 'Name'
   },
   {
     accessorKey: 'type',
-    header: 'Type',
+    header: 'Type'
   },
   {
     header: 'Uploaded by',
     cell: ({ row }) => {
       return <UserCell userId={row.original.userId} />;
-    },
+    }
   },
   {
     header: 'Created At',
     cell: ({ row }) => {
       const creationTime = new Date(row.original._creationTime);
       return <div>{formatRelative(creationTime, new Date())}</div>;
-    },
+    }
   },
   {
     header: 'Actions',
     cell: ({ row }) => {
       return <ActionsCell file={row.original} />;
-    },
-  },
+    }
+  }
 ];
 
 export default columns;

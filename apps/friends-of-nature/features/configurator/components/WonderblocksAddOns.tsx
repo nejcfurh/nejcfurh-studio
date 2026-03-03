@@ -1,4 +1,3 @@
-
 import Image from 'next/image';
 
 import { wonderblocksAddOns } from '../constants/constants';
@@ -44,7 +43,7 @@ const WonderblocksAddOns = ({
             <button
               type="button"
               key={addOn.id}
-              className="flex h-[120px] w-[120px] flex-col items-center justify-between rounded-lg no-tap-highlight"
+              className="no-tap-highlight flex h-[120px] w-[120px] flex-col items-center justify-between rounded-lg"
               style={{
                 border: '1px solid rgba(255, 255, 255, 0.7)',
                 backgroundColor: isSelected
@@ -75,9 +74,9 @@ const WonderblocksAddOns = ({
           );
         })}
       </div>
-      <div className="mb-10 mt-3 flex w-full flex-col items-center justify-center font-bold text-[#003333]">
+      <div className="mt-3 mb-10 flex w-full flex-col items-center justify-center font-bold text-[#003333]">
         {selectedAddOns.length}/{maxAddOns} selected
-        <div className="mt-2 text-center text-xs font-light italic text-[#003333]">
+        <div className="mt-2 text-center text-xs font-light text-[#003333] italic">
           {bundle === 'starter' && (
             <p className="text-xs text-[#003333]">
               *You can only select {maxAddOns}{' '}

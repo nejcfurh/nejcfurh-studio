@@ -1,16 +1,16 @@
 const OverlayTextButton = ({
   handleDisplayTextOverlay,
-  displayTextOverlay,
+  displayTextOverlay
 }: {
   handleDisplayTextOverlay: () => void;
   displayTextOverlay: boolean;
 }) => {
   return (
     <button
-      className="absolute top-5  bg-white/50 z-10 p-4 rounded-full backdrop-blur-3xl hover:opacity-80 hover:scale-[1.10] transition-all duration-300 cursor-pointer animate-pulse"
+      className="absolute top-5 z-10 animate-pulse cursor-pointer rounded-full bg-white/50 p-4 backdrop-blur-3xl transition-all duration-300 hover:scale-[1.10] hover:opacity-80"
       onClick={handleDisplayTextOverlay}
     >
-      <span className="text-black text-lg font-light">
+      <span className="text-lg font-light text-black">
         {displayTextOverlay ? 'Hide' : 'Show'} Text Overlay
       </span>
     </button>

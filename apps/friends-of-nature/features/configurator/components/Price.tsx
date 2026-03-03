@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react';
 
 import { Product, type ProductState, type SelectedItem } from '../types/types';
 import {
-  type Currency,
   convertPrice,
   detectUserCurrency,
-  formatPrice
+  formatPrice,
+  type Currency
 } from '../utils/currency';
 import { getMaxAddOnsForBundle } from '../utils/utils';
 import { Claps } from './Claps';
@@ -110,15 +110,15 @@ const Price = ({
                 progress === 0
                   ? 'Next'
                   : isLoading
-                  ? 'Loading...'
-                  : 'Submit'}
+                    ? 'Loading...'
+                    : 'Submit'}
               </p>
             </button>
           </div>
         </div>
         <Claps
           pageId="wonder"
-          className="absolute -top-10 right-0 inline-block no-tap-highlight"
+          className="no-tap-highlight absolute -top-10 right-0 inline-block"
         />
       </div>
     </div>

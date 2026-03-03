@@ -1,6 +1,6 @@
 const Footer = () => {
   return (
-    <div className="z-10 bottom-5 left-1/2 -translate-x-1/2 text-sm text-gray-500 dark:text-gray-500 absolute">
+    <div className="absolute bottom-5 left-1/2 z-10 -translate-x-1/2 text-sm text-gray-500 dark:text-gray-500">
       Adapted by Nejc Furh, inspired by{' '}
       <a
         href="https://evervault.com/"

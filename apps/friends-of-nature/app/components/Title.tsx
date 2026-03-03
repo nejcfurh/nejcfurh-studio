@@ -1,12 +1,11 @@
 'use client';
 
+import AnimatedText from 'app/components/AnimatedText';
 import { AnimatePresence, motion } from 'framer-motion';
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
-import AnimatedText from 'app/components/AnimatedText';
 
 import AnimatedDiv from './AnimatedDiv';
-
 
 const Title = (): React.ReactNode => {
   const wordRef = useRef<HTMLSpanElement>(null);
@@ -96,7 +95,7 @@ const Title = (): React.ReactNode => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.4, delay: 0.1 }}
-          className="mt-5 w-full text-center font-decoy text-xl md:mt-12 md:text-left md:text-4xl"
+          className="font-decoy mt-5 w-full text-center text-xl md:mt-12 md:text-left md:text-4xl"
         >
           and it’s{' '}
           <span ref={wordRef} className="relative inline-block font-bold">
@@ -107,7 +106,7 @@ const Title = (): React.ReactNode => {
               viewBox="0 0 98 15"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
-              className={`absolute -left-3 top-6 transition-all duration-500 ease-out md:left-4 md:top-10 md:scale-125 ${
+              className={`absolute top-6 -left-3 transition-all duration-500 ease-out md:top-10 md:left-4 md:scale-125 ${
                 isVisible ? 'opacity-100' : 'opacity-0'
               }`}
             >
@@ -152,7 +151,7 @@ const Title = (): React.ReactNode => {
           className="mt-20 hidden md:flex"
         >
           <Link href="/how-to-help" className="no-tap-highlight">
-            <div className="rounded-full bg-[#F4A1BA] px-12 py-3 font-archivo text-[#9B445E] shadow-lg shadow-primary/50 md:px-24 md:py-3 md:text-2xl">
+            <div className="font-archivo shadow-primary/50 rounded-full bg-[#F4A1BA] px-12 py-3 text-[#9B445E] shadow-lg md:px-24 md:py-3 md:text-2xl">
               How can I help?
             </div>
           </Link>

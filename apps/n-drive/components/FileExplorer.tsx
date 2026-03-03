@@ -4,21 +4,22 @@ import EmptyStatePlaceholder from '@/components/EmptyStatePlaceholder';
 import SearchBar from '@/components/SearchBar';
 import UploadFile from '@/components/UploadFile';
 import { api } from '@/convex/_generated/api';
+import { Doc } from '@/convex/_generated/dataModel';
 import { useOrganization, useUser } from '@clerk/nextjs';
 import { useQuery } from 'convex/react';
 import { Loader2Icon } from 'lucide-react';
 import { Activity, useState } from 'react';
-import GridDisplay from './GridDisplay';
-import TableDisplay from './TableDisplay';
+
 import columns from './Columns';
 import DisplaySelectionTab from './DisplaySelectionTab';
 import FileTypeFilter from './FileTypeFilter';
-import { Doc } from '@/convex/_generated/dataModel';
+import GridDisplay from './GridDisplay';
+import TableDisplay from './TableDisplay';
 
 const FileExplorer = ({
   title,
   favorites,
-  markedForDeletion,
+  markedForDeletion
 }: {
   title: string;
   favorites?: boolean;
@@ -45,7 +46,7 @@ const FileExplorer = ({
           searchQuery,
           favorites,
           markedForDeletion,
-          fileType: fileType === 'all' ? undefined : fileType,
+          fileType: fileType === 'all' ? undefined : fileType
         }
       : 'skip'
   );
@@ -71,7 +72,7 @@ const FileExplorer = ({
 
   return (
     <>
-      <div className="flex justify-between items-center">
+      <div className="flex items-center justify-between">
         <h1 className="text-4xl font-bold">
           <div className="flex items-center gap-2">
             {title}
@@ -85,7 +86,7 @@ const FileExplorer = ({
             />
           </div>
         </h1>
-        <div className="flex items-center justify-end gap-8 min-h-14">
+        <div className="flex min-h-14 items-center justify-end gap-8">
           <SearchBar setSearchQuery={handleSearchQueryChange} />
           <UploadFile organizationId={organizationId!} />
         </div>
@@ -96,7 +97,7 @@ const FileExplorer = ({
       )}
 
       {isLoading && (
-        <div className="flex flex-col items-center h-full gap-4 mt-24">
+        <div className="mt-24 flex h-full flex-col items-center gap-4">
           <Loader2Icon className="size-32 animate-spin text-gray-500" />
           <p className="text-2xl font-semibold">Loading your files ...</p>
         </div>

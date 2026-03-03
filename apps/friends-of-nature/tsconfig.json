@@ -20,7 +20,8 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts"
-, "../desktop-weather/middleware.ts"  ],
+    ".next/types/**/*.ts",
+    "../desktop-weather/middleware.ts"
+  ],
   "exclude": ["node_modules"]
 }

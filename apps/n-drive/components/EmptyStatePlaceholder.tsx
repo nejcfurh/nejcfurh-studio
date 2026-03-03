@@ -1,9 +1,10 @@
 import Image from 'next/image';
-import UploadFile from './UploadFile';
 import { usePathname } from 'next/navigation';
 
+import UploadFile from './UploadFile';
+
 const EmptyStatePlaceholder = ({
-  organizationId,
+  organizationId
 }: {
   organizationId: string;
 }) => {
@@ -14,7 +15,7 @@ const EmptyStatePlaceholder = ({
   const isFavoritesPage = pathname === '/dashboard/favorites';
 
   return (
-    <div className="flex flex-col items-center justify-center gap-8 mt-14">
+    <div className="mt-14 flex flex-col items-center justify-center gap-8">
       {/* FILES PAGE */}
       {isFilesPage && (
         <Image

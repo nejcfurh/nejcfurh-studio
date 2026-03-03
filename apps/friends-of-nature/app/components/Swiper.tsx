@@ -92,8 +92,8 @@ const SwiperWrapper = (): React.ReactNode => {
           ))}
         </div>
       </div>
-      <AnimatedView className="mx-auto mb-6 mt-4 flex w-2/3 justify-center md:w-full">
-        <label className=" font-raleway block w-full text-center text-2xl font-thin text-[#003333] md:mt-10 md:text-3xl">
+      <AnimatedView className="mx-auto mt-4 mb-6 flex w-2/3 justify-center md:w-full">
+        <label className="font-raleway block w-full text-center text-2xl font-thin text-[#003333] md:mt-10 md:text-3xl">
           {items[selectedIndex].label}{' '}
           <span className="w-60vw font-bold text-black">
             <strong>{items[selectedIndex].labelBold}</strong>

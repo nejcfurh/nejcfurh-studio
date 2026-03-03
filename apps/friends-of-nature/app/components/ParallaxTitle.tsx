@@ -71,12 +71,11 @@ const ParallaxTitle = ({
   return (
     <div
       ref={ref}
-      className={`m-0 flex text-[${color}] h-24 flex-nowrap overflow-hidden whitespace-nowrap
-      font-decoy`}
+      className={`m-0 flex text-[${color}] font-decoy h-24 flex-nowrap overflow-hidden whitespace-nowrap`}
       style={{ color }}
     >
       <motion.div
-        className="flex flex-nowrap whitespace-nowrap text-6xl font-semibold md:text-8xl"
+        className="flex flex-nowrap text-6xl font-semibold whitespace-nowrap md:text-8xl"
         style={{ x }}
       >
         <span className="mr-8 block">{children}</span>

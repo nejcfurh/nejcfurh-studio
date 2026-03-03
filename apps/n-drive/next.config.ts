@@ -7,15 +7,15 @@ const nextConfig: NextConfig = {
       {
         protocol: 'https',
         hostname: 'elegant-marmot-650.convex.cloud',
-        pathname: '/api/storage/**',
+        pathname: '/api/storage/**'
       },
       {
         protocol: 'https',
         hostname: 'img.clerk.com',
-        pathname: '/**',
-      },
-    ],
-  },
+        pathname: '/**'
+      }
+    ]
+  }
 };
 
 export default nextConfig;

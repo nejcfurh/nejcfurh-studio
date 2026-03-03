@@ -34,7 +34,7 @@ const HeroCTA = (): React.ReactNode => {
         className="mt-8 md:hidden"
       >
         <Link href="/how-to-help" className="no-tap-highlight">
-          <div className="rounded-full bg-[#F4A1BA] px-12 py-3 font-archivo font-semibold text-[#9B445E] shadow-lg shadow-primary/50  md:px-24 md:py-3">
+          <div className="font-archivo shadow-primary/50 rounded-full bg-[#F4A1BA] px-12 py-3 font-semibold text-[#9B445E] shadow-lg md:px-24 md:py-3">
             How can I help?
           </div>
         </Link>

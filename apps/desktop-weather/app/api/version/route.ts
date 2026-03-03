@@ -13,14 +13,14 @@ export async function GET() {
     environment: process.env.NODE_ENV,
     // Add Vercel deployment info if available
     vercelUrl: process.env.VERCEL_URL,
-    gitCommitSha: process.env.VERCEL_GIT_COMMIT_SHA,
+    gitCommitSha: process.env.VERCEL_GIT_COMMIT_SHA
   };
 
   return NextResponse.json(deploymentInfo, {
     headers: {
       'Cache-Control': 'no-cache, no-store, must-revalidate',
       Pragma: 'no-cache',
-      Expires: '0',
-    },
+      Expires: '0'
+    }
   });
 }

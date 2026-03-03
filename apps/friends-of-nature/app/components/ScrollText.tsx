@@ -1,13 +1,12 @@
 'use client';
 
 import {
-  type MotionValue,
   motion,
   useScroll,
-  useTransform
+  useTransform,
+  type MotionValue
 } from 'framer-motion';
 import { useRef } from 'react';
-
 
 interface AnimatedCharacterProps {
   char: string;
@@ -80,7 +79,7 @@ const ScrollText = ({ text }: ScrollTextProps): React.ReactNode => {
       className="flex w-full items-start justify-center md:items-center"
     >
       <div className="rounded-sm px-5 md:w-3/4">
-        <div className="relative font-archivo text-2xl md:mt-5 md:text-3xl">
+        <div className="font-archivo relative text-2xl md:mt-5 md:text-3xl">
           {words.map((word, wordIndex) => {
             // Split each word into characters
             const characters = Array.from(word);

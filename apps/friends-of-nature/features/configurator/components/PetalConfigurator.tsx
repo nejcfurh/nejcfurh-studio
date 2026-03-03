@@ -4,9 +4,9 @@ import Image from 'next/image';
 
 import type {
   Option,
+  petalConfigurator,
   ProductState,
-  SelectedItem,
-  petalConfigurator
+  SelectedItem
 } from '../types/types';
 import PetalOptionsSelector from './PetalOptionsSelector';
 import ProgressBar from './ProgressBar';
@@ -48,10 +48,10 @@ const PetalConfigurator = ({
         {handleBack && (
           <button
             type="button"
-            className="absolute left-0 top-0 p-8 no-tap-highlight"
+            className="no-tap-highlight absolute top-0 left-0 p-8"
             onClick={handleBack}
           >
-            <ChevronLeft className="absolute left-0 top-0" size={48} />
+            <ChevronLeft className="absolute top-0 left-0" size={48} />
           </button>
         )}
         {selectedItem.name === 'Nature Camera' ? (

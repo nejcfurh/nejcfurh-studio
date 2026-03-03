@@ -50,7 +50,7 @@ const SwiperNaturePics = (): React.ReactNode => {
 
   return (
     <AnimatedView className="mt-[-48px] sm:mt-[-50px]">
-      <div className="embla relative  overflow-x-hidden" ref={emblaRef}>
+      <div className="embla relative overflow-x-hidden" ref={emblaRef}>
         <div className="embla__container flex">
           {items.map((item, index) => (
             <div
@@ -70,8 +70,8 @@ const SwiperNaturePics = (): React.ReactNode => {
         </div>
       </div>
       {/* Label - Fixed */}
-      <AnimatedView className="mb-6 mt-4 hidden w-full justify-center">
-        <label className=" font-raleway block w-full text-center text-2xl font-bold text-[#003333] md:text-3xl">
+      <AnimatedView className="mt-4 mb-6 hidden w-full justify-center">
+        <label className="font-raleway block w-full text-center text-2xl font-bold text-[#003333] md:text-3xl">
           {items[selectedIndex].label}
         </label>
       </AnimatedView>

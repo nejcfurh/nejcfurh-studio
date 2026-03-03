@@ -87,7 +87,7 @@ const UsersOnPage = (): React.ReactNode => {
 
   return (
     <div className="flex w-full max-w-[1440px] flex-col items-center justify-center rounded-2xl border-[1px] border-[#B4BD02] py-4">
-      <span className="text-center font-archivo text-2xl text-[#F0E5B2] md:mt-1 md:py-2 md:text-4xl">
+      <span className="font-archivo text-center text-2xl text-[#F0E5B2] md:mt-1 md:py-2 md:text-4xl">
         <span className="animate-pulse font-bold">{count}</span> nature lovers{' '}
         <span className="mx-1 inline-block scale-75 align-middle">
           <SvgMorph />

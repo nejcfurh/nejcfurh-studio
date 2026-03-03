@@ -1,8 +1,9 @@
 'use client';
 
 import React, { Suspense, useEffect, useRef } from 'react';
-import ScrollToDecryptSkeleton from './ScrollToDecryptSkeleton';
+
 import ScrollMarginComponent from './ScrollMarginComponent';
+import ScrollToDecryptSkeleton from './ScrollToDecryptSkeleton';
 
 export interface ScrollToDecryptProps {
   title?: string;
@@ -25,7 +26,7 @@ const ScrollToDecrypt: React.FC<ScrollToDecryptProps> = ({
   titleClassName = '',
   subtitleClassName = '',
   containerClassName = '',
-  enableScrollContent = true,
+  enableScrollContent = true
 }) => {
   const headingRef = useRef<HTMLDivElement>(null);
 
@@ -40,13 +41,13 @@ const ScrollToDecrypt: React.FC<ScrollToDecryptProps> = ({
   const escapeHTML = (str: string): string =>
     str.replace(
       /[&<>"']/g,
-      char =>
+      (char) =>
         ({
           '&': '&amp;',
           '<': '&lt;',
           '>': '&gt;',
           '"': '&quot;',
-          "'": '&#39;',
+          "'": '&#39;'
         })[char] || char
     );
 
@@ -90,23 +91,23 @@ const ScrollToDecrypt: React.FC<ScrollToDecryptProps> = ({
 
       return (
         <span key={`word-${wordIndex}`} className="word whitespace-nowrap">
-          {word.chars.map(char => {
+          {word.chars.map((char) => {
             const currentCharIndex = charIndex++;
             return (
               <span
                 key={currentCharIndex}
                 data-char={char}
-                className="char relative inline-block w-[1ch] h-lh overflow-hidden"
+                className="char relative inline-block h-lh w-[1ch] overflow-hidden"
                 style={
                   {
-                    '--char-index': currentCharIndex,
+                    '--char-index': currentCharIndex
                   } as React.CSSProperties
                 }
               >
                 <span
-                  className="absolute w-[1ch] left-1/2 bottom-0 -translate-x-1/2 wrap-break-word whitespace-break-spaces"
+                  className="absolute bottom-0 left-1/2 w-[1ch] -translate-x-1/2 wrap-break-word whitespace-break-spaces"
                   dangerouslySetInnerHTML={{
-                    __html: char + escapeHTML(randomString(trackLength)),
+                    __html: char + escapeHTML(randomString(trackLength))
                   }}
                 />
               </span>
@@ -130,9 +131,9 @@ const ScrollToDecrypt: React.FC<ScrollToDecryptProps> = ({
       {enableScrollContent && (
         <ScrollMarginComponent text="Scroll down to decrypt the text..." />
       )}
-      <header className="min-h-screen w-full flex items-center justify-center px-4 sm:px-6 lg:px-8">
-        <div className="w-full max-w-7xl mx-auto flex flex-col items-center justify-center text-center">
-          <div className="w-full flex items-center justify-center">
+      <header className="flex min-h-screen w-full items-center justify-center px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto flex w-full max-w-7xl flex-col items-center justify-center text-center">
+          <div className="flex w-full items-center justify-center">
             <div className="font-mono uppercase">
               <span className="sr-only">{title}</span>
               <div
@@ -142,22 +143,22 @@ const ScrollToDecrypt: React.FC<ScrollToDecryptProps> = ({
                   {
                     '--step-start': 'calc(var(--start, 0) * 1%)',
                     '--step-end': 'calc(var(--end, -0.2) * 1%)',
-                    viewTimeline: '--heading',
+                    viewTimeline: '--heading'
                   } as React.CSSProperties
                 }
                 aria-hidden="true"
               >
                 <h1
-                  className={`leading-none m-0 text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl ${titleClassName}`}
+                  className={`m-0 text-4xl leading-none sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl ${titleClassName}`}
                   style={{
-                    fontSize: titleClassName ? undefined : 'var(--fluid-type)',
+                    fontSize: titleClassName ? undefined : 'var(--fluid-type)'
                   }}
                 >
                   {renderEncryptedText(title)}
                 </h1>
                 {subtitle && (
                   <p
-                    className={`m-0 opacity-80 leading-none mt-4 sm:mt-6 md:mt-8 text-xl sm:text-2xl md:text-3xl lg:text-4xl ${subtitleClassName}`}
+                    className={`m-0 mt-4 text-xl leading-none opacity-80 sm:mt-6 sm:text-2xl md:mt-8 md:text-3xl lg:text-4xl ${subtitleClassName}`}
                   >
                     {renderEncryptedText(subtitle)}
                   </p>

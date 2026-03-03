@@ -1,13 +1,10 @@
 'use client';
 
-import { type MotionValue, useScroll, useTransform } from 'framer-motion';
+import { useScroll, useTransform, type MotionValue } from 'framer-motion';
 import Image from 'next/image';
 import React, { useRef } from 'react';
 
 import AnimatedDiv from './AnimatedDiv';
-
-
-
 
 type Card = {
   id: number;
@@ -131,7 +128,7 @@ const CardComponent = ({
           <Image src={card.image} alt={card.title} width={250} height={250} />
         </div>
         <div>
-          <h2 className="mb-4 font-decoy text-3xl md:mb-8 md:text-5xl">
+          <h2 className="font-decoy mb-4 text-3xl md:mb-8 md:text-5xl">
             {card.title}
           </h2>
           <p className="font-archivo text-lg md:text-3xl">
@@ -144,7 +141,7 @@ const CardComponent = ({
         <div className="flex flex-col justify-between">
           <div className="font-decoy text-2xl uppercase">Step {card.id}</div>
           <div>
-            <h2 className="mb-4 font-decoy text-3xl md:mb-8 md:text-5xl">
+            <h2 className="font-decoy mb-4 text-3xl md:mb-8 md:text-5xl">
               {card.title}
             </h2>
             <p className="font-archivo text-lg md:text-3xl">

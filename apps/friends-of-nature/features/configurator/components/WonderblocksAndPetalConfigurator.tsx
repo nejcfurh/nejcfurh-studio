@@ -2,9 +2,9 @@ import React from 'react';
 
 import type {
   Option,
+  petalConfigurator,
   ProductState,
   SelectedItem,
-  petalConfigurator,
   wonderblocksConfigurator
 } from '../types/types';
 import PetalConfigurator from './PetalConfigurator';

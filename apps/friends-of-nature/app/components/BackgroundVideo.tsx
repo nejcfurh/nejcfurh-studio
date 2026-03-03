@@ -1,7 +1,7 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
 import { cn } from 'lib/utils';
+import { useEffect, useRef, useState } from 'react';
 
 const BackgroundVideo = ({
   isMuted = true,
@@ -80,7 +80,7 @@ const BackgroundVideo = ({
   }
 
   return (
-    <div className={cn('h-full w-full scrollbar-hide', className)}>
+    <div className={cn('scrollbar-hide h-full w-full', className)}>
       <video
         ref={videoRef}
         className="h-full w-full"

@@ -74,7 +74,7 @@ const MainConfigurator = ({
                 <p className="w-full text-left text-xs text-[#003333]">
                   {item.description}
                 </p>
-                <p className="mt-3 w-full pr-2 text-right text-xs font-semibold italic text-[#003333]">
+                <p className="mt-3 w-full pr-2 text-right text-xs font-semibold text-[#003333] italic">
                   Starts at{' '}
                   {formatPrice(
                     convertPrice(item.startsAt, userCurrency),

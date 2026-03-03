@@ -7,6 +7,7 @@ import {
 } from '@features/analytics/types.client';
 import type { Week } from '@features/how-to-help-flow/types';
 import { PageVisitTracker, useAnalytics } from '@shared-analytics/index';
+import { cn } from 'lib/utils';
 import { ArrowLeft, ArrowRight, Loader2Icon, MapPin } from 'lucide-react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -17,14 +18,12 @@ import React, {
   useRef,
   useState
 } from 'react';
-import { cn } from 'lib/utils';
 
 import type { Plant } from '../api/pollinator-plants/route';
 import AnimatedDiv from '../components/AnimatedDiv';
 import AnimatedText from '../components/AnimatedText';
 import AnimatedTitle from '../components/AnimatedTitle';
 import { PageName } from '../constants/data/page.data';
-
 
 const SimpleSVG = ({
   path,
@@ -359,7 +358,7 @@ const FundingPage = (): React.ReactNode => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.2, delay: 0.2 }}
-                className="text-center font-decoy text-2xl text-[#B4BD02] md:text-3xl"
+                className="font-decoy text-center text-2xl text-[#B4BD02] md:text-3xl"
               >
                 We&apos;ve been told <br className="md:hidden" /> conservation
                 happens in <br className="hidden md:block" />
@@ -370,7 +369,7 @@ const FundingPage = (): React.ReactNode => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.2, delay: 0.4 }}
-                className="mb-5 text-center font-decoy text-2xl text-[#B4BD02] md:text-3xl"
+                className="font-decoy mb-5 text-center text-2xl text-[#B4BD02] md:text-3xl"
               >
                 Real change starts at <br className="md:hidden" />{' '}
                 <span className="text-[#f0e5b2]">home</span>
@@ -405,7 +404,7 @@ const FundingPage = (): React.ReactNode => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.2, delay: 0.2 }}
-                className="text-center font-decoy text-3xl text-[#B4BD02] md:text-4xl"
+                className="font-decoy text-center text-3xl text-[#B4BD02] md:text-4xl"
               >
                 By answering a couple of short questions we will craft a custom
                 tailored backyard conservation journey for you.
@@ -415,7 +414,7 @@ const FundingPage = (): React.ReactNode => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.2, delay: 0.4 }}
-                className="mt-16 w-2/3 text-center font-decoy text-sm italic text-[#B4BD02] md:w-1/2 md:text-xl"
+                className="font-decoy mt-16 w-2/3 text-center text-sm text-[#B4BD02] italic md:w-1/2 md:text-xl"
               >
                 just 15 minutes per week can make all the difference
               </AnimatedText>
@@ -542,7 +541,7 @@ const FundingPage = (): React.ReactNode => {
               transition={{ duration: 0.2, delay: 0 }}
               className="my-10 flex w-full flex-col items-center justify-center gap-10 px-5"
             >
-              <AnimatedTitle className="w-full text-center font-decoy text-3xl text-[#1A5632] md:text-4xl">
+              <AnimatedTitle className="font-decoy w-full text-center text-3xl text-[#1A5632] md:text-4xl">
                 How much time can you dedicate to backyard conservation weekly?
               </AnimatedTitle>
               <AnimatedDiv
@@ -552,14 +551,14 @@ const FundingPage = (): React.ReactNode => {
                 transition={{ duration: 0.2, delay: 0.5 }}
                 className="flex w-full flex-col gap-5"
               >
-                <div className="relative flex flex-col items-center rounded-lg bg-[#B4BD02] px-5 no-tap-highlight">
+                <div className="no-tap-highlight relative flex flex-col items-center rounded-lg bg-[#B4BD02] px-5">
                   {/* PLANT IMAGE */}
                   <AnimatedDiv
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.2, delay: 0.3 }}
-                    className="mb-2 mt-4 h-[80px] w-[80px] md:mt-12"
+                    className="mt-4 mb-2 h-[80px] w-[80px] md:mt-12"
                   >
                     {sliderValue === 0 && (
                       <Image
@@ -591,7 +590,7 @@ const FundingPage = (): React.ReactNode => {
                   </AnimatedDiv>
 
                   {/* Time label */}
-                  <div className="mb-8 mt-8 font-decoy text-3xl text-[#1A5632] md:mt-16">
+                  <div className="font-decoy mt-8 mb-8 text-3xl text-[#1A5632] md:mt-16">
                     {timeOptions[sliderValue]}
                   </div>
 
@@ -667,7 +666,7 @@ const FundingPage = (): React.ReactNode => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.2, delay: 0.2 }}
-                className="w-full text-center font-decoy text-4xl text-[#1A5632]"
+                className="font-decoy w-full text-center text-4xl text-[#1A5632]"
               >
                 What should we call you?
               </AnimatedTitle>
@@ -682,7 +681,7 @@ const FundingPage = (): React.ReactNode => {
                 What should we call you?
               </AnimatedText> */}
               <AnimatedDiv className="flex w-full flex-col gap-1 md:mt-10 md:w-1/2">
-                <p className="mt-10 font-archivo text-[#1A5632]">
+                <p className="font-archivo mt-10 text-[#1A5632]">
                   Your first name
                 </p>
                 <input
@@ -711,7 +710,7 @@ const FundingPage = (): React.ReactNode => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.2, delay: 0.2 }}
-                className="line- w-[90%] text-center font-decoy text-6xl text-[#f0e5b2]"
+                className="line- font-decoy w-[90%] text-center text-6xl text-[#f0e5b2]"
               >
                 Nice to meet you, <br />{' '}
                 <span className="text-6xl text-[#B4BD02]">
@@ -730,7 +729,7 @@ const FundingPage = (): React.ReactNode => {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.2, delay: 0.2 }}
-                    className="w-full text-center font-decoy text-3xl font-normal text-[#1A5632] md:mb-10 md:text-4xl"
+                    className="font-decoy w-full text-center text-3xl font-normal text-[#1A5632] md:mb-10 md:text-4xl"
                   >
                     Where should we adapt your{' '}
                     <br className="hidden md:block" />
@@ -815,13 +814,13 @@ const FundingPage = (): React.ReactNode => {
                 </React.Fragment>
               ) : (
                 <React.Fragment>
-                  <AnimatedTitle className="w-full text-center font-decoy text-3xl font-normal text-[#1A5632] md:text-4xl">
+                  <AnimatedTitle className="font-decoy w-full text-center text-3xl font-normal text-[#1A5632] md:text-4xl">
                     We will adapt your experience to
                   </AnimatedTitle>
-                  <div className="flex flex-col items-center justify-center gap-2 text-center font-decoy text-3xl font-bold text-[#1A5632] md:text-4xl">
+                  <div className="font-decoy flex flex-col items-center justify-center gap-2 text-center text-3xl font-bold text-[#1A5632] md:text-4xl">
                     <div className="mt-10 flex flex-wrap items-center justify-center gap-1">
                       {userAnswer.locationCity.length === 0 ? (
-                        <span className="flex items-center gap-3 whitespace-nowrap text-lg">
+                        <span className="flex items-center gap-3 text-lg whitespace-nowrap">
                           Location could not be found!
                         </span>
                       ) : (
@@ -830,7 +829,7 @@ const FundingPage = (): React.ReactNode => {
                             <MapPin color="#f0e5b2" size={32} />{' '}
                             {userAnswer.locationCity},{' '}
                           </span>
-                          <span className="ml-[2px] mt-10 flex items-center gap-3 whitespace-nowrap">
+                          <span className="mt-10 ml-[2px] flex items-center gap-3 whitespace-nowrap">
                             {userAnswer.locationState ===
                             userAnswer.locationCity
                               ? userAnswer.locationCountry
@@ -843,7 +842,7 @@ const FundingPage = (): React.ReactNode => {
                   <AnimatedDiv className="flex w-full flex-col items-center justify-center gap-2">
                     <button
                       type="button"
-                      className="mt-8 rounded-full font-archivo text-[#1A5632] underline opacity-60 no-tap-highlight"
+                      className="font-archivo no-tap-highlight mt-8 rounded-full text-[#1A5632] underline opacity-60"
                       onClick={(): void => handleLocationChange()}
                     >
                       {userAnswer.locationCity === ''
@@ -864,10 +863,10 @@ const FundingPage = (): React.ReactNode => {
               transition={{ duration: 0.2, delay: 0 }}
               className="my-10 flex h-full w-full flex-col items-center justify-center gap-5 overflow-hidden px-5"
             >
-              <div className="w-full text-center font-decoy text-4xl text-[#1A5632]">
+              <div className="font-decoy w-full text-center text-4xl text-[#1A5632]">
                 Native plants in <br className="md:hidden" /> your area
               </div>
-              <div className="mt-2 w-full text-center font-decoy text-sm font-bold text-[#1A5632]">
+              <div className="font-decoy mt-2 w-full text-center text-sm font-bold text-[#1A5632]">
                 select those that you are already growing
               </div>
 
@@ -880,7 +879,7 @@ const FundingPage = (): React.ReactNode => {
                   />
                 </div>
               ) : (
-                <div className="mb-20 mt-2 flex h-full w-full flex-col items-center justify-around gap-2 md:mb-28 md:mt-12 md:grid md:grid-cols-2 md:gap-5">
+                <div className="mt-2 mb-20 flex h-full w-full flex-col items-center justify-around gap-2 md:mt-12 md:mb-28 md:grid md:grid-cols-2 md:gap-5">
                   {pollinatorPlants.map((plant: Plant): React.ReactNode => {
                     const isSelected = userAnswer.whatMattersMost.includes(
                       plant.name
@@ -890,7 +889,7 @@ const FundingPage = (): React.ReactNode => {
                       <button
                         key={plant.name}
                         type="button"
-                        className={`flex w-full flex-row items-center gap-2 rounded-xl border-2 border-[#1A5632]/30 px-2 py-2 font-archivo text-lg transition-all duration-300 ease-in-out no-tap-highlight ${
+                        className={`font-archivo no-tap-highlight flex w-full flex-row items-center gap-2 rounded-xl border-2 border-[#1A5632]/30 px-2 py-2 text-lg transition-all duration-300 ease-in-out ${
                           isSelected
                             ? 'bg-[#1A5632] text-[#F0E5B2]'
                             : 'bg-[#F0E5B24D] text-[#1A5632] md:hover:border-2 md:hover:border-[#1A5632] md:hover:bg-[#1A5632]/10'
@@ -921,10 +920,10 @@ const FundingPage = (): React.ReactNode => {
                             fill={isSelected ? '#F0E5B2' : '#1A5632'}
                           />{' '}
                           <div className="flex flex-col">
-                            <div className="w-full text-left font-archivo text-base font-bold">
+                            <div className="font-archivo w-full text-left text-base font-bold">
                               {plant.name}
                             </div>
-                            <div className="w-full text-left font-archivo text-xs">
+                            <div className="font-archivo w-full text-left text-xs">
                               <span className="font-bold">Supports:</span>{' '}
                               {plant.pollinators_support.join(', ')}
                             </div>
@@ -947,7 +946,7 @@ const FundingPage = (): React.ReactNode => {
                     color="#F0E5B2"
                     className="animate-spin md:h-52 md:w-52"
                   />
-                  <h1 className="mt-10 text-center font-decoy text-4xl text-[#F0E5B2]">
+                  <h1 className="font-decoy mt-10 text-center text-4xl text-[#F0E5B2]">
                     generating <br className="md:hidden" /> a plan{' '}
                     <span className="animate-pulse">...</span>
                   </h1>
@@ -956,7 +955,7 @@ const FundingPage = (): React.ReactNode => {
               {!isLoadingPlan && plan && (
                 <div className="flex h-full w-full flex-col items-center justify-start">
                   {/* TITLE */}
-                  <h1 className="w-[90%] text-center font-decoy text-3xl text-[#f0e5b2] md:text-6xl">
+                  <h1 className="font-decoy w-[90%] text-center text-3xl text-[#f0e5b2] md:text-6xl">
                     Here is your plan,{' '}
                     <span className="mx-1 inline-block scale-100 align-middle">
                       <svg
@@ -976,15 +975,15 @@ const FundingPage = (): React.ReactNode => {
                       {userAnswer.name}!
                     </span>
                   </h1>
-                  <p className="mt-5 text-center font-archivo text-lg text-[#f0e5b2] md:mt-8 md:text-xl">
+                  <p className="font-archivo mt-5 text-center text-lg text-[#f0e5b2] md:mt-8 md:text-xl">
                     Here&apos;s an overview of your personalised plan. <br />
                     We will send you detailed instructions each week over email.
                   </p>
-                  <div className="mb-16 mt-10 flex w-full flex-col items-center justify-center gap-5">
+                  <div className="mt-10 mb-16 flex w-full flex-col items-center justify-center gap-5">
                     {plan.map((week) => (
                       <div
                         key={week.week}
-                        className={`flex w-full flex-col rounded-2xl px-4 py-4 font-archivo `}
+                        className={`font-archivo flex w-full flex-col rounded-2xl px-4 py-4`}
                       >
                         <div className="mb-2 flex items-center justify-between">
                           <h2 className="text-xl font-bold text-[#f0e5b2]">
@@ -1034,7 +1033,7 @@ const FundingPage = (): React.ReactNode => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.2, delay: 0.2 }}
-                className="w-full text-center font-decoy text-3xl text-[#1A5632] md:text-4xl"
+                className="font-decoy w-full text-center text-3xl text-[#1A5632] md:text-4xl"
               >
                 Where should we <br className="md:hidden" />
                 send a detailed plan?
@@ -1093,7 +1092,7 @@ const FundingPage = (): React.ReactNode => {
           {step === 10 && (
             <React.Fragment>
               <div className="my-32 flex flex-1 flex-col items-center justify-start gap-5 overflow-x-hidden px-5">
-                <h1 className="w-[90%] text-center font-decoy text-5xl text-[#f0e5b2] md:text-6xl">
+                <h1 className="font-decoy w-[90%] text-center text-5xl text-[#f0e5b2] md:text-6xl">
                   Thank you,{' '}
                   <span className="mx-1 inline-block scale-125 align-middle">
                     <svg
@@ -1113,14 +1112,14 @@ const FundingPage = (): React.ReactNode => {
                     {userAnswer.name}!
                   </span>
                 </h1>
-                <p className="mt-5 text-center font-archivo text-lg text-[#f0e5b2] md:mt-16 md:text-2xl">
+                <p className="font-archivo mt-5 text-center text-lg text-[#f0e5b2] md:mt-16 md:text-2xl">
                   Your journey as a{' '}
                   <span className="font-bold">Friend of Nature</span> <br />{' '}
                   begins now!
                 </p>
               </div>
               <div
-                className="absolute bottom-10 flex w-fit items-center justify-center rounded-full px-14 py-2 font-archivo font-bold shadow-md transition-all duration-500 ease-in-out md:w-1/2"
+                className="font-archivo absolute bottom-10 flex w-fit items-center justify-center rounded-full px-14 py-2 font-bold shadow-md transition-all duration-500 ease-in-out md:w-1/2"
                 style={{
                   backgroundColor: isShared ? 'transparent' : '#F4A1BA',
                   borderColor: isShared ? '#f0e5b2' : '#F4A1BA',
@@ -1184,17 +1183,17 @@ const FundingPage = (): React.ReactNode => {
               }}
             >
               {step === 2 && (
-                <p className="pl-2 pr-3 font-archivo text-base text-[#1A5632]">
+                <p className="font-archivo pr-3 pl-2 text-base text-[#1A5632]">
                   Let&apos;s go
                 </p>
               )}
               {step === 6 && (
-                <p className="pl-2 pr-3 font-archivo text-base text-[#B4BD02]">
+                <p className="font-archivo pr-3 pl-2 text-base text-[#B4BD02]">
                   Looks good
                 </p>
               )}
               {step === 9 && (
-                <p className="pl-2 pr-3 font-archivo text-base text-[#B4BD02]">
+                <p className="font-archivo pr-3 pl-2 text-base text-[#B4BD02]">
                   Submit
                 </p>
               )}

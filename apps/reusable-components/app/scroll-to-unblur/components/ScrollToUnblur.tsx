@@ -1,7 +1,9 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+
 import '../scroll-to-unblur.css';
+
 import { SCROLL_TO_UNBLUR_TEXT } from '@/features/scroll-to-unblur/contants';
 import { textIntoWords } from '@/features/scroll-to-unblur/utils';
 
@@ -14,7 +16,7 @@ interface ScrollToUnblurProps {
 export default function ScrollToUnblur({
   containerHeight,
   text = SCROLL_TO_UNBLUR_TEXT,
-  pxPerWordMultiplier = 40,
+  pxPerWordMultiplier = 40
 }: ScrollToUnblurProps) {
   const words: string[] = textIntoWords(text);
   const wordCount = words.length;
@@ -52,18 +54,18 @@ export default function ScrollToUnblur({
 
   return (
     <main
-      className="h-screen pt-10 overflow-y-scroll"
+      className="h-screen overflow-y-scroll pt-10"
       style={
         {
           scrollTimelineName: '--section',
           '--containerHeight': `${totalScrollHeight}px`,
           '--wordCount': wordCount,
-          '--pxPerWord': `${pxPerWord}px`,
+          '--pxPerWord': `${pxPerWord}px`
         } as React.CSSProperties
       }
     >
       <div className="relative" style={{ height: `${totalScrollHeight}px` }}>
-        <p className="sticky top-20 px-8 md:px-20 text-xl md:text-4xl leading-relaxed text-white">
+        <p className="sticky top-20 px-8 text-xl leading-relaxed text-white md:px-20 md:text-4xl">
           {words.map((word, index) => (
             <span
               key={index}

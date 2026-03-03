@@ -6,7 +6,7 @@ import { FiPlus } from 'react-icons/fi';
 
 const AddTask = ({
   column,
-  setCards,
+  setCards
 }: {
   column: string;
   setCards: React.Dispatch<React.SetStateAction<CardDataType[]>>;
@@ -23,7 +23,7 @@ const AddTask = ({
       title: text.trim(),
       id: Math.random().toString(),
       column,
-      createdAt: new Date().toISOString(),
+      createdAt: new Date().toISOString()
     };
 
     setCards((prevCards: CardDataType[]) => [...prevCards, newCard]);
@@ -36,24 +36,24 @@ const AddTask = ({
       {adding ? (
         <motion.form layout onSubmit={handleSubmit} className="relative">
           <textarea
-            onChange={e => setText(e.target.value)}
+            onChange={(e) => setText(e.target.value)}
             autoFocus
             rows={2}
             maxLength={50}
             placeholder="Add a new task..."
-            className="w-full h-28 rounded-lg border-2 border-violet-400 bg-violet-40/20 p-3 text-lg text-neutral-50 placeholder-violet-300 focus:outline-0 resize-none"
+            className="bg-violet-40/20 h-28 w-full resize-none rounded-lg border-2 border-violet-400 p-3 text-lg text-neutral-50 placeholder-violet-300 focus:outline-0"
           />
-          <div className="absolute bottom-3 right-2 w-full flex items-center justify-end gap-1.5">
+          <div className="absolute right-2 bottom-3 flex w-full items-center justify-end gap-1.5">
             <button
               type="button"
               onClick={() => setAdding(false)}
-              className="flex items-center cursor-pointer gap-1.5 px-3 py-1.5 text-base transition-colors text-neutral-100 hover:text-neutral-400"
+              className="flex cursor-pointer items-center gap-1.5 px-3 py-1.5 text-base text-neutral-100 transition-colors hover:text-neutral-400"
             >
               Close <FaTimes className="size-4" />
             </button>
             <button
               type="submit"
-              className="flex cursor-pointer items-center gap-1.5 rounded-lg bg-neutral-50 px-3 py-1 text-base transition-colors hover:bg-neutral-300 text-neutral-950"
+              className="flex cursor-pointer items-center gap-1.5 rounded-lg bg-neutral-50 px-3 py-1 text-base text-neutral-950 transition-colors hover:bg-neutral-300"
             >
               <span>Add</span> <FiPlus className="size-4" />
             </button>

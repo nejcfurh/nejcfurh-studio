@@ -1,22 +1,28 @@
 'use client';
 
-import { Suspense, useMemo, useRef, useState } from 'react';
-import { useFrame } from '@react-three/fiber';
-import { useGLTF } from '@react-three/drei';
-import { useGameStore } from '@/store/gameStore';
-import { CHUNK_SIZE, RENDER_DISTANCE, HOUSE_MODELS, GRASS_MODEL } from '@/lib/terrain/chunkConstants';
+import {
+  CHUNK_SIZE,
+  GRASS_MODEL,
+  HOUSE_MODELS,
+  RENDER_DISTANCE
+} from '@/lib/terrain/chunkConstants';
 import { generateChunkData } from '@/lib/terrain/chunkGenerator';
-import House from './terrain/House';
-import Tree from './terrain/Tree';
-import GrassField from './terrain/GrassField';
-import YardFence from './terrain/YardFence';
-import Patio from './terrain/Patio';
+import { useGameStore } from '@/store/gameStore';
+import { useGLTF } from '@react-three/drei';
+import { useFrame } from '@react-three/fiber';
+import { Suspense, useMemo, useRef, useState } from 'react';
+
 import GardenBed from './terrain/GardenBed';
+import GrassField from './terrain/GrassField';
+import House from './terrain/House';
+import Patio from './terrain/Patio';
 import RoadX from './terrain/RoadX';
 import RoadZ from './terrain/RoadZ';
+import Tree from './terrain/Tree';
+import YardFence from './terrain/YardFence';
 
 useGLTF.preload(GRASS_MODEL);
-HOUSE_MODELS.forEach(url => useGLTF.preload(url));
+HOUSE_MODELS.forEach((url) => useGLTF.preload(url));
 
 function chunkKey(cx: number, cz: number) {
   return `${cx},${cz}`;
@@ -53,7 +59,7 @@ export default function SuburbanWorld() {
         <meshStandardMaterial color="#4A8A50" roughness={0.92} />
       </mesh>
 
-      {chunks.map(key => {
+      {chunks.map((key) => {
         const [cx, cz] = key.split(',').map(Number);
         return <Chunk key={key} cx={cx} cz={cz} />;
       })}

@@ -1,6 +1,6 @@
+import { cn } from 'lib/utils';
 import Image from 'next/image';
 import Link from 'next/link';
-import { cn } from 'lib/utils';
 
 import AnimatedDiv from './AnimatedDiv';
 import AnimatedText from './AnimatedText';
@@ -23,11 +23,11 @@ const StaffPick = (): React.ReactNode => {
           alt="Staff Pick"
         />
         {/* TEXT */}
-        <div className="mb-8 mt-3 flex flex-col items-start justify-center gap-2">
-          <AnimatedTitle className="mx-5 font-decoy text-2xl text-primary">
+        <div className="mt-3 mb-8 flex flex-col items-start justify-center gap-2">
+          <AnimatedTitle className="font-decoy text-primary mx-5 text-2xl">
             Sarah and Friends
           </AnimatedTitle>
-          <AnimatedText className="font-work-sans mx-5 text-base text-primary">
+          <AnimatedText className="font-work-sans text-primary mx-5 text-base">
             Want to create a pond for birds to support local wildlife, provide a
             peaceful oasis, and promote biodiversity.{' '}
             <Link
@@ -46,7 +46,7 @@ const StaffPick = (): React.ReactNode => {
           </div>
 
           <AnimatedDiv
-            className={cn('h-10 rounded-br-3xl rounded-tr-3xl bg-[#F4A1BA]')}
+            className={cn('h-10 rounded-tr-3xl rounded-br-3xl bg-[#F4A1BA]')}
             initial={{ width: '10%', opacity: 1 }}
             whileInView={{ width: '80%' }}
             animate={{ opacity: [1, 0.5, 1] }}

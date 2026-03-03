@@ -39,6 +39,7 @@
     "babel-plugin-react-compiler": "1.0.0",
     "baseline-browser-mapping": "^2.9.11",
     "eslint": "^9",
+    "prettier-config-web": "workspace:*",
     "eslint-config-next": "16.0.1",
     "tailwindcss": "^4",
     "typescript": "^5"

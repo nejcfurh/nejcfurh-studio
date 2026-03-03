@@ -7,15 +7,22 @@ export interface ScoreResult {
   newAccumulator: number;
 }
 
-export function computeFlightScore(accumulator: number, delta: number): ScoreResult {
+export function computeFlightScore(
+  accumulator: number,
+  delta: number
+): ScoreResult {
   const updated = accumulator + SCORE_PER_SECOND * delta;
   const points = Math.floor(updated);
   return { points, newAccumulator: updated - points };
 }
 
 export function computeDistance(
-  prevX: number, prevY: number, prevZ: number,
-  newX: number, newY: number, newZ: number,
+  prevX: number,
+  prevY: number,
+  prevZ: number,
+  newX: number,
+  newY: number,
+  newZ: number
 ): number {
   const dx = newX - prevX;
   const dy = newY - prevY;

@@ -1,11 +1,12 @@
 'use client';
 
 import Image from 'next/image';
+
 import 'swiper/css';
 import 'swiper/css/navigation';
+
 import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
-
 
 const testimonials = [
   {
@@ -105,7 +106,7 @@ const TestimonialSwiper = (): React.ReactNode => {
                     alt="placeholder"
                   />
                   <h3
-                    className="font-regular w-2/3 font-decoy text-xl"
+                    className="font-regular font-decoy w-2/3 text-xl"
                     style={{ color: testimonial.color }}
                   >
                     {testimonial.name}

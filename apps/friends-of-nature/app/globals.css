@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 :root {
   --background: #ffffff;
@@ -9,8 +9,8 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-primary: hsla(180, 100%, 10%, 1);
-  --font-decoy: "decoy", serif;
-  --font-archivo: "archivo", sans-serif;
+  --font-decoy: 'decoy', serif;
+  --font-archivo: 'archivo', sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {

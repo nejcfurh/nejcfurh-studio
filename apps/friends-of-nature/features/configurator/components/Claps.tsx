@@ -118,12 +118,12 @@ export const Claps = ({
             style={{ color: tapCount ? currentColor || '#FBB03B' : '#FBB03B' }}
             aria-hidden="true"
           >
-            <span className="select-none text-3xl">👋</span>
+            <span className="text-3xl select-none">👋</span>
           </div>
         </button>
         {!hiddenCounter && (
           <div
-            className="absolute -bottom-3 left-0 right-0 text-center text-xs text-[#033333]"
+            className="absolute right-0 -bottom-3 left-0 text-center text-xs text-[#033333]"
             aria-live="polite"
           >
             <span className="font-bold">{count}</span> people <br /> said Hi
