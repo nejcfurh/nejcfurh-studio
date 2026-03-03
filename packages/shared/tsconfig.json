@@ -4,6 +4,7 @@
     "types": [],
     "baseUrl": "./src",
     "paths": {
+      "@shared-ai-sdk/*": ["ai-sdk/*"],
       "@shared-analytics/*": ["analytics/*"],
       "@shared-observability/*": ["observability/*"],
       "@shared-utils/*": ["utils/*"]
