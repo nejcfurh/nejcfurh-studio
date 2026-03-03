@@ -112,8 +112,14 @@ class AudioManager {
     const chirp = ctx.createOscillator();
     chirp.type = 'sine';
     chirp.frequency.setValueAtTime(pitchBase * rate, now);
-    chirp.frequency.exponentialRampToValueAtTime(pitchBase * rate * 1.8, now + 0.06);
-    chirp.frequency.exponentialRampToValueAtTime(pitchBase * rate * 0.7, now + 0.12);
+    chirp.frequency.exponentialRampToValueAtTime(
+      pitchBase * rate * 1.8,
+      now + 0.06,
+    );
+    chirp.frequency.exponentialRampToValueAtTime(
+      pitchBase * rate * 0.7,
+      now + 0.12,
+    );
     const chirpGain = ctx.createGain();
     chirpGain.gain.setValueAtTime(0, now);
     chirpGain.gain.linearRampToValueAtTime(0.12, now + 0.015);
@@ -160,7 +166,7 @@ class AudioManager {
     const peckSamples = Math.floor(ctx.sampleRate * 0.025); // 25ms per peck
 
     for (let i = 0; i < bufferSize; i++) {
-      const inPeck = (i % peckInterval) < peckSamples;
+      const inPeck = i % peckInterval < peckSamples;
       if (inPeck) {
         const t = (i % peckInterval) / peckSamples;
         // Short tap: sine burst with fast envelope
@@ -209,7 +215,8 @@ class AudioManager {
         const env = Math.exp(-t * 12) * 0.35;
         // Descending pitch — mimics water surface tension release
         const freq = baseFreq * (1 - t * 0.4);
-        data[startSample + j] += Math.sin(2 * Math.PI * freq * (j / ctx.sampleRate)) * env;
+        data[startSample + j] +=
+          Math.sin(2 * Math.PI * freq * (j / ctx.sampleRate)) * env;
       }
     }
 
@@ -387,6 +394,7 @@ class AudioManager {
   }
 
   stopAllLoops() {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     this.activeLoops.forEach((loop, name) => {
       try {
         loop.source.stop();
