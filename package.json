@@ -18,7 +18,8 @@
     "reusable-components": "turbo dev --filter=reusable-components",
     "n-drive": "turbo dev --filter=n-drive",
     "backyard-skies": "turbo dev --filter=backyard-skies",
-    "desktop-weather": "turbo dev --filter=desktop-weather"
+    "desktop-weather": "turbo dev --filter=desktop-weather",
+    "reviews-analyser": "turbo dev --filter=reviews-analyser"
   },
   "devDependencies": {
     "@commitlint/cli": "20.4.2",

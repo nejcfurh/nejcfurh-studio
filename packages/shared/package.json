@@ -5,6 +5,7 @@
   "exports": {
     ".": "./src/index.ts",
     "./analytics": "./src/analytics/index.ts",
+    "./ai-sdk": "./src/ai-sdk/index.ts",
     "./utils": "./src/utils/index.ts"
   },
   "scripts": {
@@ -37,8 +38,12 @@
     "typescript": "5.9.3"
   },
   "dependencies": {
+    "@ai-sdk/google": "^2.0.26",
+    "@ai-sdk/openai": "^2.0.59",
+    "@ai-sdk/react": "^3.0.51",
     "@braze/web-sdk": "^6.5.0",
     "@next/third-parties": "^16.1.6",
+    "ai": "^5.0.85",
     "braze-api": "^2.13.2",
     "posthog-js": "^1.357.0",
     "uuid": "^13.0.0"
