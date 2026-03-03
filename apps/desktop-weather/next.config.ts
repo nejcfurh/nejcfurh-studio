@@ -2,6 +2,7 @@ import type { NextConfig } from 'next';
 
 const baseConfig: NextConfig = {
   reactStrictMode: true,
+  turbopack: {},
   generateBuildId: async () => {
     return `build-${Date.now()}`;
   },
