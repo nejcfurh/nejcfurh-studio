@@ -1,6 +1,7 @@
 {
   "extends": "tsconfig/react-library.json",
   "compilerOptions": {
+    "types": [],
     "baseUrl": "./src",
     "paths": {
       "@shared-analytics/*": ["analytics/*"],
