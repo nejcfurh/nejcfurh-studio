@@ -20,7 +20,8 @@
     "backyard-skies": "turbo dev --filter=backyard-skies",
     "desktop-weather": "turbo dev --filter=desktop-weather",
     "reviews-analyser": "turbo dev --filter=reviews-analyser",
-    "friends-of-nature": "turbo dev --filter=friends-of-nature"
+    "friends-of-nature": "turbo dev --filter=friends-of-nature",
+    "blog-dev": "turbo dev --filter=blog-dev"
   },
   "devDependencies": {
     "@commitlint/cli": "20.4.2",
