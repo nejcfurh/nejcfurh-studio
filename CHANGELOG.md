@@ -1,5 +1,15 @@
 # Changelog
 
+## v1.6.0 (2026-03-04)
+
+
+### Features
+
+- feat(nejcfurh-studio): Add Readme file (#16) (3033e68)
+- feat(nejcfurh-studio): Add Readme file (8889e75)
+
+# Changelog
+
 ## v1.5.0 (2026-03-03)
 
 
