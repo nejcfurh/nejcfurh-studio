@@ -1,36 +1,57 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Friends of Nature
+
+A modern conservation initiative website promoting environmental action. Features animated UI, carousels, parallax effects, and analytics integration.
+
+## Tech Stack
+
+- **Framework:** Next.js 16, React 19, TypeScript
+- **Animation:** Framer Motion, Flubber
+- **Carousels:** Swiper, Embla Carousel
+- **UI:** Headless UI
+- **Forms:** React Hook Form, Zod
+- **Styling:** Tailwind CSS 4, clsx, tailwind-merge
+- **Analytics:** @repo/shared (workspace package)
+- **Icons:** Lucide React
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Features
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Full-screen animated hero section
+- Parallax text animations
+- Interactive stacked cards
+- Campaign and testimonial carousels
+- Yard makeover program showcase
+- Manifesto page with animations
+- Image gallery
+- Social media integration (Instagram, Facebook, TikTok)
+- Page visit tracking analytics
+- Responsive design with separate mobile/desktop layouts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Environment Variables
 
-## Learn More
+Create a `.env` file in the app root:
 
-To learn more about Next.js, take a look at the following resources:
+```env
+NEXT_PUBLIC_ENV=                    # Environment type (e.g. production)
+NEXT_PUBLIC_VERSION=                # App version string
+NEXT_PUBLIC_ROOT_URL=               # Root URL of the app
+GOOGLE_GENERATIVE_AI_API_KEY=       # Google AI API key
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Scripts
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| Command           | Description                    |
+| ----------------- | ------------------------------ |
+| `pnpm dev`        | Start development server       |
+| `pnpm build`      | Production build               |
+| `pnpm start`      | Start production server        |
+| `pnpm clean`      | Clean .next and .turbo         |
+| `pnpm lint`       | Run ESLint and Prettier checks |
+| `pnpm format`     | Format code                    |
+| `pnpm type:check` | TypeScript type checking       |

@@ -12,6 +12,7 @@ A monorepo powering multiple web applications, built with [Turborepo](https://tu
 | [desktop-weather](apps/desktop-weather)         | Progressive Web App for weather information                                | [LINK](https://desktop-weather.vercel.app/)        |
 | [reviews-analyser](apps/reviews-analyser)       | AI-powered review analysis tool using Vercel AI SDK                        | [LINK](https://reviews-analyser-nf.vercel.app/)    |
 | [friends-of-nature](apps/friends-of-nature)     | Community platform for nature enthusiasts with rich animations             | [LINK](https://friends-of-nature.vercel.app/)      |
+| [blog-dev](apps/blog-dev)                       | Personal dev blog with MongoDB backend and admin authentication            | [LINK](https://blog-dev-nf.vercel.app/)            |
 
 ## Shared Packages
 
@@ -48,6 +49,7 @@ pnpm backyard-skies
 pnpm desktop-weather
 pnpm reviews-analyser
 pnpm friends-of-nature
+pnpm blog-dev
 ```
 
 ## Commands
@@ -98,7 +100,8 @@ nejcfurh-studio/
 │   ├── backyard-skies/        # 3D weather visualization
 │   ├── desktop-weather/       # PWA weather app
 │   ├── reviews-analyser/      # AI review analysis
-│   └── friends-of-nature/     # Nature community platform
+│   ├── friends-of-nature/     # Nature community platform
+│   └── blog-dev/              # Personal dev blog
 ├── packages/
 │   ├── shared/                # Shared utils, AI SDK, analytics
 │   ├── tsconfig/              # TypeScript configs

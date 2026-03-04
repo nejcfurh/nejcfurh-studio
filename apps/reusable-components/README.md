@@ -134,6 +134,10 @@ Interactive 3D holographic card with mouse/touch tracking and flip animation. Fe
 - **Technologies**: Framer Motion for 3D transforms and animations, React hooks for gesture tracking
 - **Inspired by and adapted from**: [Jhey Tompkins](https://twitter.com/jh3yy)
 
+## Environment Variables
+
+None required.
+
 ## 🛠️ Getting Started
 
 ### Prerequisites
