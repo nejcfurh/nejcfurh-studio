@@ -1,5 +1,15 @@
 # Changelog
 
+## v1.8.0 (2026-03-04)
+
+
+### Features
+
+- feat(nejcfurh-studio): Add readme files to all apps (#21) (9b1f635)
+- feat(nejcfurh-studio): Add readme files to all apps (4895def)
+
+# Changelog
+
 ## v1.7.0 (2026-03-04)
 
 
