@@ -1,5 +1,21 @@
 # Changelog
 
+## v1.7.0 (2026-03-04)
+
+
+### Features
+
+- feat(nejcfurh-studio): Add blog-dev to apps (#18) (19f7570)
+- feat(nejcfurh-studio): Add blog-dev to apps (8853412)
+
+
+### Other Changes
+
+- chore(nejcfurh-studio): Renamed the folder blog-dev (#20) (b46cb29)
+- chore(nejcfurh-studio): Renamed the folder blog-dev (857eda0)
+
+# Changelog
+
 ## v1.6.0 (2026-03-04)
 
 
