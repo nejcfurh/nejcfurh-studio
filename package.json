@@ -21,7 +21,8 @@
     "desktop-weather": "turbo dev --filter=desktop-weather",
     "reviews-analyser": "turbo dev --filter=reviews-analyser",
     "friends-of-nature": "turbo dev --filter=friends-of-nature",
-    "blog-dev": "turbo dev --filter=blog-dev"
+    "blog-dev": "turbo dev --filter=blog-dev",
+    "to-do-cards": "turbo dev --filter=to-do-cards"
   },
   "devDependencies": {
     "@commitlint/cli": "20.4.2",
@@ -41,6 +42,7 @@
     },
     "onlyBuiltDependencies": [
       "@clerk/shared",
+      "bcrypt",
       "core-js",
       "esbuild",
       "protobufjs",
