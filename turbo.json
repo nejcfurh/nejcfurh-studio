@@ -8,7 +8,17 @@
         "CLERK_SECRET_KEY",
         "CLERK_WEBHOOK_SECRET",
         "CONVEX_DEPLOYMENT",
-        "GOOGLE_GENERATIVE_AI_API_KEY"
+        "GOOGLE_GENERATIVE_AI_API_KEY",
+        "MONGODB_URI",
+        "AUTH_SECRET",
+        "AUTH_GOOGLE_ID",
+        "AUTH_GOOGLE_SECRET",
+        "AUTH_FACEBOOK_ID",
+        "AUTH_FACEBOOK_SECRET",
+        "AUTH_TWITTER_ID",
+        "AUTH_TWITTER_SECRET",
+        "AUTH_GITHUB_ID",
+        "AUTH_GITHUB_SECRET"
       ],
       "outputs": ["dist/**", ".next/**", "!.next/cache/**"]
     },
