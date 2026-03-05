@@ -1,5 +1,22 @@
 # Changelog
 
+## v1.9.0 (2026-03-05)
+
+
+### Features
+
+- feat(nejcfurh-studio): Added to-do-cards to apps (#23) (fff64fa)
+- feat(nejcfurh-studio): Added to-do-cards to apps (55c13c5)
+
+
+### Other Changes
+
+- chore(ci): Added env keys to turbo.json (#25) (bbb4e26)
+- chore(ci): Added env keys to turbo.json (94c75e6)
+- chore(nejcfurh-studio): Added readme files to root and to-do-cards (d1ad3cb)
+
+# Changelog
+
 ## v1.8.0 (2026-03-04)
 
 
