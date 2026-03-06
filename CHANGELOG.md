@@ -1,5 +1,15 @@
 # Changelog
 
+## v1.9.2 (2026-03-06)
+
+
+### Bug Fixes & Improvements
+
+- fix(to-do-cards): Another oauth fix (#28) (fc3c4c8)
+- fix(to-do-cards): Another oauth fix (dc5a669)
+
+# Changelog
+
 ## v1.9.1 (2026-03-06)
 
 
