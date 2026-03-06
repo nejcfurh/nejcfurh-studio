@@ -1,5 +1,15 @@
 # Changelog
 
+## v1.9.1 (2026-03-06)
+
+
+### Bug Fixes & Improvements
+
+- fix(to-do-cards): OAuth issues for X/Twitter (#26) (2b0a077)
+- fix(to-do-cards): OAuth issues for X/Twitter (f7dabc1)
+
+# Changelog
+
 ## v1.9.0 (2026-03-05)
 
 
