@@ -5,7 +5,7 @@ import Input from '@/app/components/inputs/Input';
 import LoadingModal from '@/app/components/LoadingModal';
 import axios from 'axios';
 import { signIn, useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import {
   Dispatch,
   SetStateAction,
@@ -28,6 +28,7 @@ interface AuthFormProps {
 const AuthForm: React.FC<AuthFormProps> = ({ setRegister }) => {
   const session = useSession();
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [variant, setVariant] = useState<Variant>('LOGIN');
   const [isLoading, setIsLoading] = useState(false);
 
@@ -38,6 +39,13 @@ const AuthForm: React.FC<AuthFormProps> = ({ setRegister }) => {
       router.push('/conversations');
     }
   }, [isAuthenticated, router]);
+
+  useEffect(() => {
+    const error = searchParams.get('error');
+    if (error === 'CredentialsSignin') {
+      toast.error('Invalid credentials!');
+    }
+  }, [searchParams]);
 
   const toggleVariant = useCallback(() => {
     if (variant === 'LOGIN') {
@@ -67,42 +75,32 @@ const AuthForm: React.FC<AuthFormProps> = ({ setRegister }) => {
     if (variant === 'REGISTER') {
       axios
         .post('/api/register', data)
-        .then(() => signIn('credentials', data))
-        .catch(() => toast.error('Something went wrong!'))
-        .finally(() => setIsLoading(false));
+        .then(() =>
+          signIn('credentials', {
+            ...data,
+            redirectTo: '/conversations'
+          })
+        )
+        .catch(() => {
+          toast.error('Something went wrong!');
+          setIsLoading(false);
+        });
     }
 
     if (variant === 'LOGIN') {
       signIn('credentials', {
         ...data,
-        redirect: false
-      })
-        .then(() => {
-          toast.success('Logged in!');
-          router.push('/conversations');
-        })
-        .catch(() => {
-          toast.error('Invalid credentials!');
-        })
-        .finally(() => setIsLoading(false));
+        redirectTo: '/conversations'
+      }).catch(() => {
+        toast.error('Invalid credentials!');
+        setIsLoading(false);
+      });
     }
   };
 
   const socialAction = (action: string) => {
     setIsLoading(true);
-    // NEXT AUTH SocialSignIn
-    signIn(action, { redirect: false })
-      .then((callback) => {
-        if (callback?.error) {
-          toast.error('Invalid credentials!');
-        }
-
-        if (callback?.ok && !callback.error) {
-          toast.success('Logged in!');
-          router.push('/users');
-        }
-      })
-      .finally(() => setIsLoading(false));
+    signIn(action, { redirectTo: '/conversations' });
   };
 
   return (
