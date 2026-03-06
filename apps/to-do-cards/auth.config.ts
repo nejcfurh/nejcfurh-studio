@@ -25,7 +25,16 @@ export const authConfig: NextAuthConfig = {
     }),
     Twitter({
       clientId: process.env.AUTH_TWITTER_ID,
-      clientSecret: process.env.AUTH_TWITTER_SECRET
+      clientSecret: process.env.AUTH_TWITTER_SECRET,
+      profile(profile) {
+        const data = profile.data ?? profile;
+        return {
+          id: data.id,
+          name: data.name,
+          email: data.email ?? null,
+          image: data.profile_image_url
+        };
+      }
     }),
     GitHub({
       clientId: process.env.AUTH_GITHUB_ID,
