@@ -17,7 +17,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) {
-          throw new Error('Invalid Credentials!');
+          return null;
         }
 
         const user = await prisma.user.findUnique({
@@ -25,7 +25,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         });
 
         if (!user || !user?.hashedPassword) {
-          throw new Error('Invalid Credentials!');
+          return null;
         }
 
         const isCorrectPassword = await bcrypt.compare(
@@ -34,10 +34,15 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         );
 
         if (!isCorrectPassword) {
-          throw new Error('Invalid Credentials!');
+          return null;
         }
 
-        return user;
+        return {
+          id: user.id,
+          email: user.email,
+          name: user.name,
+          image: user.image
+        };
       }
     }),
     Google({
@@ -56,5 +61,20 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   debug: process.env.NODE_ENV === 'development',
   session: { strategy: 'jwt' },
   pages: { signIn: '/' },
-  secret: process.env.AUTH_SECRET
+  secret: process.env.AUTH_SECRET,
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id;
+        token.email = user.email;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      if (session.user && token.id) {
+        session.user.id = token.id as string;
+      }
+      return session;
+    }
+  }
 });
