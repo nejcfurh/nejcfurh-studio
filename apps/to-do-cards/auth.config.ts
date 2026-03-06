@@ -30,7 +30,7 @@ export const authConfig: NextAuthConfig = {
         const data = profile.data ?? profile;
         return {
           id: data.id,
-          name: data.name,
+          name: data.name ?? data.username ?? 'Twitter User',
           email: data.email ?? null,
           image: data.profile_image_url
         };
