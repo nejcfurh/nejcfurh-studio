@@ -18,7 +18,12 @@
         "AUTH_TWITTER_ID",
         "AUTH_TWITTER_SECRET",
         "AUTH_GITHUB_ID",
-        "AUTH_GITHUB_SECRET"
+        "AUTH_GITHUB_SECRET",
+        "DATABASE_URL",
+        "NEXT_PUBLIC_PUSHER_APP_KEY",
+        "PUSHER_APP_ID",
+        "PUSHER_SECRET",
+        "NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME"
       ],
       "outputs": ["dist/**", ".next/**", "!.next/cache/**"]
     },
