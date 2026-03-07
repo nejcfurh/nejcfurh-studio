@@ -1,5 +1,24 @@
 # Changelog
 
+## v1.10.0 (2026-03-07)
+
+
+### Features
+
+- feat(nejcfurh-studio): Added elysantium to apps (#33) (30b9fc5)
+- feat(nejcfurh-studio): Added elysantium to apps (8de062e)
+- feat(nejcfurh-studio): Added twabblr to apps (#30) (b1681b5)
+- feat(nejcfurh-studio): Added twabblr to apps (3f97234)
+
+
+### Bug Fixes & Improvements
+
+- fix(ci): Code Quality Check issues fix (dbb1f50)
+- fix(twabblr): Fix auth redirect missing for social login (#32) (1e006fc)
+- fix(twabblr): Fix auth redirect missing for social login (7498595)
+
+# Changelog
+
 ## v1.9.2 (2026-03-06)
 
 
