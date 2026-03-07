@@ -1,0 +1,45 @@
+{
+  "name": "elysantium",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "base:prettier": "prettier './**/*.{ts,tsx,js,jsx,html,json,md,css}' --config .prettierrc --cache",
+    "base:eslint": "eslint ./ --cache",
+    "lint:prettier": "pnpm base:prettier --check",
+    "lint:eslint": "pnpm base:eslint",
+    "lint": "pnpm lint:prettier && pnpm lint:eslint",
+    "format:prettier": "pnpm base:prettier --write",
+    "format:eslint": "pnpm base:eslint --fix",
+    "format": "pnpm format:prettier && pnpm format:eslint",
+    "format-silent": "pnpm format:prettier --loglevel silent && pnpm base:eslint --quiet",
+    "type:check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.49.0",
+    "@tanstack/react-query": "^5.69.0",
+    "@tanstack/react-query-devtools": "^5.69.0",
+    "date-fns": "^3.6.0",
+    "next": "16.1.6",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "react-error-boundary": "^5.0.0",
+    "react-hook-form": "^7.54.0",
+    "react-hot-toast": "^2.5.2",
+    "react-icons": "^5.5.0",
+    "recharts": "^2.15.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.1.6",
+    "prettier-config-web": "workspace:*",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}
