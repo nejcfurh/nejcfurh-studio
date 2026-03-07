@@ -23,7 +23,8 @@
     "friends-of-nature": "turbo dev --filter=friends-of-nature",
     "blog-dev": "turbo dev --filter=blog-dev",
     "to-do-cards": "turbo dev --filter=to-do-cards",
-    "twabblr": "turbo dev --filter=twabblr"
+    "twabblr": "turbo dev --filter=twabblr",
+    "elysantium": "turbo dev --filter=elysantium"
   },
   "devDependencies": {
     "@commitlint/cli": "20.4.2",
