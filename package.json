@@ -22,7 +22,9 @@
     "reviews-analyser": "turbo dev --filter=reviews-analyser",
     "friends-of-nature": "turbo dev --filter=friends-of-nature",
     "blog-dev": "turbo dev --filter=blog-dev",
-    "to-do-cards": "turbo dev --filter=to-do-cards"
+    "to-do-cards": "turbo dev --filter=to-do-cards",
+    "twabblr": "turbo dev --filter=twabblr",
+    "elysantium": "turbo dev --filter=elysantium"
   },
   "devDependencies": {
     "@commitlint/cli": "20.4.2",
@@ -47,7 +49,10 @@
       "esbuild",
       "protobufjs",
       "sharp",
-      "unrs-resolver"
+      "unrs-resolver",
+      "@prisma/client",
+      "@prisma/engines",
+      "prisma"
     ]
   }
 }
