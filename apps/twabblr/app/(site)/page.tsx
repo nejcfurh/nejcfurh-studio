@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
 
 import AuthForm from './components/AuthForm';
 
@@ -22,7 +22,9 @@ export default function Home() {
           {register ? 'Register your account!' : 'Sign in to your account!'}
         </h2>
       </div>
-      <AuthForm setRegister={setRegister} />
+      <Suspense>
+        <AuthForm setRegister={setRegister} />
+      </Suspense>
     </div>
   );
 }
