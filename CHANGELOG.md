@@ -1,5 +1,15 @@
 # Changelog
 
+## v1.10.1 (2026-03-08)
+
+
+### Bug Fixes & Improvements
+
+- fix(twabblr): Resolve deployment issues (#34) (9958473)
+- fix(twabblr): Resolve deployment issues (871bb65)
+
+# Changelog
+
 ## v1.10.0 (2026-03-07)
 
 
