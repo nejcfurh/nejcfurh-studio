@@ -1,5 +1,15 @@
 # Changelog
 
+## v1.10.3 (2026-03-11)
+
+
+### Bug Fixes & Improvements
+
+- fix(nejcfurh-studio): Unified favicon dimensions (#38) (65c7ba7)
+- fix(nejcfurh-studio): Unified favicon dimensions (3dd1937)
+
+# Changelog
+
 ## v1.10.2 (2026-03-11)
 
 
