@@ -1,5 +1,15 @@
 # Changelog
 
+## v1.10.2 (2026-03-11)
+
+
+### Bug Fixes & Improvements
+
+- fix(nejcfurh-studio): Added favicons to all apps (#36) (1c3ebab)
+- fix(nejcfurh-studio): Added favicons to all apps (1def7a0)
+
+# Changelog
+
 ## v1.10.1 (2026-03-08)
 
 
