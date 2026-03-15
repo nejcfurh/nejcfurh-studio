@@ -1,5 +1,15 @@
 # Changelog
 
+## v1.12.0 (2026-03-15)
+
+
+### Features
+
+- feat(nejcfurh-studio): Remove portfolio app due deployment limitations (#42) (cab24b3)
+- feat(nejcfurh-studio): Remove portfolio app due deployment limitations (7b85f31)
+
+# Changelog
+
 ## v1.11.0 (2026-03-15)
 
 
