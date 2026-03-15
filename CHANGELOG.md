@@ -1,5 +1,15 @@
 # Changelog
 
+## v1.11.0 (2026-03-15)
+
+
+### Features
+
+- feat(nejcfurh-studio): Added portfolio to apps (#40) (726c361)
+- feat(nejcfurh-studio): Added portfolio to apps (6645b63)
+
+# Changelog
+
 ## v1.10.3 (2026-03-11)
 
 
