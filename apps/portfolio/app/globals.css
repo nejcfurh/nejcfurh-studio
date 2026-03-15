@@ -1,0 +1,310 @@
+@import 'tailwindcss';
+@config "../tailwind.config.ts";
+
+@layer base {
+  :root {
+    --background: #050505;
+    --foreground: #fafafa;
+    --accent: #6086BE;
+    --accent-light: #8aaed6;
+    --card-bg: rgba(255, 255, 255, 0.03);
+    --card-border: rgba(255, 255, 255, 0.06);
+    --muted: #888888;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection {
+    background: var(--accent);
+    color: white;
+  }
+}
+
+@layer components {
+  /* ---- Scroll Progress Bar ---- */
+  .scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--accent);
+    transform-origin: 0%;
+    z-index: 100;
+  }
+
+  /* ---- Grain Overlay ---- */
+  .grain-overlay {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 90;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 256px 256px;
+  }
+
+  /* ---- Glass Card ---- */
+  .glass-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 1.5rem;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .glass-card-hover {
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .glass-card-hover:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.12);
+    transform: translateY(-4px);
+  }
+
+  /* ---- Section Anchor Offset ---- */
+  .hash-span {
+    margin-top: -100px;
+    padding-bottom: 100px;
+    display: block;
+  }
+
+  /* ---- Gradient Orbs ---- */
+  .gradient-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(120px);
+    opacity: 0.15;
+    pointer-events: none;
+  }
+
+  .gradient-orb-accent {
+    background: var(--accent);
+  }
+
+  .gradient-orb-purple {
+    background: #7c3aed;
+  }
+
+  /* ---- Text Gradients ---- */
+  .text-gradient-accent {
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-gradient-white {
+    background: linear-gradient(180deg, #ffffff 0%, rgba(255, 255, 255, 0.5) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* ---- Timeline ---- */
+  .timeline-line {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: rgba(255, 255, 255, 0.06);
+    transform: translateX(-50%);
+  }
+
+  .timeline-line-fill {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    width: 1px;
+    background: var(--accent);
+    transform: translateX(-50%);
+    transform-origin: top;
+  }
+
+  .timeline-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid var(--background);
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+  }
+
+  @media (max-width: 768px) {
+    .timeline-line,
+    .timeline-line-fill {
+      left: 20px;
+    }
+    .timeline-dot {
+      left: 20px;
+    }
+  }
+
+  /* ---- Project Card Hover ---- */
+  .project-card-image {
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .project-card:hover .project-card-image {
+    transform: scale(1.05);
+  }
+
+  .project-card-overlay {
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  .project-card:hover .project-card-overlay {
+    opacity: 1;
+  }
+
+  /* ---- Tech Grid Item ---- */
+  .tech-item {
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .tech-item:hover {
+    background: rgba(96, 134, 190, 0.1);
+    border-color: rgba(96, 134, 190, 0.3);
+    box-shadow: 0 0 30px rgba(96, 134, 190, 0.1);
+  }
+
+  /* ---- Form Inputs ---- */
+  .form-input {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 0.75rem;
+    padding: 1rem 1.25rem;
+    color: var(--foreground);
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+    outline: none;
+    width: 100%;
+  }
+
+  .form-input:focus {
+    border-color: var(--accent);
+  }
+
+  .form-input::placeholder {
+    color: var(--muted);
+  }
+
+  /* ---- Magnetic Button ---- */
+  .magnetic-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 2.5rem;
+    border-radius: 9999px;
+    background: var(--accent);
+    color: white;
+    font-weight: 500;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    overflow: hidden;
+  }
+
+  .magnetic-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 50%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .magnetic-btn:hover::before {
+    opacity: 1;
+  }
+
+  .magnetic-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 40px rgba(96, 134, 190, 0.3);
+  }
+
+  /* ---- Navbar ---- */
+  .nav-glass {
+    background: rgba(5, 5, 5, 0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  /* ---- Social Link ---- */
+  .social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--muted);
+    transition: all 0.3s ease;
+  }
+
+  .social-link:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(96, 134, 190, 0.1);
+  }
+
+  /* ---- Tag pill ---- */
+  .tag-pill {
+    display: inline-flex;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    background: rgba(96, 134, 190, 0.1);
+    color: var(--accent-light);
+    border: 1px solid rgba(96, 134, 190, 0.2);
+  }
+
+  /* ---- Devicon sizing ---- */
+  .devicon-react-original-wordmark,
+  .devicon-jquery-plain-wordmark,
+  .devicon-nodejs-plain,
+  .devicon-express-original-wordmark,
+  .devicon-css3-plain-wordmark,
+  .devicon-tailwindcss-original-wordmark,
+  .devicon-html5-plain-wordmark,
+  .devicon-bootstrap-plain-wordmark,
+  .devicon-mongodb-plain-wordmark,
+  .devicon-postgresql-plain-wordmark,
+  .devicon-webflow-original,
+  .devicon-redux-original {
+    font-size: 48px;
+  }
+}
+
+@layer utilities {
+  /* ---- Scroll indicator ---- */
+  .scroll-indicator {
+    animation: scrollBounce 2s ease-in-out infinite;
+  }
+}
+
+@keyframes scrollBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(8px); }
+}

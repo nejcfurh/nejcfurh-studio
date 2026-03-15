@@ -24,7 +24,8 @@
     "blog-dev": "turbo dev --filter=blog-dev",
     "to-do-cards": "turbo dev --filter=to-do-cards",
     "twabblr": "turbo dev --filter=twabblr",
-    "elysantium": "turbo dev --filter=elysantium"
+    "elysantium": "turbo dev --filter=elysantium",
+    "portfolio": "turbo dev --filter=portfolio"
   },
   "devDependencies": {
     "@commitlint/cli": "20.4.2",

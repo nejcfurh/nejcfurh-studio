@@ -6,6 +6,7 @@ A monorepo powering multiple web applications, built with [Turborepo](https://tu
 
 | App                                             | Description                                                                | Deployment                                         |
 | ----------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------- |
+| [portfolio](apps/portfolio)                     | Personal portfolio and professional showcase                               | [LINK](https://nejcfurh.dev)                       |
 | [reusable-components](apps/reusable-components) | Showcase of reusable UI components with 3D effects and animations          | [LINK](https://reusable-components-nf.vercel.app/) |
 | [n-drive](apps/n-drive)                         | Cloud storage and file sharing platform with Convex backend and Clerk auth | [LINK](https://n-drive.vercel.app/)                |
 | [backyard-skies](apps/backyard-skies)           | Interactive 3D weather visualization using Three.js and React Three Fiber  | [LINK](https://backyard-skies.vercel.app/)         |
@@ -13,7 +14,9 @@ A monorepo powering multiple web applications, built with [Turborepo](https://tu
 | [reviews-analyser](apps/reviews-analyser)       | AI-powered review analysis tool using Vercel AI SDK                        | [LINK](https://reviews-analyser-nf.vercel.app/)    |
 | [friends-of-nature](apps/friends-of-nature)     | Community platform for nature enthusiasts with rich animations             | [LINK](https://friends-of-nature.vercel.app/)      |
 | [blog-dev](apps/blog-dev)                       | Personal dev blog with MongoDB backend and admin authentication            | [LINK](https://blog-dev-nf.vercel.app/)            |
-| [to-do-cards](apps/to-do-cards)                 | Card-based task manager with NextAuth, MongoDB, and Supabase storage        | [LINK](https://to-do-cards.vercel.app/)                    |
+| [to-do-cards](apps/to-do-cards)                 | Card-based task manager with NextAuth, MongoDB, and Supabase storage       | [LINK](https://to-do-cards.vercel.app/)            |
+| [twabblr](apps/twabblr)                         | Social / messaging app with NextAuth, Prisma, and real-time (Pusher)         | [LINK](https://twabblr.vercel.app)                 |
+| [elysantium](apps/elysantium)                   | Luxury hotel site with admin panel (bookings, cabins, Supabase)               | [LINK](https://elysantium.vercel.app)              |
 
 ## Shared Packages
 
@@ -44,6 +47,7 @@ pnpm install
 pnpm dev
 
 # Start a specific app
+pnpm portfolio
 pnpm reusable-components
 pnpm n-drive
 pnpm backyard-skies
@@ -52,6 +56,8 @@ pnpm reviews-analyser
 pnpm friends-of-nature
 pnpm blog-dev
 pnpm to-do-cards
+pnpm twabblr
+pnpm elysantium
 ```
 
 ## Commands
@@ -97,6 +103,7 @@ pnpm to-do-cards
 ```
 nejcfurh-studio/
 ├── apps/
+│   ├── portfolio/             # Personal portfolio (nejcfurh.dev)
 │   ├── reusable-components/   # Component showcase
 │   ├── n-drive/               # File sharing platform
 │   ├── backyard-skies/        # 3D weather visualization
@@ -104,7 +111,9 @@ nejcfurh-studio/
 │   ├── reviews-analyser/      # AI review analysis
 │   ├── friends-of-nature/     # Nature community platform
 │   ├── blog-dev/              # Personal dev blog
-│   └── to-do-cards/           # Card-based task manager
+│   ├── to-do-cards/           # Card-based task manager
+│   ├── twabblr/               # Social / messaging app
+│   └── elysantium/            # Hotel site + admin panel
 ├── packages/
 │   ├── shared/                # Shared utils, AI SDK, analytics
 │   ├── tsconfig/              # TypeScript configs
