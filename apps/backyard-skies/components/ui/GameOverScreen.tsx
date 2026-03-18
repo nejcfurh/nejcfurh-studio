@@ -68,12 +68,13 @@ export default function GameOverScreen() {
   const leaderboard = useGameStore((s) => s.leaderboard);
   const setGameState = useGameStore((s) => s.setGameState);
   const startGame = useGameStore((s) => s.startGame);
-  const saveScore = useGameStore((s) => s.saveScore);
-  const storedName = useGameStore((s) => s.playerName);
   const eagleDodges = useGameStore((s) => s.eagleDodges);
   const feedingScore = useGameStore((s) => s.feedingScore);
-  const [playerName, setPlayerName] = useState(storedName || '');
-  const [saved, setSaved] = useState(false);
+  const loadLeaderboard = useGameStore((s) => s.loadLeaderboard);
+
+  useEffect(() => {
+    loadLeaderboard();
+  }, [loadLeaderboard]);
 
   const topPlayers = leaderboard.slice(0, 4);
   const death = (deathReason && DEATH_MESSAGES[deathReason]) || DEFAULT_DEATH;
@@ -91,16 +92,9 @@ export default function GameOverScreen() {
   const eagles = useCountUp(eagleBonus, 800, 900);
   const total = useCountUp(Math.floor(score), 1000, 1400);
 
-  const handleSave = () => {
-    if (playerName.trim()) {
-      saveScore(playerName.trim());
-      setSaved(true);
-    }
-  };
-
   return (
     <div className="z-50 flex h-full w-full flex-col bg-linear-to-b from-[#0a0a1a] via-[#1a1a2e] to-[#0a0a1a]">
-      <div className="flex h-full flex-col items-center justify-between gap-2 px-6 pt-3 pb-8">
+      <div className="flex h-full flex-col items-center justify-between gap-2 px-6 pt-3 pb-8 md:pt-10">
         {/* Title */}
         <div className="text-center">
           <h1 className="text-4xl font-black text-white">{death.title}</h1>
@@ -153,27 +147,6 @@ export default function GameOverScreen() {
               </span>
             </div>
           </div>
-
-          {!saved ? (
-            <div className="flex w-full gap-2">
-              <input
-                type="text"
-                value={playerName}
-                onChange={(e) => setPlayerName(e.target.value)}
-                placeholder="Enter your name..."
-                maxLength={16}
-                className="flex-1 rounded-xl border-none bg-white/8 px-3.5 py-2.5 text-[13px] text-white outline-none"
-              />
-              <button
-                onClick={handleSave}
-                className="cursor-pointer rounded-xl border-none bg-[#00AEEF] px-[18px] py-2.5 text-[13px] font-bold text-white"
-              >
-                Save
-              </button>
-            </div>
-          ) : (
-            <p className="text-xs text-[#4CAF50]">Score saved!</p>
-          )}
         </div>
 
         {/* Leaderboard */}
