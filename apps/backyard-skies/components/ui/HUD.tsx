@@ -22,9 +22,9 @@ export default function HUD() {
   const showFeedingState = gameState === 'feeding' || gameState === 'drinking';
 
   return (
-    <div className="pointer-events-none fixed inset-0 z-50">
+    <div className="pointer-events-none absolute inset-0 z-50">
       {/* TOP BAR */}
-      <div className="flex items-start justify-between px-4 pt-[max(16px,env(safe-area-inset-top))]">
+      <div className="flex items-start justify-between px-4 pt-[max(16px,env(safe-area-inset-top))] md:pt-10">
         {/* FOOD CIRCLE + WARNING - LEFT */}
         <div className="flex flex-col items-center gap-1.5">
           <ResourceCircle

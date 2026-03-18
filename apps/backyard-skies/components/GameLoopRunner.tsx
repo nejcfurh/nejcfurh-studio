@@ -8,13 +8,12 @@ export default function GameLoopRunner() {
   const joystickXRef = useRef(0);
   const tapSteerTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Touch handling — tap-to-steer with gradient steering + inverse flap strength
+  // Shared input handler for both touch and mouse
   useEffect(() => {
-    const handler = (e: TouchEvent) => {
-      const target = e.target as HTMLElement;
+    function handleInput(target: HTMLElement, clientX: number) {
       const state = useGameStore.getState();
 
-      // Only handle canvas touches (UI buttons handle themselves)
+      // Only handle canvas interactions (UI buttons handle themselves)
       if (target.tagName !== 'CANVAS') return;
 
       // Any tap while feeding/drinking → fly away (after landing animation)
@@ -26,9 +25,10 @@ export default function GameLoopRunner() {
       // Tap-steer: gradient steering + inverse flap strength
       // Center of screen = no turn, full flap
       // Edge of screen = max turn, minimal flap
-      const touch = e.touches[0];
-      const w = window.innerWidth;
-      const x = touch.clientX;
+      const canvas = target as HTMLCanvasElement;
+      const rect = canvas.getBoundingClientRect();
+      const w = rect.width;
+      const x = clientX - rect.left;
       const center = w / 2;
 
       // -1 (left edge) to +1 (right edge)
@@ -54,11 +54,21 @@ export default function GameLoopRunner() {
 
       // Flap
       state.flap();
+    }
+
+    const touchHandler = (e: TouchEvent) => {
+      handleInput(e.target as HTMLElement, e.touches[0].clientX);
     };
 
-    window.addEventListener('touchstart', handler);
+    const mouseHandler = (e: MouseEvent) => {
+      handleInput(e.target as HTMLElement, e.clientX);
+    };
+
+    window.addEventListener('touchstart', touchHandler);
+    window.addEventListener('mousedown', mouseHandler);
     return () => {
-      window.removeEventListener('touchstart', handler);
+      window.removeEventListener('touchstart', touchHandler);
+      window.removeEventListener('mousedown', mouseHandler);
       if (tapSteerTimerRef.current) clearTimeout(tapSteerTimerRef.current);
     };
   }, []);

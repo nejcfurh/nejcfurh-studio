@@ -104,7 +104,7 @@ export default function GameCanvas() {
   if (!showCanvas) return null;
 
   return (
-    <div style={{ position: 'fixed', inset: 0, zIndex: 0 }}>
+    <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
       <StableCanvas />
     </div>
   );

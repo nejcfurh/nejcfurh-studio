@@ -24,11 +24,11 @@ export default function StartMenu() {
   const topPlayers = leaderboard.slice(0, 3);
 
   return (
-    <div className="h-100dvh z-50 flex w-full flex-col bg-[url('/menu-bg.jpg')] bg-cover bg-fixed bg-center bg-no-repeat">
+    <div className="h-100dvh z-50 flex w-full flex-col bg-[url('/menu-bg.jpg')] bg-cover bg-center bg-no-repeat">
       <FloatingParticles />
 
       {/* CONTENT */}
-      <div className="relative z-10 flex flex-col items-center justify-between px-8 pb-10">
+      <div className="relative z-10 flex flex-col items-center justify-between px-8 pb-10 md:pt-5">
         {/* TITLE */}
         <Title />
         {/* BIRD OF THE DAY */}
