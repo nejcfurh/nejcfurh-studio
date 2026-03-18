@@ -125,7 +125,6 @@ interface GameStore {
 
   // Leaderboard
   loadLeaderboard: () => void;
-  saveScore: (name: string) => void;
 }
 
 export const useGameStore = create<GameStore>((set, get) => ({
@@ -239,14 +238,25 @@ export const useGameStore = create<GameStore>((set, get) => ({
     audioManager.play('death');
   },
 
-  finalizeDeath: () => {
-    const { score, distance, selectedSpecies, playerName } = get();
+  finalizeDeath: async () => {
+    const {
+      score,
+      distance,
+      selectedSpecies,
+      playerName,
+      deathReason,
+      eagleDodges,
+      feedingScore
+    } = get();
     set({ gameState: 'game-over' });
-    const leaderboard = saveLeaderboardEntry(
+    const leaderboard = await saveLeaderboardEntry(
       playerName || 'Player',
       selectedSpecies,
       score,
-      distance
+      distance,
+      deathReason,
+      eagleDodges,
+      feedingScore
     );
     set({ leaderboard });
   },
@@ -418,16 +428,8 @@ export const useGameStore = create<GameStore>((set, get) => ({
   },
 
   // Leaderboard
-  loadLeaderboard: () => set({ leaderboard: loadLeaderboardFromStorage() }),
-
-  saveScore: (name) => {
-    const { score, distance, selectedSpecies } = get();
-    const leaderboard = saveLeaderboardEntry(
-      name,
-      selectedSpecies,
-      score,
-      distance
-    );
+  loadLeaderboard: async () => {
+    const leaderboard = await loadLeaderboardFromStorage();
     set({ leaderboard });
   }
 }));
