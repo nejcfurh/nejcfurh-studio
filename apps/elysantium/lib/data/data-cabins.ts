@@ -9,7 +9,7 @@ interface Cabin {
   description: string;
 }
 
-const imageUrl: string = `${supabaseUrl}/storage/v1/object/public/cabin-images/`;
+const imageUrl: string = `${supabaseUrl}/storage/v1/object/public/cabin-images-elysantium/`;
 
 export const cabins: Cabin[] = [
   {

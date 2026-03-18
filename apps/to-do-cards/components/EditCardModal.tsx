@@ -44,14 +44,14 @@ export default function EditCardModal({
     const fileName = `${Math.random()}.${fileExt}`;
 
     const { error } = await supabase.storage
-      .from('card-images')
+      .from('card-images-to-do-cards')
       .upload(fileName, file);
 
     if (error) {
       console.error('Error uploading file:', error.message);
     } else {
       const { data } = supabase.storage
-        .from('card-images')
+        .from('card-images-to-do-cards')
         .getPublicUrl(fileName);
       if (data.publicUrl) {
         setListImg(data.publicUrl);
