@@ -17,7 +17,7 @@ interface UploadImageProps {
 export default function UploadImage({
   onCloseModal,
   onImageUpload,
-  bucket = 'card-images',
+  bucket = 'card-images-to-do-cards',
   title = 'Upload a background image ...'
 }: UploadImageProps) {
   const [fileInfo, setFileInfo] = useState('No Files Selected');

@@ -4,7 +4,7 @@ import TipSection from './TipSection';
 
 const Tips = ({ handleBack }: { handleBack: () => void }) => {
   return (
-    <div className="fixed inset-0 z-50 flex flex-col bg-[url('/menu-bg.jpg')] bg-cover bg-fixed bg-center bg-no-repeat">
+    <div className="absolute inset-0 z-50 flex flex-col bg-[url('/menu-bg.jpg')] bg-cover bg-center bg-no-repeat">
       <div className="flex h-full flex-col px-6 pt-7.5">
         <div className="relative mb-6 flex items-center justify-center">
           <button

@@ -102,7 +102,7 @@ export async function updateCurrentUser({
   const fileName: string = `avatar-${data.user.id}-${Math.random()}`;
 
   const { error: avatarError } = await supabase.storage
-    .from('avatars')
+    .from('avatars-elysantium')
     .upload(fileName, avatar);
 
   if (avatarError) {
@@ -114,7 +114,7 @@ export async function updateCurrentUser({
   const { data: updatedUser, error: updateAvatarError } =
     await supabase.auth.updateUser({
       data: {
-        avatar: `${supabaseUrl}/storage/v1/object/public/avatars/${fileName}`
+        avatar: `${supabaseUrl}/storage/v1/object/public/avatars-elysantium/${fileName}`
       }
     });
 

@@ -1,15 +1,12 @@
-import { createClient } from '@supabase/supabase-js';
+import { createSupabaseClient } from '@repo/database/supabase';
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
-
-const supabase = createClient(supabaseUrl, supabaseKey);
+const supabase = createSupabaseClient();
 
 export default supabase;
 
 export async function deleteImageSupabase(imageName: string) {
   const { error } = await supabase.storage
-    .from('card-images')
+    .from('card-images-to-do-cards')
     .remove([imageName]);
 
   if (error) {
@@ -21,7 +18,7 @@ export async function deleteImageSupabase(imageName: string) {
 
 export async function deleteAvatarSupabase(imageName: string) {
   const { error } = await supabase.storage
-    .from('avatar-images')
+    .from('avatar-images-to-do-cards')
     .remove([imageName]);
 
   if (error) {

@@ -38,6 +38,9 @@ importers:
       '@react-three/postprocessing':
         specifier: ^3.0.4
         version: 3.0.4(@react-three/fiber@9.5.0(@types/react@19.2.14)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(three@0.183.2))(@types/three@0.183.1)(react@19.2.3)(three@0.183.2)
+      '@repo/database':
+        specifier: workspace:*
+        version: link:../../packages/database
       '@types/three':
         specifier: ^0.183.0
         version: 0.183.1
@@ -96,12 +99,12 @@ importers:
       '@mailchimp/mailchimp_marketing':
         specifier: ^3.0.80
         version: 3.0.80
+      '@repo/database':
+        specifier: workspace:*
+        version: link:../../packages/database
       lucide-react:
         specifier: ^0.511.0
         version: 0.511.0(react@19.2.3)
-      mongoose:
-        specifier: ^8.14.1
-        version: 8.23.0
       next:
         specifier: 16.1.6
         version: 16.1.6(@babel/core@7.29.0)(@opentelemetry/api@1.9.0)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
@@ -206,9 +209,9 @@ importers:
 
   apps/elysantium:
     dependencies:
-      '@supabase/supabase-js':
-        specifier: ^2.49.0
-        version: 2.98.0
+      '@repo/database':
+        specifier: workspace:*
+        version: link:../../packages/database
       '@tanstack/react-query':
         specifier: ^5.69.0
         version: 5.90.21(react@19.2.4)
@@ -601,18 +604,15 @@ importers:
 
   apps/to-do-cards:
     dependencies:
-      '@supabase/supabase-js':
-        specifier: ^2.49.4
-        version: 2.98.0
+      '@repo/database':
+        specifier: workspace:*
+        version: link:../../packages/database
       bcrypt:
         specifier: ^5.1.1
         version: 5.1.1
       lucide-react:
         specifier: ^0.511.0
         version: 0.511.0(react@19.2.4)
-      mongoose:
-        specifier: ^8.14.1
-        version: 8.23.0
       next:
         specifier: 16.1.6
         version: 16.1.6(@babel/core@7.29.0)(@opentelemetry/api@1.9.0)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -767,6 +767,28 @@ importers:
         version: 5.9.3
 
   packages/browserslist-config-web: {}
+
+  packages/database:
+    dependencies:
+      '@supabase/supabase-js':
+        specifier: ^2.49.4
+        version: 2.98.0
+      mongoose:
+        specifier: ^8.14.1
+        version: 8.23.0
+    devDependencies:
+      eslint-config-web:
+        specifier: workspace:*
+        version: link:../eslint-config-web
+      prettier-config-web:
+        specifier: workspace:*
+        version: link:../prettier-config-web
+      tsconfig:
+        specifier: workspace:*
+        version: link:../tsconfig
+      typescript:
+        specifier: 5.9.3
+        version: 5.9.3
 
   packages/eslint-config-web:
     dependencies:

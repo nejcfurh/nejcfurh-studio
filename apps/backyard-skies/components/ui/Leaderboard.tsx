@@ -9,7 +9,7 @@ const Leaderboard = ({
   leaderboard: LeaderboardEntry[];
 }) => {
   return (
-    <div className="fixed inset-0 z-60 flex flex-col bg-[url('/menu-bg.jpg')] bg-cover bg-fixed bg-center bg-no-repeat">
+    <div className="absolute inset-0 z-60 flex flex-col bg-[url('/menu-bg.jpg')] bg-cover bg-center bg-no-repeat">
       <div className="flex h-full flex-col px-6 pt-6">
         {/* HEADER */}
         <div className="relative mb-6 flex items-center justify-center">

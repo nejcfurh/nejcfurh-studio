@@ -1,36 +1,59 @@
-// Leaderboard localStorage persistence — no store dependency.
+import { BirdSpeciesId, DeathReason, LeaderboardEntry } from '@/types';
+import { createSupabaseClient } from '@repo/database/supabase';
 
-import { BirdSpeciesId, LeaderboardEntry } from '@/types';
-
-const STORAGE_KEY = 'backyard-skies-leaderboard';
 const MAX_ENTRIES = 20;
 
-export function loadLeaderboardFromStorage(): LeaderboardEntry[] {
-  if (typeof window === 'undefined') return [];
-  try {
-    const data = localStorage.getItem(STORAGE_KEY);
-    return data ? JSON.parse(data) : [];
-  } catch {
-    return [];
-  }
+function getClient() {
+  return createSupabaseClient();
 }
 
-export function saveLeaderboardEntry(
+export async function loadLeaderboardFromStorage(): Promise<
+  LeaderboardEntry[]
+> {
+  const supabase = getClient();
+  const { data, error } = await supabase
+    .from('backyard-skies-leaderboard')
+    .select('name, score, species, distance, created_at')
+    .order('score', { ascending: false })
+    .limit(MAX_ENTRIES);
+
+  if (error) {
+    console.error('Failed to load leaderboard:', error.message);
+    return [];
+  }
+
+  return (data ?? []).map((row) => ({
+    name: row.name,
+    species: row.species as BirdSpeciesId,
+    score: Number(row.score),
+    distance: Number(row.distance),
+    date: row.created_at
+  }));
+}
+
+export async function saveLeaderboardEntry(
   name: string,
   species: BirdSpeciesId,
   score: number,
-  distance: number
-): LeaderboardEntry[] {
-  const leaderboard = loadLeaderboardFromStorage();
-  leaderboard.push({
+  distance: number,
+  deathReason: DeathReason,
+  eagleDodges: number,
+  feedingScore: number
+): Promise<LeaderboardEntry[]> {
+  const supabase = getClient();
+  const { error } = await supabase.from('backyard-skies-leaderboard').insert({
     name,
+    score: Math.floor(score),
     species,
-    score,
     distance: Math.round(distance * 100) / 100,
-    date: new Date().toISOString()
+    death_reason: deathReason,
+    eagle_dodges: eagleDodges,
+    feeding_score: Math.floor(feedingScore)
   });
-  leaderboard.sort((a, b) => b.score - a.score);
-  const top = leaderboard.slice(0, MAX_ENTRIES);
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(top));
-  return top;
+
+  if (error) {
+    console.error('Failed to save leaderboard entry:', error.message);
+  }
+
+  return loadLeaderboardFromStorage();
 }

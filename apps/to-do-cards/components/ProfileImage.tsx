@@ -57,7 +57,7 @@ export default function ProfileImage({ avatar }: ProfileImageProps) {
         <UploadImage
           onCloseModal={closeModal}
           onImageUpload={handleImageUpload}
-          bucket="avatar-images"
+          bucket="avatar-images-to-do-cards"
           title="Upload an avatar image ..."
         />
       </Modal>

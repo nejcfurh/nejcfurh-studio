@@ -1,4 +1,6 @@
-import mongoose, { Schema } from 'mongoose';
+import { mongoose } from '@repo/database/mongodb';
+
+const { Schema } = mongoose;
 
 export interface IItem {
   _id: string;
