@@ -37,7 +37,7 @@ export default function SettingsScreen() {
   }
 
   return (
-    <div className="z-50 flex h-full w-full flex-col bg-[url('/menu-bg.jpg')] bg-cover bg-fixed bg-center bg-no-repeat">
+    <div className="z-50 flex h-full w-full flex-col bg-[url('/menu-bg.jpg')] bg-cover bg-center bg-no-repeat">
       <div className="h-100dvh flex flex-col justify-between px-6 py-6">
         {/* HEADER */}
         <div className="mb-4 flex items-center justify-between gap-3">
@@ -147,7 +147,7 @@ export default function SettingsScreen() {
         </button>
 
         {/* APP INFO */}
-        <div className="fixed right-0 bottom-0 left-0 mt-2 mb-4 text-center">
+        <div className="absolute right-0 bottom-0 left-0 mt-2 mb-4 text-center">
           <p className="mt-1 text-[10px] text-white/20">
             Version 0.0.1 · by Nejc Furh
           </p>

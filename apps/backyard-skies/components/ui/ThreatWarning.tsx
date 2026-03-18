@@ -29,7 +29,7 @@ export default function ThreatWarning() {
     <>
       {/* Predator detected — centered red text */}
       {isEagle && !isDodgePhase && !eagleAltitudeHunt && (
-        <div className="pointer-events-none fixed inset-0 z-30 flex items-center justify-center">
+        <div className="pointer-events-none absolute inset-0 z-30 flex items-center justify-center">
           <span
             className="animate-[pulse_0.8s_ease-in-out_infinite] text-2xl font-black tracking-widest uppercase"
             style={{
@@ -45,12 +45,12 @@ export default function ThreatWarning() {
 
       {/* Screen vignette */}
       {(isDodgePhase || eagleAltitudeHunt || (isCat && isPerched)) && (
-        <div className="pointer-events-none fixed inset-0 z-20 animate-[pulse_1s_ease-in-out_infinite] bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(255,61,0,0.35)_100%)]" />
+        <div className="pointer-events-none absolute inset-0 z-20 animate-[pulse_1s_ease-in-out_infinite] bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(255,61,0,0.35)_100%)]" />
       )}
 
       {/* Altitude hunt countdown */}
       {isEagle && eagleAltitudeHunt && !isDodgePhase && (
-        <div className="pointer-events-none fixed inset-0 z-30 flex items-center justify-center">
+        <div className="pointer-events-none absolute inset-0 z-30 flex items-center justify-center">
           <div className="flex flex-col items-center gap-2 rounded-[18px] border border-[rgba(255,61,0,0.3)] bg-black/65 px-9 py-6 backdrop-blur-xl">
             <span className="text-xs font-bold tracking-wider text-[#FF5252]">
               TOO HIGH
@@ -68,7 +68,7 @@ export default function ThreatWarning() {
 
       {/* Eagle dodge prompt */}
       {isDodgePhase && (
-        <div className="pointer-events-none fixed inset-0 z-30 flex items-center justify-center">
+        <div className="pointer-events-none absolute inset-0 z-30 flex items-center justify-center">
           <div className="flex animate-[bounce-y_0.6s_ease-in-out_infinite] flex-col items-center gap-2 rounded-[18px] border border-[rgba(255,61,0,0.3)] bg-black/65 px-9 py-6 backdrop-blur-xl">
             <span className="text-xs font-bold tracking-wider text-[#FF5252]">
               ESCAPE NOW
@@ -106,7 +106,7 @@ export default function ThreatWarning() {
             e.stopPropagation();
             flyAway();
           }}
-          className="pointer-events-auto fixed inset-0 z-30 flex cursor-pointer flex-col items-center justify-end pb-[140px]"
+          className="pointer-events-auto absolute inset-0 z-30 flex cursor-pointer flex-col items-center justify-end pb-[140px]"
         >
           <span
             className="mb-4 animate-[pulse_0.8s_ease-in-out_infinite] text-2xl font-black tracking-widest uppercase"
@@ -133,8 +133,8 @@ export default function ThreatWarning() {
       {/* Grounded warning — flap to take off before cat catches you */}
       {isOnGround && !isPerched && (
         <>
-          <div className="pointer-events-none fixed inset-0 z-20 animate-[pulse_1s_ease-in-out_infinite] bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(255,61,0,0.35)_100%)]" />
-          <div className="pointer-events-none fixed inset-0 z-30 flex items-center justify-center">
+          <div className="pointer-events-none absolute inset-0 z-20 animate-[pulse_1s_ease-in-out_infinite] bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(255,61,0,0.35)_100%)]" />
+          <div className="pointer-events-none absolute inset-0 z-30 flex items-center justify-center">
             <div className="flex animate-[bounce-y_0.6s_ease-in-out_infinite] flex-col items-center gap-2 rounded-[18px] border border-[rgba(255,61,0,0.3)] bg-black/65 px-9 py-6 backdrop-blur-xl">
               <span className="text-xs font-bold tracking-wider text-[#FF5252]">
                 GROUNDED

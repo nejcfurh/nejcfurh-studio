@@ -78,7 +78,7 @@ export default function FeederDirectionHint() {
   if (gameState !== 'flight' || hints.length === 0) return null;
 
   return (
-    <div className="pointer-events-none fixed inset-0 z-10">
+    <div className="pointer-events-none absolute inset-0 z-10">
       {hints.map((hint, idx) => (
         <EdgeGlow
           key={idx}

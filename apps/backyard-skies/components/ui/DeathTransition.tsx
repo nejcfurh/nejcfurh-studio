@@ -59,7 +59,7 @@ export default function DeathTransition() {
       {/* RED/WHITE FLASH */}
       {flashOpacity > 0 && (
         <div
-          className="pointer-events-none fixed inset-0 z-40"
+          className="pointer-events-none absolute inset-0 z-40"
           style={{
             background:
               'radial-gradient(circle, rgba(255,255,255,0.8), rgba(200,50,50,0.6))',
@@ -69,7 +69,7 @@ export default function DeathTransition() {
       )}
       {/* DARK FADE OVERLAY */}
       <div
-        className="pointer-events-none fixed inset-0 z-40"
+        className="pointer-events-none absolute inset-0 z-40"
         style={{
           background: '#000',
           opacity: fadeOpacity

@@ -44,7 +44,7 @@ export default function SpeciesSelect() {
   };
 
   return (
-    <div className="h-100dvh z-50 flex w-full flex-col bg-[url('/menu-bg.jpg')] bg-cover bg-fixed bg-center bg-no-repeat">
+    <div className="h-100dvh z-50 flex w-full flex-col bg-[url('/menu-bg.jpg')] bg-cover bg-center bg-no-repeat">
       <div className="flex h-full flex-col overflow-auto px-6 pt-7 pb-10">
         {/* Header */}
         <div className="relative mb-6 flex items-center justify-center">
