@@ -18,7 +18,7 @@
     "type:check": "tsc --noEmit"
   },
   "dependencies": {
-    "@supabase/supabase-js": "^2.49.0",
+    "@repo/database": "workspace:*",
     "@tanstack/react-query": "^5.69.0",
     "@tanstack/react-query-devtools": "^5.69.0",
     "date-fns": "^3.6.0",
