@@ -8,7 +8,7 @@ export default function GameLoopRunner() {
   const joystickXRef = useRef(0);
   const tapSteerTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Shared input handler for both touch and mouse
+  // Unified pointer input handler (prevents double-firing on mobile)
   useEffect(() => {
     function handleInput(target: HTMLElement, clientX: number) {
       const state = useGameStore.getState();
@@ -56,19 +56,13 @@ export default function GameLoopRunner() {
       state.flap();
     }
 
-    const touchHandler = (e: TouchEvent) => {
-      handleInput(e.target as HTMLElement, e.touches[0].clientX);
-    };
-
-    const mouseHandler = (e: MouseEvent) => {
+    const pointerHandler = (e: PointerEvent) => {
       handleInput(e.target as HTMLElement, e.clientX);
     };
 
-    window.addEventListener('touchstart', touchHandler);
-    window.addEventListener('mousedown', mouseHandler);
+    window.addEventListener('pointerdown', pointerHandler);
     return () => {
-      window.removeEventListener('touchstart', touchHandler);
-      window.removeEventListener('mousedown', mouseHandler);
+      window.removeEventListener('pointerdown', pointerHandler);
       if (tapSteerTimerRef.current) clearTimeout(tapSteerTimerRef.current);
     };
   }, []);
