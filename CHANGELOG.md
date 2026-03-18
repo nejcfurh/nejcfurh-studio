@@ -1,5 +1,23 @@
 # Changelog
 
+## v1.12.1 (2026-03-18)
+
+
+### Bug Fixes & Improvements
+
+- fix(backyard-skies): Linked leaderboard to supabase (#47) (b7222a8)
+- fix(backyard-skies): Linked leaderboard to supabase (a1f1505)
+- fix(backyard-birds): Make the game playable on desktop (#44) (4e02902)
+- fix(backyard-birds): Make the game playable on desktop (3f8d335)
+
+
+### Other Changes
+
+- chore(nejcfurh-studio): Add supabase and mongodb clients to packages/… (#46) (4e90fb0)
+- chore(nejcfurh-studio): Add supabase and mongodb clients to packages/database (8d5b0e9)
+
+# Changelog
+
 ## v1.12.0 (2026-03-15)
 
 
