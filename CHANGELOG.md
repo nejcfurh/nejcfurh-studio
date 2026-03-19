@@ -1,5 +1,23 @@
 # Changelog
 
+## v1.13.0 (2026-03-19)
+
+
+### Features
+
+- feat(backyard-birds): Make the transitions between screens animated (#51) (7568c7b)
+- feat(backyard-birds): Make the transitions between screens animated (3eee0a2)
+- feat(nejcfurh-studio): Create a UI package for animations (#50) (8eff3cb)
+- feat(nejcfurh-studio): Create a UI package for animations (871442f)
+
+
+### Bug Fixes & Improvements
+
+- fix(backyard-skies): Double tap resolved on mobile (#48) (abf60da)
+- fix(backyard-skies): Double tap resolved on mobile (58cdf93)
+
+# Changelog
+
 ## v1.12.1 (2026-03-18)
 
 
