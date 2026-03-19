@@ -1,15 +1,17 @@
 'use client';
 
 import { useGameStore } from '@/store/gameStore';
-import Link from 'next/link';
+import { AnimatePresence } from '@repo/ui/animation';
+import { AnimatedButton, AnimatedDiv } from '@repo/ui/animation/core';
 import { useEffect, useState } from 'react';
-import { BiChevronRight } from 'react-icons/bi';
 import { PiBird, PiGear } from 'react-icons/pi';
 
 import FloatingParticles from './FloatingParticles';
 import Leaderboard from './Leaderboard';
 import Title from './Title';
 import Top3Leaderboard from './Top3Leaderboard';
+
+const spring = { type: 'spring' as const, stiffness: 300, damping: 30 };
 
 export default function StartMenu() {
   const setGameState = useGameStore((s) => s.setGameState);
@@ -24,49 +26,70 @@ export default function StartMenu() {
   const topPlayers = leaderboard.slice(0, 3);
 
   return (
-    <div className="h-100dvh z-50 flex w-full flex-col bg-[url('/menu-bg.jpg')] bg-cover bg-center bg-no-repeat">
+    <AnimatedDiv
+      className="h-100dvh z-50 flex w-full flex-col bg-[url('/menu-bg.jpg')] bg-cover bg-center bg-no-repeat"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0, scale: 0.97 }}
+      transition={{ duration: 0.25 }}
+    >
       <FloatingParticles />
 
       {/* CONTENT */}
       <div className="relative z-10 flex flex-col items-center justify-between px-8 pb-10 md:pt-5">
         {/* TITLE */}
-        <Title />
-        {/* BIRD OF THE DAY */}
-        <Link
-          href="https://www.onebirdaday.com"
-          className="mt-4 flex items-center rounded-full bg-green-900/50 px-3 py-1.5 backdrop-blur-xl"
+        <AnimatedDiv
+          initial={{ opacity: 0, y: -30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ ...spring, delay: 0.1 }}
         >
-          <div>
-            <p className="flex animate-pulse items-center gap-0.5 text-center text-lg font-semibold tracking-wider text-white/70 uppercase">
-              Bird of the Day <BiChevronRight />
-            </p>
-          </div>
-        </Link>
+          <Title />
+        </AnimatedDiv>
 
         {/* START BUTTON */}
-        <div className="w-full max-w-80">
-          <button
+        <AnimatedDiv
+          className="my-5 w-full max-w-80"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ ...spring, delay: 0.4 }}
+        >
+          <AnimatedButton
             onClick={() => {
               const hasProfile = localStorage.getItem('backyard-skies-name');
               setGameState(hasProfile ? 'species-select' : 'settings');
             }}
-            className="my-6 flex w-full cursor-pointer items-center justify-center gap-2.5 rounded-2xl border-none bg-linear-to-br from-[#00AEEF] to-[#0077BB] px-6 py-[18px] text-[17px] font-bold text-white shadow-[0_6px_30px_rgba(0,174,239,0.35)] transition-transform active:scale-[0.96]"
+            className="my-6 flex w-full cursor-pointer items-center justify-center gap-2.5 rounded-2xl border-none bg-linear-to-br from-[#00AEEF] to-[#0077BB] px-6 py-[18px] text-[17px] font-bold text-white shadow-[0_6px_30px_rgba(0,174,239,0.35)]"
+            whileTap={{ scale: 0.96 }}
+            whileHover={{ scale: 1.02 }}
+            transition={spring}
           >
             START FLYING
             <span className="text-xl">
               <PiBird />
             </span>
-          </button>
-        </div>
+          </AnimatedButton>
+        </AnimatedDiv>
 
         {/* LEADERBOARD */}
-        <Top3Leaderboard
-          topPlayers={topPlayers}
-          handleViewAllRankings={() => setShowRankings(true)}
-        />
+        <AnimatedDiv
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ ...spring, delay: 0.55 }}
+          className="w-full max-w-80"
+        >
+          <Top3Leaderboard
+            topPlayers={topPlayers}
+            handleViewAllRankings={() => setShowRankings(true)}
+          />
+        </AnimatedDiv>
 
         {/* BOTTOM NAV */}
-        <div className="flex items-end gap-9 pb-2">
+        <AnimatedDiv
+          className="flex items-end gap-9 pb-2"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ ...spring, delay: 0.7 }}
+        >
           <button
             onClick={() => setGameState('settings')}
             className="flex cursor-pointer flex-col items-center gap-1 border-none bg-transparent text-base font-semibold tracking-wide text-white/70"
@@ -76,16 +99,18 @@ export default function StartMenu() {
             </span>
             <span>SETTINGS</span>
           </button>
-        </div>
+        </AnimatedDiv>
       </div>
 
       {/* ALL RANKINGS */}
-      {showRankings && (
-        <Leaderboard
-          handleBack={() => setShowRankings(false)}
-          leaderboard={leaderboard}
-        />
-      )}
-    </div>
+      <AnimatePresence>
+        {showRankings && (
+          <Leaderboard
+            handleBack={() => setShowRankings(false)}
+            leaderboard={leaderboard}
+          />
+        )}
+      </AnimatePresence>
+    </AnimatedDiv>
   );
 }

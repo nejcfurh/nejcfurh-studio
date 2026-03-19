@@ -1,5 +1,10 @@
+'use client';
+
 import { LeaderboardEntry } from '@/types';
+import { AnimatedButton, AnimatedDiv } from '@repo/ui/animation/core';
 import { BiChevronLeft } from 'react-icons/bi';
+
+const spring = { type: 'spring' as const, stiffness: 300, damping: 30 };
 
 const Leaderboard = ({
   handleBack,
@@ -9,20 +14,33 @@ const Leaderboard = ({
   leaderboard: LeaderboardEntry[];
 }) => {
   return (
-    <div className="absolute inset-0 z-60 flex flex-col bg-[url('/menu-bg.jpg')] bg-cover bg-center bg-no-repeat">
+    <AnimatedDiv
+      className="absolute inset-0 z-60 flex flex-col bg-[url('/menu-bg.jpg')] bg-cover bg-center bg-no-repeat"
+      initial={{ x: '100%' }}
+      animate={{ x: 0 }}
+      exit={{ x: '100%' }}
+      transition={spring}
+    >
       <div className="flex h-full flex-col px-6 pt-6">
         {/* HEADER */}
-        <div className="relative mb-6 flex items-center justify-center">
-          <button
+        <AnimatedDiv
+          className="relative mb-6 flex items-center justify-center"
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ ...spring, delay: 0.2 }}
+        >
+          <AnimatedButton
             onClick={handleBack}
             className="absolute left-0 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-black/10 bg-black/8 text-lg text-black"
+            whileTap={{ scale: 0.85 }}
+            transition={spring}
           >
             <BiChevronLeft />
-          </button>
+          </AnimatedButton>
           <span className="text-lg font-bold tracking-[0.25em] text-black/70 uppercase">
             All Rankings
           </span>
-        </div>
+        </AnimatedDiv>
 
         {/* RANKINGS LIST */}
         <div
@@ -32,13 +50,19 @@ const Leaderboard = ({
           {leaderboard.length > 0 ? (
             <div className="flex flex-col gap-2">
               {leaderboard.map((entry, i) => (
-                <div
+                <AnimatedDiv
                   key={i}
                   className={`flex items-center justify-between rounded-2xl px-4 py-3 ${
                     i < 3
                       ? 'border border-[rgba(255,215,0,0.2)] bg-[rgba(255,215,0,0.15)]'
                       : 'border border-white/6 bg-black/40'
                   } backdrop-blur-xl`}
+                  initial={{ opacity: 0, x: 40 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{
+                    ...spring,
+                    delay: 0.15 + i * 0.05
+                  }}
                 >
                   <div className="flex items-center gap-3">
                     <span
@@ -63,7 +87,7 @@ const Leaderboard = ({
                       {entry.distance.toFixed(1)} km
                     </p>
                   </div>
-                </div>
+                </AnimatedDiv>
               ))}
             </div>
           ) : (
@@ -73,7 +97,7 @@ const Leaderboard = ({
           )}
         </div>
       </div>
-    </div>
+    </AnimatedDiv>
   );
 };
 
