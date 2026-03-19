@@ -3,9 +3,12 @@
 import { SPECIES_LIST } from '@/lib/birdSpecies';
 import { useGameStore } from '@/store/gameStore';
 import { BirdSpeciesId } from '@/types';
+import { AnimatedButton, AnimatedDiv } from '@repo/ui/animation/core';
 import Image from 'next/image';
 import { useState } from 'react';
 import { BiChevronLeft } from 'react-icons/bi';
+
+const spring = { type: 'spring' as const, stiffness: 300, damping: 30 };
 
 const STAT_CONFIG = [
   { key: 'speed', label: 'SPEED', color: '#00AEEF', max: 10 },
@@ -44,10 +47,21 @@ export default function SpeciesSelect() {
   };
 
   return (
-    <div className="h-100dvh z-50 flex w-full flex-col bg-[url('/menu-bg.jpg')] bg-cover bg-center bg-no-repeat">
+    <AnimatedDiv
+      className="h-100dvh z-50 flex w-full flex-col bg-[url('/menu-bg.jpg')] bg-cover bg-center bg-no-repeat"
+      initial={{ opacity: 0, x: '100%' }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: '100%' }}
+      transition={spring}
+    >
       <div className="flex h-full flex-col overflow-auto px-6 pt-7 pb-10">
         {/* Header */}
-        <div className="relative mb-6 flex items-center justify-center">
+        <AnimatedDiv
+          className="relative mb-6 flex items-center justify-center"
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ ...spring, delay: 0.2 }}
+        >
           <button
             onClick={() => setGameState('menu')}
             className="absolute left-0 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-black/10 bg-black/8 text-lg text-white"
@@ -57,57 +71,68 @@ export default function SpeciesSelect() {
           <span className="text-lg font-bold tracking-[0.25em] text-black/70 uppercase">
             Pick Your Bird
           </span>
-        </div>
+        </AnimatedDiv>
 
         {/* Species cards row */}
         <div className="mb-4 flex justify-center gap-4">
-          {SPECIES_LIST.map((sp) => {
+          {SPECIES_LIST.map((sp, i) => {
             const isActive = selectedId === sp.id;
             return (
-              <button
+              <AnimatedDiv
                 key={sp.id}
-                onClick={() => setSelectedId(sp.id)}
-                className={`flex w-[74px] flex-none cursor-pointer flex-col items-center gap-2 rounded-2xl pt-3 pb-2 transition-all duration-200 ${
-                  isActive
-                    ? 'scale-[1.05] border-2'
-                    : 'scale-100 border-2 border-black/6 bg-black/3'
-                }`}
-                style={
-                  isActive
-                    ? {
-                        background: `${sp.colors.body}18`,
-                        borderColor: sp.colors.body
-                      }
-                    : undefined
-                }
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ ...spring, delay: 0.25 + i * 0.08 }}
               >
-                {/* Bird icon */}
-                <Image
-                  src={SPECIES_ICONS[sp.id]}
-                  alt={sp.name}
-                  width={100}
-                  height={100}
-                  className="h-10 w-10 object-contain"
-                  style={{
-                    filter: isActive ? 'none' : 'brightness(0.6)'
-                  }}
-                />
-                <span
-                  className={`font-bold tracking-wide uppercase ${
+                <button
+                  onClick={() => setSelectedId(sp.id)}
+                  className={`flex w-[74px] flex-none cursor-pointer flex-col items-center gap-2 rounded-2xl pt-3 pb-2 transition-all duration-200 ${
                     isActive
-                      ? 'text-[10px] text-black'
-                      : 'text-[8px] text-black/50'
+                      ? 'scale-[1.05] border-2'
+                      : 'scale-100 border-2 border-black/6 bg-black/3'
                   }`}
+                  style={
+                    isActive
+                      ? {
+                          background: `${sp.colors.body}18`,
+                          borderColor: sp.colors.body
+                        }
+                      : undefined
+                  }
                 >
-                  {sp.name}
-                </span>
-              </button>
+                  {/* Bird icon */}
+                  <Image
+                    src={SPECIES_ICONS[sp.id]}
+                    alt={sp.name}
+                    width={100}
+                    height={100}
+                    className="h-10 w-10 object-contain"
+                    style={{
+                      filter: isActive ? 'none' : 'brightness(0.6)'
+                    }}
+                  />
+                  <span
+                    className={`font-bold tracking-wide uppercase ${
+                      isActive
+                        ? 'text-[10px] text-black'
+                        : 'text-[8px] text-black/50'
+                    }`}
+                  >
+                    {sp.name}
+                  </span>
+                </button>
+              </AnimatedDiv>
             );
           })}
         </div>
 
         {/* Selected bird info */}
-        <div className="mx-auto mb-4 w-full max-w-[360px] rounded-2xl border border-black/10 bg-black/20 p-5 backdrop-blur-2xl">
+        <AnimatedDiv
+          className="mx-auto mb-4 w-full max-w-[360px] rounded-2xl border border-black/10 bg-black/20 p-5 backdrop-blur-2xl"
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ ...spring, delay: 0.45 }}
+        >
           {/* Name + tagline */}
           <div className="mb-5 text-center">
             <h3 className="text-3xl leading-tight font-bold text-white drop-shadow-[0_4px_30px_rgba(0,0,0,1)]">
@@ -156,24 +181,39 @@ export default function SpeciesSelect() {
               );
             })}
           </div>
-        </div>
+        </AnimatedDiv>
 
         {/* Description */}
-        <p className="mx-auto mb-6 px-3 text-center text-sm leading-relaxed font-semibold text-white italic drop-shadow-[0_5px_10px_rgba(0,0,0,1)]">
-          {selected.description}
-        </p>
-        {/* Select button */}
-        <button
-          onClick={handleSelect}
-          className="mx-auto mb-10 flex w-full cursor-pointer items-center justify-center gap-2 rounded-3xl border-none py-5 text-lg font-extrabold tracking-wide text-white"
-          style={{
-            background: `linear-gradient(135deg, ${selected.colors.body}, ${selected.colors.body}BB)`,
-            boxShadow: `0 6px 28px ${selected.colors.body}40`
-          }}
+        <AnimatedDiv
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.4, delay: 0.55 }}
         >
-          FLY AS {selected.name.toUpperCase()}
-        </button>
+          <p className="mx-auto mb-6 px-3 text-center text-sm leading-relaxed font-semibold text-white italic drop-shadow-[0_5px_10px_rgba(0,0,0,1)]">
+            {selected.description}
+          </p>
+        </AnimatedDiv>
+
+        {/* Select button */}
+        <AnimatedDiv
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ ...spring, delay: 0.6 }}
+        >
+          <AnimatedButton
+            onClick={handleSelect}
+            className="mx-auto mb-10 flex w-full cursor-pointer items-center justify-center gap-2 rounded-3xl border-none py-5 text-lg font-extrabold tracking-wide text-white"
+            style={{
+              background: `linear-gradient(135deg, ${selected.colors.body}, ${selected.colors.body}BB)`,
+              boxShadow: `0 6px 28px ${selected.colors.body}40`
+            }}
+            whileTap={{ scale: 0.96 }}
+            transition={spring}
+          >
+            FLY AS {selected.name.toUpperCase()}
+          </AnimatedButton>
+        </AnimatedDiv>
       </div>
-    </div>
+    </AnimatedDiv>
   );
 }
