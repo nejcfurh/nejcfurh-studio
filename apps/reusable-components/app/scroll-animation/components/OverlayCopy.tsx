@@ -1,5 +1,5 @@
-import AnimatedDiv from '@/components/animation-core/AnimatedDiv';
-import { useScroll, useTransform } from 'motion/react';
+import { useScroll, useTransform } from '@repo/ui/animation';
+import { AnimatedDiv } from '@repo/ui/animation/core';
 import { useRef } from 'react';
 
 interface OverlayCopyProps {

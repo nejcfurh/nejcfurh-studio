@@ -1,5 +1,5 @@
-import AnimatedDiv from '@/components/animation-core/AnimatedDiv';
 import { CardDataType } from '@/features/drag-drop/types';
+import { AnimatedDiv } from '@repo/ui/animation/core';
 
 import DropIndicator from './DropIndicator';
 

@@ -9,7 +9,7 @@ import {
   useSpring,
   useTransform,
   useVelocity
-} from 'framer-motion';
+} from '@repo/ui/animation';
 import { useRef } from 'react';
 
 interface ParallaxProps {

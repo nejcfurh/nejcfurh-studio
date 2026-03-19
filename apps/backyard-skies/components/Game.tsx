@@ -10,6 +10,8 @@ import SpeciesSelect from '@/components/ui/SpeciesSelect';
 import StartMenu from '@/components/ui/StartMenu';
 import ThreatWarning from '@/components/ui/ThreatWarning';
 import { useGameStore } from '@/store/gameStore';
+import { AnimatePresence } from '@repo/ui/animation';
+import { AnimatedDiv } from '@repo/ui/animation/core';
 import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
 
@@ -176,48 +178,70 @@ function DesktopBackground() {
 
 function DesktopTipsPanel({ side }: { side: 'left' | 'right' }) {
   const tipsSlice = side === 'left' ? TIPS.slice(0, 3) : TIPS.slice(3, 6);
+  const baseDelay = side === 'left' ? 0.3 : 0.5;
 
   return (
     <div
       className="pointer-events-none flex w-64 shrink-0 flex-col gap-3"
-      style={{
-        opacity: 0.85
-      }}
+      style={{ opacity: 0.85 }}
     >
       {side === 'left' && (
-        <div className="mb-2">
+        <AnimatedDiv
+          className="mb-2"
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{
+            type: 'spring',
+            stiffness: 300,
+            damping: 30,
+            delay: baseDelay
+          }}
+        >
           <p
             className="text-xs font-bold tracking-[0.3em] uppercase"
             style={{ color: 'rgba(0,174,239,0.6)' }}
           >
             Tips & Tricks
           </p>
-        </div>
+        </AnimatedDiv>
       )}
-      {tipsSlice.map((section) => (
-        <div
+      {tipsSlice.map((section, i) => (
+        <AnimatedDiv
           key={section.title}
           className="rounded-2xl border border-white/6 p-4"
           style={{ background: 'rgba(255,255,255,0.03)' }}
+          initial={{ opacity: 0, x: side === 'left' ? -30 : 30 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{
+            type: 'spring',
+            stiffness: 300,
+            damping: 30,
+            delay: baseDelay + 0.1 + i * 0.1
+          }}
         >
           <p className="mb-2 flex items-center gap-2 text-sm font-bold text-white/80">
             <span>{section.icon}</span> {section.title}
           </p>
           <ul className="flex list-none flex-col gap-1.5 pl-0">
-            {section.tips.map((tip, i) => (
-              <li key={i} className="text-xs leading-relaxed text-white/40">
+            {section.tips.map((tip, j) => (
+              <li key={j} className="text-xs leading-relaxed text-white/40">
                 {tip}
               </li>
             ))}
           </ul>
-        </div>
+        </AnimatedDiv>
       ))}
       {side === 'right' && (
-        <div className="mt-2 text-center">
+        <AnimatedDiv
+          className="mt-2 text-center"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: baseDelay + 0.5 }}
+        >
           <p className="text-[10px] text-white/20">
             Click to flap &middot; Desktop mode
           </p>
-        </div>
+        </AnimatedDiv>
       )}
     </div>
   );
@@ -300,10 +324,12 @@ function GameContent() {
       <GameCanvas />
 
       {/* UI overlays */}
-      {gameState === 'menu' && <StartMenu />}
-      {gameState === 'species-select' && <SpeciesSelect />}
-      {gameState === 'game-over' && <GameOverScreen />}
-      {gameState === 'settings' && <SettingsScreen />}
+      <AnimatePresence mode="wait">
+        {gameState === 'menu' && <StartMenu key="menu" />}
+        {gameState === 'species-select' && <SpeciesSelect key="species" />}
+        {gameState === 'game-over' && <GameOverScreen key="gameover" />}
+        {gameState === 'settings' && <SettingsScreen key="settings" />}
+      </AnimatePresence>
 
       {isPlaying && (
         <>

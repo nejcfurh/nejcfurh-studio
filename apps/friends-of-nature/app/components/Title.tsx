@@ -1,11 +1,9 @@
 'use client';
 
-import AnimatedText from 'app/components/AnimatedText';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, motion } from '@repo/ui/animation';
+import { AnimatedDiv, AnimatedText } from '@repo/ui/animation/core';
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
-
-import AnimatedDiv from './AnimatedDiv';
 
 const Title = (): React.ReactNode => {
   const wordRef = useRef<HTMLSpanElement>(null);

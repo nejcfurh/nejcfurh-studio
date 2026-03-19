@@ -1,12 +1,14 @@
 import type { AnalyticsClientPageEvent } from '@features/analytics/types.client';
+import {
+  AnimatedDiv,
+  AnimatedText,
+  AnimatedTitle
+} from '@repo/ui/animation/core';
 import { PageVisitTracker } from '@shared-analytics/index';
 import { ArrowLeft } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import AnimatedDiv from '../components/AnimatedDiv';
-import AnimatedText from '../components/AnimatedText';
-import AnimatedTitle from '../components/AnimatedTitle';
 import ManifestoCard from '../components/ManifestoCard';
 import { PageName } from '../constants/data/page.data';
 

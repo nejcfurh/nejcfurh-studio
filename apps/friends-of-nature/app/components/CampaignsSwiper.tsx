@@ -6,11 +6,10 @@ import Image from 'next/image';
 import 'swiper/css';
 import 'swiper/css/navigation';
 
+import { AnimatedDiv } from '@repo/ui/animation/core';
 import { cn } from 'lib/utils';
 import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
-
-import AnimatedDiv from './AnimatedDiv';
 
 const campaigns = [
   {

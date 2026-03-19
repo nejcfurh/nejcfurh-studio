@@ -1,5 +1,5 @@
 import { CardDataType } from '@/features/drag-drop/types';
-import { AnimatePresence } from 'motion/react';
+import { AnimatePresence } from '@repo/ui/animation';
 import { useState } from 'react';
 
 import AddTask from './AddTask';

@@ -1,5 +1,5 @@
 import { TECH_STACK_DATA } from '@/features/tilt-card/constants';
-import { motion, Variants } from 'motion/react';
+import { motion, Variants } from '@repo/ui/animation';
 
 const fadeInAnimationVariants = {
   initial: { opacity: 0, y: 100 },

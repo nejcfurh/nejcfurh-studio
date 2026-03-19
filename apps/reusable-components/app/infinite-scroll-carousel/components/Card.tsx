@@ -1,6 +1,5 @@
-import AnimatedDiv from '@/components/animation-core/AnimatedDiv';
-import AnimatedTitle from '@/components/animation-core/AnimatedTitle';
-import { AnimatePresence } from 'motion/react';
+import { AnimatePresence } from '@repo/ui/animation';
+import { AnimatedDiv, AnimatedTitle } from '@repo/ui/animation/core';
 import Image from 'next/image';
 import { useState } from 'react';
 import { FaSpotify } from 'react-icons/fa6';

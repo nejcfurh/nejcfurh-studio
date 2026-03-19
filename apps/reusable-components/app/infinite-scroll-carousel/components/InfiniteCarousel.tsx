@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
-import AnimatedDiv from '@/components/animation-core/AnimatedDiv';
-import { animate, useMotionValue } from 'motion/react';
+import { animate, useMotionValue } from '@repo/ui/animation';
+import { AnimatedDiv } from '@repo/ui/animation/core';
 import { useEffect, useState } from 'react';
 import { FaSpinner } from 'react-icons/fa6';
 import useMeasure from 'react-use-measure';

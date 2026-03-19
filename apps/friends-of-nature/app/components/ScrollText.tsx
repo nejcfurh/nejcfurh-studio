@@ -5,7 +5,7 @@ import {
   useScroll,
   useTransform,
   type MotionValue
-} from 'framer-motion';
+} from '@repo/ui/animation';
 import { useRef } from 'react';
 
 interface AnimatedCharacterProps {

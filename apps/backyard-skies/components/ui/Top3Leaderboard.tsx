@@ -10,7 +10,7 @@ const Top3Leaderboard = ({
   handleViewAllRankings: () => void;
 }) => {
   return (
-    <div className="mb-5 min-h-[200px] w-full max-w-80 rounded-[18px] bg-black/40 px-[18px] py-4 backdrop-blur-xl">
+    <div className="mb-5 min-h-[200px] w-full rounded-[18px] bg-black/40 px-[18px] py-4 backdrop-blur-xl">
       <div className="mb-3.5 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <span>
@@ -19,7 +19,7 @@ const Top3Leaderboard = ({
           <span className="text-lg font-bold text-white">High Flyers</span>
         </div>
         <span className="rounded-[10px] bg-[rgba(255,217,0,0.34)] px-2 py-[3px] text-xs font-bold tracking-wider text-[#FFD700] uppercase">
-          World Records
+          Records
         </span>
       </div>
 

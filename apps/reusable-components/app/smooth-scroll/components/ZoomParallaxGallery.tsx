@@ -1,7 +1,7 @@
 'use client';
 
-import AnimatedDiv from '@/components/animation-core/AnimatedDiv';
-import { useScroll, useTransform } from 'motion/react';
+import { useScroll, useTransform } from '@repo/ui/animation';
+import { AnimatedDiv } from '@repo/ui/animation/core';
 import Image from 'next/image';
 import { useRef } from 'react';
 
