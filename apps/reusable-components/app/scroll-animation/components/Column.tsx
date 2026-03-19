@@ -1,5 +1,5 @@
-import AnimatedDiv from '@/components/animation-core/AnimatedDiv';
-import { MotionValue } from 'motion';
+import { MotionValue } from '@repo/ui/animation';
+import { AnimatedDiv } from '@repo/ui/animation/core';
 import Image from 'next/image';
 
 const Column = ({

@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion } from '@repo/ui/animation';
 
 type ProgressBarProps = {
   state: number | undefined;

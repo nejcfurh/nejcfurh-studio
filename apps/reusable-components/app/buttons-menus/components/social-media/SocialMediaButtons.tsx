@@ -1,6 +1,6 @@
-import AnimatedDiv from '@/components/animation-core/AnimatedDiv';
 import { SOCIAL_MEDIA_BUTTONS_DATA } from '@/features/buttons-menus/social-media-buttons/constants';
 import { SocialMediaButtonsItem } from '@/features/buttons-menus/social-media-buttons/types';
+import { AnimatedDiv } from '@repo/ui/animation/core';
 
 import SingleSocialButton from './SingleSocialButton';
 

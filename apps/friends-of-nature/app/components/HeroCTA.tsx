@@ -1,7 +1,6 @@
+import { AnimatedDiv } from '@repo/ui/animation/core';
 import Image from 'next/image';
 import Link from 'next/link';
-
-import AnimatedDiv from './AnimatedDiv';
 
 const HeroCTA = (): React.ReactNode => {
   return (

@@ -1,5 +1,4 @@
 import AnimatedBackgroundGradient from '@/components/animation-core/AnimatedBackgroundGradient';
-import AnimatedDiv from '@/components/animation-core/AnimatedDiv';
 import FloatingOrb from '@/components/animation-core/FloatingOrb';
 import Background from '@/components/Background';
 import CustomLinkButton from '@/components/buttons/CustomLinkButton';
@@ -7,6 +6,7 @@ import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 import { MAIN_PAGE_DATA } from '@/constants/constants';
 import { MainPageItem } from '@/utils/types';
+import { AnimatedDiv } from '@repo/ui/animation/core';
 
 import TiltCard from './tilt-card/components/TiltCard';
 

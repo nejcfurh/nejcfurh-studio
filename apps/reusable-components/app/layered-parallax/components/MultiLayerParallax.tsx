@@ -1,8 +1,7 @@
 'use client';
 
-import AnimatedDiv from '@/components/animation-core/AnimatedDiv';
-import AnimatedTitle from '@/components/animation-core/AnimatedTitle';
-import { useScroll, useTransform } from 'motion/react';
+import { useScroll, useTransform } from '@repo/ui/animation';
+import { AnimatedDiv, AnimatedTitle } from '@repo/ui/animation/core';
 import { useRef } from 'react';
 
 const MultiLayerParallax = () => {

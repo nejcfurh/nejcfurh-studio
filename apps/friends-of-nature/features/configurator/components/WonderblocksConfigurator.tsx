@@ -1,4 +1,4 @@
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, motion } from '@repo/ui/animation';
 import { ChevronLeft } from 'lucide-react';
 import Image from 'next/image';
 

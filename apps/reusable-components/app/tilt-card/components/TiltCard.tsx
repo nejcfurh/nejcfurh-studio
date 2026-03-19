@@ -1,7 +1,12 @@
 'use client';
 
 import ItemsList from '@/app/staggered-animation/components/ItemsList';
-import { motion, MotionStyle, useMotionValue, useSpring } from 'motion/react';
+import {
+  motion,
+  MotionStyle,
+  useMotionValue,
+  useSpring
+} from '@repo/ui/animation';
 import Image from 'next/image';
 import { MouseEvent, TouchEvent, useEffect, useRef, useState } from 'react';
 

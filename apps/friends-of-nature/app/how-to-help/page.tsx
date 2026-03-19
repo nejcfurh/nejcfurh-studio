@@ -6,6 +6,11 @@ import {
   type ConfigSubmissionEvent
 } from '@features/analytics/types.client';
 import type { Week } from '@features/how-to-help-flow/types';
+import {
+  AnimatedDiv,
+  AnimatedText,
+  AnimatedTitle
+} from '@repo/ui/animation/core';
 import { PageVisitTracker, useAnalytics } from '@shared-analytics/index';
 import { cn } from 'lib/utils';
 import { ArrowLeft, ArrowRight, Loader2Icon, MapPin } from 'lucide-react';
@@ -20,9 +25,6 @@ import React, {
 } from 'react';
 
 import type { Plant } from '../api/pollinator-plants/route';
-import AnimatedDiv from '../components/AnimatedDiv';
-import AnimatedText from '../components/AnimatedText';
-import AnimatedTitle from '../components/AnimatedTitle';
 import { PageName } from '../constants/data/page.data';
 
 const SimpleSVG = ({

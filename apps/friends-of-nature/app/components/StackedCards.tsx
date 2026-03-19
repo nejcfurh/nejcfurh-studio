@@ -1,10 +1,9 @@
 'use client';
 
-import { useScroll, useTransform, type MotionValue } from 'framer-motion';
+import { useScroll, useTransform, type MotionValue } from '@repo/ui/animation';
+import { AnimatedDiv } from '@repo/ui/animation/core';
 import Image from 'next/image';
 import React, { useRef } from 'react';
-
-import AnimatedDiv from './AnimatedDiv';
 
 type Card = {
   id: number;

@@ -1,6 +1,6 @@
 'use client';
 
-import AnimatedDiv from 'app/components/AnimatedDiv';
+import { AnimatedDiv } from '@repo/ui/animation/core';
 import { cn } from 'lib/utils';
 import { ChevronDown } from 'lucide-react';
 import { useState } from 'react';

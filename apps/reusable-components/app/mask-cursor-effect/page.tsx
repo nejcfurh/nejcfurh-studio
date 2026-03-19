@@ -1,9 +1,9 @@
 'use client';
 
-import AnimatedDiv from '@/components/animation-core/AnimatedDiv';
 import Background from '@/components/Background';
 import BackButton from '@/components/buttons/BackButton';
 import { useMousePosition } from '@/hooks/useMousePosition';
+import { AnimatedDiv } from '@repo/ui/animation/core';
 import { useState } from 'react';
 
 const MaskCursorEffectPage = () => {

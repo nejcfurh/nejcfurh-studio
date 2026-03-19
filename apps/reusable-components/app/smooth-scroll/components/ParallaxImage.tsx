@@ -5,7 +5,7 @@ import {
   useMotionTemplate,
   useScroll,
   useTransform
-} from 'motion/react';
+} from '@repo/ui/animation';
 import { useRef } from 'react';
 
 interface ParallaxImageProps {

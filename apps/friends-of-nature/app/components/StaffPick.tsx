@@ -1,10 +1,11 @@
+import {
+  AnimatedDiv,
+  AnimatedText,
+  AnimatedTitle
+} from '@repo/ui/animation/core';
 import { cn } from 'lib/utils';
 import Image from 'next/image';
 import Link from 'next/link';
-
-import AnimatedDiv from './AnimatedDiv';
-import AnimatedText from './AnimatedText';
-import AnimatedTitle from './AnimatedTitle';
 
 const StaffPick = (): React.ReactNode => {
   return (

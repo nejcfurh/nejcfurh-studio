@@ -1,6 +1,6 @@
 'use client';
 
-import AnimatedDiv from '@/components/animation-core/AnimatedDiv';
+import { AnimatedDiv } from '@repo/ui/animation/core';
 import { useState } from 'react';
 
 import CustomInputField from './CustomInputField';

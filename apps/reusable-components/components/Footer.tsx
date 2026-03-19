@@ -1,5 +1,4 @@
-import AnimatedDiv from './animation-core/AnimatedDiv';
-import AnimatedText from './animation-core/AnimatedText';
+import { AnimatedDiv, AnimatedText } from '@repo/ui/animation/core';
 
 const Footer = ({ year }: { year: number }) => {
   return (
