@@ -38,13 +38,7 @@ export default function StartMenu() {
       {/* CONTENT */}
       <div className="relative z-10 flex flex-col items-center justify-between px-8 pb-10 md:pt-5">
         {/* TITLE */}
-        <AnimatedDiv
-          initial={{ opacity: 0, y: -30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ ...spring, delay: 0.1 }}
-        >
-          <Title />
-        </AnimatedDiv>
+        <Title />
 
         {/* START BUTTON */}
         <AnimatedDiv
