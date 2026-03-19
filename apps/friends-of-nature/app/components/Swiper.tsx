@@ -1,11 +1,10 @@
 'use client';
 
+import { AnimatedDiv } from '@repo/ui/animation/core';
 import Autoplay from 'embla-carousel-autoplay';
 import useEmblaCarousel from 'embla-carousel-react';
 import Image from 'next/image';
 import { useCallback, useEffect, useState } from 'react';
-
-import AnimatedView from './AnimatedView';
 
 const items: Array<{ label: string; labelBold?: string; source: string }> = [
   {
@@ -73,7 +72,7 @@ const SwiperWrapper = (): React.ReactNode => {
   }, [emblaApi, onSelect, onPointerUp]);
 
   return (
-    <AnimatedView className="mt-[-48px] sm:mt-[-50px]">
+    <AnimatedDiv className="mt-[-48px] sm:mt-[-50px]">
       <div className="embla relative overflow-x-hidden" ref={emblaRef}>
         <div className="embla__container flex">
           {items.map((item, index) => (
@@ -92,14 +91,14 @@ const SwiperWrapper = (): React.ReactNode => {
           ))}
         </div>
       </div>
-      <AnimatedView className="mx-auto mt-4 mb-6 flex w-2/3 justify-center md:w-full">
+      <AnimatedDiv className="mx-auto mt-4 mb-6 flex w-2/3 justify-center md:w-full">
         <label className="font-raleway block w-full text-center text-2xl font-thin text-[#003333] md:mt-10 md:text-3xl">
           {items[selectedIndex].label}{' '}
           <span className="w-60vw font-bold text-black">
             <strong>{items[selectedIndex].labelBold}</strong>
           </span>
         </label>
-      </AnimatedView>
+      </AnimatedDiv>
       {/* Pagination Dots - Fixed */}
       <div className="mt-6 flex justify-center gap-2">
         {scrollSnaps.map((index) => (
@@ -113,7 +112,7 @@ const SwiperWrapper = (): React.ReactNode => {
           />
         ))}
       </div>
-    </AnimatedView>
+    </AnimatedDiv>
   );
 };
 

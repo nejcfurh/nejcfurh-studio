@@ -3,7 +3,7 @@
 import { motion } from 'motion/react';
 import type { HTMLMotionProps } from 'motion/react';
 
-const AnimatedSubTitle = (props: HTMLMotionProps<'h2'>) => {
+const AnimatedSubTitle = (props: HTMLMotionProps<'h2'>): React.ReactNode => {
   return <motion.h2 {...props} />;
 };
 

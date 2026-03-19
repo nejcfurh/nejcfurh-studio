@@ -1,11 +1,10 @@
 'use client';
 
+import { AnimatedDiv } from '@repo/ui/animation/core';
 import Autoplay from 'embla-carousel-autoplay';
 import useEmblaCarousel from 'embla-carousel-react';
 import Image from 'next/image';
 import { useCallback, useEffect, useState } from 'react';
-
-import AnimatedView from './AnimatedView';
 
 const items: Array<{ label: string; source: string }> = [
   { label: 'Butterfly Feeder', source: '/images/butterfly-monarch.png' },
@@ -49,7 +48,7 @@ const SwiperNaturePics = (): React.ReactNode => {
   }, [emblaApi, onSelect, onPointerUp]);
 
   return (
-    <AnimatedView className="mt-[-48px] sm:mt-[-50px]">
+    <AnimatedDiv className="mt-[-48px] sm:mt-[-50px]">
       <div className="embla relative overflow-x-hidden" ref={emblaRef}>
         <div className="embla__container flex">
           {items.map((item, index) => (
@@ -70,11 +69,11 @@ const SwiperNaturePics = (): React.ReactNode => {
         </div>
       </div>
       {/* Label - Fixed */}
-      <AnimatedView className="mt-4 mb-6 hidden w-full justify-center">
+      <AnimatedDiv className="mt-4 mb-6 hidden w-full justify-center">
         <label className="font-raleway block w-full text-center text-2xl font-bold text-[#003333] md:text-3xl">
           {items[selectedIndex].label}
         </label>
-      </AnimatedView>
+      </AnimatedDiv>
       {/* Pagination Dots - Fixed */}
       <div className="mt-6 hidden justify-center gap-2">
         {scrollSnaps.map((index) => (
@@ -88,7 +87,7 @@ const SwiperNaturePics = (): React.ReactNode => {
           />
         ))}
       </div>
-    </AnimatedView>
+    </AnimatedDiv>
   );
 };
 

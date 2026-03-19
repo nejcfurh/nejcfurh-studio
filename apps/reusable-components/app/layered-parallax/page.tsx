@@ -1,11 +1,11 @@
 import AnimatedBackgroundGradient from '@/components/animation-core/AnimatedBackgroundGradient';
-import AnimatedText from '@/components/animation-core/AnimatedText';
 import FloatingOrb from '@/components/animation-core/FloatingOrb';
 import BackButton from '@/components/buttons/BackButton';
 import {
   LAYERED_PARALLAX_TEXT_1,
   LAYERED_PARALLAX_TEXT_2
 } from '@/features/layered-parallax/constants';
+import { AnimatedText } from '@repo/ui/animation/core';
 import ReactLenis from 'lenis/react';
 
 import MultiLayerParallax from './components/MultiLayerParallax';

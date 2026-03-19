@@ -1,6 +1,6 @@
-import AnimatedTitle from '@/components/animation-core/AnimatedTitle';
 import { SCHEDULE_DATA } from '@/features/smooth-scroll/constants';
 import type { ScheduleItemType } from '@/features/smooth-scroll/types';
+import { AnimatedTitle } from '@repo/ui/animation/core';
 
 import ScheduleItem from './ScheduleItem';
 

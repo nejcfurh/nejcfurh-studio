@@ -1,6 +1,8 @@
-import AnimatedDiv from './animation-core/AnimatedDiv';
-import AnimatedSubTitle from './animation-core/AnimatedSubTitle';
-import AnimatedTitle from './animation-core/AnimatedTitle';
+import {
+  AnimatedDiv,
+  AnimatedSubTitle,
+  AnimatedTitle
+} from '@repo/ui/animation/core';
 
 const Header = ({ title }: { title: string }) => {
   return (

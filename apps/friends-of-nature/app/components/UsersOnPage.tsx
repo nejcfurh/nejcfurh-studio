@@ -1,7 +1,12 @@
 'use client';
 
+import {
+  animate,
+  motion,
+  useMotionValue,
+  useTransform
+} from '@repo/ui/animation';
 import { interpolate } from 'flubber';
-import { animate, motion, useMotionValue, useTransform } from 'framer-motion';
 import { useEffect, useMemo, useState } from 'react';
 
 const SvgMorph = (): React.ReactNode => {

@@ -1,8 +1,9 @@
+import {
+  AnimatedDiv,
+  AnimatedText,
+  AnimatedTitle
+} from '@repo/ui/animation/core';
 import Link from 'next/link';
-
-import AnimatedDiv from './AnimatedDiv';
-import AnimatedText from './AnimatedText';
-import AnimatedTitle from './AnimatedTitle';
 
 const NatureManifest = (): React.ReactNode => {
   return (

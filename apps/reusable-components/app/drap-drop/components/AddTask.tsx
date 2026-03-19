@@ -1,5 +1,5 @@
 import { CardDataType } from '@/features/drag-drop/types';
-import { motion } from 'motion/react';
+import { motion } from '@repo/ui/animation';
 import { useState } from 'react';
 import { FaTimes } from 'react-icons/fa';
 import { FiPlus } from 'react-icons/fi';

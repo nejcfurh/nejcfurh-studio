@@ -2,7 +2,7 @@
 
 import { MULTI_COLUMN_SCROLL_IMAGES } from '@/features/scroll-animation/constants';
 import { useDimension } from '@/hooks/useDimension';
-import { useScroll, useTransform } from 'motion/react';
+import { useScroll, useTransform } from '@repo/ui/animation';
 import { useRef } from 'react';
 
 import Column from './Column';
