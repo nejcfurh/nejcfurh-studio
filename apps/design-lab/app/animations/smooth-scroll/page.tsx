@@ -1,11 +1,17 @@
 import BackButton from '@/components/buttons/BackButton';
 import { ReactLenis } from 'lenis/react';
+import { Metadata } from 'next';
 
 import Footer from './components/Footer';
 import Hero from './components/Hero';
 import NavBar from './components/NavBar';
 import Schedule from './components/Schedule';
 import ZoomParallaxGallery from './components/ZoomParallaxGallery';
+
+export const metadata: Metadata = {
+  title: 'DesignLab | SpaceX Showcase',
+  description: 'SpaceX Showcase with Smooth Scroll and ClipPath'
+};
 
 const SmoothScrollPage = () => {
   return (
