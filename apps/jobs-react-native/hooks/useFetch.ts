@@ -7,7 +7,7 @@ const rapidApiKey = process.env.EXPO_PUBLIC_RAPID_API_KEY;
 
 const fetchJobs = async (
   endpoint: string,
-  query: Record<string, string | number>,
+  query: Record<string, string | number>
 ): Promise<Job[]> => {
   const response = await axios.request({
     method: 'GET',
@@ -16,19 +16,19 @@ const fetchJobs = async (
     headers: {
       'x-rapidapi-key': rapidApiKey,
       'x-rapidapi-host': 'jsearch.p.rapidapi.com',
-      'Content-Type': 'application/json',
-    },
+      'Content-Type': 'application/json'
+    }
   });
   return response.data.data;
 };
 
 export const useFetch = (
   endpoint: string,
-  query: Record<string, string | number>,
+  query: Record<string, string | number>
 ) => {
   const { data, isLoading, error, refetch } = useQuery({
     queryKey: ['jobs', endpoint, query],
-    queryFn: () => fetchJobs(endpoint, query),
+    queryFn: () => fetchJobs(endpoint, query)
   });
 
   return { data: data ?? [], isLoading, error, refetch };

@@ -1,4 +1,8 @@
-const Header = ({ inputType }: { inputType: 'login' | 'signup' }) => {
+const InputFieldsHeader = ({
+  inputType
+}: {
+  inputType: 'login' | 'signup';
+}) => {
   return (
     <div className="mb-8 text-center">
       <h2 className="mb-2 text-2xl font-bold text-gray-900 dark:text-white">
@@ -13,4 +17,4 @@ const Header = ({ inputType }: { inputType: 'login' | 'signup' }) => {
   );
 };
 
-export default Header;
+export default InputFieldsHeader;

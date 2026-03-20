@@ -5,7 +5,7 @@ import { useDimension } from '@/hooks/useDimension';
 import { useScroll, useTransform } from '@repo/ui/animation';
 import { useRef } from 'react';
 
-import Column from './Column';
+import ImageColumn from './ImageColumn';
 
 const MultiColumnScroll = () => {
   const { height } = useDimension();
@@ -28,10 +28,22 @@ const MultiColumnScroll = () => {
         ref={ref}
         className="box-border flex h-[175vh] gap-[2vw] overflow-hidden bg-[#454545] p-[2vw]"
       >
-        <Column images={[...MULTI_COLUMN_SCROLL_IMAGES].slice(0, 3)} y={y} />
-        <Column images={[...MULTI_COLUMN_SCROLL_IMAGES].slice(3, 6)} y={y2} />
-        <Column images={[...MULTI_COLUMN_SCROLL_IMAGES].slice(6, 9)} y={y3} />
-        <Column images={[...MULTI_COLUMN_SCROLL_IMAGES].slice(9, 12)} y={y4} />
+        <ImageColumn
+          images={[...MULTI_COLUMN_SCROLL_IMAGES].slice(0, 3)}
+          y={y}
+        />
+        <ImageColumn
+          images={[...MULTI_COLUMN_SCROLL_IMAGES].slice(3, 6)}
+          y={y2}
+        />
+        <ImageColumn
+          images={[...MULTI_COLUMN_SCROLL_IMAGES].slice(6, 9)}
+          y={y3}
+        />
+        <ImageColumn
+          images={[...MULTI_COLUMN_SCROLL_IMAGES].slice(9, 12)}
+          y={y4}
+        />
       </div>
     </main>
   );

@@ -1,4 +1,4 @@
-const Footer = () => {
+const MultiOptionFooter = () => {
   return (
     <div className="mb-10 flex h-full w-full items-end justify-center text-sm text-gray-500 dark:text-gray-500">
       Inspired by Lukas Bebber&apos;s work on{' '}
@@ -14,4 +14,4 @@ const Footer = () => {
   );
 };
 
-export default Footer;
+export default MultiOptionFooter;

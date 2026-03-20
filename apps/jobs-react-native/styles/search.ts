@@ -4,28 +4,28 @@ import { COLORS, FONT, SIZES } from '../constants';
 
 const styles = StyleSheet.create({
   container: {
-    width: '100%',
+    width: '100%'
   },
   searchTitle: {
     fontFamily: FONT.bold,
     fontSize: SIZES.xLarge,
-    color: COLORS.primary,
+    color: COLORS.primary
   },
   noOfSearchedJobs: {
     marginTop: 2,
     fontFamily: FONT.medium,
     fontSize: SIZES.small,
-    color: COLORS.primary,
+    color: COLORS.primary
   },
   loaderContainer: {
-    marginTop: SIZES.medium,
+    marginTop: SIZES.medium
   },
   footerContainer: {
     marginTop: SIZES.small,
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
-    gap: 10,
+    gap: 10
   },
   paginationButton: {
     width: 30,
@@ -33,12 +33,12 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: COLORS.tertiary,
+    backgroundColor: COLORS.tertiary
   },
   paginationImage: {
     width: '60%',
     height: '60%',
-    tintColor: COLORS.white,
+    tintColor: COLORS.white
   },
   paginationTextBox: {
     width: 30,
@@ -46,13 +46,13 @@ const styles = StyleSheet.create({
     borderRadius: 2,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: COLORS.white,
+    backgroundColor: COLORS.white
   },
   paginationText: {
     fontFamily: FONT.bold,
     fontSize: SIZES.medium,
-    color: COLORS.primary,
-  },
+    color: COLORS.primary
+  }
 });
 
 export default styles;

@@ -8,6 +8,15 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "dev": "expo start --ios",
+    "base:prettier": "prettier './**/*.{ts,tsx,html,json,md,css}' --config .prettierrc --cache",
+    "base:eslint": "eslint ./ --cache",
+    "lint:prettier": "pnpm base:prettier --check",
+    "lint:eslint": "pnpm base:eslint",
+    "lint": "pnpm lint:prettier && pnpm lint:eslint",
+    "format:prettier": "pnpm base:prettier --write",
+    "format:eslint": "pnpm base:eslint --fix",
+    "format": "pnpm format:prettier && pnpm format:eslint",
+    "format-silent": "pnpm format:prettier --loglevel silent && pnpm format:eslint --quiet",
     "type:check": "tsc --noEmit"
   },
   "dependencies": {
@@ -31,6 +40,9 @@
   "devDependencies": {
     "@babel/core": "^7.27.0",
     "@types/react": "^19.2.0",
+    "eslint": "^9",
+    "eslint-config-web": "workspace:*",
+    "prettier-config-web": "workspace:*",
     "tsconfig": "workspace:*",
     "typescript": "^5.9.0"
   },

@@ -1,4 +1,4 @@
-const Header = () => {
+const DragDropHeader = () => {
   return (
     <div className="text-center">
       <h1 className="h-20 bg-linear-to-r from-purple-500 to-white bg-clip-text text-5xl font-bold text-transparent sm:text-5xl">
@@ -8,4 +8,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default DragDropHeader;

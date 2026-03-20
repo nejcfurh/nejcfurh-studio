@@ -5,7 +5,7 @@ import { COLORS, SHADOWS, SIZES } from '../../../constants';
 const styles = {
   container: {
     marginTop: SIZES.small,
-    marginBottom: SIZES.small / 2,
+    marginBottom: SIZES.small / 2
   } as ViewStyle,
   btn: (name: string, activeTab: string): ViewStyle => ({
     paddingVertical: SIZES.medium,
@@ -14,13 +14,13 @@ const styles = {
     borderRadius: SIZES.medium,
     marginLeft: 2,
     ...SHADOWS.medium,
-    shadowColor: COLORS.white,
+    shadowColor: COLORS.white
   }),
   btnText: (name: string, activeTab: string): TextStyle => ({
     fontFamily: 'DMMedium',
     fontSize: SIZES.small,
-    color: name === activeTab ? '#C3BFCC' : '#AAA9B8',
-  }),
+    color: name === activeTab ? '#C3BFCC' : '#AAA9B8'
+  })
 };
 
 export default styles;

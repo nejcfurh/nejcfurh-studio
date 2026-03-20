@@ -1,13 +1,13 @@
-import {
-  Text,
-  View,
-  ScrollView,
-  ActivityIndicator,
-  RefreshControl,
-} from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import { useCallback, useState } from 'react';
+import {
+  ActivityIndicator,
+  RefreshControl,
+  ScrollView,
+  Text,
+  View
+} from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 import {
   Company,
@@ -15,7 +15,7 @@ import {
   JobFooter,
   JobTabs,
   ScreenHeaderBtn,
-  Specifics,
+  Specifics
 } from '../../components';
 import { COLORS, icons, SIZES } from '../../constants';
 import { useFetch } from '../../hooks/useFetch';
@@ -30,7 +30,7 @@ const JobDetails = () => {
   const [activeTab, setActiveTab] = useState<string>(tabs[0]);
 
   const { data, isLoading, error, refetch } = useFetch('job-details', {
-    job_id: params.id ?? '',
+    job_id: params.id ?? ''
   });
 
   const onRefresh = useCallback(() => {
@@ -81,7 +81,7 @@ const JobDetails = () => {
           ),
           headerRight: () => (
             <ScreenHeaderBtn iconUrl={icons.share} dimension="60%" />
-          ),
+          )
         }}
       />
       <>

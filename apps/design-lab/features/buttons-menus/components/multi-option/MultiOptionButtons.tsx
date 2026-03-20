@@ -7,10 +7,10 @@ import {
 } from '@/features/buttons-menus/multi-option-button/types';
 import { useState } from 'react';
 
-import Footer from './Footer';
+import GooeyFilter from './GooeyFilter';
 import MenuButton from './MenuButton';
+import MultiOptionFooter from './MultiOptionFooter';
 import OptionButton from './OptionButton';
-import SVGFilters from './SVGFilters';
 
 export interface MultiOptionButtonsProps {
   items?: MenuItem[];
@@ -51,8 +51,8 @@ const MultiOptionButtons: React.FC<MultiOptionButtonsProps> = ({
       </nav>
 
       {/* SVG Filters */}
-      <SVGFilters />
-      <Footer />
+      <GooeyFilter />
+      <MultiOptionFooter />
     </>
   );
 };

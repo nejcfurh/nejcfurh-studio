@@ -1,8 +1,8 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, FlatList } from 'react-native';
+import { FlatList, Text, TouchableOpacity, View } from 'react-native';
 
-import styles from './tabs.style';
 import { SIZES } from '../../../constants';
+import styles from './tabs.style';
 
 interface TabButtonProps {
   name: string;

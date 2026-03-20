@@ -11,7 +11,7 @@ const styles = {
     borderRadius: SIZES.medium,
     justifyContent: 'space-between',
     ...SHADOWS.medium,
-    shadowColor: COLORS.white,
+    shadowColor: COLORS.white
   }),
   logoContainer: (selectedJob: string | undefined, item: Job): ViewStyle => ({
     width: 50,
@@ -19,31 +19,31 @@ const styles = {
     backgroundColor: selectedJob === item.job_id ? '#FFF' : COLORS.white,
     borderRadius: SIZES.medium,
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
   }),
   logoImage: {
     width: '70%',
-    height: '70%',
+    height: '70%'
   } as ImageStyle,
   companyName: {
     fontSize: SIZES.medium,
     fontFamily: FONT.regular,
     color: '#B3AEC6',
-    marginTop: SIZES.small / 1.5,
+    marginTop: SIZES.small / 1.5
   } as TextStyle,
   infoContainer: {
-    marginTop: SIZES.large,
+    marginTop: SIZES.large
   } as ViewStyle,
   jobName: (selectedJob: string | undefined, item: Job): TextStyle => ({
     fontSize: SIZES.large,
     fontFamily: FONT.medium,
-    color: selectedJob === item.job_id ? COLORS.white : COLORS.primary,
+    color: selectedJob === item.job_id ? COLORS.white : COLORS.primary
   }),
   location: {
     fontSize: SIZES.medium - 2,
     fontFamily: FONT.regular,
-    color: '#B3AEC6',
-  } as TextStyle,
+    color: '#B3AEC6'
+  } as TextStyle
 };
 
 export default styles;

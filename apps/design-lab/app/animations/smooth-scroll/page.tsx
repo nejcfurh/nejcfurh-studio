@@ -1,8 +1,8 @@
 import BackButton from '@/components/buttons/BackButton';
-import Footer from '@/features/smooth-scroll/components/Footer';
 import Hero from '@/features/smooth-scroll/components/Hero';
 import NavBar from '@/features/smooth-scroll/components/NavBar';
 import Schedule from '@/features/smooth-scroll/components/Schedule';
+import SmoothScrollFooter from '@/features/smooth-scroll/components/SmoothScrollFooter';
 import ZoomParallaxGallery from '@/features/smooth-scroll/components/ZoomParallaxGallery';
 import { ReactLenis } from 'lenis/react';
 import { Metadata } from 'next';
@@ -21,7 +21,7 @@ const SmoothScrollPage = () => {
         <Hero />
         <Schedule />
         <ZoomParallaxGallery />
-        <Footer />
+        <SmoothScrollFooter />
       </ReactLenis>
     </div>
   );

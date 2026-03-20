@@ -9,13 +9,13 @@ const styles = {
     backgroundColor: COLORS.white,
     borderRadius: SIZES.small / 1.25,
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
   } as ViewStyle,
   btnImg: (dimension: string): ImageStyle => ({
     width: dimension as unknown as number,
     height: dimension as unknown as number,
-    borderRadius: SIZES.small / 1.25,
-  }),
+    borderRadius: SIZES.small / 1.25
+  })
 };
 
 export default styles;

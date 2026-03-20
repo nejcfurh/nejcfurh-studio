@@ -17,8 +17,8 @@ import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 
 import Controls from './Controls';
-import Footer from './Footer';
 import SpeedIndicator from './SpeedIndicator';
+import TransformingCardsFooter from './TransformingCardsFooter';
 
 export default function TransformingCards() {
   //   STATE
@@ -883,7 +883,7 @@ export default function TransformingCards() {
           </div>
         </div>
       </div>
-      <Footer />
+      <TransformingCardsFooter />
     </div>
   );
 }

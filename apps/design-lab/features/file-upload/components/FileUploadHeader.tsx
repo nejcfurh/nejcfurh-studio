@@ -1,4 +1,4 @@
-const Header = () => {
+const FileUploadHeader = () => {
   return (
     <div className="mb-6">
       <h2 className="mb-2 text-2xl font-bold text-gray-900 dark:text-white">
@@ -11,4 +11,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default FileUploadHeader;
