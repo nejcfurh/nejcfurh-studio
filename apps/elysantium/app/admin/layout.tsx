@@ -3,9 +3,8 @@
 import AppLayout from '@/components/admin/ui/AppLayout';
 import ProtectedRoute from '@/components/admin/ui/ProtectedRoute';
 import { DarkModeProvider } from '@/lib/context/DarkModeContext';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { useState } from 'react';
+import { QueryProvider } from '@repo/react-query';
+import { ReactQueryDevtools } from '@repo/react-query/devtools';
 import { Toaster } from 'react-hot-toast';
 
 export default function AdminLayout({
@@ -13,20 +12,9 @@ export default function AdminLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const [queryClient] = useState(
-    () =>
-      new QueryClient({
-        defaultOptions: {
-          queries: {
-            staleTime: 0
-          }
-        }
-      })
-  );
-
   return (
     <DarkModeProvider>
-      <QueryClientProvider client={queryClient}>
+      <QueryProvider>
         <ReactQueryDevtools initialIsOpen={false} />
         <ProtectedRoute>
           <AppLayout>{children}</AppLayout>
@@ -51,7 +39,7 @@ export default function AdminLayout({
             }
           }}
         />
-      </QueryClientProvider>
+      </QueryProvider>
     </DarkModeProvider>
   );
 }

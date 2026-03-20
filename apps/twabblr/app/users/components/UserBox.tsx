@@ -3,9 +3,10 @@
 import Avatar from '@/app/components/Avatar';
 import LoadingModal from '@/app/components/LoadingModal';
 import { User } from '@prisma/client';
+import { useMutation } from '@repo/react-query';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
-import { useCallback, useState } from 'react';
+import { useCallback } from 'react';
 
 interface UserBoxProps {
   data: User;
@@ -13,19 +14,19 @@ interface UserBoxProps {
 
 const UserBox: React.FC<UserBoxProps> = ({ data }) => {
   const router = useRouter();
-  const [isLoading, setIsLoading] = useState(false);
+
+  const startConversation = useMutation({
+    mutationFn: () => axios.post('/api/conversations', { userId: data.id }),
+    onSuccess: (response) => {
+      router.push(`/conversations/${response.data.id}`);
+    }
+  });
+
+  const isLoading = startConversation.isPending;
 
   const handleClick = useCallback(() => {
-    setIsLoading(true);
-    axios
-      .post(`/api/conversations`, {
-        userId: data.id
-      })
-      .then((data) => {
-        router.push(`/conversations/${data.data.id}`);
-      })
-      .finally(() => setIsLoading(false));
-  }, [data, router]);
+    startConversation.mutate();
+  }, [startConversation]);
 
   return (
     <>

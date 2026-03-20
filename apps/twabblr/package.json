@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@headlessui/react": "^2.1.2",
+    "@repo/react-query": "workspace:*",
     "@auth/prisma-adapter": "^2.8.0",
     "@prisma/client": "^6.19.0",
     "axios": "^1.7.7",

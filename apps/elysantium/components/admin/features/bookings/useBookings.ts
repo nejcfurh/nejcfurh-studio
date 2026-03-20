@@ -2,7 +2,7 @@
 
 import { getBookings } from '@/lib/services/apiBookings';
 import { PAGE_SIZE } from '@/lib/utils/constants';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@repo/react-query';
 import { useSearchParams } from 'next/navigation';
 
 interface Guest {

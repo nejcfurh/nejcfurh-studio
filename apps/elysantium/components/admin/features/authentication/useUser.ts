@@ -1,7 +1,7 @@
 'use client';
 
 import { getCurrentUser } from '@/lib/services/apiAuth';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery } from '@repo/react-query';
 
 interface User {
   id: string;

@@ -1,7 +1,7 @@
 'use client';
 
 import { updateCurrentUser } from '@/lib/services/apiAuth';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@repo/react-query';
 import toast from 'react-hot-toast';
 
 interface UpdateUserResponse {

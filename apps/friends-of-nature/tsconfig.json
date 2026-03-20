@@ -9,9 +9,9 @@
       "@features/*": ["./features/*"],
       "@config/*": ["config/*"],
       "@public/*": ["./public/*"],
-      "@shared-analytics/*": ["../../packages/shared/src/analytics/*"], // We need it because of direct compile without building
-      "@shared-observability/*": ["../../packages/shared/src/observability/*"], // We need it because of direct compile without building
-      "@shared-utils/*": ["../../packages/shared/src/utils/*"] // We need it because of direct compile without building
+      "@analytics/*": ["../../packages/analytics/src/*"],
+      "@repo/analytics/*": ["../../packages/analytics/src/*"],
+      "@repo/utils/*": ["../../packages/utils/src/*"]
     },
     "plugins": [{ "name": "next" }]
   },

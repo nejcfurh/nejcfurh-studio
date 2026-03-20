@@ -1,8 +1,4 @@
-import {
-  convertToModelMessages,
-  google,
-  streamText
-} from '@repo/shared/ai-sdk';
+import { convertToModelMessages, google, streamText } from '@repo/ai-sdk';
 
 export async function POST(req: Request) {
   const body = await req.json();

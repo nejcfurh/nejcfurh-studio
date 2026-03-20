@@ -1,6 +1,7 @@
 'use client';
 
 import useConversation from '@/app/hooks/useConversation';
+import { useMutation } from '@repo/react-query';
 import axios from 'axios';
 import { CldUploadButton } from 'next-cloudinary';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
@@ -20,13 +21,14 @@ const Form = () => {
     defaultValues: { message: '' }
   });
 
+  const sendMessage = useMutation({
+    mutationFn: (payload: Record<string, unknown>) =>
+      axios.post('/api/messages', payload)
+  });
+
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    //clear values from the form
     setValue('message', '', { shouldValidate: true });
-    axios.post('/api/messages', {
-      ...data,
-      conversationId: conversationId
-    });
+    sendMessage.mutate({ ...data, conversationId });
   };
 
   const handleUpload = (result: {
@@ -34,17 +36,14 @@ const Form = () => {
   }) => {
     const info = result?.info;
     const image = typeof info === 'object' ? info?.secure_url : undefined;
-    axios.post('/api/messages', {
-      image,
-      conversationId: conversationId
-    });
+    sendMessage.mutate({ image, conversationId });
   };
 
   return (
     <div className="flex w-full items-center gap-2 border-t bg-white px-4 py-4 lg:gap-4">
       <CldUploadButton
         options={{ maxFiles: 1 }}
-        onUpload={handleUpload}
+        onSuccess={handleUpload}
         uploadPreset="o4ffoebx"
       >
         <HiPhoto

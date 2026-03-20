@@ -5,9 +5,9 @@ import Input from '@/app/components/inputs/Input';
 import Select from '@/app/components/inputs/Select';
 import Modal from '@/app/components/Modal';
 import { User } from '@prisma/client';
+import { useMutation } from '@repo/react-query';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 
@@ -23,7 +23,21 @@ const GroupChatModal: React.FC<GroupChatModalProps> = ({
   users
 }) => {
   const router = useRouter();
-  const [isLoading, setIsLoading] = useState(false);
+
+  const createGroup = useMutation({
+    mutationFn: (data: FieldValues) =>
+      axios.post('/api/conversations', { ...data, isGroup: true }),
+    onSuccess: () => {
+      router.refresh();
+      onClose();
+      toast.success('Group created!');
+    },
+    onError: () => {
+      toast.error('Something went wrong!');
+    }
+  });
+
+  const isLoading = createGroup.isPending;
 
   const {
     register,
@@ -41,20 +55,7 @@ const GroupChatModal: React.FC<GroupChatModalProps> = ({
   const members = watch('members');
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    setIsLoading(true);
-    axios
-      .post('/api/conversations', { ...data, isGroup: true })
-      .then(() => {
-        router.refresh();
-        onClose();
-        toast.success('Group created!');
-      })
-      .catch(() => {
-        toast.error('Something went wrong!');
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
+    createGroup.mutate(data);
   };
 
   return (

@@ -1,8 +1,7 @@
 'use client';
 
 import { DarkModeProvider } from '@/lib/context/DarkModeContext';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { useState } from 'react';
+import { QueryProvider } from '@repo/react-query';
 import { Toaster } from 'react-hot-toast';
 
 export default function AdminLoginLayout({
@@ -10,20 +9,9 @@ export default function AdminLoginLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const [queryClient] = useState(
-    () =>
-      new QueryClient({
-        defaultOptions: {
-          queries: {
-            staleTime: 0
-          }
-        }
-      })
-  );
-
   return (
     <DarkModeProvider>
-      <QueryClientProvider client={queryClient}>
+      <QueryProvider>
         {children}
         <Toaster
           position="top-center"
@@ -45,7 +33,7 @@ export default function AdminLoginLayout({
             }
           }}
         />
-      </QueryClientProvider>
+      </QueryProvider>
     </DarkModeProvider>
   );
 }

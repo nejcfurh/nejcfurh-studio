@@ -1,7 +1,7 @@
 'use client';
 
 import { getStaysTodayActivity } from '@/lib/services/apiBookings';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery } from '@repo/react-query';
 
 interface Guest {
   id: number;
