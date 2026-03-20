@@ -54,7 +54,7 @@ export default function Home() {
           <SectionTitle>Components</SectionTitle>
           <SectionGrid items={COMPONENTS_DATA} />
 
-          <SectionTitle>UI Clones & Tools</SectionTitle>
+          <SectionTitle>UI Clones, Landing Pages & Tools</SectionTitle>
           <SectionGrid items={[...CLONES_DATA, ...TOOLS_DATA]} />
         </div>
 

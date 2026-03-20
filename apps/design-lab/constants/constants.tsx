@@ -1,7 +1,7 @@
 import { MainPageItem } from '@/utils/types';
 import { BsInputCursor } from 'react-icons/bs';
 import { CiCreditCard2 } from 'react-icons/ci';
-import { FaBarsStaggered, FaInstagram, FaScroll } from 'react-icons/fa6';
+import { FaBarsStaggered, FaInstagram } from 'react-icons/fa6';
 import { GiCardPlay } from 'react-icons/gi';
 import { HiOutlineCursorArrowRipple } from 'react-icons/hi2';
 import { IoShareSocialOutline } from 'react-icons/io5';
@@ -13,17 +13,11 @@ import {
   MdOutlineRateReview
 } from 'react-icons/md';
 import { PiMouseScroll } from 'react-icons/pi';
-import { SiTesla } from 'react-icons/si';
+import { SiSpacex, SiTesla } from 'react-icons/si';
 import { SlLayers } from 'react-icons/sl';
 import { TbCarouselHorizontal, TbDragDrop } from 'react-icons/tb';
 
 export const ANIMATIONS_DATA: MainPageItem[] = [
-  {
-    name: 'Scroll Animation',
-    path: '/animations/scroll-animation',
-    icon: <PiMouseScroll />,
-    color: 'from-pink-500 to-rose-500'
-  },
   {
     name: 'Scroll to Decrypt',
     path: '/animations/scroll-to-decrypt',
@@ -59,12 +53,6 @@ export const ANIMATIONS_DATA: MainPageItem[] = [
     path: '/animations/staggered-animation',
     icon: <FaBarsStaggered />,
     color: 'from-purple-500 to-pink-500'
-  },
-  {
-    name: 'Smooth Scroll',
-    path: '/animations/smooth-scroll',
-    icon: <FaScroll />,
-    color: 'from-pink-500 to-cyan-500'
   },
   {
     name: 'Infinite Scroll Carousel',
@@ -125,6 +113,18 @@ export const CLONES_DATA: MainPageItem[] = [
     path: '/clones/instagram',
     icon: <FaInstagram />,
     color: 'from-purple-500 to-pink-600'
+  },
+  {
+    name: 'Product Landing Page',
+    path: '/animations/scroll-animation',
+    icon: <PiMouseScroll />,
+    color: 'from-pink-500 to-rose-500'
+  },
+  {
+    name: 'SpaceX Showcase',
+    path: '/animations/smooth-scroll',
+    icon: <SiSpacex />,
+    color: 'from-pink-500 to-cyan-500'
   }
 ];
 

@@ -6,29 +6,38 @@ Created by [Nejc Furh](https://nejcfurh.dev).
 
 ## Apps
 
-| App                                             | Description                                                                | Deployment                                         |
-| ----------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------- |
-| [reusable-components](apps/reusable-components) | Showcase of reusable UI components with 3D effects and animations          | [LINK](https://reusable-components-nf.vercel.app/) |
-| [n-drive](apps/n-drive)                         | Cloud storage and file sharing platform with Convex backend and Clerk auth | [LINK](https://n-drive.vercel.app/)                |
-| [backyard-skies](apps/backyard-skies)           | Interactive 3D weather visualization using Three.js and React Three Fiber  | [LINK](https://backyard-skies.vercel.app/)         |
-| [desktop-weather](apps/desktop-weather)         | Progressive Web App for weather information                                | [LINK](https://desktop-weather.vercel.app/)        |
-| [reviews-analyser](apps/reviews-analyser)       | AI-powered review analysis tool using Vercel AI SDK                        | [LINK](https://reviews-analyser-nf.vercel.app/)    |
-| [friends-of-nature](apps/friends-of-nature)     | Community platform for nature enthusiasts with rich animations             | [LINK](https://friends-of-nature.vercel.app/)      |
-| [blog-dev](apps/blog-dev)                       | Personal dev blog with MongoDB backend and admin authentication            | [LINK](https://blog-dev-nf.vercel.app/)            |
-| [to-do-cards](apps/to-do-cards)                 | Card-based task manager with NextAuth, MongoDB, and Supabase storage       | [LINK](https://to-do-cards.vercel.app/)            |
-| [twabblr](apps/twabblr)                         | Social / messaging app with NextAuth, Prisma, and real-time (Pusher)       | [LINK](https://twabblr.vercel.app)                 |
-| [elysantium](apps/elysantium)                   | Luxury hotel site with admin panel (bookings, cabins, Supabase)            | [LINK](https://elysantium.vercel.app)              |
+| App                                         | Description                                                                | Deployment                                    |
+| ------------------------------------------- | -------------------------------------------------------------------------- | --------------------------------------------- |
+| [design-lab](apps/design-lab)               | Animations, reusable components, UI clones & AI tools showcase             | [LINK](https://design-lab-nf.vercel.app/)     |
+| [n-drive](apps/n-drive)                     | Cloud storage and file sharing platform with Convex backend and Clerk auth | [LINK](https://n-drive.vercel.app/)           |
+| [backyard-skies](apps/backyard-skies)       | Interactive 3D weather visualization using Three.js and React Three Fiber  | [LINK](https://backyard-skies.vercel.app/)    |
+| [desktop-weather](apps/desktop-weather)     | Progressive Web App for weather information                                | [LINK](https://desktop-weather.vercel.app/)   |
+| [friends-of-nature](apps/friends-of-nature) | Community platform for nature enthusiasts with rich animations             | [LINK](https://friends-of-nature.vercel.app/) |
+| [blog-dev](apps/blog-dev)                   | Personal dev blog with MongoDB backend and admin authentication            | [LINK](https://blog-dev-nf.vercel.app/)       |
+| [to-do-cards](apps/to-do-cards)             | Card-based task manager with NextAuth, MongoDB, and Supabase storage       | [LINK](https://to-do-cards.vercel.app/)       |
+| [twabblr](apps/twabblr)                     | Social / messaging app with NextAuth, Prisma, and real-time (Pusher)       | [LINK](https://twabblr.vercel.app)            |
+| [elysantium](apps/elysantium)               | Luxury hotel site with admin panel (bookings, cabins, Supabase)            | [LINK](https://elysantium.vercel.app)         |
 
-## Shared Packages
+## Packages
 
-| Package                                                     | Description                                                                   |
-| ----------------------------------------------------------- | ----------------------------------------------------------------------------- |
-| [shared](packages/shared)                                   | Shared utilities, AI SDK integrations, and analytics helpers (`@repo/shared`) |
-| [tsconfig](packages/tsconfig)                               | TypeScript configurations for Next.js, libraries, and base projects           |
-| [eslint-config-web](packages/eslint-config-web)             | ESLint flat config presets (base, React, React library, Node)                 |
-| [prettier-config-web](packages/prettier-config-web)         | Prettier config with Tailwind CSS and import sorting plugins                  |
-| [tailwind-config](packages/tailwind-config)                 | Shared Tailwind CSS theme and custom breakpoints                              |
-| [browserslist-config-web](packages/browserslist-config-web) | Shared browser targets for build tools                                        |
+| Package                             | Description                         |
+| ----------------------------------- | ----------------------------------- |
+| [ai-sdk](packages/ai-sdk)           | AI SDK integrations (Google Gemini) |
+| [analytics](packages/analytics)     | Analytics helpers                   |
+| [database](packages/database)       | Database utilities                  |
+| [react-query](packages/react-query) | React Query configuration           |
+| [ui](packages/ui)                   | Shared UI components and animations |
+| [utils](packages/utils)             | Shared utility functions            |
+
+## Tooling
+
+| Package                                                    | Description                                                   |
+| ---------------------------------------------------------- | ------------------------------------------------------------- |
+| [tsconfig](tooling/tsconfig)                               | TypeScript configurations for Next.js, libraries, and base    |
+| [eslint-config-web](tooling/eslint-config-web)             | ESLint flat config presets (base, React, React library, Node) |
+| [prettier-config-web](tooling/prettier-config-web)         | Prettier config with Tailwind CSS and import sorting plugins  |
+| [tailwind-config](tooling/tailwind-config)                 | Shared Tailwind CSS theme and custom breakpoints              |
+| [browserslist-config-web](tooling/browserslist-config-web) | Shared browser targets for build tools                        |
 
 ## Requirements
 
@@ -48,16 +57,16 @@ pnpm install
 pnpm dev
 
 # Start a specific app
-pnpm reusable-components
-pnpm n-drive
-pnpm backyard-skies
-pnpm desktop-weather
-pnpm reviews-analyser
-pnpm friends-of-nature
-pnpm blog-dev
-pnpm to-do-cards
-pnpm twabblr
-pnpm elysantium
+pnpm run design-lab
+pnpm run n-drive
+pnpm run backyard-skies
+pnpm run desktop-weather
+pnpm run friends-of-nature
+pnpm run blog-dev
+pnpm run to-do-cards
+pnpm run twabblr
+pnpm run elysantium
+pnpm run jobs-react-native
 ```
 
 ## Commands
@@ -103,23 +112,29 @@ pnpm elysantium
 ```
 nejcfurh-studio/
 ├── apps/
-│   ├── reusable-components/   # Component showcase
-│   ├── n-drive/               # File sharing platform
-│   ├── backyard-skies/        # 3D weather visualization
-│   ├── desktop-weather/       # PWA weather app
-│   ├── reviews-analyser/      # AI review analysis
-│   ├── friends-of-nature/     # Nature community platform
+│   ├── backyard-skies/        # 3D Bird Survival Game
 │   ├── blog-dev/              # Personal dev blog
-│   ├── to-do-cards/           # Card-based task manager
-│   ├── twabblr/               # Social / messaging app
-│   └── elysantium/            # Hotel site + admin panel
+│   ├── design-lab/            # Animations, components, clones & tools
+│   ├── desktop-weather/       # PWA weather app
+│   ├── elysantium/            # Hotel site + admin panel
+│   ├── friends-of-nature/     # Nature community platform
+│   ├── jobs-react-native/     # React Native job search app
+│   ├── n-drive/               # File sharing platform
+│   ├── to-do-cards/           # Card-based Task Manager
+│   └── twabblr/               # Social / Messaging app
 ├── packages/
-│   ├── shared/                # Shared utils, AI SDK, analytics
-│   ├── tsconfig/              # TypeScript configs
+│   ├── ai-sdk/                # AI SDK integrations (Google Gemini)
+│   ├── analytics/             # Analytics helpers
+│   ├── database/              # Database utilities
+│   ├── react-query/           # React Query configuration
+│   ├── ui/                    # Shared UI components & animations
+│   └── utils/                 # Shared utility functions
+├── tooling/
+│   ├── browserslist-config-web/ # Browser targets
 │   ├── eslint-config-web/     # ESLint presets
 │   ├── prettier-config-web/   # Prettier config
 │   ├── tailwind-config/       # Tailwind theme
-│   └── browserslist-config-web/ # Browser targets
+│   └── tsconfig/              # TypeScript configs
 ├── turbo.json                 # Turborepo pipeline config
 ├── pnpm-workspace.yaml        # Workspace definition
 └── package.json               # Root scripts and dependencies
