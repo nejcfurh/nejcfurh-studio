@@ -6,8 +6,8 @@ import { TESLA_SECTIONS } from '@/features/clones/tesla/constants';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Tesla Clone',
-  description: 'Tesla Clone'
+  title: 'DesignLab | Tesla Clone',
+  description: 'Tesla Clone page in Tailwind CSS'
 };
 
 export default function TeslaClonePage() {
