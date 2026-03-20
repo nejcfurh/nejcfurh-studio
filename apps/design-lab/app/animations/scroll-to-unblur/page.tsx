@@ -4,6 +4,12 @@ import Background from '@/components/Background';
 import BackButton from '@/components/buttons/BackButton';
 import Tooltip from '@/components/Tooltip';
 import ScrollToUnblur from '@/features/scroll-to-unblur/components/ScrollToUnblur';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Scroll to Unblur',
+  description: 'Scroll to unblur component'
+};
 
 export default function Home() {
   return (

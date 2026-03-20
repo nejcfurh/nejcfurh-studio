@@ -6,7 +6,7 @@ import AddTask from './AddTask';
 import CardItem from './CardItem';
 import DropIndicator from './DropIndicator';
 
-const Column = ({
+const DragDropColumn = ({
   title,
   headingColor,
   column,
@@ -150,4 +150,4 @@ const Column = ({
   );
 };
 
-export default Column;
+export default DragDropColumn;

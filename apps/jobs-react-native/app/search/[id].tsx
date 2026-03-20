@@ -1,17 +1,17 @@
+import axios from 'axios';
+import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import {
   ActivityIndicator,
   FlatList,
   Image,
-  TouchableOpacity,
-  View,
   Text,
+  TouchableOpacity,
+  View
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
-import axios from 'axios';
 
-import { ScreenHeaderBtn, NearbyJobCard } from '../../components';
+import { NearbyJobCard, ScreenHeaderBtn } from '../../components';
 import { COLORS, icons, SIZES } from '../../constants';
 import styles from '../../styles/search';
 import type { Job } from '../../types/job';
@@ -37,12 +37,12 @@ const JobSearch = () => {
         url: 'https://jsearch.p.rapidapi.com/search',
         headers: {
           'X-RapidAPI-Key': rapidApiKey,
-          'X-RapidAPI-Host': 'jsearch.p.rapidapi.com',
+          'X-RapidAPI-Host': 'jsearch.p.rapidapi.com'
         },
         params: {
           query: params.id,
-          page: page.toString(),
-        },
+          page: page.toString()
+        }
       };
 
       const response = await axios.request(options);
@@ -82,7 +82,7 @@ const JobSearch = () => {
               handlePress={() => router.back()}
             />
           ),
-          headerTitle: '',
+          headerTitle: ''
         }}
       />
 

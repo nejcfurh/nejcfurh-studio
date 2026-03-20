@@ -1,8 +1,14 @@
 import AnimatedBackgroundGradient from '@/components/animation-core/AnimatedBackgroundGradient';
 import FloatingOrb from '@/components/animation-core/FloatingOrb';
 import BackButton from '@/components/buttons/BackButton';
-import SVGFilters from '@/features/tilt-card/components/SVGFilters';
+import LightingFilter from '@/features/tilt-card/components/LightingFilter';
 import HolographicCard from '@/features/tilt-card/components/TiltCard';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: '3D Tilt Card | Reusable Components',
+  description: 'Interactive 3D tilt card that responds to mouse movement'
+};
 
 export default function TiltCardPage() {
   return (
@@ -10,7 +16,7 @@ export default function TiltCardPage() {
       <AnimatedBackgroundGradient />
       <FloatingOrb className="absolute top-20 left-10 h-72 w-72 animate-pulse rounded-full bg-blue-400/20 blur-3xl dark:bg-blue-500/10" />
       <BackButton className="top-5 left-5" />
-      <SVGFilters />
+      <LightingFilter />
 
       <div className="w-full max-w-7xl">
         {/* INSTRUCTIONS */}

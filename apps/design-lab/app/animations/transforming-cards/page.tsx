@@ -1,8 +1,14 @@
 import BackButton from '@/components/buttons/BackButton';
+import type { Metadata } from 'next';
 
 import './transforming-cards.css';
 
 import TransformingCards from '@/features/transforming-cards/components/TransformingCards';
+
+export const metadata: Metadata = {
+  title: 'Disappearing Cards',
+  description: 'Disappearing cards component'
+};
 
 export default function Home() {
   return (

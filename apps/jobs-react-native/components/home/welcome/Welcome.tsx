@@ -1,16 +1,16 @@
+import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import {
-  View,
+  FlatList,
+  Image,
   Text,
   TextInput,
   TouchableOpacity,
-  Image,
-  FlatList,
+  View
 } from 'react-native';
-import { useRouter } from 'expo-router';
 
-import styles from './welcome.style';
 import { icons, SIZES } from '../../../constants';
+import styles from './welcome.style';
 
 const jobTypes = ['Full-time', 'Part-time', 'Contractor/Freelance'] as const;
 
@@ -20,7 +20,11 @@ interface WelcomeProps {
   handleSearch: () => void;
 }
 
-const Welcome = ({ searchQuery, setSearchQuery, handleSearch }: WelcomeProps) => {
+const Welcome = ({
+  searchQuery,
+  setSearchQuery,
+  handleSearch
+}: WelcomeProps) => {
   const router = useRouter();
   const [activeJobType, setActiveJobType] = useState<string>('Full-time');
 

@@ -1,4 +1,4 @@
-const Footer = () => {
+const TransformingCardsFooter = () => {
   return (
     <div className="absolute bottom-5 left-1/2 z-10 -translate-x-1/2 text-sm text-gray-500 dark:text-gray-500">
       Adapted by Nejc Furh, inspired by{' '}
@@ -13,4 +13,4 @@ const Footer = () => {
   );
 };
 
-export default Footer;
+export default TransformingCardsFooter;

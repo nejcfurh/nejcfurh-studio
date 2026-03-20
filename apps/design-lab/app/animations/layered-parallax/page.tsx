@@ -8,6 +8,12 @@ import {
 } from '@/features/layered-parallax/constants';
 import { AnimatedText } from '@repo/ui/animation/core';
 import ReactLenis from 'lenis/react';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Layered Parallax',
+  description: 'Layered parallax component'
+};
 
 export default function Home() {
   return (

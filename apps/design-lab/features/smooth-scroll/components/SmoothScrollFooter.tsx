@@ -1,4 +1,4 @@
-const Footer = () => {
+const SmoothScrollFooter = () => {
   return (
     <div className="mb-20 w-full text-center text-sm text-white/50">
       All images are official SpaceX photos, licensed as{' '}
@@ -16,4 +16,4 @@ const Footer = () => {
   );
 };
 
-export default Footer;
+export default SmoothScrollFooter;

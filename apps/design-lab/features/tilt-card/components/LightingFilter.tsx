@@ -1,4 +1,4 @@
-export default function SVGFilters() {
+export default function LightingFilter() {
   return (
     <svg className="sr-only" xmlns="http://www.w3.org/2000/svg">
       <defs>

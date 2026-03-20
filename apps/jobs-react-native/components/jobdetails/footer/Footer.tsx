@@ -1,7 +1,7 @@
-import { View, Text, TouchableOpacity, Image, Linking } from 'react-native';
+import { Image, Linking, Text, TouchableOpacity, View } from 'react-native';
 
-import styles from './footer.style';
 import { icons } from '../../../constants';
+import styles from './footer.style';
 
 interface FooterProps {
   url: string;

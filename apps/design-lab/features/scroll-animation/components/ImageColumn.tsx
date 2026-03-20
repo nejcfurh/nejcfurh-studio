@@ -2,7 +2,7 @@ import { MotionValue } from '@repo/ui/animation';
 import { AnimatedDiv } from '@repo/ui/animation/core';
 import Image from 'next/image';
 
-const Column = ({
+const ImageColumn = ({
   images,
   y
 }: {
@@ -26,4 +26,4 @@ const Column = ({
   );
 };
 
-export default Column;
+export default ImageColumn;

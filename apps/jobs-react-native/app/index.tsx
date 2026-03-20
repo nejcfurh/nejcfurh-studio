@@ -1,15 +1,15 @@
-import { useState } from 'react';
-import { View, ScrollView } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { Stack, useRouter } from 'expo-router';
+import { useState } from 'react';
+import { ScrollView, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { COLORS, icons, images, SIZES } from '../constants';
 import {
   Nearbyjobs,
   Popularjobs,
   ScreenHeaderBtn,
-  Welcome,
+  Welcome
 } from '../components';
+import { COLORS, icons, images, SIZES } from '../constants';
 
 const Home = () => {
   const router = useRouter();
@@ -19,7 +19,7 @@ const Home = () => {
     <SafeAreaView
       style={{
         flex: 1,
-        backgroundColor: COLORS.lightWhite,
+        backgroundColor: COLORS.lightWhite
       }}
     >
       <Stack.Screen
@@ -32,7 +32,7 @@ const Home = () => {
           headerRight: () => (
             <ScreenHeaderBtn iconUrl={images.profile} dimension="100%" />
           ),
-          headerTitle: '',
+          headerTitle: ''
         }}
       />
       <ScrollView showsVerticalScrollIndicator={false}>

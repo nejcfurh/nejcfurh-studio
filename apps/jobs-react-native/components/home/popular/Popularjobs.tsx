@@ -1,25 +1,25 @@
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  FlatList,
-  ActivityIndicator,
-} from 'react-native';
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
-import { useFetch } from '../../../hooks/useFetch';
+import {
+  ActivityIndicator,
+  FlatList,
+  Text,
+  TouchableOpacity,
+  View
+} from 'react-native';
 
-import styles from './popularjobs.style';
 import { COLORS, SIZES } from '../../../constants';
-import PopularJobCard from '../../common/cards/popular/PopularJobCard';
+import { useFetch } from '../../../hooks/useFetch';
 import type { Job } from '../../../types/job';
+import PopularJobCard from '../../common/cards/popular/PopularJobCard';
+import styles from './popularjobs.style';
 
 const Popularjobs = () => {
   const router = useRouter();
   const [selectedJob, setSelectedJob] = useState<string>();
   const { data, isLoading, error } = useFetch('search', {
     query: 'web developer',
-    num_pages: 1,
+    num_pages: 1
   });
 
   const handleCardPress = (item: Job) => {

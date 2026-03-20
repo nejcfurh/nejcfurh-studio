@@ -1,8 +1,8 @@
-import { Stack } from 'expo-router';
+import { QueryProvider } from '@repo/react-query';
 import { useFonts } from 'expo-font';
+import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
-import { QueryProvider } from '@repo/react-query';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -10,7 +10,7 @@ const Layout = () => {
   const [fontsLoaded] = useFonts({
     DMBold: require('../assets/fonts/DMSans-Bold.ttf'),
     DMMedium: require('../assets/fonts/DMSans-Medium.ttf'),
-    DMRegular: require('../assets/fonts/DMSans-Regular.ttf'),
+    DMRegular: require('../assets/fonts/DMSans-Regular.ttf')
   });
 
   useEffect(() => {

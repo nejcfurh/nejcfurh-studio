@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     flexDirection: 'row',
-    marginBottom: 15,
+    marginBottom: 15
   },
   likeBtn: {
     width: 55,
@@ -22,12 +22,12 @@ const styles = StyleSheet.create({
     borderColor: '#F37453',
     borderRadius: SIZES.medium,
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   likeBtnImage: {
     width: '40%',
     height: '40%',
-    tintColor: '#F37453',
+    tintColor: '#F37453'
   },
   applyBtn: {
     flex: 1,
@@ -36,13 +36,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginLeft: SIZES.medium,
-    borderRadius: SIZES.medium,
+    borderRadius: SIZES.medium
   },
   applyBtnText: {
     fontSize: SIZES.medium,
     color: COLORS.white,
-    fontFamily: FONT.bold,
-  },
+    fontFamily: FONT.bold
+  }
 });
 
 export default styles;
