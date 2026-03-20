@@ -1,7 +1,7 @@
 'use client';
 
 import { createEditCabin } from '@/lib/services/apiCabins';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@repo/react-query';
 import toast from 'react-hot-toast';
 
 interface EditCabinParams {

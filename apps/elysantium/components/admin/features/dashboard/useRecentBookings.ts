@@ -1,7 +1,7 @@
 'use client';
 
 import { getBookingsAfterDate } from '@/lib/services/apiBookings';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery } from '@repo/react-query';
 import { subDays } from 'date-fns';
 import { useSearchParams } from 'next/navigation';
 

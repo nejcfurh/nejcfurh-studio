@@ -1,7 +1,7 @@
 'use client';
 
 import { signup as signupApi } from '@/lib/services/apiAuth';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation } from '@repo/react-query';
 import toast from 'react-hot-toast';
 
 interface SignUpCredentials {

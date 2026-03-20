@@ -1,7 +1,7 @@
 'use client';
 
 import { logout as logoutApi } from '@/lib/services/apiAuth';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@repo/react-query';
 import { useRouter } from 'next/navigation';
 
 export function useLogout() {
@@ -12,7 +12,7 @@ export function useLogout() {
     mutationFn: logoutApi,
     onSuccess: () => {
       queryClient.removeQueries();
-      router.push('/admin/login');
+      router.push('/admin-login');
     }
   });
 

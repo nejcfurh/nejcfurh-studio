@@ -1,7 +1,7 @@
 'use client';
 
 import { getCabins } from '@/lib/services/apiCabins';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery } from '@repo/react-query';
 
 interface Cabin {
   id: number;

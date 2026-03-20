@@ -1,7 +1,7 @@
 'use client';
 
 import { updateBooking } from '@/lib/services/apiBookings';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@repo/react-query';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-hot-toast';
 
