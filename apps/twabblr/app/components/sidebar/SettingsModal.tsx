@@ -1,11 +1,11 @@
 'use client';
 
 import { User } from '@prisma/client';
+import { useMutation } from '@repo/react-query';
 import axios from 'axios';
 import { CldUploadButton } from 'next-cloudinary';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 
@@ -25,7 +25,20 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
   currentUser
 }) => {
   const router = useRouter();
-  const [isLoading, setIsLoading] = useState(false);
+
+  const updateSettings = useMutation({
+    mutationFn: (data: FieldValues) => axios.post('/api/settings', data),
+    onSuccess: () => {
+      toast.success('Information saved successfully!');
+      router.refresh();
+      onClose();
+    },
+    onError: () => {
+      toast.error('Something went wrong!');
+    }
+  });
+
+  const isLoading = updateSettings.isPending;
 
   const {
     register,
@@ -53,18 +66,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
   };
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    setIsLoading(true);
-    axios
-      .post('/api/settings', data)
-      .then(() => {
-        toast.success('Information saved successfully!');
-        router.refresh();
-        onClose();
-      })
-      .catch(() => {
-        toast.error('Something went wrong!');
-      })
-      .finally(() => setIsLoading(false));
+    updateSettings.mutate(data);
   };
 
   return (
@@ -104,7 +106,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
                   />
                   <CldUploadButton
                     options={{ maxFiles: 1 }}
-                    onUpload={handleUpload}
+                    onSuccess={handleUpload}
                     uploadPreset="o4ffoebx"
                   >
                     <span className="text-sm font-semibold text-gray-900">

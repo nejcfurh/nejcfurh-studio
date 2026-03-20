@@ -4,9 +4,10 @@ import Button from '@/app/components/Button';
 import Modal from '@/app/components/Modal';
 import useConversation from '@/app/hooks/useConversation';
 import { DialogTitle } from '@headlessui/react';
+import { useMutation } from '@repo/react-query';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
-import { useCallback, useState } from 'react';
+import { useCallback } from 'react';
 import toast from 'react-hot-toast';
 import { FiAlertTriangle } from 'react-icons/fi';
 
@@ -18,23 +19,25 @@ interface ConfirmModalProps {
 const ConfirmModal: React.FC<ConfirmModalProps> = ({ isOpen, onClose }) => {
   const router = useRouter();
   const { conversationId } = useConversation();
-  const [isLoading, setIsLoading] = useState(false);
+
+  const deleteConversation = useMutation({
+    mutationFn: () => axios.delete(`/api/conversations/${conversationId}`),
+    onSuccess: () => {
+      onClose();
+      router.push('/conversations/');
+      router.refresh();
+      toast.success('Conversation deleted!');
+    },
+    onError: () => {
+      toast.error('Something went wrong!');
+    }
+  });
+
+  const isLoading = deleteConversation.isPending;
 
   const onDelete = useCallback(() => {
-    setIsLoading(true);
-    axios
-      .delete(`/api/conversations/${conversationId}`)
-      .then(() => {
-        onClose();
-        router.push('/conversations/');
-        router.refresh();
-        toast.success('Conversation deleted!');
-      })
-      .catch(() => toast.error('Something went wrong!'))
-      .finally(() => {
-        setIsLoading(false);
-      });
-  }, [conversationId, router, onClose]);
+    deleteConversation.mutate();
+  }, [deleteConversation]);
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>

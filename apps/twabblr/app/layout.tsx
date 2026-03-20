@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 
 import AuthContext from './context/AuthContext';
+import QueryContext from './context/QueryContext';
 import ToasterContext from './context/ToasterContext';
 
 import './globals.css';
@@ -24,9 +25,11 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <AuthContext>
-          <ToasterContext />
-          <ActiveStatus />
-          {children}
+          <QueryContext>
+            <ToasterContext />
+            <ActiveStatus />
+            {children}
+          </QueryContext>
         </AuthContext>
       </body>
     </html>

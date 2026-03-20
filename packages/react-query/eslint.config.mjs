@@ -7,8 +7,7 @@ export default [
       '**/__tests__/**',
       '**/*.test.ts',
       '**/*.test.tsx',
-      'eslint.config.mjs',
-      'postcss.config.js'
+      'eslint.config.mjs'
     ]
   }
 ];

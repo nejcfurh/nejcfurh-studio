@@ -23,7 +23,8 @@ export function createBaseConfig(cwd = process.cwd()) {
     {
       languageOptions: {
         parserOptions: {
-          project
+          project,
+          tsconfigRootDir: cwd
         }
       },
       settings: {

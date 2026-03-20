@@ -3,6 +3,7 @@
 import Button from '@/app/components/Button';
 import Input from '@/app/components/inputs/Input';
 import LoadingModal from '@/app/components/LoadingModal';
+import { useMutation } from '@repo/react-query';
 import axios from 'axios';
 import { signIn, useSession } from 'next-auth/react';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -30,7 +31,23 @@ const AuthForm: React.FC<AuthFormProps> = ({ setRegister }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [variant, setVariant] = useState<Variant>('LOGIN');
-  const [isLoading, setIsLoading] = useState(false);
+
+  const [socialLoading, setSocialLoading] = useState(false);
+
+  const registerMutation = useMutation({
+    mutationFn: (data: FieldValues) => axios.post('/api/register', data),
+    onSuccess: (_result, data) => {
+      signIn('credentials', {
+        ...data,
+        redirectTo: '/conversations'
+      });
+    },
+    onError: () => {
+      toast.error('Something went wrong!');
+    }
+  });
+
+  const isLoading = registerMutation.isPending || socialLoading;
 
   const isAuthenticated = session?.status === 'authenticated';
 
@@ -70,21 +87,8 @@ const AuthForm: React.FC<AuthFormProps> = ({ setRegister }) => {
   });
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    setIsLoading(true);
-
     if (variant === 'REGISTER') {
-      axios
-        .post('/api/register', data)
-        .then(() =>
-          signIn('credentials', {
-            ...data,
-            redirectTo: '/conversations'
-          })
-        )
-        .catch(() => {
-          toast.error('Something went wrong!');
-          setIsLoading(false);
-        });
+      registerMutation.mutate(data);
     }
 
     if (variant === 'LOGIN') {
@@ -93,13 +97,12 @@ const AuthForm: React.FC<AuthFormProps> = ({ setRegister }) => {
         redirectTo: '/conversations'
       }).catch(() => {
         toast.error('Invalid credentials!');
-        setIsLoading(false);
       });
     }
   };
 
   const socialAction = (action: string) => {
-    setIsLoading(true);
+    setSocialLoading(true);
     signIn(action, { redirectTo: '/conversations' });
   };
 

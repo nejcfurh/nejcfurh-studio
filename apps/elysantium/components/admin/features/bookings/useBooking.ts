@@ -1,7 +1,7 @@
 'use client';
 
 import { getBooking } from '@/lib/services/apiBookings';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery } from '@repo/react-query';
 import { useParams } from 'next/navigation';
 
 interface Guest {

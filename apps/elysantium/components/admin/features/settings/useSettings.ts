@@ -1,7 +1,7 @@
 'use client';
 
 import { getSettings } from '@/lib/services/apiSettings';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery } from '@repo/react-query';
 
 interface Settings {
   id: number;
