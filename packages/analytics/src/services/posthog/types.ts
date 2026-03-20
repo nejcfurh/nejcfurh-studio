@@ -1,4 +1,4 @@
-import type { AppEnvironment } from '@shared-utils/enums';
+import type { AppEnvironment } from '@repo/utils';
 
 import type { PostHogClientSession } from './posthog.client';
 

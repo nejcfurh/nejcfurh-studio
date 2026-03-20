@@ -1,4 +1,4 @@
-import { generateObject, google } from '@repo/shared/ai-sdk';
+import { generateObject, google } from '@repo/ai-sdk';
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 

@@ -1,6 +1,6 @@
 'use client';
 
-import { BrazeContext } from '@shared-analytics/services/braze/providers/BrazeProvider';
+import { BrazeContext } from '@analytics/services/braze/providers/BrazeProvider';
 import { useContext, useState } from 'react';
 
 type useBrazeType = {

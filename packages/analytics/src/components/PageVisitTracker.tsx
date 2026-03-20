@@ -1,12 +1,11 @@
 'use client';
 
-import { useAnalytics } from '@shared-analytics/hooks/useAnalytics';
+import { useAnalytics } from '@analytics/hooks/useAnalytics';
 import type {
   AnalyticsClientPageEventBase,
   PageNameBase
-} from '@shared-analytics/types.client';
-import { ClientOnly } from '@shared-utils/components';
-import { useMount } from '@shared-utils/hooks/client';
+} from '@analytics/types.client';
+import { ClientOnly, useMount } from '@repo/utils';
 
 interface PageVisitTrackerProps<
   AnalyticsClientPageEvent extends AnalyticsClientPageEventBase<PageNameBase>

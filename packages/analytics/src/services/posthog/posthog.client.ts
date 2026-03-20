@@ -1,4 +1,4 @@
-import { AppEnvironment } from '@shared-utils/enums/common.enums';
+import { AppEnvironment } from '@repo/utils';
 import { posthog } from 'posthog-js';
 
 import type { AnalyticsPostHogConfig } from './types';

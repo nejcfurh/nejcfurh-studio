@@ -1,11 +1,11 @@
 {
-  "name": "reviews-analyser",
-  "version": "0.1.0",
-  "private": true,
+  "name": "@repo/ai-sdk",
+  "version": "0.0.0",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
   "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build",
-    "start": "next start",
     "base:prettier": "prettier './**/*.{ts,tsx,html,json,md,css}' --config .prettierrc --cache",
     "base:eslint": "eslint ./ --cache",
     "lint:prettier": "pnpm base:prettier --check",
@@ -17,24 +17,21 @@
     "format-silent": "pnpm format:prettier --loglevel silent && pnpm format:eslint --quiet",
     "type:check": "tsc --noEmit"
   },
-  "dependencies": {
-    "@repo/ai-sdk": "workspace:*",
-    "next": "16.1.6",
-    "react": "19.2.4",
-    "react-dom": "19.2.4",
-    "react-icons": "^5.5.0",
-    "zod": "^4.1.12"
+  "peerDependencies": {
+    "react": ">=19.2.0"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "babel-plugin-react-compiler": "1.0.0",
-    "eslint": "^9",
+    "@types/react": "19.2.14",
+    "eslint-config-web": "workspace:*",
     "prettier-config-web": "workspace:*",
-    "eslint-config-next": "16.1.6",
-    "tailwindcss": "^4",
-    "typescript": "^5"
+    "react": "19.2.4",
+    "tsconfig": "workspace:*",
+    "typescript": "5.9.3"
+  },
+  "dependencies": {
+    "@ai-sdk/google": "^2.0.26",
+    "@ai-sdk/openai": "^2.0.59",
+    "@ai-sdk/react": "^3.0.51",
+    "ai": "^5.0.85"
   }
 }
