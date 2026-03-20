@@ -1,6 +1,6 @@
 'use client';
 
-import ItemsList from '@/app/animations/staggered-animation/components/ItemsList';
+import ItemsList from '@/features/staggered-animation/components/ItemsList';
 import {
   motion,
   MotionStyle,

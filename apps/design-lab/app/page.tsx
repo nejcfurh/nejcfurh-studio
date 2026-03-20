@@ -11,10 +11,9 @@ import {
   COMPONENTS_DATA,
   TOOLS_DATA
 } from '@/constants/constants';
+import TiltCard from '@/features/tilt-card/components/TiltCard';
 import { AnimatedDiv } from '@repo/ui/animation/core';
 import Image from 'next/image';
-
-import TiltCard from './animations/tilt-card/components/TiltCard';
 
 export default function Home() {
   return (

@@ -4,8 +4,7 @@ import AnimatedBackgroundGradient from '@/components/animation-core/AnimatedBack
 import FloatingOrb from '@/components/animation-core/FloatingOrb';
 import Background from '@/components/Background';
 import BackButton from '@/components/buttons/BackButton';
-
-import DragDropKanban from './components/DragDropKanban';
+import DragDropKanban from '@/features/drag-drop/components/DragDropKanban';
 
 export default function Home() {
   return (

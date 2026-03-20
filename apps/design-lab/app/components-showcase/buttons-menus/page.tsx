@@ -4,12 +4,11 @@ import AnimatedBackgroundGradient from '@/components/animation-core/AnimatedBack
 import FloatingOrb from '@/components/animation-core/FloatingOrb';
 import Background from '@/components/Background';
 import BackButton from '@/components/buttons/BackButton';
+import MultiOptionButtons from '@/features/buttons-menus/components/multi-option/MultiOptionButtons';
+import SwitchVariantButton from '@/features/buttons-menus/components/multi-option/SwitchVariantButton';
+import SelectionButton from '@/features/buttons-menus/components/SelectionButton';
+import SocialMediaButtons from '@/features/buttons-menus/components/social-media/SocialMediaButtons';
 import { Activity, useState } from 'react';
-
-import MultiOptionButtons from './components/multi-option/MultiOptionButtons';
-import SwitchVariantButton from './components/multi-option/SwitchVariantButton';
-import SelectionButton from './components/SelectionButton';
-import SocialMediaButtons from './components/social-media/SocialMediaButtons';
 
 type ButtonType = 'social-media' | 'multi-option';
 

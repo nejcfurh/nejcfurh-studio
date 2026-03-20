@@ -1,11 +1,8 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
-
-import '../scroll-to-unblur.css';
-
 import { SCROLL_TO_UNBLUR_TEXT } from '@/features/scroll-to-unblur/contants';
 import { textIntoWords } from '@/features/scroll-to-unblur/utils';
+import React, { useEffect, useState } from 'react';
 
 interface ScrollToUnblurProps {
   containerHeight?: number;

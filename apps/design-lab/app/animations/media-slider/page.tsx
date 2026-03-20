@@ -1,10 +1,9 @@
 'use client';
 
 import BackButton from '@/components/buttons/BackButton';
+import AngledMediaSlider from '@/features/media-slider/components/AngledMediaSlider';
+import OverlayTextButton from '@/features/media-slider/components/OverlayTextButton';
 import { useState } from 'react';
-
-import AngledMediaSlider from './components/AngledMediaSlider';
-import OverlayTextButton from './components/OverlayTextButton';
 
 export default function Home() {
   const [displayTextOverlay, setDisplayTextOverlay] = useState(false);

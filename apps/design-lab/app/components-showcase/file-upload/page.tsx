@@ -2,9 +2,8 @@ import AnimatedBackgroundGradient from '@/components/animation-core/AnimatedBack
 import FloatingOrb from '@/components/animation-core/FloatingOrb';
 import Background from '@/components/Background';
 import BackButton from '@/components/buttons/BackButton';
+import FileUpload from '@/features/file-upload/components/FileUpload';
 import { Metadata } from 'next';
-
-import FileUpload from './components/FileUpload';
 
 export const metadata: Metadata = {
   title: 'File Upload',
