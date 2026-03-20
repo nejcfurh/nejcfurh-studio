@@ -2,8 +2,7 @@ import AnimatedBackgroundGradient from '@/components/animation-core/AnimatedBack
 import FloatingOrb from '@/components/animation-core/FloatingOrb';
 import Background from '@/components/Background';
 import BackButton from '@/components/buttons/BackButton';
-
-import { ScrollToDecryptWithSuspense } from './components/ScrollToDecrypt';
+import { ScrollToDecryptWithSuspense } from '@/features/scroll-to-decrypt/components/ScrollToDecrypt';
 
 export default function Home() {
   return (

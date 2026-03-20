@@ -4,10 +4,9 @@ import AnimatedBackgroundGradient from '@/components/animation-core/AnimatedBack
 import FloatingOrb from '@/components/animation-core/FloatingOrb';
 import Background from '@/components/Background';
 import BackButton from '@/components/buttons/BackButton';
+import SwitchInputTypeButton from '@/features/input-fields/components/SwitchInputTypeButton';
+import TextInputFields from '@/features/input-fields/components/TextInputFields';
 import { useState } from 'react';
-
-import SwitchInputTypeButton from './components/SwitchInputTypeButton';
-import TextInputFields from './components/TextInputFields';
 
 export default function InputFieldsPage() {
   const [inputType, setInputType] = useState<'login' | 'signup'>('login');

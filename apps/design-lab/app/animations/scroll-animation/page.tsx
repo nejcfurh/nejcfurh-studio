@@ -1,11 +1,10 @@
 'use client';
 
 import BackButton from '@/components/buttons/BackButton';
+import MultiColumnScroll from '@/features/scroll-animation/components/MultiColumnScroll';
+import ParallaxSection from '@/features/scroll-animation/components/ParallaxSection';
+import StickyFooter from '@/features/scroll-animation/components/StickyFooter';
 import { ReactLenis } from 'lenis/react';
-
-import MultiColumnScroll from './components/MultiColumnScroll';
-import ParallaxSection from './components/ParallaxSection';
-import StickyFooter from './components/StickyFooter';
 
 const AppleScrollEffectPage = () => {
   return (

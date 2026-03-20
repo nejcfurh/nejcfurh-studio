@@ -3,8 +3,7 @@ import FloatingOrb from '@/components/animation-core/FloatingOrb';
 import Background from '@/components/Background';
 import BackButton from '@/components/buttons/BackButton';
 import Tooltip from '@/components/Tooltip';
-
-import ScrollToUnblur from './components/ScrollToUnblur';
+import ScrollToUnblur from '@/features/scroll-to-unblur/components/ScrollToUnblur';
 
 export default function Home() {
   return (

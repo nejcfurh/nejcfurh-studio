@@ -1,9 +1,8 @@
 import AnimatedBackgroundGradient from '@/components/animation-core/AnimatedBackgroundGradient';
 import FloatingOrb from '@/components/animation-core/FloatingOrb';
 import BackButton from '@/components/buttons/BackButton';
-
-import SVGFilters from './components/SVGFilters';
-import HolographicCard from './components/TiltCard';
+import SVGFilters from '@/features/tilt-card/components/SVGFilters';
+import HolographicCard from '@/features/tilt-card/components/TiltCard';
 
 export default function TiltCardPage() {
   return (
