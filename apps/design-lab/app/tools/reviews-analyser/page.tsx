@@ -1,8 +1,7 @@
 import BackButton from '@/components/buttons/BackButton';
+import Chatbox from '@/features/reviews-analyser/components/Chatbox';
+import { ReviewAnalysisForm } from '@/features/reviews-analyser/components/ReviewAnalysisForm';
 import { Suspense } from 'react';
-
-import Chatbox from './components/Chatbox';
-import { ReviewAnalysisForm } from './feature/review-analysis/components/ReviewAnalysisForm';
 
 export default function ReviewsAnalyserPage() {
   return (
