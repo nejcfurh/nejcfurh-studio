@@ -1,5 +1,23 @@
 # Changelog
 
+## v1.14.0 (2026-03-20)
+
+
+### Features
+
+- feat(nejcfurh-studio): Separate tooling from packages (#55) (b81e9f0)
+- feat(nejcfurh-studio): Separate tooling from packages (5318c57)
+- feat(nejcfurh-studio): Add react-query to packages (#54) (8a2e183)
+- feat(nejcfurh-studio): Add react-query to packages (ab65925)
+
+
+### Bug Fixes & Improvements
+
+- fix(backyard-skies): Fix the drop-shadow on Safari (#52) (6356d38)
+- fix(backyard-skies): Fix the drop-shadow on Safari (b08bde6)
+
+# Changelog
+
 ## v1.13.0 (2026-03-19)
 
 
