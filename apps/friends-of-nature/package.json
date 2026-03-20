@@ -21,7 +21,8 @@
   "dependencies": {
     "@headlessui/react": "^2.2.0",
     "@hookform/resolvers": "^3.9.1",
-    "@repo/shared": "workspace:*",
+    "@repo/ai-sdk": "workspace:*",
+    "@repo/analytics": "workspace:*",
     "canvas-confetti": "^1.9.3",
     "clsx": "^2.1.1",
     "embla-carousel-autoplay": "^8.1.8",

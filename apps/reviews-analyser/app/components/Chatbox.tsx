@@ -1,6 +1,6 @@
 'use client';
 
-import { useChat } from '@repo/shared/ai-sdk';
+import { useChat } from '@repo/ai-sdk';
 import { useEffect, useRef, useState } from 'react';
 import { BiSend } from 'react-icons/bi';
 import { CiChat2 } from 'react-icons/ci';

@@ -1,6 +1,6 @@
 'use server';
 
-import { generateObject, google } from '@repo/shared/ai-sdk';
+import { generateObject, google } from '@repo/ai-sdk';
 import z from 'zod';
 
 import { reviewAnalysisSchema } from './schema';

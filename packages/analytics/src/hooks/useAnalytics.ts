@@ -1,9 +1,9 @@
-import { usePostHog } from '@shared-analytics/services/posthog';
+import { usePostHog } from '@analytics/services/posthog';
 import type {
   AnalyticsClientEventPropertiesBase,
   AnalyticsClientPageEventBase,
   PageNameBase
-} from '@shared-analytics/types.client';
+} from '@analytics/types.client';
 
 export function useAnalytics<
   AnalyticsClientEventProperties extends AnalyticsClientEventPropertiesBase =

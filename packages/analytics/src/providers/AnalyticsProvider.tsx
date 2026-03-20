@@ -1,11 +1,8 @@
+import { BrazeProvider, type BrazeConfig } from '@analytics/services/braze';
+import { MetaPixel } from '@analytics/services/meta';
+import type { PostHogConfig } from '@analytics/services/posthog';
+import { PostHogProvider } from '@analytics/services/posthog';
 import { GoogleAnalytics } from '@next/third-parties/google';
-import {
-  BrazeProvider,
-  type BrazeConfig
-} from '@shared-analytics/services/braze';
-import { MetaPixel } from '@shared-analytics/services/meta';
-import type { PostHogConfig } from '@shared-analytics/services/posthog';
-import { PostHogProvider } from '@shared-analytics/services/posthog';
 import React, { type ReactNode } from 'react';
 
 interface AnalyticsProviderProps {

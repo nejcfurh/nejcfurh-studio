@@ -1,10 +1,10 @@
 import type { AnalyticsClientPageEvent } from '@features/analytics/types.client';
+import { PageVisitTracker } from '@repo/analytics/index';
 import {
   AnimatedDiv,
   AnimatedText,
   AnimatedTitle
 } from '@repo/ui/animation/core';
-import { PageVisitTracker } from '@shared-analytics/index';
 import { ArrowLeft } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';

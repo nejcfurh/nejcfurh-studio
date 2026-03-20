@@ -3,7 +3,7 @@
 import type {
   AnalyticBrazeConfig,
   BrazeContextState
-} from '@shared-analytics/services/braze/types';
+} from '@analytics/services/braze/types';
 import { createContext, useMemo } from 'react';
 
 import { BrazeClientSession } from '../braze.client';

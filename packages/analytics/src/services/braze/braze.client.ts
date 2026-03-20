@@ -1,7 +1,7 @@
 'use client';
 
 import type { User } from '@braze/web-sdk';
-import { captureError } from '@shared-observability/service';
+import { captureError } from '@repo/utils';
 
 export class BrazeClientSession {
   private debug: boolean;

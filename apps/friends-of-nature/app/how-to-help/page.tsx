@@ -6,12 +6,12 @@ import {
   type ConfigSubmissionEvent
 } from '@features/analytics/types.client';
 import type { Week } from '@features/how-to-help-flow/types';
+import { PageVisitTracker, useAnalytics } from '@repo/analytics/index';
 import {
   AnimatedDiv,
   AnimatedText,
   AnimatedTitle
 } from '@repo/ui/animation/core';
-import { PageVisitTracker, useAnalytics } from '@shared-analytics/index';
 import { cn } from 'lib/utils';
 import { ArrowLeft, ArrowRight, Loader2Icon, MapPin } from 'lucide-react';
 import Image from 'next/image';
