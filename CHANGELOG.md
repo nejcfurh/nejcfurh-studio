@@ -1,5 +1,33 @@
 # Changelog
 
+## v1.15.0 (2026-03-21)
+
+
+### Features
+
+- feat(nejcfurh-studio): Add react-native app, refactor projects (#56) (afac24d)
+- feat(nejcfurh-studio): Rework reusable-components and showcase into design-lab (a7614e3)
+- feat(nejcfurh-studio): Add jobs-react-native app to apps (207c219)
+
+
+### Bug Fixes & Improvements
+
+- fix(design-lab): Metadata fixes (#58) (60fb658)
+- fix(design-lab): Metadata fixes (7e70184)
+- fix(design-lab): Improve Tesla page, slight refactoring and updates (168d700)
+
+
+### Other Changes
+
+- chore(nejcfurh-studio): Refactor and de-duplication (#61) (7a71a57)
+- chore(nejcfurh-studio): Refactor and de-duplication (a529c17)
+- chore(design-lab): Refactor of internal app-routes structure (#60) (6c1e67e)
+- chore(design-lab): Refactor of internal app-routes structure (10c8046)
+- chore(design-lab): Clean-up some duplicated items (#59) (b0792ac)
+- chore(design-lab): Clean-up some duplicated items (5f94d94)
+
+# Changelog
+
 ## v1.14.0 (2026-03-20)
 
 
