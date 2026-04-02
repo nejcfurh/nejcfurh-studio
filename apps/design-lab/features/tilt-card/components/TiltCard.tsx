@@ -1,6 +1,12 @@
 'use client';
 
+import {
+  AnalyticsClientEventType,
+  ButtonNameType
+} from '@/features/analytics/constants';
+import { AnalyticsClientEvent } from '@/features/analytics/types.client';
 import ItemsList from '@/features/staggered-animation/components/ItemsList';
+import { useAnalytics } from '@analytics/hooks/useAnalytics';
 import {
   motion,
   MotionStyle,
@@ -29,6 +35,7 @@ export default function HolographicCard({
   const [isFlipped, setIsFlipped] = useState(false);
   const [isActive, setIsActive] = useState(false);
   const [isFlipping, setIsFlipping] = useState(false);
+  const { trackEvent } = useAnalytics<AnalyticsClientEvent>();
 
   const pointerX = useMotionValue(0);
   const pointerY = useMotionValue(0);
@@ -105,6 +112,12 @@ export default function HolographicCard({
 
   const handleFlip = () => {
     if (isActive) {
+      trackEvent({
+        eventName: AnalyticsClientEventType.BUTTON_TAP,
+        properties: {
+          ButtonName: ButtonNameType.TILT_CARD_BUTTON
+        }
+      });
       setIsFlipping(true);
       setIsFlipped(!isFlipped);
       // Reset flipping state after animation completes (600ms)

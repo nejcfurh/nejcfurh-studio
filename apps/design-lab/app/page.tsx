@@ -11,7 +11,10 @@ import {
   COMPONENTS_DATA,
   TOOLS_DATA
 } from '@/constants/constants';
+import { AnalyticsClientPageEvent } from '@/features/analytics/types.client';
 import TiltCard from '@/features/tilt-card/components/TiltCard';
+import { PageName } from '@/utils/constants/page.data';
+import { PageVisitTracker } from '@analytics/components/PageVisitTracker';
 import { AnimatedDiv } from '@repo/ui/animation/core';
 import Image from 'next/image';
 
@@ -60,6 +63,11 @@ export default function Home() {
         {/* FOOTER */}
         <Footer year={2025} />
       </div>
+      <PageVisitTracker<AnalyticsClientPageEvent>
+        pageEvent={{
+          pageName: PageName.DESIGN_LAB
+        }}
+      />
     </Background>
   );
 }
