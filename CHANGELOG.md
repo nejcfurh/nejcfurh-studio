@@ -1,5 +1,15 @@
 # Changelog
 
+## v1.16.0 (2026-04-02)
+
+
+### Features
+
+- feat(design-lab): Added Posthog analytics (#62) (4d34c51)
+- feat(design-lab): Added Posthog analytics (7d9aea5)
+
+# Changelog
+
 ## v1.15.0 (2026-03-21)
 
 
