@@ -24,7 +24,12 @@
         "PUSHER_APP_ID",
         "PUSHER_SECRET",
         "NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME",
-        "EXPO_PUBLIC_RAPID_API_KEY"
+        "EXPO_PUBLIC_RAPID_API_KEY",
+        "NEXTAUTH_SECRET",
+        "ADMIN_USERNAME",
+        "ADMIN_PASSWORD",
+        "PASSWORD_ELYSTANTIUM",
+        "USER_ELYSTANTIUM"
       ],
       "outputs": ["dist/**", ".next/**", "!.next/cache/**"]
     },
