@@ -1,5 +1,21 @@
 # Changelog
 
+## v1.17.0 (2026-04-03)
+
+
+### Features
+
+- feat(nejcfurh-studio): Add posthog to all other projects (#64) (87e102b)
+- feat(nejcfurh-studio): Added PostHog to all other web-apps (b3c203c)
+
+
+### Bug Fixes & Improvements
+
+- fix(nejcfurh-studio): Fix typo in elysantium config (1c8c187)
+- fix(nejcfurh-studio): Fix deployment issues (e398266)
+
+# Changelog
+
 ## v1.16.0 (2026-04-02)
 
 
