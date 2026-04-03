@@ -3,7 +3,10 @@
   "compilerOptions": {
     "types": ["node", "react", "react-dom"],
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"],
+      "@utils/*": ["./utils/*"],
+      "@analytics": ["../../packages/analytics/src"],
+      "@analytics/*": ["../../packages/analytics/src/*"]
     }
   },
   "include": [

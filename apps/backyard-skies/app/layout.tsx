@@ -3,6 +3,10 @@ import { Geist, Geist_Mono } from 'next/font/google';
 
 import './globals.css';
 
+import { appConfig } from '@/config/app.config';
+import { AnalyticsProvider } from '@analytics/providers/AnalyticsProvider';
+import { AnalyticsPostHogConfig } from '@analytics/services/posthog/types';
+
 const geistSans = Geist({
   variable: '--font-geist-sans',
   subsets: ['latin']
@@ -34,6 +38,16 @@ export const viewport: Viewport = {
   themeColor: '#0a1628'
 };
 
+const posthogConfig: AnalyticsPostHogConfig = {
+  apiKey: appConfig.posthog.apiKey,
+  apiHost: appConfig.posthog.apiHost,
+  superProperties: {
+    environment: appConfig.env,
+    serviceName: appConfig.serviceName,
+    version: appConfig.version
+  }
+};
+
 export default function RootLayout({
   children
 }: Readonly<{
@@ -41,22 +55,24 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1.0, viewport-fit=cover"
-        />
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta
-          name="apple-mobile-web-app-status-bar-style"
-          content="black-translucent"
-        />
-      </head>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
-      </body>
+      <AnalyticsProvider posthogConfig={posthogConfig}>
+        <head>
+          <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+          />
+          <meta name="apple-mobile-web-app-capable" content="yes" />
+          <meta
+            name="apple-mobile-web-app-status-bar-style"
+            content="black-translucent"
+          />
+        </head>
+        <body
+          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        >
+          {children}
+        </body>
+      </AnalyticsProvider>
     </html>
   );
 }

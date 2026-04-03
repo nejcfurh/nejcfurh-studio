@@ -3,6 +3,9 @@
 import Button from '@/app/components/Button';
 import Input from '@/app/components/inputs/Input';
 import LoadingModal from '@/app/components/LoadingModal';
+import { AnalyticsClientPageEvent } from '@/features/analytics/types.client';
+import { PageName } from '@/utils/constants/page.data';
+import { PageVisitTracker } from '@analytics/components/PageVisitTracker';
 import { useMutation } from '@repo/react-query';
 import axios from 'axios';
 import { signIn, useSession } from 'next-auth/react';
@@ -186,6 +189,11 @@ const AuthForm: React.FC<AuthFormProps> = ({ setRegister }) => {
           </div>
         </div>
       </div>
+      <PageVisitTracker<AnalyticsClientPageEvent>
+        pageEvent={{
+          pageName: PageName.TWABBLR_LOGIN_PAGE
+        }}
+      />
     </>
   );
 };

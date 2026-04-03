@@ -1,3 +1,6 @@
+import { AnalyticsClientPageEvent } from '@/features/analytics/types.client';
+import { PageName } from '@/utils/constants/page.data';
+import { PageVisitTracker } from '@analytics/components/PageVisitTracker';
 import Link from 'next/link';
 
 export default function HomePage() {
@@ -80,7 +83,7 @@ export default function HomePage() {
         id="about"
         className="relative z-10 flex flex-col items-center py-36 text-center"
       >
-        <div className="mb-8 h-px w-16 bg-gradient-to-r from-transparent via-[#d4a954] to-transparent" />
+        <div className="mb-8 h-px w-16 bg-linear-to-r from-transparent via-[#d4a954] to-transparent" />
         <p className="mb-4 text-sm tracking-[0.3em] text-[#d4a954]/70 uppercase">
           Our story
         </p>
@@ -102,7 +105,7 @@ export default function HomePage() {
         id="rooms"
         className="relative z-10 flex flex-col items-center py-36 text-center"
       >
-        <div className="mb-8 h-px w-16 bg-gradient-to-r from-transparent via-[#d4a954] to-transparent" />
+        <div className="mb-8 h-px w-16 bg-linear-to-r from-transparent via-[#d4a954] to-transparent" />
         <p className="mb-4 text-sm tracking-[0.3em] text-[#d4a954]/70 uppercase">
           Accommodations
         </p>
@@ -130,7 +133,7 @@ export default function HomePage() {
           ].map((room) => (
             <div
               key={room.name}
-              className="group border border-white/10 bg-white/[0.02] p-8 text-center backdrop-blur-sm transition-all hover:border-[#d4a954]/30 hover:bg-white/[0.04]"
+              className="group border border-white/10 bg-white/2 p-8 text-center backdrop-blur-sm transition-all hover:border-[#d4a954]/30 hover:bg-white/4"
             >
               <h3 className="mb-4 text-lg font-light tracking-wider text-white transition-colors group-hover:text-[#d4a954]">
                 {room.name}
@@ -151,7 +154,7 @@ export default function HomePage() {
         id="contact"
         className="relative z-10 flex flex-col items-center py-36 text-center"
       >
-        <div className="mb-8 h-px w-16 bg-gradient-to-r from-transparent via-[#d4a954] to-transparent" />
+        <div className="mb-8 h-px w-16 bg-linear-to-r from-transparent via-[#d4a954] to-transparent" />
         <p className="mb-4 text-sm tracking-[0.3em] text-[#d4a954]/70 uppercase">
           Reservations
         </p>
@@ -176,6 +179,11 @@ export default function HomePage() {
           reserved.
         </p>
       </footer>
+      <PageVisitTracker<AnalyticsClientPageEvent>
+        pageEvent={{
+          pageName: PageName.ELYSANTIUM_HOMEPAGE
+        }}
+      />
     </main>
   );
 }
