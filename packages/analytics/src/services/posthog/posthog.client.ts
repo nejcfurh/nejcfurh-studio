@@ -9,7 +9,7 @@ export class PostHogClientSession {
   private readonly environment: AppEnvironment;
 
   constructor(params: AnalyticsPostHogConfig) {
-    const { debug = true, apiKey, apiHost, superProperties } = params;
+    const { debug = false, apiKey, apiHost, superProperties } = params;
 
     this.environment = superProperties.environment;
     this.debug = debug;
