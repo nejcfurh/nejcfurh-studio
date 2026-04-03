@@ -1,5 +1,15 @@
 # Changelog
 
+## v1.17.1 (2026-04-03)
+
+
+### Bug Fixes & Improvements
+
+- fix(nejcfurh-studio): Disable debug logs for Posthog (#66) (65d358f)
+- fix(nejcfurh-studio): Disable debug logs for Posthog (0654916)
+
+# Changelog
+
 ## v1.17.0 (2026-04-03)
 
 
