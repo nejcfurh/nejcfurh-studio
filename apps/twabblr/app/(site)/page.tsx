@@ -1,5 +1,8 @@
 'use client';
 
+import { AnalyticsClientPageEvent } from '@/features/analytics/types.client';
+import { PageName } from '@/utils/constants/page.data';
+import { PageVisitTracker } from '@analytics/components/PageVisitTracker';
 import Image from 'next/image';
 import { Suspense, useState } from 'react';
 
@@ -10,6 +13,11 @@ export default function Home() {
 
   return (
     <div className="flex min-h-full flex-col justify-center bg-gray-100 py-12 sm:px-6 lg:px-8">
+      <PageVisitTracker<AnalyticsClientPageEvent>
+        pageEvent={{
+          pageName: PageName.TWABBLR_HOMEPAGE
+        }}
+      />
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <Image
           alt="logo"

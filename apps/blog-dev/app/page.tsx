@@ -1,8 +1,11 @@
 import { auth } from '@/auth';
 import PostList from '@/components/PostList';
+import { AnalyticsClientPageEvent } from '@/features/analytics/types.client';
 import { connectDB } from '@/lib/db';
 import type { IPost } from '@/lib/models/post';
 import { Post } from '@/lib/models/post';
+import { PageName } from '@/utils/constants/page.data';
+import { PageVisitTracker } from '@analytics/components/PageVisitTracker';
 
 export default async function HomePage() {
   const session = await auth();
@@ -26,6 +29,11 @@ export default async function HomePage() {
 
   return (
     <>
+      <PageVisitTracker<AnalyticsClientPageEvent>
+        pageEvent={{
+          pageName: PageName.BLOG_DEV_HOMEPAGE
+        }}
+      />
       {/* Hero */}
       <section
         className="relative w-full bg-cover bg-center bg-no-repeat"

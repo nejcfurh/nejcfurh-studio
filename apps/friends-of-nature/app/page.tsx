@@ -536,7 +536,7 @@ const FriendsOfNature = (): React.ReactNode => {
       </footer>
       <PageVisitTracker<AnalyticsClientPageEvent>
         pageEvent={{
-          pageName: PageName.FRIENDS_OF_NATURE
+          pageName: PageName.FRIENDS_OF_NATURE_HOMEPAGE
         }}
       />
     </div>

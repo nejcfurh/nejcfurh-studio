@@ -1,4 +1,7 @@
 import { Button } from '@/components/ui/button';
+import { AnalyticsClientPageEvent } from '@/features/analytics/types.client';
+import { PageName } from '@/utils/constants/page.data';
+import { PageVisitTracker } from '@analytics/components/PageVisitTracker';
 import { SignedIn, SignedOut, SignInButton } from '@clerk/nextjs';
 import { ArrowRightIcon } from 'lucide-react';
 import Image from 'next/image';
@@ -7,10 +10,15 @@ import Link from 'next/link';
 const HomePage = () => {
   return (
     <>
+      <PageVisitTracker<AnalyticsClientPageEvent>
+        pageEvent={{
+          pageName: PageName.N_DRIVE_HOMEPAGE
+        }}
+      />
       <div className="relative h-screen overflow-hidden">
         <div
           aria-hidden="true"
-          className="absolute start-1/2 -top-96 flex -translate-x-1/2 transform"
+          className="absolute inset-s-1/2 -top-96 flex -translate-x-1/2 transform"
         >
           <div className="h-175 w-100 -translate-x-40 rotate-[-60deg] transform bg-linear-to-r from-violet-300/50 to-purple-100 blur-3xl dark:from-violet-900/50 dark:to-purple-900"></div>
           <div className="rounded-fulls h-200 w-[1440px] origin-top-left -translate-x-60 -rotate-12 bg-linear-to-tl from-blue-50 via-blue-100 to-blue-50 blur-3xl dark:from-indigo-900/70 dark:via-indigo-900/70 dark:to-blue-900/70"></div>
