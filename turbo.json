@@ -28,8 +28,8 @@
         "NEXTAUTH_SECRET",
         "ADMIN_USERNAME",
         "ADMIN_PASSWORD",
-        "PASSWORD_ELYSTANTIUM",
-        "USER_ELYSTANTIUM"
+        "PASSWORD_ELYSANTIUM",
+        "USER_ELYSANTIUM"
       ],
       "outputs": ["dist/**", ".next/**", "!.next/cache/**"]
     },

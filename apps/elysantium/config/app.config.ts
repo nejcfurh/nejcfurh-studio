@@ -28,8 +28,8 @@ export const appConfig = AppConfigValidation.parse({
     anonKey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
   },
   auth: {
-    user: process.env.USER_ELYSTANTIUM,
-    password: process.env.PASSWORD_ELYSTANTIUM
+    user: process.env.USER_ELYSANTIUM,
+    password: process.env.PASSWORD_ELYSANTIUM
   },
   posthog: {
     apiKey: process.env.NEXT_PUBLIC_POSTHOG_KEY,
