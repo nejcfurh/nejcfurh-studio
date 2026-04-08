@@ -1,5 +1,15 @@
 # Changelog
 
+## v1.17.2 (2026-04-08)
+
+
+### Bug Fixes & Improvements
+
+- fix(nejcfurh-studio): Readme change (#68) (82f5294)
+- fix(nejcfurh-studio): Readme change (25ae1b9)
+
+# Changelog
+
 ## v1.17.1 (2026-04-03)
 
 
