@@ -2,7 +2,7 @@
 
 A monorepo powering multiple web applications, built with [Turborepo](https://turbo.build/repo), [Next.js 16](https://nextjs.org/), [React 19](https://react.dev/), and [TypeScript](https://www.typescriptlang.org/).
 
-Created by [Nejc Furh](https://nejcfurh.dev).
+Created by [Nejc Furh](https://nejcfurh.dev)
 
 ## Apps
 
