@@ -1,5 +1,15 @@
 # Changelog
 
+## v1.18.0 (2026-04-10)
+
+
+### Features
+
+- feat(nejcfurh-studio): Update all monorepo apps to NextJS 16.2.3 (#70) (e56597f)
+- feat(nejcfurh-studio): Update all monorepo apps to NextJS 16.2.3 (f5ae780)
+
+# Changelog
+
 ## v1.17.2 (2026-04-08)
 
 
