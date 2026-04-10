@@ -22,7 +22,7 @@
     "@mailchimp/mailchimp_marketing": "^3.0.80",
     "@repo/database": "workspace:*",
     "lucide-react": "^0.511.0",
-    "next": "16.1.6",
+    "next": "16.2.3",
     "next-auth": "5.0.0-beta.30",
     "react": "19.2.3",
     "react-dom": "19.2.3",
@@ -35,7 +35,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
-    "eslint-config-next": "16.1.6",
+    "eslint-config-next": "16.2.3",
     "prettier-config-web": "workspace:*",
     "tailwindcss": "^4",
     "typescript": "^5"
