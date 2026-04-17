@@ -75,6 +75,7 @@ interface GameStore {
   // Score breakdown tracking
   eagleDodges: number;
   feedingScore: number;
+  flapsThisRun: number;
 
   // Actions
   setGameState: (state: GameState) => void;
@@ -173,6 +174,7 @@ export const useGameStore = create<GameStore>((set, get) => ({
       : false,
   eagleDodges: 0,
   feedingScore: 0,
+  flapsThisRun: 0,
 
   // Initialize audio mute state from stored preference
   ...(typeof window !== 'undefined' &&
@@ -222,7 +224,8 @@ export const useGameStore = create<GameStore>((set, get) => ({
       isPaused: false,
       deathReason: null,
       eagleDodges: 0,
-      feedingScore: 0
+      feedingScore: 0,
+      flapsThisRun: 0
     });
   },
 
@@ -272,7 +275,11 @@ export const useGameStore = create<GameStore>((set, get) => ({
     } = get();
     if (flapCooldown > 0 || stamina <= 0) return;
     if (gameState !== 'flight') return;
-    set({ isFlapping: true, flapCooldown: 0.15 });
+    set({
+      isFlapping: true,
+      flapCooldown: 0.15,
+      flapsThisRun: get().flapsThisRun + 1
+    });
     audioManager.play('flap', { rate: 0.9 + Math.random() * 0.2 });
     if (eagleDodgeWindow > 0) {
       set({ eagleDodgeTaps: eagleDodgeTaps + 1 });

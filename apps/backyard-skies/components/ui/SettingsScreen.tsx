@@ -1,12 +1,22 @@
 'use client';
 
+import { ACCENT, BG_IMAGE } from '@/lib/designTokens';
 import { useGameStore } from '@/store/gameStore';
 import { AnimatePresence } from '@repo/ui/animation';
 import { AnimatedDiv } from '@repo/ui/animation/core';
-import { useState } from 'react';
-import { BiChevronLeft, BiChevronRight } from 'react-icons/bi';
-import { BsQuestion } from 'react-icons/bs';
+import { ComponentType, ReactNode, useState } from 'react';
+import { BiChevronRight } from 'react-icons/bi';
+import {
+  PiInfoBold,
+  PiPlayFill,
+  PiQuestionBold,
+  PiSpeakerHighBold,
+  PiUserBold,
+  PiXBold
+} from 'react-icons/pi';
 
+import PageHeader from './PageHeader';
+import { ArcadeButton, GlassCard } from './primitives';
 import TermsConditions from './TermsConditions';
 import Tips from './Tips';
 
@@ -32,57 +42,51 @@ export default function SettingsScreen() {
     }
   };
 
+  const handleContinue = () => {
+    if (name.trim()) {
+      setPlayerName(name.trim());
+    }
+    setGameState('species-select');
+  };
+
   return (
     <AnimatedDiv
-      className="z-50 flex h-full w-full flex-col bg-[url('/menu-bg.jpg')] bg-cover bg-center bg-no-repeat"
+      className="absolute inset-0 z-50 flex flex-col overflow-hidden"
+      style={{ background: BG_IMAGE }}
       initial={{ opacity: 0, x: '100%' }}
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: '-30%' }}
       transition={spring}
     >
-      <div className="h-100dvh flex flex-col justify-between px-6 py-6">
-        {/* HEADER */}
-        <AnimatedDiv
-          className="mb-4 flex items-center justify-between gap-3"
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ ...spring, delay: 0.2 }}
-        >
-          {!isFirstTime ? (
-            <button
-              onClick={() => setGameState('menu')}
-              className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-black/10 bg-black/8 text-lg text-black"
-            >
-              <BiChevronLeft />
-            </button>
-          ) : (
-            <div className="w-10" />
-          )}
-          <span className="text-lg font-bold tracking-[0.25em] text-black/70 uppercase">
-            {isFirstTime ? 'Welcome' : 'Settings'}
-          </span>
-          <button
-            onClick={() => setShowTips(true)}
-            className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-black/10 bg-black/8 text-lg text-black"
-          >
-            <BsQuestion />
-          </button>
-        </AnimatedDiv>
+      <div className="absolute inset-0 bg-[rgba(5,8,20,0.55)] backdrop-blur-[10px]" />
 
-        {/* PLAYER NAME SECTION */}
+      <div className="relative z-10 my-5 flex h-full flex-col gap-5 overflow-y-auto px-6">
+        <PageHeader
+          title={isFirstTime ? 'Welcome' : 'Settings'}
+          onBack={() => setGameState('menu')}
+          rightSlot={
+            <button
+              onClick={() => setShowTips(true)}
+              className="flex cursor-pointer items-center justify-center text-white/60"
+              aria-label="Tips"
+            >
+              <PiQuestionBold className="text-3xl" />
+            </button>
+          }
+        />
+
+        {/* PLAYER NAME */}
         <AnimatedDiv
-          className="mx-auto mb-4 w-full max-w-[360px] rounded-[20px] border border-black/6 bg-black/40 p-5 backdrop-blur-xl"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ ...spring, delay: 0.3 }}
+          transition={{ ...spring, delay: 0.25 }}
         >
-          <p className="mb-3 text-base font-semibold tracking-[0.2em] text-white/70 uppercase">
-            Player Name
-          </p>
-
-          <div className="flex gap-2">
+          <GlassCard className="p-[18px]">
+            <SectionLabel icon={PiUserBold} accent={ACCENT.main}>
+              Player Name
+            </SectionLabel>
             <div
-              className="relative flex-1"
+              className="mt-3 flex gap-2"
               onPointerDown={(e) => e.stopPropagation()}
             >
               <input
@@ -92,103 +96,100 @@ export default function SettingsScreen() {
                   setName(e.target.value);
                   setSaved(false);
                 }}
-                placeholder="Enter your name..."
+                placeholder="Enter your name…"
                 maxLength={16}
-                className="w-full rounded-xl border border-black/10 bg-white/40 px-3.5 py-3 font-[inherit] text-sm text-black outline-none placeholder:text-black/30"
+                className="font-display flex-1 rounded-[12px] border border-white/10 bg-white/5 px-3.5 py-3 text-[14px] text-white outline-none placeholder:text-white/30"
               />
+              <button
+                onClick={handleSave}
+                className={[
+                  'font-display cursor-pointer rounded-[12px] border border-white/10 px-5 py-3 text-[13px] font-bold tracking-widest uppercase transition-colors',
+                  saved
+                    ? 'bg-[#4CAF50] text-[#0a0a0a]'
+                    : 'bg-white/10 text-white'
+                ].join(' ')}
+              >
+                {saved ? 'Saved' : 'Save'}
+              </button>
             </div>
-            <button
-              onClick={handleSave}
-              className={`cursor-pointer rounded-xl border-none px-5 py-3 text-[13px] font-bold text-white transition-colors ${
-                saved ? 'bg-[#4CAF50]' : 'bg-[#3f494c]'
-              }`}
-            >
-              {saved ? 'Saved!' : 'Save'}
-            </button>
-          </div>
+          </GlassCard>
         </AnimatedDiv>
 
-        {/* SOUND */}
+        {/* Toggles */}
         <AnimatedDiv
-          className="mx-auto w-full max-w-[360px] rounded-[20px] border border-black/6 bg-black/30 p-5 backdrop-blur-xl"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ ...spring, delay: 0.4 }}
+          transition={{ ...spring, delay: 0.35 }}
         >
-          <p className="mb-3.5 text-base font-semibold tracking-[0.2em] text-white/70 uppercase">
-            Sound
-          </p>
-          <button
-            onClick={() => setMuted(!isMuted)}
-            className={`flex w-full cursor-pointer items-center justify-between rounded-xl px-4 py-3.5 ${
-              isMuted
-                ? 'border-2 border-white/6 bg-black/3'
-                : 'border-2 border-[#00AEEF] bg-[rgba(0,174,239,0.12)]'
-            }`}
-          >
-            <span className="text-[13px] font-bold text-white/80">
-              Sound Effects
-            </span>
-            <span
-              className={`text-sm font-bold ${isMuted ? 'text-white/30' : 'text-[#00AEEF]'}`}
-            >
-              {isMuted ? 'OFF' : 'ON'}
-            </span>
-          </button>
+          <GlassCard className="py-1">
+            <SettingRow
+              Icon={PiSpeakerHighBold}
+              accent={ACCENT.main}
+              title="Sound Effects"
+              value={!isMuted}
+              onToggle={() => setMuted(!isMuted)}
+            />
+          </GlassCard>
         </AnimatedDiv>
 
+        {/* TERMS */}
         <AnimatedDiv
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ ...spring, delay: 0.5 }}
+          transition={{ ...spring, delay: 0.45 }}
         >
           <button
             onClick={() => setShowTerms(true)}
-            className="my-5 flex w-full cursor-pointer items-center justify-between rounded-xl border border-white/40 bg-black/3 px-4 py-3.5 text-white"
+            className="flex w-full cursor-pointer items-center justify-between rounded-[18px] border border-white/10 bg-white/5 px-4 py-3.5 text-left text-white backdrop-blur-xl"
           >
-            <div className="flex items-center gap-3">
-              <span className="text-base font-semibold text-white/80">
-                Terms & Conditions
+            <span className="flex items-center gap-3">
+              <span
+                className="flex h-[34px] w-[34px] items-center justify-center rounded-[10px]"
+                style={{
+                  background: `${ACCENT.main}22`,
+                  color: ACCENT.main
+                }}
+              >
+                <PiInfoBold />
               </span>
-            </div>
-            <span className="text-sm text-white/50">
-              <BiChevronRight />
+              <span className="font-display text-[15px] font-bold text-white">
+                Terms &amp; Conditions
+              </span>
             </span>
+            <BiChevronRight className="text-white/50" />
           </button>
         </AnimatedDiv>
+
+        <div className="flex-1" />
 
         <AnimatedDiv
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ ...spring, delay: 0.6 }}
+          transition={{ ...spring, delay: 0.55 }}
         >
-          <button
-            onClick={() => {
-              if (name.trim()) {
-                setPlayerName(name.trim());
-              }
-              setGameState('species-select');
-            }}
-            className="mx-auto my-5 flex w-full max-w-[360px] cursor-pointer items-center justify-center gap-2.5 rounded-2xl border-none bg-linear-to-br from-[#00AEEF] to-[#0077BB] py-[18px] text-[17px] font-extrabold tracking-wide text-white shadow-[0_6px_28px_rgba(0,174,239,0.40)]"
-          >
-            CHOOSE YOUR BIRD
-          </button>
+          <ArcadeButton accent={ACCENT.main} onClick={handleContinue}>
+            <PiPlayFill className="text-sm" color="#0a0a0a" />
+            {isFirstTime ? 'Start Flying' : 'Choose Your Bird'}
+          </ArcadeButton>
         </AnimatedDiv>
 
-        {/* APP INFO */}
-        <AnimatedDiv
-          className="absolute right-0 bottom-0 left-0 mt-2 mb-4 text-center"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.7 }}
-        >
-          <p className="mt-1 text-[10px] text-white/20">
-            Version 0.0.1 · by Nejc Furh
-          </p>
-        </AnimatedDiv>
+        {!isFirstTime && (
+          <AnimatedDiv
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ ...spring, delay: 0.6 }}
+          >
+            <ArcadeButton secondary onClick={() => setGameState('menu')}>
+              <PiXBold className="text-sm" /> Back to Menu
+            </ArcadeButton>
+          </AnimatedDiv>
+        )}
+
+        <p className="mt-2 text-center text-[10px] text-white/30">
+          Version 0.0.1 · by Nejc Furh
+        </p>
       </div>
 
-      {/* Sub-screens */}
       <AnimatePresence>
         {showTips && <Tips key="tips" handleBack={() => setShowTips(false)} />}
       </AnimatePresence>
@@ -198,5 +199,71 @@ export default function SettingsScreen() {
         )}
       </AnimatePresence>
     </AnimatedDiv>
+  );
+}
+
+function SectionLabel({
+  icon: IconComp,
+  accent,
+  children
+}: {
+  icon: ComponentType<{ className?: string; style?: React.CSSProperties }>;
+  accent: string;
+  children: ReactNode;
+}) {
+  return (
+    <div className="flex items-center gap-3">
+      <span
+        className="flex h-[30px] w-[30px] items-center justify-center rounded-lg"
+        style={{ background: `${accent}22`, color: accent }}
+      >
+        <IconComp className="text-lg" />
+      </span>
+      <span className="font-display text-sm font-bold tracking-[0.2em] text-white uppercase">
+        {children}
+      </span>
+    </div>
+  );
+}
+
+function SettingRow({
+  Icon,
+  accent,
+  title,
+  value,
+  onToggle
+}: {
+  Icon: ComponentType<{ className?: string; style?: React.CSSProperties }>;
+  accent: string;
+  title: string;
+  value: boolean;
+  onToggle: () => void;
+}) {
+  return (
+    <div className="flex items-center px-4 py-4">
+      <div
+        className="mr-3 flex h-[34px] w-[34px] items-center justify-center rounded-[10px]"
+        style={{ background: `${accent}22`, color: accent }}
+      >
+        <Icon className="text-lg" />
+      </div>
+      <div className="font-display flex-1 text-[15px] font-bold text-white">
+        {title}
+      </div>
+      <button
+        onClick={onToggle}
+        className="relative h-[26px] w-[46px] cursor-pointer rounded-full border-0 transition-[background] duration-200"
+        style={{
+          background: value ? accent : 'rgba(255,255,255,0.1)'
+        }}
+        aria-pressed={value}
+        aria-label={title}
+      >
+        <span
+          className="absolute top-[2px] block h-[22px] w-[22px] rounded-full bg-white shadow-[0_2px_4px_rgba(0,0,0,0.3)] transition-[left] duration-200"
+          style={{ left: value ? 22 : 2 }}
+        />
+      </button>
+    </div>
   );
 }

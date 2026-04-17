@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
+import { Nunito, Sora } from 'next/font/google';
 
 import './globals.css';
 
@@ -7,13 +7,16 @@ import { appConfig } from '@/config/app.config';
 import { AnalyticsProvider } from '@analytics/providers/AnalyticsProvider';
 import { AnalyticsPostHogConfig } from '@analytics/services/posthog/types';
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
-  subsets: ['latin']
+const sora = Sora({
+  variable: '--font-sora',
+  weight: ['400', '500', '600', '700', '800'],
+  subsets: ['latin'],
+  display: 'swap'
 });
 
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
+const nunito = Nunito({
+  variable: '--font-nunito',
+  weight: ['400', '600', '700', '800', '900'],
   subsets: ['latin']
 });
 
@@ -67,9 +70,7 @@ export default function RootLayout({
             content="black-translucent"
           />
         </head>
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        >
+        <body className={`${sora.variable} ${nunito.variable} antialiased`}>
           {children}
         </body>
       </AnalyticsProvider>

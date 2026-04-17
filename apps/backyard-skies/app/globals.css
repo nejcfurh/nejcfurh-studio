@@ -1,10 +1,10 @@
 @import 'tailwindcss';
 
 @theme inline {
-  --color-background: #0a1628;
+  --color-background: #050a1a;
   --color-foreground: #ffffff;
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-nunito);
+  --font-display: var(--font-sora);
 }
 
 @layer base {
@@ -35,7 +35,10 @@
     min-height: 100vh;
     min-height: -webkit-fill-available;
     overflow: hidden;
-    background: #0a1628;
+    background:
+      radial-gradient(1200px 700px at 70% -10%, #1a2340 0%, transparent 60%),
+      radial-gradient(800px 600px at 20% 110%, #0d1830 0%, transparent 60%),
+      #050a1a;
     color: #ffffff;
     font-family: var(
       --font-sans,
@@ -134,5 +137,35 @@
   50% {
     transform: translateY(-25px) scale(1.4);
     opacity: 0.4;
+  }
+}
+
+@keyframes floatDust {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 0.3;
+  }
+
+  50% {
+    transform: translateY(-20px) scale(1.4);
+    opacity: 0.9;
+  }
+}
+
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes hover-y {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
   }
 }
