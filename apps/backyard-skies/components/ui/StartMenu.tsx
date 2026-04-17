@@ -1,13 +1,14 @@
 'use client';
 
+import { ACCENT, BG_IMAGE } from '@/lib/designTokens';
 import { useGameStore } from '@/store/gameStore';
 import { AnimatePresence } from '@repo/ui/animation';
-import { AnimatedButton, AnimatedDiv } from '@repo/ui/animation/core';
+import { AnimatedDiv } from '@repo/ui/animation/core';
 import { useEffect, useState } from 'react';
-import { PiBird, PiGear } from 'react-icons/pi';
+import { PiGear, PiPlayFill } from 'react-icons/pi';
 
-import FloatingParticles from './FloatingParticles';
 import Leaderboard from './Leaderboard';
+import { ArcadeButton, Particles } from './primitives';
 import Title from './Title';
 import Top3Leaderboard from './Top3Leaderboard';
 
@@ -25,51 +26,57 @@ export default function StartMenu() {
 
   const topPlayers = leaderboard.slice(0, 3);
 
+  const handlePlay = () => {
+    const hasProfile = localStorage.getItem('backyard-skies-name');
+    setGameState(hasProfile ? 'species-select' : 'settings');
+  };
+
   return (
     <AnimatedDiv
-      className="h-100dvh z-50 flex w-full flex-col bg-[url('/menu-bg.jpg')] bg-cover bg-center bg-no-repeat"
+      className="absolute inset-0 z-50 flex flex-col overflow-hidden"
+      style={{ background: BG_IMAGE }}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0, scale: 0.97 }}
       transition={{ duration: 0.25 }}
     >
-      <FloatingParticles />
+      {/* BACKGROUND */}
+      <div
+        className="absolute inset-0 opacity-90 brightness-110 contrast-[1.05] saturate-110"
+        style={{
+          background: `
+            radial-gradient(80% 50% at 50% 15%, ${ACCENT.main}22 0%, transparent 60%),
+            url('/menu-bg.jpg') center/cover no-repeat
+          `
+        }}
+      />
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_0%,rgba(5,10,26,0.4)_50%,rgba(5,10,26,0.95)_100%)]" />
+      <Particles count={40} color={ACCENT.main} />
 
-      {/* CONTENT */}
-      <div className="relative z-10 flex flex-col items-center justify-between px-8 pb-10 md:pt-5">
+      {/* MAIN CONTENT */}
+      <div className="relative z-10 my-5 flex h-full flex-col px-6">
         {/* TITLE */}
-        <Title />
-
-        {/* START BUTTON */}
+        <div className="flex flex-col items-center">
+          <Title />
+        </div>
+        {/* CTA */}
         <AnimatedDiv
-          className="my-5 w-full max-w-80"
-          initial={{ opacity: 0, y: 30 }}
+          className="mt-auto mb-3 w-full"
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ ...spring, delay: 0.4 }}
         >
-          <AnimatedButton
-            onClick={() => {
-              const hasProfile = localStorage.getItem('backyard-skies-name');
-              setGameState(hasProfile ? 'species-select' : 'settings');
-            }}
-            className="my-6 flex w-full cursor-pointer items-center justify-center gap-2.5 rounded-2xl border-none bg-linear-to-br from-[#00AEEF] to-[#0077BB] px-6 py-[18px] text-[17px] font-bold text-white shadow-[0_6px_30px_rgba(0,174,239,0.35)]"
-            whileTap={{ scale: 0.96 }}
-            whileHover={{ scale: 1.02 }}
-            transition={spring}
-          >
-            START FLYING
-            <span className="text-xl">
-              <PiBird />
-            </span>
-          </AnimatedButton>
+          <ArcadeButton accent={ACCENT.main} onClick={handlePlay}>
+            <PiPlayFill className="text-sm" color="#0a0a0a" /> Start Flying
+          </ArcadeButton>
         </AnimatedDiv>
 
         {/* LEADERBOARD */}
         <AnimatedDiv
-          initial={{ opacity: 0, y: 40 }}
+          className="my-3 w-full"
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ ...spring, delay: 0.55 }}
-          className="w-full max-w-80"
         >
           <Top3Leaderboard
             topPlayers={topPlayers}
@@ -77,26 +84,24 @@ export default function StartMenu() {
           />
         </AnimatedDiv>
 
-        {/* BOTTOM NAV */}
+        {/* SETTINGS */}
         <AnimatedDiv
-          className="flex items-end gap-9 pb-2"
+          className="flex justify-center"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ ...spring, delay: 0.7 }}
         >
           <button
             onClick={() => setGameState('settings')}
-            className="flex cursor-pointer flex-col items-center gap-1 border-none bg-transparent text-base font-semibold tracking-wide text-white/70"
+            className="cursor-pointer bg-transparent p-2 text-5xl text-white/70"
+            aria-label="Settings"
           >
-            <span className="text-4xl">
-              <PiGear />
-            </span>
-            <span>SETTINGS</span>
+            <PiGear />
           </button>
         </AnimatedDiv>
       </div>
 
-      {/* ALL RANKINGS */}
+      {/* LEADERBOARD OVERLAY */}
       <AnimatePresence>
         {showRankings && (
           <Leaderboard

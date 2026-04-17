@@ -12,8 +12,8 @@ export function computePerchPosition(feeder: FeederData): PerchPosition {
     return {
       position: [
         feeder.position[0],
-        feeder.position[1] + 1.85,
-        feeder.position[2] + 0.9
+        feeder.position[1] + 2.3,
+        feeder.position[2] + 0.4
       ],
       rotation: Math.PI
     };
@@ -21,8 +21,8 @@ export function computePerchPosition(feeder: FeederData): PerchPosition {
     return {
       position: [
         feeder.position[0],
-        feeder.position[1] + 2.35,
-        feeder.position[2] + 1.1
+        feeder.position[1] + 2.5,
+        feeder.position[2] + 0.9
       ],
       rotation: Math.PI
     };
