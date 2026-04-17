@@ -42,7 +42,7 @@ export default function StartMenu() {
     >
       {/* BACKGROUND */}
       <div
-        className="absolute inset-0 opacity-50 contrast-[1.05] saturate-110"
+        className="absolute inset-0 opacity-90 brightness-110 contrast-[1.05] saturate-110"
         style={{
           background: `
             radial-gradient(80% 50% at 50% 15%, ${ACCENT.main}22 0%, transparent 60%),
