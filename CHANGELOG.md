@@ -1,5 +1,21 @@
 # Changelog
 
+## v1.19.0 (2026-04-17)
+
+
+### Features
+
+- feat(backyard-skies): Game redesign (#72) (bd5ba10)
+- feat(backyard-skies): Improved feeder models (e825a84)
+- feat(backyard-skies): Redesign the app (3841c20)
+
+
+### Bug Fixes & Improvements
+
+- fix(backyard-skies): Improve desktop paddings and margins (c482179)
+
+# Changelog
+
 ## v1.18.0 (2026-04-10)
 
 
