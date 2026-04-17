@@ -1,6 +1,21 @@
-import { LeaderboardEntry } from '@/types';
+'use client';
+
+import { ACCENT, SPECIES_ICON } from '@/lib/designTokens';
+import { BirdSpeciesId, LeaderboardEntry } from '@/types';
+import Image from 'next/image';
+import { BiChevronRight } from 'react-icons/bi';
 import { FaTrophy } from 'react-icons/fa';
-import { GoDash } from 'react-icons/go';
+
+import { GlassCard } from './primitives';
+
+const MEDALS = ['#ffd24b', '#d4d4d4', '#c08060'];
+
+const SPECIES_PRETTY: Record<BirdSpeciesId, string> = {
+  cardinal: 'Northern Cardinal',
+  tanager: 'Scarlet Tanager',
+  bunting: 'Indigo Bunting',
+  starling: 'Common Starling'
+};
 
 const Top3Leaderboard = ({
   topPlayers,
@@ -10,61 +25,75 @@ const Top3Leaderboard = ({
   handleViewAllRankings: () => void;
 }) => {
   return (
-    <div className="mb-5 min-h-[200px] w-full rounded-[18px] bg-black/40 px-[18px] py-4 backdrop-blur-xl">
-      <div className="mb-3.5 flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <span>
+    <GlassCard onClick={handleViewAllRankings} className="cursor-pointer p-4">
+      <div className="mb-3 flex items-center justify-between">
+        <div className="flex items-center gap-2 text-white">
+          <span style={{ color: ACCENT.main }}>
             <FaTrophy />
           </span>
-          <span className="text-lg font-bold text-white">High Flyers</span>
+          <span className="font-display text-lg font-bold tracking-[0.02em]">
+            High Flyers
+          </span>
         </div>
-        <span className="rounded-[10px] bg-[rgba(255,217,0,0.34)] px-2 py-[3px] text-xs font-bold tracking-wider text-[#FFD700] uppercase">
-          Records
+        <span
+          className="font-display flex items-center gap-1 text-sm font-bold tracking-[0.15em] uppercase"
+          style={{ color: ACCENT.main }}
+        >
+          All <BiChevronRight className="text-lg" />
         </span>
       </div>
 
       {topPlayers.length > 0 ? (
-        <div className="flex flex-col gap-2.5">
-          {topPlayers.map((entry, i) => (
-            <div key={i} className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <span className="w-4 text-lg font-bold text-white">
-                  {i + 1}.
-                </span>
-                <div className="flex items-center gap-1">
-                  <p className="text-base font-medium text-white">
+        <div className="flex flex-col gap-3">
+          {topPlayers.map((entry, i) => {
+            const speciesId = entry.species as BirdSpeciesId;
+            const icon = SPECIES_ICON[speciesId];
+            const pretty = SPECIES_PRETTY[speciesId] ?? entry.species;
+            const medal = MEDALS[i];
+            return (
+              <div key={i} className="flex items-center gap-3">
+                <div
+                  className="font-display flex h-[30px] w-[30px] items-center justify-center rounded-md text-lg font-extrabold"
+                  style={{
+                    background: `${medal}22`,
+                    color: medal
+                  }}
+                >
+                  {i + 1}
+                </div>
+                {icon ? (
+                  <Image
+                    src={icon}
+                    alt={pretty}
+                    width={26}
+                    height={26}
+                    className="h-8 w-8 object-contain"
+                  />
+                ) : (
+                  <span className="h-8 w-8" />
+                )}
+                <div className="min-w-0 flex-1">
+                  <p className="font-display truncate text-base font-bold text-white">
                     {entry.name}
                   </p>
-                  <GoDash />
-                  <p className="text-sm text-white/80 capitalize">
-                    {entry.species}
+                  <p className="truncate text-xs text-white/35 capitalize italic">
+                    {pretty}
                   </p>
                 </div>
-              </div>
-              <div className="text-right">
-                <span className="text-[13px] font-bold text-white">
+                <p className="font-display text-[13px] font-bold text-white">
                   {entry.distance.toFixed(1)}
-                </span>
-                <span className="ml-[3px] text-[9px] text-white/30">km</span>
+                  <span className="ml-0.5 text-[9px] text-white/30">KM</span>
+                </p>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       ) : (
-        <p className="mt-10 py-4 text-center text-base text-white/50">
+        <p className="py-3 text-center text-sm text-white/40">
           No flights yet. Be the first!
         </p>
       )}
-
-      {topPlayers.length > 0 && (
-        <button
-          onClick={handleViewAllRankings}
-          className="mt-3.5 w-full cursor-pointer border-none bg-transparent text-center text-[11px] font-semibold text-[#00AEEF]"
-        >
-          VIEW ALL RANKINGS
-        </button>
-      )}
-    </div>
+    </GlassCard>
   );
 };
 
