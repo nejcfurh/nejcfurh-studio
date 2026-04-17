@@ -31,7 +31,7 @@ export default function HUD() {
   const showFeedingState = gameState === 'feeding' || gameState === 'drinking';
 
   return (
-    <div className="pointer-events-none absolute inset-0 z-50">
+    <div className="pointer-events-none absolute inset-0 z-50 md:mt-5">
       {/* TOP BAR */}
       <div className="flex items-start justify-between px-4 pt-[max(18px,env(safe-area-inset-top))]">
         <ResourceRing

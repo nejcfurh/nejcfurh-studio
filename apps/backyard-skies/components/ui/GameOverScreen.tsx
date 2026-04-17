@@ -146,7 +146,7 @@ export default function GameOverScreen() {
       />
       <Particles count={20} color={death.color} />
 
-      <div className="relative z-10 mt-5 flex h-full flex-col gap-3 px-6">
+      <div className="relative z-10 mt-5 flex h-full flex-col gap-3 px-6 md:mt-10">
         {/* Death card */}
         <div className="text-center">
           <div
@@ -275,7 +275,7 @@ export default function GameOverScreen() {
             </p>
           )}
         </GlassCard>
-        <div className="mt-3 flex gap-4">
+        <div className="mt-3 flex gap-4 md:mt-2">
           <ArcadeButton accent={ACCENT.main} onClick={() => startGame()}>
             <PiArrowClockwiseBold className="text-sm" color="#0a0a0a" /> Fly
             Again

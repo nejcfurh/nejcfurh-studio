@@ -53,7 +53,7 @@ export function ArcadeButton({
       <button
         type={type}
         onClick={onClick}
-        className="font-display flex w-full cursor-pointer items-center justify-center gap-2 rounded-[18px] border border-white/10 bg-white/10 px-5 py-4 text-[15px] font-bold tracking-[0.05em] text-white uppercase"
+        className="font-display flex w-full cursor-pointer items-center justify-center gap-2 rounded-[18px] border border-white/10 bg-white/10 px-5 py-4 text-[15px] font-bold tracking-[0.05em] text-white uppercase md:text-xs"
         style={style}
       >
         {children}
@@ -64,7 +64,7 @@ export function ArcadeButton({
     <button
       type={type}
       onClick={onClick}
-      className="font-display relative flex w-full cursor-pointer items-center justify-center gap-2.5 overflow-hidden rounded-[20px] border-0 px-5 py-[18px] text-[16px] font-extrabold tracking-[0.08em] text-[#0a0a0a] uppercase"
+      className="font-display relative flex w-full cursor-pointer items-center justify-center gap-2.5 overflow-hidden rounded-[20px] border-0 px-5 py-[18px] text-[16px] font-extrabold tracking-[0.08em] text-[#0a0a0a] uppercase md:text-xs"
       style={{
         background: `linear-gradient(180deg, ${accent} 0%, ${shade(accent, -15)} 100%)`,
         boxShadow: `0 10px 30px ${accent}55, inset 0 1px 0 rgba(255,255,255,0.4)`,
