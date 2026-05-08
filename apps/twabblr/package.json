@@ -28,7 +28,7 @@
     "clsx": "^2.1.1",
     "date-fns": "^3.6.0",
     "lodash": "^4.17.21",
-    "next": "16.2.3",
+    "next": "16.2.6",
     "next-auth": "5.0.0-beta.30",
     "next-cloudinary": "^6.6.2",
     "pusher": "^5.2.0",
