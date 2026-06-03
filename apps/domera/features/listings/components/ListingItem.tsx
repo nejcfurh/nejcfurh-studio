@@ -8,6 +8,7 @@ import {
   CarouselPrevious,
   type CarouselApi
 } from '@/components/ui/carousel';
+import { useAuth } from '@/features/auth/hooks/useAuth';
 import { DeleteListingDialog } from '@/features/listings/components/DeleteListingDialog';
 import { EditListingDialog } from '@/features/listings/components/EditListingDialog';
 import { formatDistanceToNow } from 'date-fns';
@@ -31,6 +32,8 @@ const stopLinkNav = (e: MouseEvent) => {
 };
 
 export const ListingItem = ({ listing }: ListingItemProps) => {
+  const { user } = useAuth();
+  const isOwner = user?.uid === listing.ownerUid;
   const [api, setApi] = useState<CarouselApi>();
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [editOpen, setEditOpen] = useState(false);
@@ -68,7 +71,7 @@ export const ListingItem = ({ listing }: ListingItemProps) => {
 
   return (
     <li className="group bg-card text-card-foreground overflow-hidden rounded-xl shadow-sm transition-shadow duration-200 hover:shadow-md">
-      <Link href={`/listings/${listing.id}`} className="block">
+      <Link href={`/category/${listing.type}/${listing.id}`} className="block">
         <div className="relative aspect-16/10 overflow-hidden">
           <Carousel
             setApi={setApi}
@@ -191,39 +194,45 @@ export const ListingItem = ({ listing }: ListingItemProps) => {
               )}
             </div>
 
-            <div className="flex items-center gap-1">
-              <button
-                type="button"
-                onClick={handleEditClick}
-                aria-label="Edit listing"
-                className="text-muted-foreground hover:bg-muted hover:text-foreground grid size-8 cursor-pointer place-items-center rounded-md transition-colors"
-              >
-                <FiEdit2 className="size-4" />
-              </button>
-              <button
-                type="button"
-                onClick={handleDeleteClick}
-                aria-label="Delete listing"
-                className="text-muted-foreground hover:bg-destructive/10 hover:text-destructive grid size-8 cursor-pointer place-items-center rounded-md transition-colors"
-              >
-                <FiTrash2 className="size-4" />
-              </button>
-            </div>
+            {isOwner && (
+              <div className="flex items-center gap-1">
+                <button
+                  type="button"
+                  onClick={handleEditClick}
+                  aria-label="Edit listing"
+                  className="text-muted-foreground hover:bg-muted hover:text-foreground grid size-8 cursor-pointer place-items-center rounded-md transition-colors"
+                >
+                  <FiEdit2 className="size-4" />
+                </button>
+                <button
+                  type="button"
+                  onClick={handleDeleteClick}
+                  aria-label="Delete listing"
+                  className="text-muted-foreground hover:bg-destructive/10 hover:text-destructive grid size-8 cursor-pointer place-items-center rounded-md transition-colors"
+                >
+                  <FiTrash2 className="size-4" />
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </Link>
 
-      <EditListingDialog
-        listing={listing}
-        open={editOpen}
-        onOpenChange={setEditOpen}
-      />
-      <DeleteListingDialog
-        listingId={listing.id}
-        listingName={listing.name}
-        open={deleteOpen}
-        onOpenChange={setDeleteOpen}
-      />
+      {isOwner && (
+        <>
+          <EditListingDialog
+            listing={listing}
+            open={editOpen}
+            onOpenChange={setEditOpen}
+          />
+          <DeleteListingDialog
+            listingId={listing.id}
+            listingName={listing.name}
+            open={deleteOpen}
+            onOpenChange={setDeleteOpen}
+          />
+        </>
+      )}
     </li>
   );
 };

@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from 'next/font/google';
 
 import './globals.css';
 
+import DomeraFooter from '@/components/Footer';
 import DomeraHeader from '@/components/Header';
 import { Toaster } from '@/components/ui/sonner';
 import { appConfig } from '@/config/app.config';
@@ -58,6 +59,7 @@ export default function Layout({
           <AuthProvider>
             <DomeraHeader />
             {children}
+            <DomeraFooter />
             <Toaster position="bottom-center" richColors closeButton />
           </AuthProvider>
         </body>
