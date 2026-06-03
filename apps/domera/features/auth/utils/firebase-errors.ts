@@ -16,7 +16,9 @@ const FIREBASE_AUTH_MESSAGES: Record<string, string> = {
   'auth/popup-blocked':
     'The sign-in popup was blocked by the browser. Allow popups and try again.',
   'auth/account-exists-with-different-credential':
-    'An account with that email exists with a different sign-in method.'
+    'An account with that email exists with a different sign-in method.',
+  'auth/requires-recent-login':
+    'For security, please sign in again before changing your email.'
 };
 
 export const getFirebaseErrorMessage = (error: unknown): string => {

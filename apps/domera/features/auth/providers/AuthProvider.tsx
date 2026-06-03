@@ -34,6 +34,7 @@ type AuthContextValue = {
   signInWithGoogle: () => Promise<void>;
   sendPasswordReset: (email: string) => Promise<void>;
   signOut: () => Promise<void>;
+  refreshUser: () => Promise<void>;
 };
 
 export const AuthContext = createContext<AuthContextValue | null>(null);
@@ -48,6 +49,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       setLoading(false);
     });
     return unsubscribe;
+  }, []);
+
+  const refreshUser = useCallback(async () => {
+    const current = firebaseAuth.currentUser;
+    if (!current) return;
+    await current.reload();
   }, []);
 
   const establishSession = useCallback(async (next: User) => {
@@ -104,7 +111,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       signUpWithEmail,
       signInWithGoogle,
       sendPasswordReset,
-      signOut
+      signOut,
+      refreshUser
     }),
     [
       user,
@@ -113,7 +121,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       signUpWithEmail,
       signInWithGoogle,
       sendPasswordReset,
-      signOut
+      signOut,
+      refreshUser
     ]
   );
 

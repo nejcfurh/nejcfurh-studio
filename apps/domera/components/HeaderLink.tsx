@@ -17,7 +17,7 @@ const HeaderLink = ({
   return (
     <Link
       href={href}
-      className={`flex h-full items-center justify-center pt-3 text-base font-semibold ${pathMatchRoute(href) ? 'border-b-4 border-[#BF9D61] text-black' : 'border-b-4 border-transparent text-gray-400'}`}
+      className={`flex h-full items-center justify-center pt-2 text-base font-semibold ${pathMatchRoute(href) ? 'border-b-4 border-[#BF9D61] text-black' : 'border-b-4 border-transparent text-gray-400'}`}
     >
       {children}
     </Link>

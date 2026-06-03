@@ -50,7 +50,7 @@ export default function Layout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" data-scroll-behavior="smooth">
       <AnalyticsProvider posthogConfig={posthogConfig}>
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}

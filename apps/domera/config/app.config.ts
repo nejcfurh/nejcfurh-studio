@@ -22,6 +22,10 @@ const AppConfigValidation = z.object({
     apiKey: z.string(),
     apiHost: z.string()
   }),
+  supabase: z.object({
+    url: z.string(),
+    serviceRoleKey: z.string()
+  }),
   serviceName: z.string(),
   webRootUrl: z.string()
 });
@@ -32,6 +36,10 @@ export const appConfig = AppConfigValidation.parse({
   posthog: {
     apiKey: process.env.NEXT_PUBLIC_POSTHOG_KEY,
     apiHost: process.env.NEXT_PUBLIC_POSTHOG_HOST
+  },
+  supabase: {
+    url: process.env.NEXT_PUBLIC_SUPABASE_URL,
+    serviceRoleKey: process.env.SUPABASE_SERVICE_ROLE_KEY
   },
   firebase: {
     apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
