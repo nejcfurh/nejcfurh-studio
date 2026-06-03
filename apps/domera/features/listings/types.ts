@@ -1,0 +1,20 @@
+export type Listing = {
+  id: string;
+  ownerUid: string;
+  type: 'sell' | 'rent';
+  name: string;
+  bedrooms: number;
+  bathrooms: number;
+  parking: boolean;
+  furnished: boolean;
+  address: string;
+  description: string;
+  offer: boolean;
+  regularPrice: number;
+  discountedPrice: number | null;
+  imageUrls: string[];
+  coverImage: string | null;
+  geolocation: { lat: number; lng: number } | null;
+  createdAt: Date | null;
+  updatedAt: Date | null;
+};

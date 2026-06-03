@@ -2,7 +2,7 @@ import { adminAuth } from '@/lib/firebase/admin';
 import { NextResponse, type NextRequest } from 'next/server';
 
 const SESSION_COOKIE_NAME = 'firebase-session';
-const PROTECTED_PREFIXES = ['/profile'];
+const PROTECTED_PREFIXES = ['/profile', '/create-listing'];
 const AUTH_PREFIXES = ['/auth/login', '/auth/register'];
 
 export const proxy = async (request: NextRequest) => {
@@ -52,5 +52,10 @@ export const proxy = async (request: NextRequest) => {
 };
 
 export const config = {
-  matcher: ['/profile/:path*', '/auth/login', '/auth/register']
+  matcher: [
+    '/profile/:path*',
+    '/create-listing/:path*',
+    '/auth/login',
+    '/auth/register'
+  ]
 };
