@@ -3,7 +3,10 @@ import { Geist, Geist_Mono } from 'next/font/google';
 
 import './globals.css';
 
+import DomeraHeader from '@/components/Header';
+import { Toaster } from '@/components/ui/sonner';
 import { appConfig } from '@/config/app.config';
+import { AuthProvider } from '@/features/auth/providers/AuthProvider';
 import { AnalyticsProvider } from '@analytics/providers/AnalyticsProvider';
 import { AnalyticsPostHogConfig } from '@analytics/services/posthog/types';
 
@@ -52,7 +55,11 @@ export default function Layout({
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
-          {children}
+          <AuthProvider>
+            <DomeraHeader />
+            {children}
+            <Toaster position="bottom-center" richColors closeButton />
+          </AuthProvider>
         </body>
       </AnalyticsProvider>
     </html>

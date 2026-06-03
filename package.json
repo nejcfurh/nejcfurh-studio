@@ -45,15 +45,16 @@
     },
     "onlyBuiltDependencies": [
       "@clerk/shared",
+      "@firebase/util",
+      "@prisma/client",
+      "@prisma/engines",
       "bcrypt",
       "core-js",
       "esbuild",
+      "prisma",
       "protobufjs",
       "sharp",
-      "unrs-resolver",
-      "@prisma/client",
-      "@prisma/engines",
-      "prisma"
+      "unrs-resolver"
     ]
   }
 }
