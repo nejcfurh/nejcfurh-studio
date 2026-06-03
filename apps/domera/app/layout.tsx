@@ -18,8 +18,17 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Design Lab | <nejcfurh/>',
-  description: 'Animations, components, UI clones & tools by <nejcfurh/>'
+  title: 'Domera | Find a house. Make it your home.',
+  description: 'Find a house. Make it your home.',
+  openGraph: {
+    title: 'Domera | Find a house. Make it your home.',
+    description: 'Find a house. Make it your home.',
+    images: [
+      {
+        url: 'og.jpg'
+      }
+    ]
+  }
 };
 
 const posthogConfig: AnalyticsPostHogConfig = {
