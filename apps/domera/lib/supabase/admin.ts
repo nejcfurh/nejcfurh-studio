@@ -2,7 +2,7 @@ import 'server-only';
 
 import { createClient } from '@repo/database/supabase';
 
-export const PROFILE_BUCKET = 'domera-images';
+export { STORAGE_BUCKET } from './constants';
 
 export const supabaseAdmin = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,

@@ -96,12 +96,12 @@ export const ListingItem = ({ listing }: ListingItemProps) => {
               )}
             </CarouselContent>
 
-            {hasMultiple && (
+            {hasMultiple ? (
               <div onClick={stopLinkNav}>
                 <CarouselPrevious className="left-2 size-8 bg-white/90 text-gray-900 opacity-0 transition-opacity duration-200 group-hover:opacity-100 hover:bg-white" />
                 <CarouselNext className="right-2 size-8 bg-white/90 text-gray-900 opacity-0 transition-opacity duration-200 group-hover:opacity-100 hover:bg-white" />
               </div>
-            )}
+            ) : null}
           </Carousel>
 
           <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-black/55 via-transparent to-black/15" />
@@ -116,36 +116,36 @@ export const ListingItem = ({ listing }: ListingItemProps) => {
             >
               {listing.type === 'rent' ? 'For Rent' : 'For Sale'}
             </span>
-            {hasDiscount && (
+            {hasDiscount ? (
               <span className="rounded-full bg-emerald-500 px-2.5 py-1 text-xs font-semibold tracking-wide text-white shadow-sm">
                 Offer
               </span>
-            )}
+            ) : null}
           </div>
 
-          {listing.createdAt && (
+          {listing.createdAt ? (
             <span className="pointer-events-none absolute top-3 right-3 rounded-full bg-black/45 px-2.5 py-1 text-xs font-medium text-white backdrop-blur">
               {formatDistanceToNow(listing.createdAt, { addSuffix: true })}
             </span>
-          )}
+          ) : null}
 
           <div className="pointer-events-none absolute bottom-3 left-3 flex flex-wrap items-end gap-2">
             <span className="inline-flex items-baseline rounded-full bg-white px-4 py-2 text-xl font-bold text-gray-900 shadow-lg">
               ${formatPrice(displayPrice)}
-              {priceSuffix && (
+              {priceSuffix ? (
                 <span className="ml-1 text-base font-medium text-gray-500">
                   {priceSuffix}
                 </span>
-              )}
+              ) : null}
             </span>
-            {hasDiscount && (
+            {hasDiscount ? (
               <span className="rounded-full bg-black/55 px-2 py-0.5 text-[11px] font-medium text-white line-through backdrop-blur">
                 ${formatPrice(listing.regularPrice)}
               </span>
-            )}
+            ) : null}
           </div>
 
-          {hasMultiple && (
+          {hasMultiple ? (
             <div className="pointer-events-none absolute right-3 bottom-3 flex items-center gap-1">
               {images.map((url, i) => (
                 <span
@@ -156,7 +156,7 @@ export const ListingItem = ({ listing }: ListingItemProps) => {
                 />
               ))}
             </div>
-          )}
+          ) : null}
         </div>
 
         <div className="flex flex-col gap-2 p-4">
@@ -179,22 +179,22 @@ export const ListingItem = ({ listing }: ListingItemProps) => {
                 <Bath className="size-4" />
                 <span className="font-medium">{listing.bathrooms}</span>
               </span>
-              {listing.parking && (
+              {listing.parking ? (
                 <span
                   className="flex items-center gap-1.5"
                   title="Parking included"
                 >
                   <Car className="size-4" />
                 </span>
-              )}
-              {listing.furnished && (
+              ) : null}
+              {listing.furnished ? (
                 <span className="flex items-center gap-1.5" title="Furnished">
                   <Sofa className="size-4" />
                 </span>
-              )}
+              ) : null}
             </div>
 
-            {isOwner && (
+            {isOwner ? (
               <div className="flex items-center gap-1">
                 <button
                   type="button"
@@ -213,12 +213,12 @@ export const ListingItem = ({ listing }: ListingItemProps) => {
                   <FiTrash2 className="size-4" />
                 </button>
               </div>
-            )}
+            ) : null}
           </div>
         </div>
       </Link>
 
-      {isOwner && (
+      {isOwner ? (
         <>
           <EditListingDialog
             listing={listing}
@@ -232,7 +232,7 @@ export const ListingItem = ({ listing }: ListingItemProps) => {
             onOpenChange={setDeleteOpen}
           />
         </>
-      )}
+      ) : null}
     </li>
   );
 };

@@ -12,28 +12,61 @@ import {
 } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { Mail, MessageSquare } from 'lucide-react';
+import { getLandlordContact } from '@/features/listings/actions/get-landlord-contact';
+import { Loader2, Mail, MessageSquare } from 'lucide-react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { useState } from 'react';
+import { toast } from 'sonner';
 
 type Props = {
-  landlordName: string;
-  landlordEmail: string;
+  listingId: string;
   listingName: string;
+  viewerSignedIn: boolean;
 };
 
-export const ContactLandlordDialog = ({
-  landlordName,
-  landlordEmail,
-  listingName
-}: Props) => {
-  const [message, setMessage] = useState('');
+type Contact = { email: string; displayName: string };
 
-  const mailtoHref = `mailto:${landlordEmail}?subject=${encodeURIComponent(
-    listingName
-  )}&body=${encodeURIComponent(message)}`;
+export const ContactLandlordDialog = ({
+  listingId,
+  listingName,
+  viewerSignedIn
+}: Props) => {
+  const pathname = usePathname();
+  const [message, setMessage] = useState('');
+  const [contact, setContact] = useState<Contact | null>(null);
+  const [loading, setLoading] = useState(false);
+
+  const handleOpenChange = async (open: boolean) => {
+    if (!open) {
+      setMessage('');
+      return;
+    }
+    if (contact || loading || !viewerSignedIn) return;
+    setLoading(true);
+    try {
+      const result = await getLandlordContact(listingId);
+      setContact(result);
+    } catch (err) {
+      toast.error(
+        err instanceof Error
+          ? err.message
+          : 'Could not load landlord contact info.'
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const mailtoHref =
+    contact && message.trim().length > 0
+      ? `mailto:${contact.email}?subject=${encodeURIComponent(
+          listingName
+        )}&body=${encodeURIComponent(message)}`
+      : undefined;
 
   return (
-    <Dialog>
+    <Dialog onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>
         <button
           type="button"
@@ -46,31 +79,61 @@ export const ContactLandlordDialog = ({
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Message {landlordName}</DialogTitle>
+          <DialogTitle>
+            {viewerSignedIn
+              ? `Message ${contact?.displayName ?? 'the landlord'}`
+              : 'Sign in to contact'}
+          </DialogTitle>
           <DialogDescription>
-            About <span className="font-medium">{listingName}</span>. Your email
-            client will open with the message pre-filled.
+            {viewerSignedIn ? (
+              <>
+                About <span className="font-medium">{listingName}</span>. Your
+                email client will open with the message pre-filled.
+              </>
+            ) : (
+              'You need an account to contact landlords. This keeps inboxes spam-free.'
+            )}
           </DialogDescription>
         </DialogHeader>
 
-        <div className="flex flex-col gap-2">
-          <Label htmlFor="contact-message">Message</Label>
-          <Textarea
-            id="contact-message"
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            placeholder="Hi, I'm interested in this listing…"
-            rows={5}
-          />
-        </div>
+        {viewerSignedIn ? (
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="contact-message">Message</Label>
+            <Textarea
+              id="contact-message"
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              placeholder="Hi, I'm interested in this listing…"
+              rows={5}
+              disabled={loading || !contact}
+            />
+          </div>
+        ) : null}
 
         <DialogFooter>
-          <Button asChild disabled={message.trim().length === 0}>
-            <a href={mailtoHref}>
-              <Mail />
-              Send via email
-            </a>
-          </Button>
+          {viewerSignedIn ? (
+            <Button asChild disabled={!mailtoHref}>
+              {mailtoHref ? (
+                <a href={mailtoHref}>
+                  <Mail />
+                  Send via email
+                </a>
+              ) : (
+                <span>
+                  {loading ? <Loader2 className="animate-spin" /> : <Mail />}
+                  {loading ? 'Loading' : 'Send via email'}
+                </span>
+              )}
+            </Button>
+          ) : (
+            <Button asChild>
+              <Link
+                href={`/auth/login?next=${encodeURIComponent(pathname ?? '/')}`}
+              >
+                Sign in
+              </Link>
+            </Button>
+          )}
         </DialogFooter>
       </DialogContent>
     </Dialog>

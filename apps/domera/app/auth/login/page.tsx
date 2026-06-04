@@ -14,12 +14,18 @@ import { motion } from '@repo/ui/animation';
 import { Loader2 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 import { toast } from 'sonner';
 
+const isSafeRedirectPath = (path: string | null): path is string =>
+  typeof path === 'string' && path.startsWith('/') && !path.startsWith('//');
+
 const LoginPage = () => {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const nextParam = searchParams.get('next');
+  const redirectTo = isSafeRedirectPath(nextParam) ? nextParam : '/';
   const { signInWithEmail, signInWithGoogle } = useAuth();
   const [formData, setFormData] = useState({
     email: '',
@@ -38,7 +44,7 @@ const LoginPage = () => {
     try {
       await signInWithEmail(formData.email, formData.password);
       toast.success('Welcome back!');
-      router.push('/');
+      router.push(redirectTo);
       router.refresh();
     } catch (err) {
       toast.error(getFirebaseErrorMessage(err));
@@ -52,7 +58,7 @@ const LoginPage = () => {
     try {
       await signInWithGoogle();
       toast.success('Welcome back!');
-      router.push('/');
+      router.push(redirectTo);
       router.refresh();
     } catch (err) {
       toast.error(getFirebaseErrorMessage(err));

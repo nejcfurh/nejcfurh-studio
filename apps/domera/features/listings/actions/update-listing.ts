@@ -1,12 +1,11 @@
 'use server';
 
-import { adminAuth, adminDb } from '@/lib/firebase/admin';
+import { requireUid } from '@/features/auth/utils/require-uid';
+import { LISTINGS_COLLECTION } from '@/features/listings/constants';
+import { listingServerSchema } from '@/features/listings/schemas';
+import { adminDb } from '@/lib/firebase/admin';
 import { FieldValue } from 'firebase-admin/firestore';
 import { revalidatePath } from 'next/cache';
-import { cookies } from 'next/headers';
-
-const SESSION_COOKIE_NAME = 'firebase-session';
-const LISTINGS_COLLECTION = 'listings';
 
 export type UpdateListingInput = {
   type: 'sell' | 'rent';
@@ -26,11 +25,21 @@ export const updateListing = async (
   listingId: string,
   input: UpdateListingInput
 ): Promise<void> => {
-  const cookieStore = await cookies();
-  const sessionCookie = cookieStore.get(SESSION_COOKIE_NAME)?.value;
-  if (!sessionCookie) throw new Error('Not authenticated.');
-  const decoded = await adminAuth.verifySessionCookie(sessionCookie, true);
-  const uid = decoded.uid;
+  const uid = await requireUid();
+
+  const parsed = listingServerSchema.parse({
+    type: input.type,
+    name: input.name,
+    bedrooms: input.bedrooms,
+    bathrooms: input.bathrooms,
+    parking: input.parking,
+    furnished: input.furnished,
+    address: input.address,
+    description: input.description,
+    offer: input.offer,
+    regularPrice: input.regularPrice,
+    discountedPrice: input.discountedPrice ?? undefined
+  });
 
   const ref = adminDb.collection(LISTINGS_COLLECTION).doc(listingId);
   const snap = await ref.get();
@@ -39,26 +48,18 @@ export const updateListing = async (
     throw new Error('You can only edit your own listings.');
   }
 
-  if (
-    input.offer &&
-    (input.discountedPrice === null ||
-      input.discountedPrice >= input.regularPrice)
-  ) {
-    throw new Error('Discounted price must be lower than the regular price.');
-  }
-
   await ref.update({
-    type: input.type,
-    name: input.name.trim(),
-    bedrooms: input.bedrooms,
-    bathrooms: input.bathrooms,
-    parking: input.parking,
-    furnished: input.furnished,
-    address: input.address.trim(),
-    description: input.description.trim(),
-    offer: input.offer,
-    regularPrice: input.regularPrice,
-    discountedPrice: input.offer ? input.discountedPrice : null,
+    type: parsed.type,
+    name: parsed.name,
+    bedrooms: parsed.bedrooms,
+    bathrooms: parsed.bathrooms,
+    parking: parsed.parking,
+    furnished: parsed.furnished,
+    address: parsed.address,
+    description: parsed.description,
+    offer: parsed.offer,
+    regularPrice: parsed.regularPrice,
+    discountedPrice: parsed.offer ? (parsed.discountedPrice ?? null) : null,
     updatedAt: FieldValue.serverTimestamp()
   });
 

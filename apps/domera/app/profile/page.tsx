@@ -99,13 +99,13 @@ const ProfilePage = async () => {
             </Link>
           </Button>
 
-          {listings.length > 0 && (
+          {listings.length > 0 ? (
             <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               {listings.map((listing) => (
                 <ListingItem key={listing.id} listing={listing} />
               ))}
             </ul>
-          )}
+          ) : null}
         </div>
       </div>
     </section>

@@ -1,3 +1,5 @@
+import 'server-only';
+
 import { AppEnvironment } from '@/utils/enums/common.enums';
 import { z } from 'zod';
 
@@ -24,7 +26,8 @@ const AppConfigValidation = z.object({
   }),
   supabase: z.object({
     url: z.string(),
-    serviceRoleKey: z.string()
+    serviceRoleKey: z.string(),
+    anonKey: z.string()
   }),
   serviceName: z.string(),
   webRootUrl: z.string()
@@ -39,7 +42,8 @@ export const appConfig = AppConfigValidation.parse({
   },
   supabase: {
     url: process.env.NEXT_PUBLIC_SUPABASE_URL,
-    serviceRoleKey: process.env.SUPABASE_SERVICE_ROLE_KEY
+    serviceRoleKey: process.env.SUPABASE_SERVICE_ROLE_KEY,
+    anonKey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
   },
   firebase: {
     apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,

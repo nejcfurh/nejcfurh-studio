@@ -1,12 +1,13 @@
 'use server';
 
+import {
+  SESSION_COOKIE_NAME,
+  SESSION_DURATION_MS,
+  USERS_COLLECTION
+} from '@/features/auth/constants';
 import { adminAuth, adminDb } from '@/lib/firebase/admin';
 import { FieldValue } from 'firebase-admin/firestore';
 import { cookies } from 'next/headers';
-
-const SESSION_COOKIE_NAME = 'firebase-session';
-const SESSION_DURATION_MS = 60 * 60 * 24 * 5 * 1000; // 5 days
-const USERS_COLLECTION = 'users';
 
 export const createSession = async (idToken: string) => {
   const decoded = await adminAuth.verifyIdToken(idToken);

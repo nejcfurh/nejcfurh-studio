@@ -20,42 +20,18 @@ import {
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { updateListing } from '@/features/listings/actions/update-listing';
+import {
+  editListingSchema,
+  type EditListingValues
+} from '@/features/listings/schemas';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Loader2, Save } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
-import { z } from 'zod';
 
 import type { Listing } from '../types';
-
-const editListingSchema = z
-  .object({
-    type: z.enum(['sell', 'rent']),
-    name: z.string().trim().min(10).max(64),
-    bedrooms: z.number().int().min(1).max(50),
-    bathrooms: z.number().int().min(1).max(50),
-    parking: z.boolean(),
-    furnished: z.boolean(),
-    address: z.string().trim().min(1),
-    description: z.string().trim().min(1),
-    offer: z.boolean(),
-    regularPrice: z.number().min(50).max(400_000_000),
-    discountedPrice: z.number().min(50).max(400_000_000).optional()
-  })
-  .refine(
-    (data) =>
-      !data.offer ||
-      (data.discountedPrice !== undefined &&
-        data.discountedPrice < data.regularPrice),
-    {
-      message: 'Discounted price must be lower than the regular price',
-      path: ['discountedPrice']
-    }
-  );
-
-type EditListingValues = z.infer<typeof editListingSchema>;
 
 const toDefaults = (listing: Listing): EditListingValues => ({
   type: listing.type,
@@ -356,7 +332,7 @@ export const EditListingDialog = ({ listing, open, onOpenChange }: Props) => {
               )}
             />
 
-            {offer && (
+            {offer ? (
               <FormField
                 control={control}
                 name="discountedPrice"
@@ -388,7 +364,7 @@ export const EditListingDialog = ({ listing, open, onOpenChange }: Props) => {
                   </FormItem>
                 )}
               />
-            )}
+            ) : null}
 
             <DialogFooter>
               <Button

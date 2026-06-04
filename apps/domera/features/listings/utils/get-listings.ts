@@ -1,37 +1,11 @@
 import 'server-only';
 
+import { LISTINGS_COLLECTION } from '@/features/listings/constants';
 import { adminDb } from '@/lib/firebase/admin';
-import { Timestamp, type DocumentData } from 'firebase-admin/firestore';
 import { cache } from 'react';
 
 import type { Listing } from '../types';
-
-const LISTINGS_COLLECTION = 'listings';
-
-const toDate = (value: unknown): Date | null =>
-  value instanceof Timestamp ? value.toDate() : null;
-
-const mapListing = (id: string, data: DocumentData): Listing => ({
-  id,
-  ownerUid: (data.ownerUid as string) ?? '',
-  type: (data.type as 'sell' | 'rent') ?? 'sell',
-  name: (data.name as string) ?? '',
-  bedrooms: (data.bedrooms as number) ?? 0,
-  bathrooms: (data.bathrooms as number) ?? 0,
-  parking: Boolean(data.parking),
-  furnished: Boolean(data.furnished),
-  address: (data.address as string) ?? '',
-  description: (data.description as string) ?? '',
-  offer: Boolean(data.offer),
-  regularPrice: (data.regularPrice as number) ?? 0,
-  discountedPrice: (data.discountedPrice as number | null) ?? null,
-  imageUrls: (data.imageUrls as string[]) ?? [],
-  coverImage: (data.coverImage as string | null) ?? null,
-  geolocation:
-    (data.geolocation as { lat: number; lng: number } | null) ?? null,
-  createdAt: toDate(data.createdAt),
-  updatedAt: toDate(data.updatedAt)
-});
+import { mapListing } from './map-listing';
 
 export const getRecentListings = cache(async (max = 5): Promise<Listing[]> => {
   const snap = await adminDb
@@ -39,7 +13,7 @@ export const getRecentListings = cache(async (max = 5): Promise<Listing[]> => {
     .orderBy('createdAt', 'desc')
     .limit(max)
     .get();
-  return snap.docs.map((doc) => mapListing(doc.id, doc.data()));
+  return snap.docs.map(mapListing);
 });
 
 export const getOfferListings = cache(async (max = 4): Promise<Listing[]> => {
@@ -49,7 +23,7 @@ export const getOfferListings = cache(async (max = 4): Promise<Listing[]> => {
     .orderBy('createdAt', 'desc')
     .limit(max)
     .get();
-  return snap.docs.map((doc) => mapListing(doc.id, doc.data()));
+  return snap.docs.map(mapListing);
 });
 
 export const getListingsByType = cache(
@@ -60,7 +34,7 @@ export const getListingsByType = cache(
       .orderBy('createdAt', 'desc')
       .limit(max)
       .get();
-    return snap.docs.map((doc) => mapListing(doc.id, doc.data()));
+    return snap.docs.map(mapListing);
   }
 );
 
@@ -83,7 +57,7 @@ const fetchPaginated = async (
     if (cursorSnap.exists) q = q.startAfter(cursorSnap);
   }
   const snap = await q.limit(max).get();
-  const listings = snap.docs.map((doc) => mapListing(doc.id, doc.data()));
+  const listings = snap.docs.map(mapListing);
   const nextCursor =
     snap.docs.length === max ? snap.docs[snap.docs.length - 1].id : null;
   return { listings, nextCursor };

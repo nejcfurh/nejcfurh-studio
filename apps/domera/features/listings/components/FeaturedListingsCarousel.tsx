@@ -87,11 +87,11 @@ export const FeaturedListingsCarousel = ({ listings }: Props) => {
                       >
                         {listing.type === 'rent' ? 'For Rent' : 'For Sale'}
                       </span>
-                      {hasDiscount && (
+                      {hasDiscount ? (
                         <span className="rounded-full bg-emerald-500 px-2.5 py-1 text-xs font-semibold tracking-wide text-white shadow-sm">
                           Offer
                         </span>
-                      )}
+                      ) : null}
                     </div>
 
                     <h2 className="line-clamp-2 max-w-3xl text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
@@ -119,15 +119,15 @@ export const FeaturedListingsCarousel = ({ listings }: Props) => {
           })}
         </CarouselContent>
 
-        {hasMultiple && (
+        {hasMultiple ? (
           <>
             <CarouselPrevious className="left-4 size-11 border-0 bg-white/90 text-gray-900 shadow-md hover:bg-white" />
             <CarouselNext className="right-4 size-11 border-0 bg-white/90 text-gray-900 shadow-md hover:bg-white" />
           </>
-        )}
+        ) : null}
       </Carousel>
 
-      {hasMultiple && (
+      {hasMultiple ? (
         <div className="pointer-events-none absolute bottom-4 left-1/2 flex -translate-x-1/2 items-center gap-1.5">
           {listings.map((listing, i) => (
             <span
@@ -138,7 +138,7 @@ export const FeaturedListingsCarousel = ({ listings }: Props) => {
             />
           ))}
         </div>
-      )}
+      ) : null}
     </div>
   );
 };

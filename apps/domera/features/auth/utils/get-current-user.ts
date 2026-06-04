@@ -1,12 +1,13 @@
 import 'server-only';
 
+import {
+  SESSION_COOKIE_NAME,
+  USERS_COLLECTION
+} from '@/features/auth/constants';
 import { adminAuth, adminDb } from '@/lib/firebase/admin';
 import { Timestamp } from 'firebase-admin/firestore';
 import { cookies } from 'next/headers';
 import { cache } from 'react';
-
-const SESSION_COOKIE_NAME = 'firebase-session';
-const USERS_COLLECTION = 'users';
 
 export type CurrentUser = {
   uid: string;

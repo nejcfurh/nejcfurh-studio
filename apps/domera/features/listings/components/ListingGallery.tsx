@@ -88,15 +88,15 @@ export const ListingGallery = ({ images, name }: ListingGalleryProps) => {
             )}
           </CarouselContent>
 
-          {hasMultiple && (
+          {hasMultiple ? (
             <>
               <CarouselPrevious className="left-4 size-10 border-0 bg-white/90 text-gray-900 shadow-md hover:bg-white" />
               <CarouselNext className="right-4 size-10 border-0 bg-white/90 text-gray-900 shadow-md hover:bg-white" />
             </>
-          )}
+          ) : null}
         </Carousel>
 
-        {hasMultiple && (
+        {hasMultiple ? (
           <div className="pointer-events-none absolute bottom-4 left-1/2 flex -translate-x-1/2 items-center gap-1.5">
             {images.map((url, i) => (
               <span
@@ -107,7 +107,7 @@ export const ListingGallery = ({ images, name }: ListingGalleryProps) => {
               />
             ))}
           </div>
-        )}
+        ) : null}
       </div>
 
       <Dialog open={lightboxOpen} onOpenChange={setLightboxOpen}>
@@ -146,12 +146,12 @@ export const ListingGallery = ({ images, name }: ListingGalleryProps) => {
                 </CarouselItem>
               ))}
             </CarouselContent>
-            {hasMultiple && (
+            {hasMultiple ? (
               <>
                 <CarouselPrevious className="left-4 size-12 border-0 bg-white/15 text-white backdrop-blur hover:bg-white/25" />
                 <CarouselNext className="right-4 size-12 border-0 bg-white/15 text-white backdrop-blur hover:bg-white/25" />
               </>
-            )}
+            ) : null}
           </Carousel>
         </DialogContent>
       </Dialog>

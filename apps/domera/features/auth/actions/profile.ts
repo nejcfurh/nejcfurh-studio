@@ -1,67 +1,74 @@
 'use server';
 
+import { USERS_COLLECTION } from '@/features/auth/constants';
+import { requireUid } from '@/features/auth/utils/require-uid';
 import { adminAuth, adminDb } from '@/lib/firebase/admin';
-import { PROFILE_BUCKET, supabaseAdmin } from '@/lib/supabase/admin';
+import { supabaseAdmin } from '@/lib/supabase/admin';
+import { STORAGE_BUCKET } from '@/lib/supabase/constants';
 import { FieldValue } from 'firebase-admin/firestore';
 import { revalidatePath } from 'next/cache';
-import { cookies } from 'next/headers';
 
-const SESSION_COOKIE_NAME = 'firebase-session';
-const USERS_COLLECTION = 'users';
-const MAX_PHOTO_BYTES = 5 * 1024 * 1024;
-
-const requireUid = async () => {
-  const cookieStore = await cookies();
-  const sessionCookie = cookieStore.get(SESSION_COOKIE_NAME)?.value;
-  if (!sessionCookie) throw new Error('Not authenticated.');
-  const decoded = await adminAuth.verifySessionCookie(sessionCookie, true);
-  return decoded.uid;
+const extractStoragePath = (publicUrl: string): string | null => {
+  const marker = `/${STORAGE_BUCKET}/`;
+  const i = publicUrl.indexOf(marker);
+  if (i === -1) return null;
+  return publicUrl.slice(i + marker.length);
 };
 
-const uploadPhoto = async (uid: string, file: File) => {
-  if (!file.type.startsWith('image/')) {
-    throw new Error('Only image files are allowed.');
-  }
-  if (file.size > MAX_PHOTO_BYTES) {
-    throw new Error('Image must be 5MB or smaller.');
-  }
-
-  const ext = file.name.split('.').pop()?.toLowerCase() ?? 'jpg';
-  const path = `avatars/${uid}-${Date.now()}.${ext}`;
-  const bytes = new Uint8Array(await file.arrayBuffer());
-
-  const { error: uploadError } = await supabaseAdmin.storage
-    .from(PROFILE_BUCKET)
-    .upload(path, bytes, {
-      contentType: file.type,
-      upsert: true
+const removePreviousAvatar = async (previousUrl: string | null | undefined) => {
+  if (!previousUrl) return;
+  const path = extractStoragePath(previousUrl);
+  if (!path || !path.startsWith('avatars/')) return;
+  await supabaseAdmin.storage
+    .from(STORAGE_BUCKET)
+    .remove([path])
+    .catch(() => {
+      // Best-effort cleanup — don't fail the update over a stale file.
     });
-  if (uploadError) {
-    throw new Error(`Image upload failed: ${uploadError.message}`);
-  }
-
-  const {
-    data: { publicUrl }
-  } = supabaseAdmin.storage.from(PROFILE_BUCKET).getPublicUrl(path);
-
-  return publicUrl;
 };
 
-export const updateProfile = async (formData: FormData) => {
+export type UpdateProfileInput = {
+  displayName?: string;
+  /** Path under `_pending/<uid>/...` from `requestAvatarUploadTicket`. */
+  photoPendingPath?: string;
+};
+
+export const updateProfile = async (input: UpdateProfileInput) => {
   const uid = await requireUid();
 
-  const displayNameRaw = formData.get('displayName');
-  const photoRaw = formData.get('photo');
-
   const updates: { displayName?: string; photoURL?: string } = {};
+  let previousPhotoURL: string | null = null;
 
-  if (typeof displayNameRaw === 'string') {
-    const trimmed = displayNameRaw.trim();
+  if (typeof input.displayName === 'string') {
+    const trimmed = input.displayName.trim();
     if (trimmed) updates.displayName = trimmed;
   }
 
-  if (photoRaw instanceof File && photoRaw.size > 0) {
-    updates.photoURL = await uploadPhoto(uid, photoRaw);
+  if (input.photoPendingPath) {
+    const pendingPrefix = `_pending/${uid}/`;
+    if (
+      !input.photoPendingPath.startsWith(pendingPrefix) ||
+      input.photoPendingPath.includes('..')
+    ) {
+      throw new Error('Invalid upload path.');
+    }
+    const ext = input.photoPendingPath.split('.').pop() ?? 'jpg';
+    const finalPath = `avatars/${uid}-${Date.now()}.${ext}`;
+
+    const existing = await adminDb.collection(USERS_COLLECTION).doc(uid).get();
+    previousPhotoURL = (existing.data()?.photoURL as string | null) ?? null;
+
+    const { error } = await supabaseAdmin.storage
+      .from(STORAGE_BUCKET)
+      .move(input.photoPendingPath, finalPath);
+    if (error) {
+      throw new Error(`Could not finalize avatar upload: ${error.message}`);
+    }
+
+    const {
+      data: { publicUrl }
+    } = supabaseAdmin.storage.from(STORAGE_BUCKET).getPublicUrl(finalPath);
+    updates.photoURL = publicUrl;
   }
 
   if (Object.keys(updates).length === 0) return;
@@ -75,6 +82,10 @@ export const updateProfile = async (formData: FormData) => {
       { ...updates, updatedAt: FieldValue.serverTimestamp() },
       { merge: true }
     );
+
+  if (updates.photoURL && previousPhotoURL) {
+    await removePreviousAvatar(previousPhotoURL);
+  }
 
   revalidatePath('/profile');
 };

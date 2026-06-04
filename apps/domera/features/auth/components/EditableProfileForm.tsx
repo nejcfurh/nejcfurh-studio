@@ -6,7 +6,11 @@ import { Label } from '@/components/ui/label';
 import { updateProfile } from '@/features/auth/actions/profile';
 import { useAuth } from '@/features/auth/hooks/useAuth';
 import { getFirebaseErrorMessage } from '@/features/auth/utils/firebase-errors';
+import { requestAvatarUploadTicket } from '@/features/listings/actions/request-upload-tickets';
+import { isAllowedImageMime } from '@/features/listings/constants';
 import { firebaseAuth } from '@/lib/firebase/client';
+import { supabaseBrowser } from '@/lib/supabase/client';
+import { STORAGE_BUCKET } from '@/lib/supabase/constants';
 import { verifyBeforeUpdateEmail } from 'firebase/auth';
 import { Loader2, Save, Upload, User } from 'lucide-react';
 import Image from 'next/image';
@@ -52,8 +56,8 @@ export const EditableProfileForm = ({
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
-    if (!file.type.startsWith('image/')) {
-      toast.error('Only image files are allowed.');
+    if (!isAllowedImageMime(file.type)) {
+      toast.error('Only JPG, PNG, or WebP images are allowed.');
       return;
     }
     if (file.size > MAX_PHOTO_BYTES) {
@@ -84,10 +88,22 @@ export const EditableProfileForm = ({
 
     try {
       if (nameChanged || photoChanged) {
-        const formData = new FormData();
-        if (nameChanged) formData.set('displayName', trimmedName);
-        if (photoChanged && photoFile) formData.set('photo', photoFile);
-        await updateProfile(formData);
+        let photoPendingPath: string | undefined;
+        if (photoChanged && photoFile) {
+          const ticket = await requestAvatarUploadTicket(photoFile.type);
+          const { error } = await supabaseBrowser.storage
+            .from(STORAGE_BUCKET)
+            .uploadToSignedUrl(ticket.path, ticket.token, photoFile, {
+              contentType: ticket.contentType,
+              upsert: false
+            });
+          if (error) throw new Error(error.message);
+          photoPendingPath = ticket.path;
+        }
+        await updateProfile({
+          displayName: nameChanged ? trimmedName : undefined,
+          photoPendingPath
+        });
         await refreshUser();
         toast.success('Profile updated.');
       }
@@ -160,17 +176,16 @@ export const EditableProfileForm = ({
                 className="h-12 min-h-12 px-4 text-base md:text-base"
               />
             </div>
-            {!canEditEmail && (
+            {canEditEmail ? (
+              <p className="text-muted-foreground text-xs">
+                Changing your email will send a verification link to the new
+                address. The change takes effect after you confirm.
+              </p>
+            ) : (
               <p className="text-muted-foreground text-xs">
                 {provider === 'google.com'
                   ? 'Your email is managed by Google and can’t be changed here.'
                   : 'Email cannot be changed for this sign-in method.'}
-              </p>
-            )}
-            {canEditEmail && (
-              <p className="text-muted-foreground text-xs">
-                Changing your email will send a verification link to the new
-                address. The change takes effect after you confirm.
               </p>
             )}
           </div>

@@ -22,6 +22,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(appConfig.webRootUrl),
   title: 'Domera | Find a house. Make it your home.',
   description: 'Find a house. Make it your home.',
   openGraph: {
@@ -29,7 +30,7 @@ export const metadata: Metadata = {
     description: 'Find a house. Make it your home.',
     images: [
       {
-        url: 'og.jpg'
+        url: '/og.jpg'
       }
     ]
   }

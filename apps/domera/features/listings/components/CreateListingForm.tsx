@@ -13,6 +13,18 @@ import {
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { createListing } from '@/features/listings/actions/create-listing';
+import { requestListingUploadTickets } from '@/features/listings/actions/request-upload-tickets';
+import {
+  ALLOWED_IMAGE_MIME,
+  MAX_IMAGE_BYTES,
+  MAX_IMAGES
+} from '@/features/listings/constants';
+import {
+  createListingSchema,
+  type CreateListingValues
+} from '@/features/listings/schemas';
+import { supabaseBrowser } from '@/lib/supabase/client';
+import { STORAGE_BUCKET } from '@/lib/supabase/constants';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Loader2, Save, X } from 'lucide-react';
 import Image from 'next/image';
@@ -20,46 +32,10 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
-import { z } from 'zod';
 
-const MAX_IMAGES = 6;
-const MAX_IMAGE_BYTES = 5 * 1024 * 1024;
-const ACCEPTED_MIME = ['image/jpeg', 'image/png'];
+const ACCEPTED_MIME = Object.keys(ALLOWED_IMAGE_MIME);
 
-const listingSchema = z
-  .object({
-    type: z.enum(['sell', 'rent']),
-    name: z
-      .string()
-      .trim()
-      .min(10, 'Name must be at least 10 characters')
-      .max(64, 'Name must be 64 characters or fewer'),
-    bedrooms: z.number().int().min(1).max(50),
-    bathrooms: z.number().int().min(1).max(50),
-    parking: z.boolean(),
-    furnished: z.boolean(),
-    address: z.string().trim().min(1, 'Address is required'),
-    description: z.string().trim().min(1, 'Description is required'),
-    offer: z.boolean(),
-    regularPrice: z.number().min(50).max(400_000_000),
-    discountedPrice: z.number().min(50).max(400_000_000).optional(),
-    images: z
-      .array(z.instanceof(File))
-      .min(1, 'Add at least one image')
-      .max(MAX_IMAGES, `Up to ${MAX_IMAGES} images`)
-  })
-  .refine(
-    (data) =>
-      !data.offer ||
-      (data.discountedPrice !== undefined &&
-        data.discountedPrice < data.regularPrice),
-    {
-      message: 'Discounted price must be lower than the regular price',
-      path: ['discountedPrice']
-    }
-  );
-
-type ListingFormValues = z.infer<typeof listingSchema>;
+type ListingFormValues = CreateListingValues;
 
 const defaultValues: ListingFormValues = {
   type: 'rent',
@@ -81,7 +57,7 @@ export const CreateListingForm = () => {
   const [previewURLs, setPreviewURLs] = useState<string[]>([]);
 
   const form = useForm<ListingFormValues>({
-    resolver: zodResolver(listingSchema),
+    resolver: zodResolver(createListingSchema),
     defaultValues
   });
 
@@ -100,23 +76,36 @@ export const CreateListingForm = () => {
 
   const onSubmit = async (data: ListingFormValues) => {
     try {
-      const fd = new FormData();
-      fd.set('type', data.type);
-      fd.set('name', data.name);
-      fd.set('bedrooms', String(data.bedrooms));
-      fd.set('bathrooms', String(data.bathrooms));
-      fd.set('parking', String(data.parking));
-      fd.set('furnished', String(data.furnished));
-      fd.set('address', data.address);
-      fd.set('description', data.description);
-      fd.set('offer', String(data.offer));
-      fd.set('regularPrice', String(data.regularPrice));
-      if (data.offer && data.discountedPrice !== undefined) {
-        fd.set('discountedPrice', String(data.discountedPrice));
-      }
-      data.images.forEach((file) => fd.append('images', file));
+      const mimeTypes = data.images.map((file) => file.type);
+      const tickets = await requestListingUploadTickets(mimeTypes);
 
-      await createListing(fd);
+      await Promise.all(
+        data.images.map(async (file, i) => {
+          const ticket = tickets[i];
+          const { error } = await supabaseBrowser.storage
+            .from(STORAGE_BUCKET)
+            .uploadToSignedUrl(ticket.path, ticket.token, file, {
+              contentType: ticket.contentType,
+              upsert: false
+            });
+          if (error) throw new Error(error.message);
+        })
+      );
+
+      await createListing({
+        type: data.type,
+        name: data.name,
+        bedrooms: data.bedrooms,
+        bathrooms: data.bathrooms,
+        parking: data.parking,
+        furnished: data.furnished,
+        address: data.address,
+        description: data.description,
+        offer: data.offer,
+        regularPrice: data.regularPrice,
+        discountedPrice: data.discountedPrice,
+        imagePaths: tickets.map((t) => t.path)
+      });
       toast.success('Listing created.');
       router.push('/profile');
     } catch (err) {
@@ -136,7 +125,7 @@ export const CreateListingForm = () => {
       (file) => !ACCEPTED_MIME.includes(file.type)
     );
     if (invalidType) {
-      toast.error('Only JPG and PNG images are allowed.');
+      toast.error('Only JPG, PNG, or WebP images are allowed.');
       return;
     }
     const tooLarge = incoming.find((file) => file.size > MAX_IMAGE_BYTES);
@@ -409,7 +398,7 @@ export const CreateListingForm = () => {
           )}
         />
 
-        {offer && (
+        {offer ? (
           <FormField
             control={control}
             name="discountedPrice"
@@ -447,7 +436,7 @@ export const CreateListingForm = () => {
               </FormItem>
             )}
           />
-        )}
+        ) : null}
 
         <FormField
           control={control}
@@ -456,13 +445,13 @@ export const CreateListingForm = () => {
             <FormItem>
               <FormLabel>Images</FormLabel>
               <FormDescription>
-                The first image is used as the cover. JPG or PNG, up to{' '}
+                The first image is used as the cover. JPG, PNG, or WebP, up to{' '}
                 {MAX_IMAGES} images, 5MB each.
               </FormDescription>
               <FormControl>
                 <Input
                   type="file"
-                  accept=".jpg,.jpeg,.png"
+                  accept=".jpg,.jpeg,.png,.webp"
                   multiple
                   onChange={handleImagesChange}
                   disabled={isSubmitting || images.length >= MAX_IMAGES}
@@ -470,7 +459,7 @@ export const CreateListingForm = () => {
                 />
               </FormControl>
 
-              {previewURLs.length > 0 && (
+              {previewURLs.length > 0 ? (
                 <div className="grid grid-cols-3 gap-3 sm:grid-cols-4">
                   {previewURLs.map((url, index) => (
                     <div
@@ -484,11 +473,11 @@ export const CreateListingForm = () => {
                         unoptimized
                         className="object-cover"
                       />
-                      {index === 0 && (
+                      {index === 0 ? (
                         <span className="bg-foreground text-background absolute top-1 left-1 rounded px-1.5 py-0.5 text-[10px] font-medium tracking-wider uppercase">
                           Cover
                         </span>
-                      )}
+                      ) : null}
                       <button
                         type="button"
                         onClick={() => removeImage(index)}
@@ -500,7 +489,7 @@ export const CreateListingForm = () => {
                     </div>
                   ))}
                 </div>
-              )}
+              ) : null}
               <FormMessage />
             </FormItem>
           )}

@@ -3,7 +3,7 @@ import { ContactLandlordDialog } from '@/features/listings/components/ContactLan
 import { ListingGallery } from '@/features/listings/components/ListingGallery';
 import { ListingMap } from '@/features/listings/components/ListingMap';
 import { ShareButton } from '@/features/listings/components/ShareButton';
-import { getLandlord, getListing } from '@/features/listings/utils/get-listing';
+import { getListing } from '@/features/listings/utils/get-listing';
 import { formatDistanceToNow } from 'date-fns';
 import { Bath, Bed, Car, MapPin, Sofa } from 'lucide-react';
 import { notFound } from 'next/navigation';
@@ -37,7 +37,6 @@ const ListingPage = async ({ params }: Props) => {
 
   const me = await getCurrentUser();
   const isOwner = me?.uid === listing.ownerUid;
-  const landlord = isOwner ? null : await getLandlord(listing.ownerUid);
 
   const hasDiscount = listing.offer && listing.discountedPrice != null;
   const displayPrice = hasDiscount
@@ -54,11 +53,11 @@ const ListingPage = async ({ params }: Props) => {
         <ListingGallery images={listing.imageUrls} name={listing.name} />
         <div className="absolute top-4 right-4 z-10 flex items-center gap-2">
           <ShareButton />
-          {!isOwner && landlord?.email && (
+          {isOwner ? null : (
             <ContactLandlordDialog
-              landlordName={landlord.displayName ?? 'the landlord'}
-              landlordEmail={landlord.email}
+              listingId={listing.id}
               listingName={listing.name}
+              viewerSignedIn={me !== null}
             />
           )}
         </div>
@@ -77,11 +76,11 @@ const ListingPage = async ({ params }: Props) => {
               >
                 {listing.type === 'rent' ? 'For Rent' : 'For Sale'}
               </span>
-              {hasDiscount && (
+              {hasDiscount ? (
                 <span className="rounded-full bg-emerald-500 px-4 py-2 text-base font-semibold tracking-wide text-white uppercase shadow-sm">
                   ${formatPrice(savings)} off
                 </span>
-              )}
+              ) : null}
             </div>
 
             <div className="flex flex-col gap-2">
@@ -134,12 +133,12 @@ const ListingPage = async ({ params }: Props) => {
                   {priceSuffix}
                 </span>
               </p>
-              {hasDiscount && (
+              {hasDiscount ? (
                 <p className="text-muted-foreground text-base line-through">
                   ${formatPrice(listing.regularPrice)}
                   {priceSuffix}
                 </p>
-              )}
+              ) : null}
             </div>
 
             <div className="border-border flex flex-col gap-2 border-t pt-4">
@@ -151,12 +150,12 @@ const ListingPage = async ({ params }: Props) => {
               </p>
             </div>
 
-            {listing.createdAt && (
+            {listing.createdAt ? (
               <p className="border-border text-muted-foreground border-t pt-4 text-sm">
                 Listed{' '}
                 {formatDistanceToNow(listing.createdAt, { addSuffix: true })}
               </p>
-            )}
+            ) : null}
           </section>
 
           <section className="overflow-hidden rounded-2xl">

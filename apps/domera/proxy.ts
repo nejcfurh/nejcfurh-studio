@@ -1,7 +1,7 @@
+import { SESSION_COOKIE_NAME } from '@/features/auth/constants';
 import { adminAuth } from '@/lib/firebase/admin';
 import { NextResponse, type NextRequest } from 'next/server';
 
-const SESSION_COOKIE_NAME = 'firebase-session';
 const PROTECTED_PREFIXES = ['/profile', '/create-listing'];
 const AUTH_PREFIXES = ['/auth/login', '/auth/register'];
 
@@ -36,16 +36,15 @@ export const proxy = async (request: NextRequest) => {
     }
     return NextResponse.next();
   } catch {
-    const response = isProtected
-      ? NextResponse.redirect(
-          (() => {
-            const url = request.nextUrl.clone();
-            url.pathname = '/auth/login';
-            url.searchParams.set('next', pathname);
-            return url;
-          })()
-        )
-      : NextResponse.next();
+    if (!isProtected) {
+      const passthrough = NextResponse.next();
+      passthrough.cookies.delete(SESSION_COOKIE_NAME);
+      return passthrough;
+    }
+    const url = request.nextUrl.clone();
+    url.pathname = '/auth/login';
+    url.searchParams.set('next', pathname);
+    const response = NextResponse.redirect(url);
     response.cookies.delete(SESSION_COOKIE_NAME);
     return response;
   }

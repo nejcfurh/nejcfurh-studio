@@ -54,7 +54,7 @@ export const PaginatedListingsGrid = ({
           <ListingItem key={listing.id} listing={listing} />
         ))}
       </ul>
-      {cursor && (
+      {cursor ? (
         <div className="flex justify-center">
           <Button
             type="button"
@@ -63,11 +63,11 @@ export const PaginatedListingsGrid = ({
             disabled={pending}
             className="min-w-32"
           >
-            {pending && <Loader2 className="animate-spin" />}
+            {pending ? <Loader2 className="animate-spin" /> : null}
             {pending ? 'Loading' : 'Load more'}
           </Button>
         </div>
-      )}
+      ) : null}
     </div>
   );
 };

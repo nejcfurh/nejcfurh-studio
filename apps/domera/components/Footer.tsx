@@ -35,12 +35,14 @@ const DomeraFooter = (): React.ReactNode => {
         <div className="flex flex-col gap-3 border-t border-gray-300 pt-6 text-xs text-gray-500 sm:flex-row sm:items-center sm:justify-between">
           <p>
             © {year} Domera. All rights reserved. Created by{' '}
-            <Link
+            <a
               href="https://github.com/nejcfurh"
+              target="_blank"
+              rel="noopener noreferrer"
               className="hover:text-gray-900 hover:underline"
             >
               Nejc Furh
-            </Link>
+            </a>
             .
           </p>
           <p>
