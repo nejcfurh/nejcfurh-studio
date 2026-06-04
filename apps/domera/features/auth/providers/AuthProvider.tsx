@@ -42,6 +42,7 @@ export const AuthContext = createContext<AuthContextValue | null>(null);
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+  const [refreshTick, setRefreshTick] = useState(0);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(firebaseAuth, (next) => {
@@ -55,6 +56,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const current = firebaseAuth.currentUser;
     if (!current) return;
     await current.reload();
+    setRefreshTick((t) => t + 1);
   }, []);
 
   const establishSession = useCallback(async (next: User) => {
@@ -114,9 +116,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       signOut,
       refreshUser
     }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [
       user,
       loading,
+      refreshTick,
       signInWithEmail,
       signUpWithEmail,
       signInWithGoogle,

@@ -8,6 +8,7 @@ import {
 import { adminAuth, adminDb } from '@/lib/firebase/admin';
 import { FieldValue } from 'firebase-admin/firestore';
 import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
 
 export const createSession = async (idToken: string) => {
   const decoded = await adminAuth.verifyIdToken(idToken);
@@ -30,6 +31,11 @@ export const createSession = async (idToken: string) => {
 export const destroySession = async () => {
   const cookieStore = await cookies();
   cookieStore.delete(SESSION_COOKIE_NAME);
+};
+export const destroySessionAndRedirectHome = async () => {
+  const cookieStore = await cookies();
+  cookieStore.delete(SESSION_COOKIE_NAME);
+  redirect('/');
 };
 
 const upsertUser = async (uid: string) => {
