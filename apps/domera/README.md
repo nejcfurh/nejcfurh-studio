@@ -1,4 +1,4 @@
-# Domera
+# Domavia
 
 A real estate listing platform for browsing and publishing properties for rent or sale. Find a house. Make it your home.
 
@@ -25,10 +25,10 @@ Part of the `nejcfurh-studio` monorepo, managed with pnpm workspaces and Turbore
 pnpm install
 
 # Set up environment variables (see below)
-# Create apps/domera/.env with the required values
+# Create apps/domavia/.env with the required values
 
 # Run dev server
-pnpm domera
+pnpm domavia
 # or from this directory:
 pnpm dev
 ```
@@ -81,7 +81,7 @@ Create a `.env` file in the app root. All public env vars are validated at start
 ## Project Structure
 
 ```
-domera/
+domavia/
 ├── app/                          # Next.js App Router pages and layouts
 │   ├── auth/                     # Login, register, password reset
 │   ├── category/[categoryName]/  # Category listing grids + detail pages

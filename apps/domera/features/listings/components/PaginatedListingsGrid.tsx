@@ -3,6 +3,11 @@
 import { Button } from '@/components/ui/button';
 import { ListingItem } from '@/features/listings/components/ListingItem';
 import type { PaginatedListings } from '@/features/listings/utils/get-listings';
+import {
+  AnimatedDiv,
+  AnimatedList,
+  AnimatedText
+} from '@repo/ui/animation/core';
 import { Loader2 } from 'lucide-react';
 import { useState, useTransition } from 'react';
 import { toast } from 'sonner';
@@ -43,19 +48,21 @@ export const PaginatedListingsGrid = ({
 
   if (listings.length === 0) {
     return (
-      <p className="text-muted-foreground py-12 text-center">{emptyMessage}</p>
+      <AnimatedText className="text-muted-foreground py-12 text-center">
+        {emptyMessage}
+      </AnimatedText>
     );
   }
 
   return (
-    <div className="flex flex-col gap-10">
-      <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    <AnimatedDiv className="flex flex-col gap-10">
+      <AnimatedList className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {listings.map((listing) => (
           <ListingItem key={listing.id} listing={listing} />
         ))}
-      </ul>
+      </AnimatedList>
       {cursor ? (
-        <div className="flex justify-center">
+        <AnimatedDiv className="flex justify-center">
           <Button
             type="button"
             variant="outline"
@@ -66,8 +73,8 @@ export const PaginatedListingsGrid = ({
             {pending ? <Loader2 className="animate-spin" /> : null}
             {pending ? 'Loading' : 'Load more'}
           </Button>
-        </div>
+        </AnimatedDiv>
       ) : null}
-    </div>
+    </AnimatedDiv>
   );
 };

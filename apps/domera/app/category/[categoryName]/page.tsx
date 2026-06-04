@@ -29,9 +29,9 @@ const CATEGORY_COPY: Record<
 export async function generateMetadata({ params }: Props) {
   const { categoryName } = await params;
   if (categoryName !== 'sell' && categoryName !== 'rent') {
-    return { title: 'Domera' };
+    return { title: 'Domavia' };
   }
-  return { title: `${CATEGORY_COPY[categoryName].title} — Domera` };
+  return { title: `${CATEGORY_COPY[categoryName].title} — Domavia` };
 }
 
 const CategoryPage = async ({ params }: Props) => {

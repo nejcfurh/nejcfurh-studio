@@ -11,7 +11,13 @@ import {
   authStaggerVariants
 } from '@/features/auth/utils/auth-motion';
 import { getFirebaseErrorMessage } from '@/features/auth/utils/firebase-errors';
-import { motion } from '@repo/ui/animation';
+import {
+  AnimatedDiv,
+  AnimatedSection,
+  AnimatedSpan,
+  AnimatedText,
+  AnimatedTitle
+} from '@repo/ui/animation/core';
 import { Loader2 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -76,32 +82,32 @@ const RegisterForm = () => {
   };
 
   return (
-    <section className="bg-background grid h-[calc(100svh-4rem)] w-full lg:grid-cols-2">
-      <div className="order-2 flex h-full w-full items-center justify-center p-6 sm:p-10 lg:order-1">
-        <motion.div
+    <AnimatedSection className="bg-background grid h-[calc(100svh-4rem)] w-full lg:grid-cols-2">
+      <AnimatedDiv className="order-2 flex h-full w-full items-center justify-center p-6 sm:p-10 lg:order-1">
+        <AnimatedDiv
           variants={authStaggerVariants}
           initial="hidden"
           animate="visible"
           className="flex w-full max-w-lg flex-col gap-10"
         >
-          <motion.div
+          <AnimatedDiv
             variants={authItemVariants}
             className="flex flex-col gap-3"
           >
-            <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl">
+            <AnimatedTitle className="text-4xl font-semibold tracking-tight sm:text-5xl">
               Create your account
-            </h1>
-            <p className="text-muted-foreground text-base sm:text-lg">
+            </AnimatedTitle>
+            <AnimatedText className="text-muted-foreground text-base sm:text-lg">
               Start your search for the perfect place to call home.
-            </p>
-          </motion.div>
+            </AnimatedText>
+          </AnimatedDiv>
 
           <form onSubmit={handleSubmit} className="flex flex-col gap-6">
-            <motion.div
+            <AnimatedDiv
               variants={authItemVariants}
               className="grid h-20 grid-cols-2 gap-4"
             >
-              <div className="flex flex-col gap-2.5">
+              <AnimatedDiv className="flex flex-col gap-2.5">
                 <Label htmlFor="firstName" className="text-base">
                   First Name
                 </Label>
@@ -117,8 +123,8 @@ const RegisterForm = () => {
                   disabled={pending !== null}
                   className="h-12 min-h-12 px-4 text-base md:text-base"
                 />
-              </div>
-              <div className="flex flex-col gap-2.5">
+              </AnimatedDiv>
+              <AnimatedDiv className="flex flex-col gap-2.5">
                 <Label htmlFor="lastName" className="text-base">
                   Last Name
                 </Label>
@@ -134,10 +140,10 @@ const RegisterForm = () => {
                   disabled={pending !== null}
                   className="h-12 min-h-12 px-4 text-base md:text-base"
                 />
-              </div>
-            </motion.div>
+              </AnimatedDiv>
+            </AnimatedDiv>
 
-            <motion.div
+            <AnimatedDiv
               variants={authItemVariants}
               className="flex h-20 flex-col gap-2.5"
             >
@@ -156,9 +162,9 @@ const RegisterForm = () => {
                 disabled={pending !== null}
                 className="h-12 min-h-12 px-4 text-base md:text-base"
               />
-            </motion.div>
+            </AnimatedDiv>
 
-            <motion.div
+            <AnimatedDiv
               variants={authItemVariants}
               className="flex h-20 flex-col gap-2.5"
             >
@@ -178,9 +184,9 @@ const RegisterForm = () => {
                 disabled={pending !== null}
                 className="h-12 min-h-12 px-4 text-base md:text-base"
               />
-            </motion.div>
+            </AnimatedDiv>
 
-            <motion.div
+            <AnimatedDiv
               variants={authItemVariants}
               className="flex h-20 flex-col gap-2.5"
             >
@@ -200,9 +206,9 @@ const RegisterForm = () => {
                 disabled={pending !== null}
                 className="h-12 min-h-12 px-4 text-base md:text-base"
               />
-            </motion.div>
+            </AnimatedDiv>
 
-            <motion.div variants={authItemVariants}>
+            <AnimatedDiv variants={authItemVariants}>
               <Button
                 type="submit"
                 disabled={pending !== null}
@@ -211,30 +217,30 @@ const RegisterForm = () => {
                 {pending === 'email' ? 'Creating account' : 'Create account'}
                 {pending === 'email' && <Loader2 className="animate-spin" />}
               </Button>
-            </motion.div>
+            </AnimatedDiv>
 
-            <motion.div
+            <AnimatedDiv
               variants={authItemVariants}
               className="flex items-center gap-4"
             >
-              <span className="bg-border h-px flex-1" />
-              <span className="text-muted-foreground text-sm font-medium tracking-wider uppercase">
+              <AnimatedSpan className="bg-border h-px flex-1" />
+              <AnimatedSpan className="text-muted-foreground text-sm font-medium tracking-wider uppercase">
                 Or
-              </span>
-              <span className="bg-border h-px flex-1" />
-            </motion.div>
+              </AnimatedSpan>
+              <AnimatedSpan className="bg-border h-px flex-1" />
+            </AnimatedDiv>
 
-            <motion.div variants={authItemVariants}>
+            <AnimatedDiv variants={authItemVariants}>
               <GoogleOAuthButton
                 label="Sign up with Google"
                 onClick={handleGoogle}
                 loading={pending === 'google'}
                 disabled={pending !== null}
               />
-            </motion.div>
+            </AnimatedDiv>
           </form>
 
-          <motion.p
+          <AnimatedText
             variants={authItemVariants}
             className="text-muted-foreground text-center text-base"
           >
@@ -245,11 +251,11 @@ const RegisterForm = () => {
             >
               Sign in
             </Link>
-          </motion.p>
-        </motion.div>
-      </div>
+          </AnimatedText>
+        </AnimatedDiv>
+      </AnimatedDiv>
 
-      <div className="relative order-1 hidden lg:order-2 lg:block">
+      <AnimatedDiv className="relative order-1 hidden lg:order-2 lg:block">
         <Image
           src="/images/register-image.jpg"
           alt="Register"
@@ -258,17 +264,17 @@ const RegisterForm = () => {
           sizes="(min-width: 1024px) 50vw, 0"
           className="object-cover"
         />
-      </div>
-    </section>
+      </AnimatedDiv>
+    </AnimatedSection>
   );
 };
 
 const RegisterPage = () => (
   <Suspense
     fallback={
-      <section className="bg-background flex h-[calc(100svh-4rem)] w-full items-center justify-center">
+      <AnimatedSection className="bg-background flex h-[calc(100svh-4rem)] w-full items-center justify-center">
         <Spinner size={64} />
-      </section>
+      </AnimatedSection>
     }
   >
     <RegisterForm />

@@ -1,1 +1,1 @@
-export const STORAGE_BUCKET = 'domera-images';
+export const STORAGE_BUCKET = 'domavia-images';

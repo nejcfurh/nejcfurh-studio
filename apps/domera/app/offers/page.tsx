@@ -3,7 +3,7 @@ import { PaginatedListingsGrid } from '@/features/listings/components/PaginatedL
 import { getOfferListingsPaginated } from '@/features/listings/utils/get-listings';
 
 export const metadata = {
-  title: 'Offers — Domera'
+  title: 'Offers — Domavia'
 };
 
 const OffersPage = async () => {

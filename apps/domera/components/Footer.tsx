@@ -1,8 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { GoDotFill } from 'react-icons/go';
 
-const DomeraFooter = (): React.ReactNode => {
+const DomaviaFooter = (): React.ReactNode => {
   const year = new Date().getFullYear();
 
   return (
@@ -12,18 +11,12 @@ const DomeraFooter = (): React.ReactNode => {
           <div className="flex flex-col gap-3 lg:col-span-2">
             <Link href="/" className="flex items-center">
               <Image
-                src="/logo/domera-logo.png"
-                alt="Domera"
-                width={32}
-                height={32}
-                className="h-auto object-contain"
+                src="/logo/logo.svg"
+                alt="Domavia"
+                width={200}
+                height={200}
+                className="ml-[-10] h-auto object-contain"
               />
-              <span className="mt-1 flex items-baseline font-sans text-2xl font-light text-[#BF9D61]">
-                omera
-                <span className="font-mono text-lg font-bold text-black">
-                  <GoDotFill className="mt-1 inline-block size-3 p-0" />
-                </span>
-              </span>
             </Link>
             <p className="max-w-sm text-sm text-gray-600">
               Find a house. Make it your home. Browse listings, contact
@@ -34,7 +27,7 @@ const DomeraFooter = (): React.ReactNode => {
 
         <div className="flex flex-col gap-3 border-t border-gray-300 pt-6 text-xs text-gray-500 sm:flex-row sm:items-center sm:justify-between">
           <p>
-            © {year} Domera. All rights reserved. Created by{' '}
+            © {year} Domavia. All rights reserved. Created by{' '}
             <a
               href="https://github.com/nejcfurh"
               target="_blank"
@@ -63,4 +56,4 @@ const DomeraFooter = (): React.ReactNode => {
   );
 };
 
-export default DomeraFooter;
+export default DomaviaFooter;

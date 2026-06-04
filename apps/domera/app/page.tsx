@@ -79,7 +79,7 @@ export default async function Home() {
 
       <PageVisitTracker<AnalyticsClientPageEvent>
         pageEvent={{
-          pageName: PageName.DOMERA
+          pageName: PageName.DOMAVIA
         }}
       />
     </div>

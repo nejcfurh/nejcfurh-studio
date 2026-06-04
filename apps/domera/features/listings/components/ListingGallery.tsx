@@ -15,6 +15,11 @@ import {
   DialogDescription,
   DialogTitle
 } from '@/components/ui/dialog';
+import {
+  AnimatedButton,
+  AnimatedDiv,
+  AnimatedSpan
+} from '@repo/ui/animation/core';
 import { X } from 'lucide-react';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
@@ -56,7 +61,7 @@ export const ListingGallery = ({ images, name }: ListingGalleryProps) => {
 
   return (
     <>
-      <div className="relative h-[45svh] w-full overflow-hidden">
+      <AnimatedDiv className="relative h-[45svh] w-full overflow-hidden">
         <Carousel
           setApi={setApi}
           opts={{ loop: true }}
@@ -66,7 +71,7 @@ export const ListingGallery = ({ images, name }: ListingGalleryProps) => {
             {hasImages ? (
               images.map((url, i) => (
                 <CarouselItem key={url} className="relative h-full pl-0">
-                  <button
+                  <AnimatedButton
                     type="button"
                     onClick={() => openLightbox(i)}
                     aria-label={`View image ${i + 1} fullscreen`}
@@ -80,7 +85,7 @@ export const ListingGallery = ({ images, name }: ListingGalleryProps) => {
                       sizes="100vw"
                       className="object-cover"
                     />
-                  </button>
+                  </AnimatedButton>
                 </CarouselItem>
               ))
             ) : (
@@ -97,18 +102,18 @@ export const ListingGallery = ({ images, name }: ListingGalleryProps) => {
         </Carousel>
 
         {hasMultiple ? (
-          <div className="pointer-events-none absolute bottom-4 left-1/2 flex -translate-x-1/2 items-center gap-1.5">
+          <AnimatedDiv className="pointer-events-none absolute bottom-4 left-1/2 flex -translate-x-1/2 items-center gap-1.5">
             {images.map((url, i) => (
-              <span
+              <AnimatedSpan
                 key={url}
                 className={`h-1.5 rounded-full bg-white transition-all duration-200 ${
                   i === selectedIndex ? 'w-6 opacity-100' : 'w-1.5 opacity-60'
                 }`}
               />
             ))}
-          </div>
+          </AnimatedDiv>
         ) : null}
-      </div>
+      </AnimatedDiv>
 
       <Dialog open={lightboxOpen} onOpenChange={setLightboxOpen}>
         <DialogContent

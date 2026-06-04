@@ -8,6 +8,12 @@ import {
   CarouselPrevious,
   type CarouselApi
 } from '@/components/ui/carousel';
+import {
+  AnimatedDiv,
+  AnimatedSpan,
+  AnimatedSubTitle,
+  AnimatedText
+} from '@repo/ui/animation/core';
 import Autoplay from 'embla-carousel-autoplay';
 import { MapPin } from 'lucide-react';
 import Image from 'next/image';
@@ -42,7 +48,7 @@ export const FeaturedListingsCarousel = ({ listings }: Props) => {
   const hasMultiple = listings.length > 1;
 
   return (
-    <div className="relative h-[60svh] w-full overflow-hidden">
+    <AnimatedDiv className="relative h-[60svh] w-full overflow-hidden">
       <Carousel
         setApi={setApi}
         opts={{ loop: true }}
@@ -74,11 +80,11 @@ export const FeaturedListingsCarousel = ({ listings }: Props) => {
                       className="object-cover"
                     />
                   )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+                  <AnimatedDiv className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
 
-                  <div className="absolute right-0 bottom-0 left-0 flex flex-col gap-3 p-6 text-white sm:p-10 lg:p-16">
-                    <div className="flex flex-wrap items-center gap-2">
-                      <span
+                  <AnimatedDiv className="absolute right-0 bottom-0 left-0 flex flex-col gap-3 p-6 text-white sm:p-10 lg:p-16">
+                    <AnimatedDiv className="flex flex-wrap items-center gap-2">
+                      <AnimatedSpan
                         className={`rounded-full px-2.5 py-1 text-xs font-semibold tracking-wide shadow-sm ${
                           listing.type === 'rent'
                             ? 'bg-[#aa00ff] text-white'
@@ -86,33 +92,33 @@ export const FeaturedListingsCarousel = ({ listings }: Props) => {
                         }`}
                       >
                         {listing.type === 'rent' ? 'For Rent' : 'For Sale'}
-                      </span>
+                      </AnimatedSpan>
                       {hasDiscount ? (
-                        <span className="rounded-full bg-emerald-500 px-2.5 py-1 text-xs font-semibold tracking-wide text-white shadow-sm">
+                        <AnimatedSpan className="rounded-full bg-emerald-500 px-2.5 py-1 text-xs font-semibold tracking-wide text-white shadow-sm">
                           Offer
-                        </span>
+                        </AnimatedSpan>
                       ) : null}
-                    </div>
+                    </AnimatedDiv>
 
-                    <h2 className="line-clamp-2 max-w-3xl text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
+                    <AnimatedSubTitle className="line-clamp-2 max-w-3xl text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
                       {listing.name}
-                    </h2>
+                    </AnimatedSubTitle>
 
-                    <div className="flex flex-wrap items-baseline justify-between gap-4">
-                      <div className="flex items-center gap-1.5 text-white/85">
+                    <AnimatedDiv className="flex flex-wrap items-baseline justify-between gap-4">
+                      <AnimatedDiv className="flex items-center gap-1.5 text-white/85">
                         <MapPin className="size-4 shrink-0" />
-                        <p className="line-clamp-1 text-sm sm:text-base">
+                        <AnimatedText className="line-clamp-1 text-sm sm:text-base">
                           {listing.address}
-                        </p>
-                      </div>
-                      <p className="text-2xl font-bold sm:text-3xl">
+                        </AnimatedText>
+                      </AnimatedDiv>
+                      <AnimatedText className="text-2xl font-bold sm:text-3xl">
                         ${formatPrice(price)}
-                        <span className="ml-1 text-base font-medium text-white/80">
+                        <AnimatedSpan className="ml-1 text-base font-medium text-white/80">
                           {priceSuffix}
-                        </span>
-                      </p>
-                    </div>
-                  </div>
+                        </AnimatedSpan>
+                      </AnimatedText>
+                    </AnimatedDiv>
+                  </AnimatedDiv>
                 </Link>
               </CarouselItem>
             );
@@ -128,17 +134,17 @@ export const FeaturedListingsCarousel = ({ listings }: Props) => {
       </Carousel>
 
       {hasMultiple ? (
-        <div className="pointer-events-none absolute bottom-4 left-1/2 flex -translate-x-1/2 items-center gap-1.5">
+        <AnimatedDiv className="pointer-events-none absolute bottom-4 left-1/2 flex -translate-x-1/2 items-center gap-1.5">
           {listings.map((listing, i) => (
-            <span
+            <AnimatedSpan
               key={listing.id}
               className={`h-1.5 rounded-full bg-white transition-all duration-200 ${
                 i === selectedIndex ? 'w-8 opacity-100' : 'w-1.5 opacity-60'
               }`}
             />
           ))}
-        </div>
+        </AnimatedDiv>
       ) : null}
-    </div>
+    </AnimatedDiv>
   );
 };

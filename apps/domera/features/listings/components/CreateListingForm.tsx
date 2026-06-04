@@ -26,6 +26,11 @@ import {
 import { supabaseBrowser } from '@/lib/supabase/client';
 import { STORAGE_BUCKET } from '@/lib/supabase/constants';
 import { zodResolver } from '@hookform/resolvers/zod';
+import {
+  AnimatedButton,
+  AnimatedDiv,
+  AnimatedSpan
+} from '@repo/ui/animation/core';
 import { Loader2, Save, X } from 'lucide-react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -156,7 +161,7 @@ export const CreateListingForm = () => {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Sell or Rent</FormLabel>
-              <div className="grid grid-cols-2 gap-3">
+              <AnimatedDiv className="grid grid-cols-2 gap-3">
                 <Button
                   type="button"
                   variant={field.value === 'sell' ? 'default' : 'outline'}
@@ -173,7 +178,7 @@ export const CreateListingForm = () => {
                 >
                   Rent
                 </Button>
-              </div>
+              </AnimatedDiv>
               <FormMessage />
             </FormItem>
           )}
@@ -197,7 +202,7 @@ export const CreateListingForm = () => {
           )}
         />
 
-        <div className="grid grid-cols-2 gap-4">
+        <AnimatedDiv className="grid grid-cols-2 gap-4">
           <FormField
             control={control}
             name="bedrooms"
@@ -238,7 +243,7 @@ export const CreateListingForm = () => {
               </FormItem>
             )}
           />
-        </div>
+        </AnimatedDiv>
 
         <FormField
           control={control}
@@ -246,7 +251,7 @@ export const CreateListingForm = () => {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Parking spot</FormLabel>
-              <div className="grid grid-cols-2 gap-3">
+              <AnimatedDiv className="grid grid-cols-2 gap-3">
                 <Button
                   type="button"
                   variant={field.value === true ? 'default' : 'outline'}
@@ -263,7 +268,7 @@ export const CreateListingForm = () => {
                 >
                   No
                 </Button>
-              </div>
+              </AnimatedDiv>
               <FormMessage />
             </FormItem>
           )}
@@ -275,7 +280,7 @@ export const CreateListingForm = () => {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Furnished</FormLabel>
-              <div className="grid grid-cols-2 gap-3">
+              <AnimatedDiv className="grid grid-cols-2 gap-3">
                 <Button
                   type="button"
                   variant={field.value === true ? 'default' : 'outline'}
@@ -292,7 +297,7 @@ export const CreateListingForm = () => {
                 >
                   No
                 </Button>
-              </div>
+              </AnimatedDiv>
               <FormMessage />
             </FormItem>
           )}
@@ -340,7 +345,7 @@ export const CreateListingForm = () => {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Special offer</FormLabel>
-              <div className="grid grid-cols-2 gap-3">
+              <AnimatedDiv className="grid grid-cols-2 gap-3">
                 <Button
                   type="button"
                   variant={field.value === true ? 'default' : 'outline'}
@@ -357,7 +362,7 @@ export const CreateListingForm = () => {
                 >
                   No
                 </Button>
-              </div>
+              </AnimatedDiv>
               <FormMessage />
             </FormItem>
           )}
@@ -372,10 +377,10 @@ export const CreateListingForm = () => {
                 Regular price{type === 'rent' ? ' ($ / month)' : ' ($)'}
               </FormLabel>
               <FormControl>
-                <div className="relative">
-                  <span className="text-muted-foreground pointer-events-none absolute top-1/2 left-4 -translate-y-1/2 text-base">
+                <AnimatedDiv className="relative">
+                  <AnimatedSpan className="text-muted-foreground pointer-events-none absolute top-1/2 left-4 -translate-y-1/2 text-base">
                     $
-                  </span>
+                  </AnimatedSpan>
                   <Input
                     type="text"
                     inputMode="numeric"
@@ -391,7 +396,7 @@ export const CreateListingForm = () => {
                     }}
                     className="h-12 min-h-12 pr-4 pl-8 text-base md:text-base"
                   />
-                </div>
+                </AnimatedDiv>
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -409,10 +414,10 @@ export const CreateListingForm = () => {
                   {type === 'rent' ? ' ($ / month)' : ' ($)'}
                 </FormLabel>
                 <FormControl>
-                  <div className="relative">
-                    <span className="text-muted-foreground pointer-events-none absolute top-1/2 left-4 -translate-y-1/2 text-base">
+                  <AnimatedDiv className="relative">
+                    <AnimatedSpan className="text-muted-foreground pointer-events-none absolute top-1/2 left-4 -translate-y-1/2 text-base">
                       $
-                    </span>
+                    </AnimatedSpan>
                     <Input
                       type="text"
                       inputMode="numeric"
@@ -430,7 +435,7 @@ export const CreateListingForm = () => {
                       }}
                       className="h-12 min-h-12 pr-4 pl-8 text-base md:text-base"
                     />
-                  </div>
+                  </AnimatedDiv>
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -460,9 +465,9 @@ export const CreateListingForm = () => {
               </FormControl>
 
               {previewURLs.length > 0 ? (
-                <div className="grid grid-cols-3 gap-3 sm:grid-cols-4">
+                <AnimatedDiv className="grid grid-cols-3 gap-3 sm:grid-cols-4">
                   {previewURLs.map((url, index) => (
-                    <div
+                    <AnimatedDiv
                       key={url}
                       className="group relative aspect-square overflow-hidden rounded-md border"
                     >
@@ -474,21 +479,21 @@ export const CreateListingForm = () => {
                         className="object-cover"
                       />
                       {index === 0 ? (
-                        <span className="bg-foreground text-background absolute top-1 left-1 rounded px-1.5 py-0.5 text-[10px] font-medium tracking-wider uppercase">
+                        <AnimatedSpan className="bg-foreground text-background absolute top-1 left-1 rounded px-1.5 py-0.5 text-[10px] font-medium tracking-wider uppercase">
                           Cover
-                        </span>
+                        </AnimatedSpan>
                       ) : null}
-                      <button
+                      <AnimatedButton
                         type="button"
                         onClick={() => removeImage(index)}
                         className="absolute top-1 right-1 grid size-6 place-items-center rounded-full bg-black/70 text-white opacity-0 transition-opacity group-hover:opacity-100 hover:bg-black"
                         aria-label={`Remove image ${index + 1}`}
                       >
                         <X className="size-3.5" />
-                      </button>
-                    </div>
+                      </AnimatedButton>
+                    </AnimatedDiv>
                   ))}
-                </div>
+                </AnimatedDiv>
               ) : null}
               <FormMessage />
             </FormItem>

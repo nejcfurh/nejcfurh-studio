@@ -9,7 +9,12 @@ import {
   authStaggerVariants
 } from '@/features/auth/utils/auth-motion';
 import { getFirebaseErrorMessage } from '@/features/auth/utils/firebase-errors';
-import { motion } from '@repo/ui/animation';
+import {
+  AnimatedDiv,
+  AnimatedSection,
+  AnimatedText,
+  AnimatedTitle
+} from '@repo/ui/animation/core';
 import { Loader2 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -38,7 +43,7 @@ const PasswordResetPage = () => {
   };
 
   return (
-    <section className="relative h-[calc(100svh-4rem)] w-full overflow-hidden">
+    <AnimatedSection className="relative h-[calc(100svh-4rem)] w-full overflow-hidden">
       <Image
         src="/images/forgot-password.jpg"
         alt=""
@@ -47,30 +52,30 @@ const PasswordResetPage = () => {
         sizes="100vw"
         className="object-cover"
       />
-      <div className="absolute inset-0 bg-linear-to-br from-black/80 via-black/50 to-black/30" />
+      <AnimatedDiv className="absolute inset-0 bg-linear-to-br from-black/80 via-black/50 to-black/30" />
 
-      <div className="relative flex h-full w-full items-center justify-center p-6 sm:p-10">
-        <motion.div
+      <AnimatedDiv className="relative flex h-full w-full items-center justify-center p-6 sm:p-10">
+        <AnimatedDiv
           variants={authStaggerVariants}
           initial="hidden"
           animate="visible"
           className="flex w-full max-w-lg flex-col gap-10 rounded-2xl border border-white/15 bg-black/40 p-8 text-white shadow-2xl backdrop-blur-xl sm:p-10"
         >
-          <motion.div
+          <AnimatedDiv
             variants={authItemVariants}
             className="flex flex-col gap-3"
           >
-            <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl">
+            <AnimatedTitle className="text-4xl font-semibold tracking-tight sm:text-5xl">
               Forgot password?
-            </h1>
-            <p className="text-base text-white/80 sm:text-lg">
+            </AnimatedTitle>
+            <AnimatedText className="text-base text-white/80 sm:text-lg">
               Enter the email tied to your account and we&apos;ll send you a
               reset link.
-            </p>
-          </motion.div>
+            </AnimatedText>
+          </AnimatedDiv>
 
           <form onSubmit={handleSubmit} className="flex flex-col gap-6">
-            <motion.div
+            <AnimatedDiv
               variants={authItemVariants}
               className="flex h-20 flex-col gap-2.5"
             >
@@ -89,9 +94,9 @@ const PasswordResetPage = () => {
                 disabled={pending || sent}
                 className="h-12 min-h-12 border-white/20 bg-white/10 px-4 text-base text-white placeholder:text-white/50 focus-visible:border-white/40 focus-visible:ring-white/20 md:text-base"
               />
-            </motion.div>
+            </AnimatedDiv>
 
-            <motion.div variants={authItemVariants}>
+            <AnimatedDiv variants={authItemVariants}>
               <Button
                 type="submit"
                 disabled={pending || sent}
@@ -100,10 +105,10 @@ const PasswordResetPage = () => {
                 {pending ? 'Sending' : sent ? 'Link sent!' : 'Send reset link'}
                 {pending && <Loader2 className="animate-spin" />}
               </Button>
-            </motion.div>
+            </AnimatedDiv>
           </form>
 
-          <motion.p
+          <AnimatedText
             variants={authItemVariants}
             className="text-center text-base text-white/70"
           >
@@ -114,10 +119,10 @@ const PasswordResetPage = () => {
             >
               Back to sign in
             </Link>
-          </motion.p>
-        </motion.div>
-      </div>
-    </section>
+          </AnimatedText>
+        </AnimatedDiv>
+      </AnimatedDiv>
+    </AnimatedSection>
   );
 };
 

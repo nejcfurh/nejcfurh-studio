@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: Props) {
   const listing = await getListing(listingId);
   if (!listing) return { title: 'Listing not found' };
   return {
-    title: `${listing.name} — Domera`,
+    title: `${listing.name} — Domavia`,
     description: listing.description.slice(0, 160),
     openGraph: {
       title: listing.name,

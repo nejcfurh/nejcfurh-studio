@@ -13,6 +13,11 @@ import {
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { getLandlordContact } from '@/features/listings/actions/get-landlord-contact';
+import {
+  AnimatedButton,
+  AnimatedDiv,
+  AnimatedSpan
+} from '@repo/ui/animation/core';
 import { Loader2, Mail, MessageSquare } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -68,14 +73,14 @@ export const ContactLandlordDialog = ({
   return (
     <Dialog onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>
-        <button
+        <AnimatedButton
           type="button"
           aria-label="Contact landlord"
           title="Contact landlord"
           className="bg-background/90 text-foreground hover:bg-background grid size-11 cursor-pointer place-items-center rounded-full border shadow-lg backdrop-blur transition-colors"
         >
           <MessageSquare className="size-5" />
-        </button>
+        </AnimatedButton>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
@@ -87,8 +92,11 @@ export const ContactLandlordDialog = ({
           <DialogDescription>
             {viewerSignedIn ? (
               <>
-                About <span className="font-medium">{listingName}</span>. Your
-                email client will open with the message pre-filled.
+                About{' '}
+                <AnimatedSpan className="font-medium">
+                  {listingName}
+                </AnimatedSpan>
+                . Your email client will open with the message pre-filled.
               </>
             ) : (
               'You need an account to contact landlords. This keeps inboxes spam-free.'
@@ -97,7 +105,7 @@ export const ContactLandlordDialog = ({
         </DialogHeader>
 
         {viewerSignedIn ? (
-          <div className="flex flex-col gap-2">
+          <AnimatedDiv className="flex flex-col gap-2">
             <Label htmlFor="contact-message">Message</Label>
             <Textarea
               id="contact-message"
@@ -107,7 +115,7 @@ export const ContactLandlordDialog = ({
               rows={5}
               disabled={loading || !contact}
             />
-          </div>
+          </AnimatedDiv>
         ) : null}
 
         <DialogFooter>
@@ -119,10 +127,10 @@ export const ContactLandlordDialog = ({
                   Send via email
                 </a>
               ) : (
-                <span>
+                <AnimatedSpan>
                   {loading ? <Loader2 className="animate-spin" /> : <Mail />}
                   {loading ? 'Loading' : 'Send via email'}
-                </span>
+                </AnimatedSpan>
               )}
             </Button>
           ) : (

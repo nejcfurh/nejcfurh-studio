@@ -11,7 +11,13 @@ import {
   authStaggerVariants
 } from '@/features/auth/utils/auth-motion';
 import { getFirebaseErrorMessage } from '@/features/auth/utils/firebase-errors';
-import { motion } from '@repo/ui/animation';
+import {
+  AnimatedDiv,
+  AnimatedSection,
+  AnimatedSpan,
+  AnimatedText,
+  AnimatedTitle
+} from '@repo/ui/animation/core';
 import { Loader2 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -68,8 +74,8 @@ const LoginForm = () => {
   };
 
   return (
-    <section className="bg-background grid h-[calc(100svh-4rem)] w-full lg:grid-cols-2">
-      <div className="relative hidden lg:block">
+    <AnimatedSection className="bg-background grid h-[calc(100svh-4rem)] w-full lg:grid-cols-2">
+      <AnimatedDiv className="relative hidden lg:block">
         <Image
           src="/images/login-image.jpg"
           alt="Login"
@@ -78,29 +84,29 @@ const LoginForm = () => {
           sizes="(min-width: 1024px) 50vw, 0"
           className="object-cover"
         />
-      </div>
+      </AnimatedDiv>
 
-      <div className="flex h-full w-full items-center justify-center p-6 sm:p-10">
-        <motion.div
+      <AnimatedDiv className="flex h-full w-full items-center justify-center p-6 sm:p-10">
+        <AnimatedDiv
           variants={authStaggerVariants}
           initial="hidden"
           animate="visible"
           className="flex w-full max-w-lg flex-col gap-10"
         >
-          <motion.div
+          <AnimatedDiv
             variants={authItemVariants}
             className="flex flex-col gap-3"
           >
-            <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl">
+            <AnimatedTitle className="text-4xl font-semibold tracking-tight sm:text-5xl">
               Welcome back
-            </h1>
-            <p className="text-muted-foreground text-base sm:text-lg">
+            </AnimatedTitle>
+            <AnimatedText className="text-muted-foreground text-base sm:text-lg">
               Enter your email and password to access your account.
-            </p>
-          </motion.div>
+            </AnimatedText>
+          </AnimatedDiv>
 
           <form onSubmit={handleSubmit} className="flex flex-col gap-6">
-            <motion.div
+            <AnimatedDiv
               variants={authItemVariants}
               className="flex h-20 flex-col gap-2.5"
             >
@@ -119,13 +125,13 @@ const LoginForm = () => {
                 disabled={pending !== null}
                 className="h-12 min-h-12 px-4 text-base md:text-base"
               />
-            </motion.div>
+            </AnimatedDiv>
 
-            <motion.div
+            <AnimatedDiv
               variants={authItemVariants}
               className="flex h-20 flex-col gap-2.5"
             >
-              <div className="flex items-center justify-between">
+              <AnimatedDiv className="flex items-center justify-between">
                 <Label htmlFor="password" className="text-base">
                   Password
                 </Label>
@@ -135,7 +141,7 @@ const LoginForm = () => {
                 >
                   Forgot password?
                 </Link>
-              </div>
+              </AnimatedDiv>
               <Input
                 id="password"
                 name="password"
@@ -148,9 +154,9 @@ const LoginForm = () => {
                 disabled={pending !== null}
                 className="h-12 min-h-12 px-4 text-base md:text-base"
               />
-            </motion.div>
+            </AnimatedDiv>
 
-            <motion.div variants={authItemVariants}>
+            <AnimatedDiv variants={authItemVariants}>
               <Button
                 type="submit"
                 disabled={pending !== null}
@@ -159,29 +165,29 @@ const LoginForm = () => {
                 {pending === 'email' ? 'Signing in' : 'Sign in'}
                 {pending === 'email' && <Loader2 className="animate-spin" />}
               </Button>
-            </motion.div>
+            </AnimatedDiv>
 
-            <motion.div
+            <AnimatedDiv
               variants={authItemVariants}
               className="flex items-center gap-4"
             >
-              <span className="bg-border h-px flex-1" />
-              <span className="text-muted-foreground text-sm font-medium tracking-wider uppercase">
+              <AnimatedSpan className="bg-border h-px flex-1" />
+              <AnimatedSpan className="text-muted-foreground text-sm font-medium tracking-wider uppercase">
                 Or
-              </span>
-              <span className="bg-border h-px flex-1" />
-            </motion.div>
+              </AnimatedSpan>
+              <AnimatedSpan className="bg-border h-px flex-1" />
+            </AnimatedDiv>
 
-            <motion.div variants={authItemVariants}>
+            <AnimatedDiv variants={authItemVariants}>
               <GoogleOAuthButton
                 onClick={handleGoogle}
                 loading={pending === 'google'}
                 disabled={pending !== null}
               />
-            </motion.div>
+            </AnimatedDiv>
           </form>
 
-          <motion.p
+          <AnimatedText
             variants={authItemVariants}
             className="text-muted-foreground text-center text-base"
           >
@@ -192,19 +198,19 @@ const LoginForm = () => {
             >
               Create one
             </Link>
-          </motion.p>
-        </motion.div>
-      </div>
-    </section>
+          </AnimatedText>
+        </AnimatedDiv>
+      </AnimatedDiv>
+    </AnimatedSection>
   );
 };
 
 const LoginPage = () => (
   <Suspense
     fallback={
-      <section className="bg-background flex h-[calc(100svh-4rem)] w-full items-center justify-center">
+      <AnimatedSection className="bg-background flex h-[calc(100svh-4rem)] w-full items-center justify-center">
         <Spinner size={64} />
-      </section>
+      </AnimatedSection>
     }
   >
     <LoginForm />

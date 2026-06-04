@@ -11,6 +11,7 @@ import { isAllowedImageMime } from '@/features/listings/constants';
 import { firebaseAuth } from '@/lib/firebase/client';
 import { supabaseBrowser } from '@/lib/supabase/client';
 import { STORAGE_BUCKET } from '@/lib/supabase/constants';
+import { AnimatedDiv, AnimatedText } from '@repo/ui/animation/core';
 import { verifyBeforeUpdateEmail } from 'firebase/auth';
 import { Loader2, Save, Upload, User } from 'lucide-react';
 import Image from 'next/image';
@@ -129,7 +130,7 @@ export const EditableProfileForm = ({
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-8">
-      <div className="flex flex-col items-center gap-8 sm:flex-row sm:items-start">
+      <AnimatedDiv className="flex flex-col items-center gap-8 sm:flex-row sm:items-start">
         {previewURL ? (
           <Image
             src={previewURL}
@@ -141,13 +142,13 @@ export const EditableProfileForm = ({
             className="size-64 shrink-0 rounded-full object-cover"
           />
         ) : (
-          <div className="bg-muted text-muted-foreground flex size-56 shrink-0 items-center justify-center rounded-full">
+          <AnimatedDiv className="bg-muted text-muted-foreground flex size-56 shrink-0 items-center justify-center rounded-full">
             <User className="size-20" />
-          </div>
+          </AnimatedDiv>
         )}
 
-        <div className="flex flex-1 flex-col gap-4 self-stretch">
-          <div className="flex h-20 flex-col gap-2.5">
+        <AnimatedDiv className="flex flex-1 flex-col gap-4 self-stretch">
+          <AnimatedDiv className="flex h-20 flex-col gap-2.5">
             <Label htmlFor="displayName" className="text-base">
               Display name
             </Label>
@@ -159,10 +160,10 @@ export const EditableProfileForm = ({
               autoComplete="name"
               className="h-12 min-h-12 px-4 text-base md:text-base"
             />
-          </div>
+          </AnimatedDiv>
 
-          <div className="flex flex-col gap-2">
-            <div className="flex h-20 flex-col gap-2.5">
+          <AnimatedDiv className="flex flex-col gap-2">
+            <AnimatedDiv className="flex h-20 flex-col gap-2.5">
               <Label htmlFor="email" className="text-base">
                 Email
               </Label>
@@ -175,20 +176,20 @@ export const EditableProfileForm = ({
                 autoComplete="email"
                 className="h-12 min-h-12 px-4 text-base md:text-base"
               />
-            </div>
+            </AnimatedDiv>
             {canEditEmail ? (
-              <p className="text-muted-foreground text-xs">
+              <AnimatedText className="text-muted-foreground text-xs">
                 Changing your email will send a verification link to the new
                 address. The change takes effect after you confirm.
-              </p>
+              </AnimatedText>
             ) : (
-              <p className="text-muted-foreground text-xs">
+              <AnimatedText className="text-muted-foreground text-xs">
                 {provider === 'google.com'
                   ? 'Your email is managed by Google and can’t be changed here.'
                   : 'Email cannot be changed for this sign-in method.'}
-              </p>
+              </AnimatedText>
             )}
-          </div>
+          </AnimatedDiv>
 
           <input
             ref={fileInputRef}
@@ -198,7 +199,7 @@ export const EditableProfileForm = ({
             disabled={pending}
             className="hidden"
           />
-          <div className="flex items-center gap-3">
+          <AnimatedDiv className="flex items-center gap-3">
             <Button
               type="button"
               variant="outline"
@@ -210,12 +211,12 @@ export const EditableProfileForm = ({
               <Upload className="size-4" />
               Change photo
             </Button>
-            <p className="text-muted-foreground text-xs">
+            <AnimatedText className="text-muted-foreground text-xs">
               PNG or JPG, up to 5MB.
-            </p>
-          </div>
-        </div>
-      </div>
+            </AnimatedText>
+          </AnimatedDiv>
+        </AnimatedDiv>
+      </AnimatedDiv>
 
       <Button type="submit" disabled={pending} className="w-full">
         {pending ? <Loader2 className="animate-spin" /> : <Save />}

@@ -25,6 +25,7 @@ import {
   type EditListingValues
 } from '@/features/listings/schemas';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { AnimatedDiv } from '@repo/ui/animation/core';
 import { Loader2, Save } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
@@ -117,7 +118,7 @@ export const EditListingDialog = ({ listing, open, onOpenChange }: Props) => {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Sell or Rent</FormLabel>
-                  <div className="grid grid-cols-2 gap-3">
+                  <AnimatedDiv className="grid grid-cols-2 gap-3">
                     <Button
                       type="button"
                       variant={field.value === 'sell' ? 'default' : 'outline'}
@@ -132,7 +133,7 @@ export const EditListingDialog = ({ listing, open, onOpenChange }: Props) => {
                     >
                       Rent
                     </Button>
-                  </div>
+                  </AnimatedDiv>
                   <FormMessage />
                 </FormItem>
               )}
@@ -152,7 +153,7 @@ export const EditListingDialog = ({ listing, open, onOpenChange }: Props) => {
               )}
             />
 
-            <div className="grid grid-cols-2 gap-4">
+            <AnimatedDiv className="grid grid-cols-2 gap-4">
               <FormField
                 control={control}
                 name="bedrooms"
@@ -191,16 +192,16 @@ export const EditListingDialog = ({ listing, open, onOpenChange }: Props) => {
                   </FormItem>
                 )}
               />
-            </div>
+            </AnimatedDiv>
 
-            <div className="grid grid-cols-2 gap-4">
+            <AnimatedDiv className="grid grid-cols-2 gap-4">
               <FormField
                 control={control}
                 name="parking"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Parking spot</FormLabel>
-                    <div className="grid grid-cols-2 gap-2">
+                    <AnimatedDiv className="grid grid-cols-2 gap-2">
                       <Button
                         type="button"
                         variant={field.value === true ? 'default' : 'outline'}
@@ -215,7 +216,7 @@ export const EditListingDialog = ({ listing, open, onOpenChange }: Props) => {
                       >
                         No
                       </Button>
-                    </div>
+                    </AnimatedDiv>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -226,7 +227,7 @@ export const EditListingDialog = ({ listing, open, onOpenChange }: Props) => {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Furnished</FormLabel>
-                    <div className="grid grid-cols-2 gap-2">
+                    <AnimatedDiv className="grid grid-cols-2 gap-2">
                       <Button
                         type="button"
                         variant={field.value === true ? 'default' : 'outline'}
@@ -241,12 +242,12 @@ export const EditListingDialog = ({ listing, open, onOpenChange }: Props) => {
                       >
                         No
                       </Button>
-                    </div>
+                    </AnimatedDiv>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-            </div>
+            </AnimatedDiv>
 
             <FormField
               control={control}
@@ -282,7 +283,7 @@ export const EditListingDialog = ({ listing, open, onOpenChange }: Props) => {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Special offer</FormLabel>
-                  <div className="grid grid-cols-2 gap-3">
+                  <AnimatedDiv className="grid grid-cols-2 gap-3">
                     <Button
                       type="button"
                       variant={field.value === true ? 'default' : 'outline'}
@@ -297,7 +298,7 @@ export const EditListingDialog = ({ listing, open, onOpenChange }: Props) => {
                     >
                       No
                     </Button>
-                  </div>
+                  </AnimatedDiv>
                   <FormMessage />
                 </FormItem>
               )}

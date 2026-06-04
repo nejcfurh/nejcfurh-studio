@@ -3,8 +3,8 @@ import { Geist, Geist_Mono } from 'next/font/google';
 
 import './globals.css';
 
-import DomeraFooter from '@/components/Footer';
-import DomeraHeader from '@/components/Header';
+import DomaviaFooter from '@/components/Footer';
+import DomaviaHeader from '@/components/Header';
 import { Toaster } from '@/components/ui/sonner';
 import { appConfig } from '@/config/app.config';
 import { AuthProvider } from '@/features/auth/providers/AuthProvider';
@@ -23,10 +23,10 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL(appConfig.webRootUrl),
-  title: 'Domera | Find a house. Make it your home.',
+  title: 'Domavia | Find a house. Make it your home.',
   description: 'Find a house. Make it your home.',
   openGraph: {
-    title: 'Domera | Find a house. Make it your home.',
+    title: 'Domavia | Find a house. Make it your home.',
     description: 'Find a house. Make it your home.',
     images: [
       {
@@ -58,9 +58,9 @@ export default function Layout({
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
           <AuthProvider>
-            <DomeraHeader />
+            <DomaviaHeader />
             {children}
-            <DomeraFooter />
+            <DomaviaFooter />
             <Toaster position="bottom-center" richColors closeButton />
           </AuthProvider>
         </body>

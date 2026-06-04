@@ -59,6 +59,6 @@ export const appConfig = AppConfigValidation.parse({
     clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
     privateKey: process.env.FIREBASE_PRIVATE_KEY
   },
-  serviceName: 'domera',
+  serviceName: 'domavia',
   webRootUrl: process.env.NEXT_PUBLIC_ROOT_URL
 });
