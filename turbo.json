@@ -29,7 +29,13 @@
         "ADMIN_USERNAME",
         "ADMIN_PASSWORD",
         "PASSWORD_ELYSANTIUM",
-        "USER_ELYSANTIUM"
+        "USER_ELYSANTIUM",
+        "SUPABASE_SERVICE_ROLE_KEY",
+        "FIREBASE_PROJECT_ID",
+        "FIREBASE_CLIENT_EMAIL",
+        "FIREBASE_PRIVATE_KEY",
+        "NEXT_PUBLIC_SUPABASE_ANON_KEY",
+        "LOCATIONIQ_GEOCODE_API_KEY"
       ],
       "outputs": ["dist/**", ".next/**", "!.next/cache/**"]
     },
