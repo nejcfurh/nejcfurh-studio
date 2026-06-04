@@ -1,5 +1,17 @@
 # Changelog
 
+## v1.21.0 (2026-06-04)
+
+
+### Features
+
+- feat(nejcfurh-studio): Change Domera name to Domavia and add animations (#80) (8dd8e83)
+- feat(nejcfurh-studio): Changed domera app name to domavia (dbcf23c)
+- feat(domera): Added animations to the pages (609e84a)
+- feat(domera): Bring motion components into project (6e03aa6)
+
+# Changelog
+
 ## v1.20.0 (2026-06-04)
 
 
