@@ -1,0 +1,21 @@
+{
+  "extends": "tsconfig/nextjs.json",
+  "compilerOptions": {
+    "types": ["node", "react", "react-dom"],
+    "paths": {
+      "@/*": ["./*"],
+      "@utils/*": ["./utils/*"],
+      "@analytics": ["../../packages/analytics/src"],
+      "@analytics/*": ["../../packages/analytics/src/*"]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.mts",
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts"
+  ],
+  "exclude": ["node_modules"]
+}

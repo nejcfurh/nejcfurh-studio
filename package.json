@@ -24,7 +24,8 @@
     "to-do-cards": "turbo dev --filter=to-do-cards",
     "twabblr": "turbo dev --filter=twabblr",
     "elysantium": "turbo dev --filter=elysantium",
-    "jobs-react-native": "turbo dev --filter=jobs-react-native"
+    "jobs-react-native": "turbo dev --filter=jobs-react-native",
+    "domera": "turbo dev --filter=domera"
   },
   "devDependencies": {
     "@commitlint/cli": "20.4.2",
@@ -44,15 +45,16 @@
     },
     "onlyBuiltDependencies": [
       "@clerk/shared",
+      "@firebase/util",
+      "@prisma/client",
+      "@prisma/engines",
       "bcrypt",
       "core-js",
       "esbuild",
+      "prisma",
       "protobufjs",
       "sharp",
-      "unrs-resolver",
-      "@prisma/client",
-      "@prisma/engines",
-      "prisma"
+      "unrs-resolver"
     ]
   }
 }
