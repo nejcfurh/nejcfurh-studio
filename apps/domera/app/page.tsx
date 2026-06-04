@@ -1,6 +1,6 @@
 import { AnalyticsClientPageEvent } from '@/features/analytics/types.client';
 import { FeaturedListingsCarousel } from '@/features/listings/components/FeaturedListingsCarousel';
-import { ListingItem } from '@/features/listings/components/ListingItem';
+import { ListingsGrid } from '@/features/listings/components/ListingsGrid';
 import type { Listing } from '@/features/listings/types';
 import {
   getListingsByType,
@@ -35,11 +35,10 @@ const ListingSection = ({ title, href, ctaLabel, listings }: SectionProps) => {
           <ArrowRight className="size-4" />
         </Link>
       </div>
-      <ul className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {listings.map((listing) => (
-          <ListingItem key={listing.id} listing={listing} />
-        ))}
-      </ul>
+      <ListingsGrid
+        listings={listings}
+        className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+      />
     </section>
   );
 };

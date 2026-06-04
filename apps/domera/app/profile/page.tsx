@@ -2,7 +2,7 @@ import { Button } from '@/components/ui/button';
 import { EditableProfileForm } from '@/features/auth/components/EditableProfileForm';
 import { SignOutButton } from '@/features/auth/components/SignOutButton';
 import { getCurrentUser } from '@/features/auth/utils/get-current-user';
-import { ListingItem } from '@/features/listings/components/ListingItem';
+import { ListingsGrid } from '@/features/listings/components/ListingsGrid';
 import { getUserListings } from '@/features/listings/utils/get-user-listings';
 import { Home } from 'lucide-react';
 import Image from 'next/image';
@@ -100,11 +100,10 @@ const ProfilePage = async () => {
           </Button>
 
           {listings.length > 0 ? (
-            <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-              {listings.map((listing) => (
-                <ListingItem key={listing.id} listing={listing} />
-              ))}
-            </ul>
+            <ListingsGrid
+              listings={listings}
+              className="grid grid-cols-1 gap-4 sm:grid-cols-2"
+            />
           ) : null}
         </div>
       </div>

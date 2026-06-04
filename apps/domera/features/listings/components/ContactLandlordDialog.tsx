@@ -75,6 +75,9 @@ export const ContactLandlordDialog = ({
       <DialogTrigger asChild>
         <AnimatedButton
           type="button"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          transition={{ duration: 0.15, ease: [0.22, 0.61, 0.36, 1] }}
           aria-label="Contact landlord"
           title="Contact landlord"
           className="bg-background/90 text-foreground hover:bg-background grid size-11 cursor-pointer place-items-center rounded-full border shadow-lg backdrop-blur transition-colors"

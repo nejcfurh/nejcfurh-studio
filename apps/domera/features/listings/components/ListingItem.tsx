@@ -11,6 +11,7 @@ import {
 import { useAuth } from '@/features/auth/hooks/useAuth';
 import { DeleteListingDialog } from '@/features/listings/components/DeleteListingDialog';
 import { EditListingDialog } from '@/features/listings/components/EditListingDialog';
+import { listingCardVariants } from '@/features/listings/utils/listing-motion';
 import {
   AnimatedButton,
   AnimatedDiv,
@@ -77,7 +78,12 @@ export const ListingItem = ({ listing }: ListingItemProps) => {
   const hasMultiple = images.length > 1;
 
   return (
-    <AnimatedListItem className="group bg-card text-card-foreground overflow-hidden rounded-xl shadow-sm transition-shadow duration-200 hover:shadow-md">
+    <AnimatedListItem
+      variants={listingCardVariants}
+      whileHover={{ y: -2 }}
+      transition={{ duration: 0.2, ease: [0.22, 0.61, 0.36, 1] }}
+      className="group bg-card text-card-foreground overflow-hidden rounded-xl shadow-sm transition-shadow duration-200 hover:shadow-md"
+    >
       <Link href={`/category/${listing.type}/${listing.id}`} className="block">
         <AnimatedDiv className="relative aspect-16/10 overflow-hidden">
           <Carousel
@@ -215,6 +221,7 @@ export const ListingItem = ({ listing }: ListingItemProps) => {
                 <AnimatedButton
                   type="button"
                   onClick={handleEditClick}
+                  whileTap={{ scale: 0.9 }}
                   aria-label="Edit listing"
                   className="text-muted-foreground hover:bg-muted hover:text-foreground grid size-8 cursor-pointer place-items-center rounded-md transition-colors"
                 >
@@ -223,6 +230,7 @@ export const ListingItem = ({ listing }: ListingItemProps) => {
                 <AnimatedButton
                   type="button"
                   onClick={handleDeleteClick}
+                  whileTap={{ scale: 0.9 }}
                   aria-label="Delete listing"
                   className="text-muted-foreground hover:bg-destructive/10 hover:text-destructive grid size-8 cursor-pointer place-items-center rounded-md transition-colors"
                 >

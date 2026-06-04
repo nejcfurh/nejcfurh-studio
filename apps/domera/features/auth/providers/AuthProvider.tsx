@@ -1,6 +1,7 @@
 'use client';
 
 import { firebaseAuth, googleProvider } from '@/lib/firebase/client';
+import { MotionConfig } from '@repo/ui/animation';
 import {
   createUserWithEmailAndPassword,
   signOut as firebaseSignOut,
@@ -130,5 +131,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     ]
   );
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return (
+    <MotionConfig reducedMotion="user">
+      <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
+    </MotionConfig>
+  );
 };

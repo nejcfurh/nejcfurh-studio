@@ -11,6 +11,7 @@ import {
   AlertDialogTitle
 } from '@/components/ui/alert-dialog';
 import { deleteListing } from '@/features/listings/actions/delete-listing';
+import { AnimatedSpan } from '@repo/ui/animation/core';
 import { Loader2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -56,7 +57,9 @@ export const DeleteListingDialog = ({
         <AlertDialogHeader>
           <AlertDialogTitle>Delete this listing?</AlertDialogTitle>
           <AlertDialogDescription>
-            <span className="text-foreground font-medium">{listingName}</span>{' '}
+            <AnimatedSpan className="text-foreground font-medium">
+              {listingName}
+            </AnimatedSpan>{' '}
             will be permanently removed along with its uploaded images. This
             cannot be undone.
           </AlertDialogDescription>

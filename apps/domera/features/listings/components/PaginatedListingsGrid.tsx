@@ -1,13 +1,9 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { ListingItem } from '@/features/listings/components/ListingItem';
+import { ListingsGrid } from '@/features/listings/components/ListingsGrid';
 import type { PaginatedListings } from '@/features/listings/utils/get-listings';
-import {
-  AnimatedDiv,
-  AnimatedList,
-  AnimatedText
-} from '@repo/ui/animation/core';
+import { AnimatedDiv, AnimatedText } from '@repo/ui/animation/core';
 import { Loader2 } from 'lucide-react';
 import { useState, useTransition } from 'react';
 import { toast } from 'sonner';
@@ -56,11 +52,10 @@ export const PaginatedListingsGrid = ({
 
   return (
     <AnimatedDiv className="flex flex-col gap-10">
-      <AnimatedList className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {listings.map((listing) => (
-          <ListingItem key={listing.id} listing={listing} />
-        ))}
-      </AnimatedList>
+      <ListingsGrid
+        listings={listings}
+        className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
+      />
       {cursor ? (
         <AnimatedDiv className="flex justify-center">
           <Button

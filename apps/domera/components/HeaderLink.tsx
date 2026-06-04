@@ -1,7 +1,12 @@
 'use client';
 
+import { navItemVariants } from '@/components/header-motion';
+import { motion } from '@repo/ui/animation';
+import { AnimatedSpan } from '@repo/ui/animation/core';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+
+const MotionLink = motion.create(Link);
 
 const HeaderLink = ({
   href,
@@ -12,15 +17,23 @@ const HeaderLink = ({
 }) => {
   const pathname = usePathname();
 
-  const pathMatchRoute = (route: string) => pathname === route;
+  const isActive = pathname === href;
 
   return (
-    <Link
+    <MotionLink
       href={href}
-      className={`flex h-full items-center justify-center pt-2 text-base font-semibold ${pathMatchRoute(href) ? 'border-b-4 border-[#BF9D61] text-black' : 'border-b-4 border-transparent text-gray-400'}`}
+      variants={navItemVariants}
+      className={`relative flex h-full items-center justify-center pt-2 text-base font-semibold transition-colors ${isActive ? 'text-black' : 'text-gray-400 hover:text-gray-600'}`}
     >
       {children}
-    </Link>
+      {isActive ? (
+        <AnimatedSpan
+          layoutId="nav-underline"
+          transition={{ duration: 0.25, ease: [0.22, 0.61, 0.36, 1] }}
+          className="absolute inset-x-0 bottom-0 h-1 rounded-full bg-[#BF9D61]"
+        />
+      ) : null}
+    </MotionLink>
   );
 };
 
