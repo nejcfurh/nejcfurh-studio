@@ -1,5 +1,6 @@
 'use client';
 
+import Spinner from '@/components/Spinner';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -15,13 +16,13 @@ import { Loader2 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
 import { toast } from 'sonner';
 
 const isSafeRedirectPath = (path: string | null): path is string =>
   typeof path === 'string' && path.startsWith('/') && !path.startsWith('//');
 
-const LoginPage = () => {
+const LoginForm = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const nextParam = searchParams.get('next');
@@ -197,5 +198,17 @@ const LoginPage = () => {
     </section>
   );
 };
+
+const LoginPage = () => (
+  <Suspense
+    fallback={
+      <section className="bg-background flex h-[calc(100svh-4rem)] w-full items-center justify-center">
+        <Spinner size={64} />
+      </section>
+    }
+  >
+    <LoginForm />
+  </Suspense>
+);
 
 export default LoginPage;
