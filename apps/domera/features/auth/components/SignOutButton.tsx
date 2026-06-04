@@ -1,26 +1,34 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { useAuth } from '@/features/auth/hooks/useAuth';
+import { destroySessionAndRedirectHome } from '@/features/auth/actions/session';
+import { firebaseAuth } from '@/lib/firebase/client';
+import { signOut as firebaseSignOut } from 'firebase/auth';
 import { Loader2, LogOut } from 'lucide-react';
-import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { toast } from 'sonner';
 
+const isNextRedirect = (err: unknown): boolean =>
+  err !== null &&
+  typeof err === 'object' &&
+  'digest' in err &&
+  typeof err.digest === 'string' &&
+  err.digest.startsWith('NEXT_REDIRECT');
+
 export const SignOutButton = () => {
-  const { signOut } = useAuth();
-  const router = useRouter();
   const [pending, setPending] = useState(false);
 
   const handleClick = async () => {
     if (pending) return;
     setPending(true);
     try {
-      await signOut();
-      toast.success('Signed out.');
-      router.push('/');
-      router.refresh();
-    } catch {
+      await firebaseSignOut(firebaseAuth);
+      toast.success('Signed out successfully!');
+      await destroySessionAndRedirectHome();
+    } catch (err) {
+      if (isNextRedirect(err)) {
+        throw err;
+      }
       toast.error('Failed to sign out. Please try again.');
       setPending(false);
     }
