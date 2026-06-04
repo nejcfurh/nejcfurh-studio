@@ -1,0 +1,45 @@
+@import 'tailwindcss';
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --email: #ff0000;
+  --linkedin: #0077b5;
+  --facebook: #1877f2;
+  --x: #000000;
+  --github: #3c3b3b;
+  --whatsapp: #25d366;
+  --sms: #25b6d3;
+  --white: #ffffff;
+  scroll-behavior: smooth;
+  --primary-input: #ffffff;
+  --secondary-input: rgb(255, 255, 255);
+  --background-input: #b1afaf;
+  --box-background-input: #1e1e1e;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family:
+    'SF Pro Text', 'SF Pro Icons', 'AOS Icons', 'Helvetica Neue', Helvetica,
+    Arial, sans-serif, system-ui;
+}
+
+.font-mono {
+  font-family: 'Departure Mono', monospace;
+}
