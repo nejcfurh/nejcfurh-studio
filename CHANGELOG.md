@@ -1,5 +1,38 @@
 # Changelog
 
+## v1.20.0 (2026-06-04)
+
+
+### Features
+
+- feat(nejcfurh-studio): Add project domera to apps (#75) (526b1a3)
+- feat(domera): Add listing pages, home page and offers page (bd865f9)
+- feat(domera): Added functionality for adding, editing, deleting and displaying listings (79fe047)
+- feat(domera): Added Profile page (907377c)
+- feat(domera): Added Header and Authentication with Firebase (a593de0)
+- feat(nejcfurh-studio): Added a apps-template to apps (5b47ccc)
+- feat(nejcfurh-studio): Add Domera app to apps (fbf1cb9)
+
+
+### Bug Fixes & Improvements
+
+- fix(domera): Force refresh avatar on change and proper redirect on si… (#79) (2f44f59)
+- fix(domera): Force refresh avatar on change and proper redirect on sign-out to homepage (2216d48)
+- fix(domera): Proper handling of useSearchParams (#78) (5f5ebee)
+- fix(domera): Proper handling of useSearchParams (f436dff)
+- fix(domera): Fix deployment issue (#77) (39f14bd)
+- fix(domera): Fix deployment issue (b399722)
+
+
+### Other Changes
+
+- chore(domera): Fix PR review comments (a9c6824)
+- chore(domera): Fix metadata, add og image (619ddd1)
+- chore(nejcfurh-studio): Updated all apps to NextJS 16.2.6 (#74) (58d5bdc)
+- chore(nejcfurh-studio): Updated all apps to NextJS 16.2.6 (fd5107a)
+
+# Changelog
+
 ## v1.19.0 (2026-04-17)
 
 
