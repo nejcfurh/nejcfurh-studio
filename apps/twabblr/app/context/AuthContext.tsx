@@ -1,6 +1,6 @@
 'use client';
 
-import { SessionProvider } from 'next-auth/react';
+import { SessionProvider } from '@repo/auth/next-auth/react';
 
 interface AuthContextProps {
   children: React.ReactNode;

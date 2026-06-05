@@ -1,6 +1,6 @@
 'use client';
 
-import { useSession } from 'next-auth/react';
+import { useSession } from '@repo/auth/next-auth/react';
 import { Channel, Members } from 'pusher-js';
 import { useEffect, useRef } from 'react';
 

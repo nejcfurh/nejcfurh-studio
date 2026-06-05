@@ -5,7 +5,8 @@
   "exports": {
     ".": "./src/index.ts",
     "./next-auth": "./src/next-auth/index.ts",
-    "./next-auth/config": "./src/next-auth/config.ts"
+    "./next-auth/config": "./src/next-auth/config.ts",
+    "./next-auth/react": "./src/next-auth/react.ts"
   },
   "scripts": {
     "base:prettier": "prettier './**/*.{ts,tsx,html,json,md,css}' --config .prettierrc --cache",

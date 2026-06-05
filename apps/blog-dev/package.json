@@ -24,7 +24,6 @@
     "@repo/database": "workspace:*",
     "lucide-react": "^0.511.0",
     "next": "16.2.6",
-    "next-auth": "5.0.0-beta.30",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "react-hook-form": "^7.57.0",

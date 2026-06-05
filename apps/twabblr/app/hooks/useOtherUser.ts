@@ -1,5 +1,5 @@
 import { User } from '@prisma/client';
-import { useSession } from 'next-auth/react';
+import { useSession } from '@repo/auth/next-auth/react';
 import { useMemo } from 'react';
 
 import { FullConversationType } from '../types';

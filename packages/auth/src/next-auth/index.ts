@@ -10,6 +10,8 @@ import { createAuthConfig, type CreateAuthConfigOptions } from './config';
 
 import './types';
 
+export { AuthError } from 'next-auth';
+
 export {
   createAuthConfig,
   createEdgeAuth,

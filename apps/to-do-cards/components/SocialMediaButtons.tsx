@@ -1,6 +1,6 @@
 'use client';
 
-import { signIn } from 'next-auth/react';
+import { signIn } from '@repo/auth/next-auth/react';
 import { useState } from 'react';
 
 import Modal from './Modal';
