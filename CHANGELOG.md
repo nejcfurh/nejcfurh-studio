@@ -1,5 +1,15 @@
 # Changelog
 
+## v1.21.1 (2026-06-05)
+
+
+### Bug Fixes & Improvements
+
+- fix(domavia): Register page styling fix (#82) (c85580d)
+- fix(domavia): Register page styling fix (b6f36e7)
+
+# Changelog
+
 ## v1.21.0 (2026-06-04)
 
 
