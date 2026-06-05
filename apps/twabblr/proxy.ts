@@ -1,7 +1,10 @@
-import { authConfig } from '@/auth.config';
-import NextAuth from 'next-auth';
+import { createEdgeAuth } from '@repo/auth/next-auth/config';
 
-const { auth } = NextAuth(authConfig);
+const { auth } = createEdgeAuth({
+  signInPath: '/',
+  providers: ['google', 'facebook', 'github'],
+  credentials: {}
+});
 
 export default auth((req) => {
   const isLoggedIn = !!req.auth;

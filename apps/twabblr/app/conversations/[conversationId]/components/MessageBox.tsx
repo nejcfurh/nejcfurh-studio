@@ -2,9 +2,9 @@
 
 import Avatar from '@/app/components/Avatar';
 import { FullMessageType } from '@/app/types';
+import { useSession } from '@repo/auth/next-auth/react';
 import clsx from 'clsx';
 import { format } from 'date-fns';
-import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import { useState } from 'react';
 
