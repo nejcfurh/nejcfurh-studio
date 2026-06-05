@@ -178,6 +178,9 @@ importers:
       '@mailchimp/mailchimp_marketing':
         specifier: ^3.0.80
         version: 3.0.80
+      '@repo/auth':
+        specifier: workspace:*
+        version: link:../../packages/auth
       '@repo/database':
         specifier: workspace:*
         version: link:../../packages/database
@@ -846,6 +849,9 @@ importers:
 
   apps/to-do-cards:
     dependencies:
+      '@repo/auth':
+        specifier: workspace:*
+        version: link:../../packages/auth
       '@repo/database':
         specifier: workspace:*
         version: link:../../packages/database
@@ -916,6 +922,9 @@ importers:
       '@prisma/client':
         specifier: ^6.19.0
         version: 6.19.2(prisma@6.19.2(typescript@5.9.3))(typescript@5.9.3)
+      '@repo/auth':
+        specifier: workspace:*
+        version: link:../../packages/auth
       '@repo/react-query':
         specifier: workspace:*
         version: link:../../packages/react-query
@@ -1093,6 +1102,28 @@ importers:
       tailwind-config:
         specifier: workspace:*
         version: link:../../tooling/tailwind-config
+      tsconfig:
+        specifier: workspace:*
+        version: link:../../tooling/tsconfig
+      typescript:
+        specifier: 5.9.3
+        version: 5.9.3
+
+  packages/auth:
+    dependencies:
+      next-auth:
+        specifier: 5.0.0-beta.30
+        version: 5.0.0-beta.30(next@16.2.6(@opentelemetry/api@1.9.0)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react@19.2.4)
+    devDependencies:
+      eslint-config-web:
+        specifier: workspace:*
+        version: link:../../tooling/eslint-config-web
+      next:
+        specifier: 16.2.6
+        version: 16.2.6(@babel/core@7.29.0)(@opentelemetry/api@1.9.0)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      prettier-config-web:
+        specifier: workspace:*
+        version: link:../../tooling/prettier-config-web
       tsconfig:
         specifier: workspace:*
         version: link:../../tooling/tsconfig

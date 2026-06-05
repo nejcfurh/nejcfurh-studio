@@ -18,6 +18,7 @@
     "type:check": "tsc --noEmit"
   },
   "dependencies": {
+    "@repo/auth": "workspace:*",
     "@repo/database": "workspace:*",
     "bcrypt": "^5.1.1",
     "lucide-react": "^0.511.0",
