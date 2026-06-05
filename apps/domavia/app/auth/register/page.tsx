@@ -82,7 +82,7 @@ const RegisterForm = () => {
   };
 
   return (
-    <AnimatedSection className="bg-background grid h-[calc(100svh-4rem)] w-full lg:grid-cols-2">
+    <AnimatedSection className="bg-background grid h-full min-h-screen w-full lg:grid-cols-2">
       <AnimatedDiv className="order-2 flex h-full w-full items-center justify-center p-6 sm:p-10 lg:order-1">
         <AnimatedDiv
           variants={authStaggerVariants}
