@@ -7,7 +7,7 @@ import ScrollToUnblur from '@/features/scroll-to-unblur/components/ScrollToUnblu
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Scroll to Unblur',
+  title: 'Scroll to Unblur | Design Lab',
   description: 'Scroll to unblur component'
 };
 

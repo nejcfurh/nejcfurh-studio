@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Text Input Fields',
-  description: 'Text input fields component'
+  title: 'Text Input Fields | Design Lab',
+  description: 'Text input fields component.'
 };
 
 export default function Layout({

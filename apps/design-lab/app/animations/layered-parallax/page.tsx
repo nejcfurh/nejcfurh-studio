@@ -11,7 +11,7 @@ import ReactLenis from 'lenis/react';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Layered Parallax',
+  title: 'Layered Parallax | Design Lab',
   description: 'Layered parallax component'
 };
 

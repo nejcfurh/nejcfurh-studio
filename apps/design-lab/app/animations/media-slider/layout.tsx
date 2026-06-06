@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Media Slider',
+  title: 'Media Slider | Design Lab',
   description: 'Media slider component'
 };
 

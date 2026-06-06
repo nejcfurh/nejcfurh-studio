@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Mask Cursor Effect | Design Lab',
-  description: 'Mask Cursor Effect component'
+  title: 'Perspective Transition Animation | Design Lab',
+  description: 'Perspective transition animation example with React Lenis.'
 };
 
 export default function Layout({
