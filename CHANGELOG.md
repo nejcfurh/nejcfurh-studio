@@ -1,5 +1,26 @@
 # Changelog
 
+## v1.23.0 (2026-06-06)
+
+
+### Features
+
+- feat(design-lab): Added perspective transition animation (#91) (e993a1f)
+- feat(design-lab): Added perspective transition animation (ca8879b)
+- feat(design-lab): Ripple shader added to animations (#90) (9269e29)
+- feat(design-lab): Ripple shader added to animations (0d074a7)
+- feat(design-lab): Added magnetic buttons, fixed social media buttons … (#89) (cdf9fbe)
+- feat(design-lab): Added magnetic buttons, fixed social media buttons and properly centered buttons (ec732cd)
+- feat(design-lab): Added smoth-scroll-cards animation showcase (#87) (e47428a)
+- feat(design-lab): Added smoth-scroll-cards animation showcase (c6e5e1e)
+
+
+### Other Changes
+
+- chore(design-lab): Added proper metadata to each page (8c03de0)
+
+# Changelog
+
 ## v1.22.0 (2026-06-06)
 
 
