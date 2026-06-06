@@ -18,6 +18,7 @@ import { SlLayers } from 'react-icons/sl';
 import {
   TbCarouselHorizontal,
   TbDragDrop,
+  TbRipple,
   TbTransitionBottomFilled
 } from 'react-icons/tb';
 
@@ -81,6 +82,12 @@ export const ANIMATIONS_DATA: MainPageItem[] = [
     path: '/animations/smooth-scroll-cards',
     icon: <TbTransitionBottomFilled />,
     color: 'from-pink-500 to-emerald-300'
+  },
+  {
+    name: 'Ripple Shader',
+    path: '/animations/ripple-shader',
+    icon: <TbRipple />,
+    color: 'from-cyan-500 to-blue-600'
   }
 ];
 
