@@ -32,7 +32,7 @@ export default function TiltCardPage() {
           <HolographicCard
             name="Nejc Furh"
             title="Product Engineer"
-            imageUrl="/images/tilt-card/portrait.png"
+            imageUrl="/images/tilt-card/portrait.jpeg"
             logo="/images/tilt-card/bb-logo-vertical.svg"
           />
         </div>

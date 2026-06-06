@@ -17,6 +17,7 @@ import { PageName } from '@/utils/constants/page.data';
 import { PageVisitTracker } from '@analytics/components/PageVisitTracker';
 import { AnimatedDiv } from '@repo/ui/animation/core';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function Home() {
   return (
@@ -29,12 +30,18 @@ export default function Home() {
           <Header title="Design Lab" />
           <div className="flex items-center justify-center gap-2">
             by{' '}
-            <Image
-              height={100}
-              width={150}
-              src={'/images/tilt-card/Logo.png'}
-              alt="logo"
-            />
+            <Link
+              href="https://nejcfurh.dev"
+              target="_blank"
+              className="z-50 cursor-pointer transition-opacity duration-300 hover:opacity-80"
+            >
+              <Image
+                height={100}
+                width={150}
+                src={'/images/tilt-card/Logo.png'}
+                alt="logo"
+              />
+            </Link>
           </div>
         </AnimatedDiv>
 
