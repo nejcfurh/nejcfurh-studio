@@ -1,5 +1,23 @@
 # Changelog
 
+## v1.22.0 (2026-06-06)
+
+
+### Features
+
+- feat(nejcfurh-studio): Added next-auth to packages (#84) (29a3c65)
+- feat(nejcfurh-studio): Added next-auth to packages (e9a345a)
+
+
+### Other Changes
+
+- chore(nejcfurh-studio): Readme.md update with domavia app (#86) (e477c31)
+- chore(nejcfurh-studio): Readme.md update with domavia app (ebd24b7)
+- chore(nejcfurh-studio): Add next-env.d.ts to gitignore (ff7c841)
+- chore(nejcfurh-studio): Remove unused next-auth package from apps (719d8ef)
+
+# Changelog
+
 ## v1.21.1 (2026-06-05)
 
 
