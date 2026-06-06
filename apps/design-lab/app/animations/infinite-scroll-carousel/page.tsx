@@ -4,8 +4,7 @@ import AnimatedBackgroundGradient from '@/components/animation-core/AnimatedBack
 import FloatingOrb from '@/components/animation-core/FloatingOrb';
 import Background from '@/components/Background';
 import BackButton from '@/components/buttons/BackButton';
-
-import InfiniteCarousel from './components/InfiniteCarousel';
+import InfiniteCarousel from '@/features/infinite-scroll-carousel/components/InfiniteCarousel';
 
 const InfiniteScrollCarouselPage = () => {
   return (
