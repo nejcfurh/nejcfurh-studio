@@ -8,7 +8,7 @@ import { ReactLenis } from 'lenis/react';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'DesignLab | SpaceX Showcase',
+  title: 'SpaceX Showcase | Design Lab',
   description: 'SpaceX Showcase with Smooth Scroll and ClipPath'
 };
 

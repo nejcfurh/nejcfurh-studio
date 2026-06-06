@@ -1,7 +1,7 @@
 export const INSTAGRAM_STORIES = [
   {
     name: 'nejcfurh',
-    img: 'https://instagram.fmbx3-1.fna.fbcdn.net/v/t51.2885-19/29738893_1674362152653728_8788898698584129536_n.jpg?efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=instagram.fmbx3-1.fna.fbcdn.net&_nc_cat=108&_nc_oc=Q6cZ2gFbJUI3SAQ-8P-pqIjDpysc8XxYABz5fkAG39BG-U8SE-9sOXsLXEYk3GL-DaiXrk0&_nc_ohc=qa9QchLiLOoQ7kNvwFFzbig&_nc_gid=RM7g-bWDnTFl2GWFP9G7Fw&edm=AP4sbd4BAAAA&ccb=7-5&oh=00_AfyZSzi4iaLX5mAX3-ofgwtCZ0s7iBzsn1y44jGRwFjTBw&oe=69C31F10&_nc_sid=7a9f4b',
+    img: 'https://instagram.fmbx3-1.fna.fbcdn.net/v/t51.2885-19/29738893_1674362152653728_8788898698584129536_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=instagram.fmbx3-1.fna.fbcdn.net&_nc_cat=108&_nc_oc=Q6cZ2gEZ2AgUCSGqf8h_cbX7I9kQ6ILo6mVD8yzh6BW3yKtkh_7GxhOxb9QFUx_OYPciJe4&_nc_ohc=ux76tjNqoRoQ7kNvwGEVHMS&_nc_gid=3W5AviYUyreuocFdHF2JIg&edm=APoiHPcBAAAA&ccb=7-5&oh=00_Af9cuGh2OpboTwwzeR3nzA2m3PekSpwPnmLi9INtXrB8EA&oe=6A2A9CD0&_nc_sid=22de04',
     isUser: true
   },
   { name: 'Brivelacce', img: 'https://i.pravatar.cc/150?img=1' },
@@ -53,7 +53,7 @@ export const INSTAGRAM_POSTS = [
   {
     user: 'nejcfurh',
     avatar:
-      'https://instagram.fmbx3-1.fna.fbcdn.net/v/t51.2885-19/29738893_1674362152653728_8788898698584129536_n.jpg?efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=instagram.fmbx3-1.fna.fbcdn.net&_nc_cat=108&_nc_oc=Q6cZ2gFbJUI3SAQ-8P-pqIjDpysc8XxYABz5fkAG39BG-U8SE-9sOXsLXEYk3GL-DaiXrk0&_nc_ohc=qa9QchLiLOoQ7kNvwFFzbig&_nc_gid=RM7g-bWDnTFl2GWFP9G7Fw&edm=AP4sbd4BAAAA&ccb=7-5&oh=00_AfyZSzi4iaLX5mAX3-ofgwtCZ0s7iBzsn1y44jGRwFjTBw&oe=69C31F10&_nc_sid=7a9f4b',
+      'https://instagram.fmbx3-1.fna.fbcdn.net/v/t51.2885-19/29738893_1674362152653728_8788898698584129536_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=instagram.fmbx3-1.fna.fbcdn.net&_nc_cat=108&_nc_oc=Q6cZ2gEZ2AgUCSGqf8h_cbX7I9kQ6ILo6mVD8yzh6BW3yKtkh_7GxhOxb9QFUx_OYPciJe4&_nc_ohc=ux76tjNqoRoQ7kNvwGEVHMS&_nc_gid=3W5AviYUyreuocFdHF2JIg&edm=APoiHPcBAAAA&ccb=7-5&oh=00_Af9cuGh2OpboTwwzeR3nzA2m3PekSpwPnmLi9INtXrB8EA&oe=6A2A9CD0&_nc_sid=22de04',
     image:
       'https://images.unsplash.com/photo-1673205194019-55ac9f0a0899?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw0fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=1296&q=60',
     caption:

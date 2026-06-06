@@ -15,7 +15,13 @@ import {
 import { PiMouseScroll } from 'react-icons/pi';
 import { SiSpacex, SiTesla } from 'react-icons/si';
 import { SlLayers } from 'react-icons/sl';
-import { TbCarouselHorizontal, TbDragDrop } from 'react-icons/tb';
+import {
+  TbCarouselHorizontal,
+  TbDragDrop,
+  TbPerspective,
+  TbRipple,
+  TbTransitionBottomFilled
+} from 'react-icons/tb';
 
 export const ANIMATIONS_DATA: MainPageItem[] = [
   {
@@ -71,6 +77,24 @@ export const ANIMATIONS_DATA: MainPageItem[] = [
     path: '/animations/media-slider',
     icon: <MdOutlinePermMedia />,
     color: 'from-orange-500 to-red-500'
+  },
+  {
+    name: 'Smooth Scroll Cards',
+    path: '/animations/smooth-scroll-cards',
+    icon: <TbTransitionBottomFilled />,
+    color: 'from-pink-500 to-emerald-300'
+  },
+  {
+    name: 'Ripple Shader',
+    path: '/animations/ripple-shader',
+    icon: <TbRipple />,
+    color: 'from-cyan-500 to-blue-600'
+  },
+  {
+    name: 'Perspective Transition',
+    path: '/animations/perspective-transition',
+    icon: <TbPerspective />,
+    color: 'from-pink-500 to-gray-500'
   }
 ];
 
