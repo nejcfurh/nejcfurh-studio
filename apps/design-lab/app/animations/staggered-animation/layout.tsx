@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Mask Cursor Effect | Design Lab',
-  description: 'Mask Cursor Effect component'
+  title: 'Staggered Animation | Design Lab',
+  description: 'Staggered list animation component.'
 };
 
 export default function Layout({

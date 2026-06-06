@@ -18,6 +18,7 @@ import { SlLayers } from 'react-icons/sl';
 import {
   TbCarouselHorizontal,
   TbDragDrop,
+  TbPerspective,
   TbRipple,
   TbTransitionBottomFilled
 } from 'react-icons/tb';
@@ -88,6 +89,12 @@ export const ANIMATIONS_DATA: MainPageItem[] = [
     path: '/animations/ripple-shader',
     icon: <TbRipple />,
     color: 'from-cyan-500 to-blue-600'
+  },
+  {
+    name: 'Perspective Transition',
+    path: '/animations/perspective-transition',
+    icon: <TbPerspective />,
+    color: 'from-pink-500 to-gray-500'
   }
 ];
 

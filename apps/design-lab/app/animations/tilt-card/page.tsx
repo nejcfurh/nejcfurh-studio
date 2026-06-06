@@ -6,8 +6,8 @@ import HolographicCard from '@/features/tilt-card/components/TiltCard';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: '3D Tilt Card | Reusable Components',
-  description: 'Interactive 3D tilt card that responds to mouse movement'
+  title: '3D Tilt Card | Design Lab',
+  description: 'Interactive 3D tilt card that responds to mouse movement.'
 };
 
 export default function TiltCardPage() {
@@ -32,7 +32,7 @@ export default function TiltCardPage() {
           <HolographicCard
             name="Nejc Furh"
             title="Product Engineer"
-            imageUrl="/images/tilt-card/portrait.png"
+            imageUrl="/images/tilt-card/portrait.jpeg"
             logo="/images/tilt-card/bb-logo-vertical.svg"
           />
         </div>

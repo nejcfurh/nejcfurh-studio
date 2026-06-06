@@ -3,6 +3,12 @@ import FloatingOrb from '@/components/animation-core/FloatingOrb';
 import Background from '@/components/Background';
 import BackButton from '@/components/buttons/BackButton';
 import { ScrollToDecryptWithSuspense } from '@/features/scroll-to-decrypt/components/ScrollToDecrypt';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Scroll to Decrypt | Design Lab',
+  description: 'Scroll to decrypt component.'
+};
 
 export default function Home() {
   return (

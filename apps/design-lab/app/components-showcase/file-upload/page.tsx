@@ -6,8 +6,8 @@ import FileUpload from '@/features/file-upload/components/FileUpload';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'File Upload',
-  description: 'File upload component'
+  title: 'File Upload | Design Lab',
+  description: 'File upload component.'
 };
 export default function Home() {
   return (

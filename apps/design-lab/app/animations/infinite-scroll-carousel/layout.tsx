@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Infinite Scroll Carousel',
+  title: 'Infinite Scroll Carousel | Design Lab',
   description: 'Infinite Scroll Carousel component'
 };
 

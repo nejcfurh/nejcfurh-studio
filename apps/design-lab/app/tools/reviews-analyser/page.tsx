@@ -1,7 +1,13 @@
 import BackButton from '@/components/buttons/BackButton';
 import Chatbox from '@/features/reviews-analyser/components/Chatbox';
 import { ReviewAnalysisForm } from '@/features/reviews-analyser/components/ReviewAnalysisForm';
+import { Metadata } from 'next';
 import { Suspense } from 'react';
+
+export const metadata: Metadata = {
+  title: 'Reviews Analyser | Design Lab',
+  description: 'AI-powered review analysis with Google Gemini chatbot.'
+};
 
 export default function ReviewsAnalyserPage() {
   return (

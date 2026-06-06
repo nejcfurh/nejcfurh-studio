@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Mask Cursor Effect | Design Lab',
-  description: 'Mask Cursor Effect component'
+  title: 'Ripple Shader | Design Lab',
+  description: 'Ripple shader animation.'
 };
 
 export default function Layout({
