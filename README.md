@@ -17,6 +17,7 @@ Created by [Nejc Furh](https://nejcfurh.dev)
 | [to-do-cards](apps/to-do-cards)             | Card-based task manager with NextAuth, MongoDB, and Supabase storage       | [LINK](https://to-do-cards.vercel.app/)       |
 | [twabblr](apps/twabblr)                     | Social / messaging app with NextAuth, Prisma, and real-time (Pusher)       | [LINK](https://twabblr.vercel.app)            |
 | [elysantium](apps/elysantium)               | Luxury hotel site with admin panel (bookings, cabins, Supabase)            | [LINK](https://elysantium.vercel.app)         |
+| [domavia](apps/domavia)                     | Real estate listing platform with Firebase Auth, Firestore, and maps         | [LINK](https://domavia.vercel.app)            |
 
 ## Packages
 
@@ -66,6 +67,7 @@ pnpm run blog-dev
 pnpm run to-do-cards
 pnpm run twabblr
 pnpm run elysantium
+pnpm run domavia
 pnpm run jobs-react-native
 ```
 
@@ -116,6 +118,7 @@ nejcfurh-studio/
 │   ├── blog-dev/              # Personal dev blog
 │   ├── design-lab/            # Animations, components, clones & tools
 │   ├── desktop-weather/       # PWA weather app
+│   ├── domavia/               # Real estate listing platform
 │   ├── elysantium/            # Hotel site + admin panel
 │   ├── friends-of-nature/     # Nature community platform
 │   ├── jobs-react-native/     # React Native job search app

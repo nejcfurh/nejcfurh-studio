@@ -1,4 +1,4 @@
-import { signOut } from 'next-auth/react';
+import { signOut } from '@repo/auth/next-auth/react';
 import { usePathname } from 'next/navigation';
 import { useMemo } from 'react';
 import { HiChat } from 'react-icons/hi';

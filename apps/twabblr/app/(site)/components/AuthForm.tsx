@@ -6,9 +6,9 @@ import LoadingModal from '@/app/components/LoadingModal';
 import { AnalyticsClientPageEvent } from '@/features/analytics/types.client';
 import { PageName } from '@/utils/constants/page.data';
 import { PageVisitTracker } from '@analytics/components/PageVisitTracker';
+import { signIn, useSession } from '@repo/auth/next-auth/react';
 import { useMutation } from '@repo/react-query';
 import axios from 'axios';
-import { signIn, useSession } from 'next-auth/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import {
   Dispatch,

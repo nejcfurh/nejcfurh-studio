@@ -1,12 +1,7 @@
 import { connectDB } from '@/lib/db';
 import { User } from '@/lib/models/user';
+import { createAuth } from '@repo/auth/next-auth';
 import bcrypt from 'bcrypt';
-import NextAuth from 'next-auth';
-import Credentials from 'next-auth/providers/credentials';
-import Facebook from 'next-auth/providers/facebook';
-import GitHub from 'next-auth/providers/github';
-import Google from 'next-auth/providers/google';
-import Twitter from 'next-auth/providers/twitter';
 
 const DAILY_LIST = {
   name: 'Daily',
@@ -14,143 +9,102 @@ const DAILY_LIST = {
   body: 'Daily tasks!'
 };
 
-export const { handlers, auth, signIn, signOut } = NextAuth({
-  providers: [
-    Credentials({
-      credentials: {
-        email: { label: 'Email' },
-        password: { label: 'Password', type: 'password' }
-      },
-      async authorize(credentials) {
-        const { email, password } = credentials as {
-          email: string;
-          password: string;
-        };
-
-        await connectDB();
-        const user = await User.findOne({ email });
-
-        if (!user || !user.password) return null;
-
-        const isValid = await bcrypt.compare(password, user.password);
-        if (!isValid) return null;
-
-        return { id: user._id.toString(), email: user.email, name: user.name };
-      }
-    }),
-    Google({
-      clientId: process.env.AUTH_GOOGLE_ID,
-      clientSecret: process.env.AUTH_GOOGLE_SECRET
-    }),
-    Facebook({
-      clientId: process.env.AUTH_FACEBOOK_ID,
-      clientSecret: process.env.AUTH_FACEBOOK_SECRET
-    }),
-    Twitter({
-      clientId: process.env.AUTH_TWITTER_ID,
-      clientSecret: process.env.AUTH_TWITTER_SECRET,
-      profile(profile) {
-        const data = profile.data ?? profile;
-        return {
-          id: data.id,
-          name: data.name ?? data.username ?? 'Twitter User',
-          email: data.email ?? null,
-          image: data.profile_image_url
-        };
-      }
-    }),
-    GitHub({
-      clientId: process.env.AUTH_GITHUB_ID,
-      clientSecret: process.env.AUTH_GITHUB_SECRET
-    })
-  ],
-  session: { strategy: 'jwt' },
-  pages: { signIn: '/login' },
-  callbacks: {
-    async signIn({ user, account, profile }) {
-      if (account?.provider === 'credentials') return true;
+export const { handlers, auth, signIn, signOut } = createAuth({
+  signInPath: '/login',
+  providers: ['google', 'facebook', 'twitter', 'github'],
+  credentials: {
+    authorize: async (credentials) => {
+      const { email, password } = credentials as {
+        email: string;
+        password: string;
+      };
 
       await connectDB();
-      const provider = account?.provider;
+      const user = await User.findOne({ email });
 
-      if (provider === 'google') {
-        const existingUser = await User.findOne({ email: user.email });
-        if (!existingUser) {
-          await User.create({
-            googleId: account?.providerAccountId,
-            name: user.name || profile?.name,
-            email: user.email,
-            lists: [DAILY_LIST]
-          });
-        }
-      } else if (provider === 'facebook') {
-        const existingUser = await User.findOne({ email: user.email });
-        if (!existingUser) {
-          await User.create({
-            facebookId: account?.providerAccountId,
-            name: user.name,
-            email: user.email,
-            lists: [DAILY_LIST]
-          });
-        }
-      } else if (provider === 'twitter') {
-        const existingUser = await User.findOne({
-          twitterXId: account?.providerAccountId
-        });
-        if (!existingUser) {
-          await User.create({
-            twitterXId: account?.providerAccountId,
-            name: user.name,
-            email: user.email || `${user.name}@Twitter/X`,
-            lists: [DAILY_LIST]
-          });
-        }
-      } else if (provider === 'github') {
-        const existingUser = await User.findOne({
-          gitHubId: account?.providerAccountId
-        });
-        if (!existingUser) {
-          await User.create({
-            gitHubId: account?.providerAccountId,
-            name: user.name || (profile as { login?: string })?.login,
-            email:
-              user.email || `${(profile as { login?: string })?.login}@GitHub`,
-            password: null,
-            lists: [DAILY_LIST]
-          });
-        }
-      }
+      if (!user || !user.password) return null;
 
-      return true;
-    },
-    async jwt({ token, user, account }) {
-      if (user && account?.provider === 'credentials') {
-        token.userId = user.id;
-      } else if (account && account.provider !== 'credentials') {
-        await connectDB();
-        let dbUser;
+      const isValid = await bcrypt.compare(password, user.password);
+      if (!isValid) return null;
 
-        if (account.provider === 'twitter' || account.provider === 'github') {
-          const idField =
-            account.provider === 'twitter' ? 'twitterXId' : 'gitHubId';
-          dbUser = await User.findOne({
-            [idField]: account.providerAccountId
-          });
-        } else {
-          dbUser = await User.findOne({ email: user?.email });
-        }
-
-        if (dbUser) {
-          token.userId = dbUser._id.toString();
-        }
-      }
-      return token;
-    },
-    async session({ session, token }) {
-      if (token.userId) {
-        session.user.id = token.userId as string;
-      }
-      return session;
+      return { id: user._id.toString(), email: user.email, name: user.name };
     }
+  },
+  onOAuthSignIn: async ({ user, account, profile }) => {
+    await connectDB();
+    const provider = account?.provider;
+
+    if (provider === 'google') {
+      const existingUser = await User.findOne({ email: user.email });
+      if (!existingUser) {
+        await User.create({
+          googleId: account?.providerAccountId,
+          name: user.name || profile?.name,
+          email: user.email,
+          lists: [DAILY_LIST]
+        });
+      }
+    } else if (provider === 'facebook') {
+      const existingUser = await User.findOne({ email: user.email });
+      if (!existingUser) {
+        await User.create({
+          facebookId: account?.providerAccountId,
+          name: user.name,
+          email: user.email,
+          lists: [DAILY_LIST]
+        });
+      }
+    } else if (provider === 'twitter') {
+      const existingUser = await User.findOne({
+        twitterXId: account?.providerAccountId
+      });
+      if (!existingUser) {
+        // Twitter OAuth 2.0 never returns an email, so we synthesise one.
+        // It must be unique (email has a unique index): prefer the unique
+        // @handle, falling back to the always-present, immutable account id.
+        const username = (profile as { data?: { username?: string } })?.data
+          ?.username;
+        await User.create({
+          twitterXId: account?.providerAccountId,
+          name: user.name,
+          email:
+            user.email ||
+            `${username ?? account?.providerAccountId}@twitter.local`,
+          lists: [DAILY_LIST]
+        });
+      }
+    } else if (provider === 'github') {
+      const existingUser = await User.findOne({
+        gitHubId: account?.providerAccountId
+      });
+      if (!existingUser) {
+        await User.create({
+          gitHubId: account?.providerAccountId,
+          name: user.name || (profile as { login?: string })?.login,
+          email:
+            user.email || `${(profile as { login?: string })?.login}@GitHub`,
+          password: null,
+          lists: [DAILY_LIST]
+        });
+      }
+    }
+  },
+  resolveUserId: async ({ user, account }) => {
+    if (!account || account.provider === 'credentials') {
+      return user?.id;
+    }
+
+    await connectDB();
+    let dbUser;
+
+    if (account.provider === 'twitter' || account.provider === 'github') {
+      const idField =
+        account.provider === 'twitter' ? 'twitterXId' : 'gitHubId';
+      dbUser = await User.findOne({ [idField]: account.providerAccountId });
+    } else {
+      dbUser = await User.findOne({ email: user?.email });
+    }
+
+    return dbUser?._id.toString();
   }
 });

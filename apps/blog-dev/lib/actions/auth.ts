@@ -1,7 +1,7 @@
 'use server';
 
 import { signIn, signOut } from '@/auth';
-import { AuthError } from 'next-auth';
+import { AuthError } from '@repo/auth/next-auth';
 
 export async function loginAction(formData: FormData) {
   try {
