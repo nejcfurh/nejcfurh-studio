@@ -4,13 +4,14 @@ import AnimatedBackgroundGradient from '@/components/animation-core/AnimatedBack
 import FloatingOrb from '@/components/animation-core/FloatingOrb';
 import Background from '@/components/Background';
 import BackButton from '@/components/buttons/BackButton';
+import MagneticButtons from '@/features/buttons-menus/components/magnetic-buttons/MagneticButtons';
 import MultiOptionButtons from '@/features/buttons-menus/components/multi-option/MultiOptionButtons';
 import SwitchVariantButton from '@/features/buttons-menus/components/multi-option/SwitchVariantButton';
 import SelectionButton from '@/features/buttons-menus/components/SelectionButton';
 import SocialMediaButtons from '@/features/buttons-menus/components/social-media/SocialMediaButtons';
 import { Activity, useState } from 'react';
 
-type ButtonType = 'social-media' | 'multi-option';
+type ButtonType = 'social-media' | 'multi-option' | 'magnetic-buttons';
 
 export default function Home() {
   const [buttonType, setButtonType] = useState<ButtonType>('social-media');
@@ -29,7 +30,7 @@ export default function Home() {
       <AnimatedBackgroundGradient />
       <FloatingOrb className="absolute top-20 left-10 h-72 w-72 animate-pulse rounded-full bg-blue-400/20 blur-3xl dark:bg-blue-500/10" />
       <BackButton className="top-5 left-5" />
-      <div className="row-span-1 flex h-full flex-col items-center justify-start pt-8">
+      <div className="flex h-full flex-col items-center justify-start pt-8">
         <div className="z-50 flex items-center justify-start gap-4">
           {/* BUTTON TYPES */}
           <SelectionButton
@@ -43,6 +44,12 @@ export default function Home() {
             handleSelection={handleButtonTypeChange('multi-option')}
           >
             Multi-option Menu
+          </SelectionButton>
+          <SelectionButton
+            selected={buttonType === 'magnetic-buttons'}
+            handleSelection={handleButtonTypeChange('magnetic-buttons')}
+          >
+            Magnetic Buttons
           </SelectionButton>
         </div>
         {/* SUB-TYPES */}
@@ -60,6 +67,11 @@ export default function Home() {
         </Activity>
         <Activity mode={buttonType === 'multi-option' ? 'visible' : 'hidden'}>
           <MultiOptionButtons variant={variant} />
+        </Activity>
+        <Activity
+          mode={buttonType === 'magnetic-buttons' ? 'visible' : 'hidden'}
+        >
+          <MagneticButtons />
         </Activity>
       </div>
     </Background>

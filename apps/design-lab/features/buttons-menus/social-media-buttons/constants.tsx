@@ -12,7 +12,7 @@ export const SOCIAL_MEDIA_BUTTONS_DATA: SocialMediaButtonsItem[] = [
     label: 'Instagram',
     icon: <TbBrandInstagram className="size-8 text-white" />,
     className:
-      'w-12 h-12 border-none bg-transparent rounded-full outline-2 outline-white cursor-pointer transition-all grid place-items-center hover:outline-offset-3 hover:transition-all duration-300 first:hover:bg-[radial-gradient(circle_at_30%_107%,#fdf497_0%,#fdf497_5%,#fd5949_45%,#d6249f_60%,#285AEB_90%)]',
+      'w-12 h-12 border-none bg-transparent rounded-full outline-2 outline-white cursor-pointer grid place-items-center transition-[background-color,color] duration-300 first:hover:bg-[radial-gradient(circle_at_30%_107%,#fdf497_0%,#fdf497_5%,#fd5949_45%,#d6249f_60%,#285AEB_90%)]',
     href: 'https://www.instagram.com/nejcfurh/'
   },
   {
@@ -20,7 +20,7 @@ export const SOCIAL_MEDIA_BUTTONS_DATA: SocialMediaButtonsItem[] = [
     label: 'X/Twitter',
     icon: <BsTwitterX className="size-6" />,
     className:
-      'w-12 h-12 border-none bg-transparent rounded-full text-white outline-2 outline-white cursor-pointer transition-all grid place-items-center hover:outline-offset-3 hover:transition-all duration-300 nth-2:hover:bg-white hover:text-(--x)',
+      'w-12 h-12 border-none bg-transparent rounded-full text-white outline-2 outline-white cursor-pointer grid place-items-center transition-[background-color,color] duration-300 nth-2:hover:bg-white hover:text-(--x)',
     href: 'https://twitter.com/nejcfurh'
   },
   {
@@ -28,7 +28,7 @@ export const SOCIAL_MEDIA_BUTTONS_DATA: SocialMediaButtonsItem[] = [
     label: 'Email',
     icon: <HiOutlineMail className="size-8 text-white" />,
     className:
-      'w-12 h-12 border-none bg-transparent rounded-full outline-2 outline-white cursor-pointer transition-all grid place-items-center hover:outline-offset-3 hover:transition-all duration-300 nth-3:hover:bg-(--email)',
+      'w-12 h-12 border-none bg-transparent rounded-full outline-2 outline-white cursor-pointer grid place-items-center transition-[background-color,color] duration-300 nth-3:hover:bg-(--email)',
     href: 'mailto:nejc.furh7@gmail.com'
   },
   {
@@ -36,7 +36,7 @@ export const SOCIAL_MEDIA_BUTTONS_DATA: SocialMediaButtonsItem[] = [
     label: 'LinkedIn',
     icon: <SlSocialLinkedin className="size-6 text-white" />,
     className:
-      'w-12 h-12 border-none bg-transparent rounded-full outline-2 outline-white cursor-pointer transition-all grid place-items-center hover:outline-offset-3 hover:transition-all duration-300 nth-4:hover:bg-(--linkedin)',
+      'w-12 h-12 border-none bg-transparent rounded-full outline-2 outline-white cursor-pointer grid place-items-center transition-[background-color,color] duration-300 nth-4:hover:bg-(--linkedin)',
     href: 'https://si.linkedin.com/in/nejcfurh'
   },
   {
@@ -44,7 +44,7 @@ export const SOCIAL_MEDIA_BUTTONS_DATA: SocialMediaButtonsItem[] = [
     label: 'Facebook',
     icon: <BsFacebook className="size-8 text-white" />,
     className:
-      'w-12 h-12 border-none bg-transparent rounded-full outline-2 outline-white cursor-pointer transition-all grid place-items-center hover:outline-offset-3 hover:transition-all duration-300 nth-5:hover:bg-(--facebook)',
+      'w-12 h-12 border-none bg-transparent rounded-full outline-2 outline-white cursor-pointer grid place-items-center transition-[background-color,color] duration-300 nth-5:hover:bg-(--facebook)',
     href: 'https://www.facebook.com/nejcfurh'
   },
   {
@@ -52,7 +52,7 @@ export const SOCIAL_MEDIA_BUTTONS_DATA: SocialMediaButtonsItem[] = [
     label: 'GitHub',
     icon: <BsGithub className="size-8 text-white" />,
     className:
-      'w-12 h-12 border-none bg-transparent rounded-full outline-2 outline-white cursor-pointer transition-all grid place-items-center hover:outline-offset-3 hover:transition-all duration-300 nth-6:hover:bg-(--github)',
+      'w-12 h-12 border-none bg-transparent rounded-full outline-2 outline-white cursor-pointer grid place-items-center transition-[background-color,color] duration-300 nth-6:hover:bg-(--github)',
     href: 'https://github.com/nejcfurh'
   },
   {
@@ -60,7 +60,7 @@ export const SOCIAL_MEDIA_BUTTONS_DATA: SocialMediaButtonsItem[] = [
     label: 'WhatsApp',
     icon: <BsWhatsapp className="size-6 text-white" />,
     className:
-      'w-12 h-12 border-none bg-transparent rounded-full outline-2 outline-white cursor-pointer transition-all grid place-items-center hover:outline-offset-3 hover:transition-all duration-300 nth-7:hover:bg-(--whatsapp)',
+      'w-12 h-12 border-none bg-transparent rounded-full outline-2 outline-white cursor-pointer grid place-items-center transition-[background-color,color] duration-300 nth-7:hover:bg-(--whatsapp)',
     href: 'https://wa.me/040127449'
   },
   {
@@ -68,7 +68,7 @@ export const SOCIAL_MEDIA_BUTTONS_DATA: SocialMediaButtonsItem[] = [
     label: 'SMS',
     icon: <MdOutlineSms className="size-6 text-white" />,
     className:
-      'w-12 h-12 border-none bg-transparent rounded-full outline-2 outline-white cursor-pointer transition-all grid place-items-center hover:outline-offset-3 hover:transition-all duration-300 nth-8:hover:bg-(--sms)',
+      'w-12 h-12 border-none bg-transparent rounded-full outline-2 outline-white cursor-pointer grid place-items-center transition-[background-color,color] duration-300 nth-8:hover:bg-(--sms)',
     href: 'sms:040127449?body=Hello, I would like to discuss a project with you.'
   }
 ];
