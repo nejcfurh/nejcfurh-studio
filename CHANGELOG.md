@@ -1,5 +1,17 @@
 # Changelog
 
+## v1.23.1 (2026-06-07)
+
+
+### Bug Fixes & Improvements
+
+- fix(design-lab): Make animations mobile friendly (#92) (4221998)
+- fix(design-lab): Update year (9e5658b)
+- fix(design-lab): Unify styles in components and UI clones (e498bf6)
+- fix(design-lab): Make animations mobile friendly (a5d21a5)
+
+# Changelog
+
 ## v1.23.0 (2026-06-06)
 
 
