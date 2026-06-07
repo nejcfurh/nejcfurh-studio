@@ -12,7 +12,7 @@ const Board = () => {
   return (
     <div className="flex h-screen w-full flex-col justify-start gap-3 py-10">
       <DragDropHeader />
-      <div className="flex w-full justify-center gap-3">
+      <div className="flex w-full justify-start gap-3 overflow-x-auto px-4 lg:justify-center">
         <DragDropColumn
           title="Backlog"
           headingColor="text-red-300"

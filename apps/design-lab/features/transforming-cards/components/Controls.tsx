@@ -10,7 +10,7 @@ const Controls = ({
   isAnimating: boolean;
 }) => {
   return (
-    <div className="absolute top-5 left-1/2 z-10 flex -translate-x-1/2 flex-row gap-4">
+    <div className="absolute top-5 left-1/2 z-10 hidden -translate-x-1/2 flex-row gap-4 sm:flex">
       <button
         className="control-btn border border-amber-50/50"
         onClick={toggleAnimation}

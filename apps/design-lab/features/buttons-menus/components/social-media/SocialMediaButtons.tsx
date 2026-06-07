@@ -7,7 +7,7 @@ import SingleSocialButton from './SingleSocialButton';
 const SocialMediaButtons = () => {
   return (
     <AnimatedDiv
-      className="my-auto flex h-1/2 w-full scale-200 flex-wrap items-start gap-6"
+      className="my-auto flex h-1/2 w-full scale-100 flex-wrap items-start justify-center gap-6 px-4 sm:scale-200 sm:justify-start sm:px-0"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}

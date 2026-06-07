@@ -41,7 +41,7 @@ const FileUpload = () => {
     <form
       onSubmit={handleSubmit}
       onReset={handleReset}
-      className="z-50 w-full max-w-2xl rounded-2xl border border-gray-300 bg-white p-8 shadow-lg transition-all duration-300 hover:shadow-2xl dark:border-gray-800 dark:bg-gray-900"
+      className="z-50 w-full max-w-2xl rounded-2xl border border-gray-300 bg-white p-5 shadow-lg transition-all duration-300 hover:shadow-2xl sm:p-8 dark:border-gray-800 dark:bg-gray-900"
     >
       {/* HEADER */}
       <FileUploadHeader />
@@ -56,14 +56,14 @@ const FileUpload = () => {
       />
 
       {/* ACTION BUTTONS */}
-      <div className="mt-8 flex gap-4">
+      <div className="mt-6 flex gap-3 sm:mt-8 sm:gap-4">
         <ActionButton
           type="reset"
-          className="group dark:hover:bg-gray-750 flex-1 rounded-lg border border-gray-300 bg-white px-6 py-3 text-lg font-medium text-gray-700 transition-all duration-300 hover:scale-[1.02] hover:border-gray-400 hover:bg-gray-400/50 hover:shadow-md active:scale-[0.98] dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:hover:border-gray-600"
+          className="group dark:hover:bg-gray-750 flex-1 rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-base font-medium text-gray-700 transition-all duration-300 hover:scale-[1.02] hover:border-gray-400 hover:bg-gray-400/50 hover:shadow-md active:scale-[0.98] sm:px-6 sm:py-3 sm:text-lg dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:hover:border-gray-600"
         />
         <ActionButton
           type="submit"
-          className="group flex-1 rounded-lg bg-linear-to-r from-blue-500 to-indigo-600 px-6 py-3 text-lg font-medium text-white shadow-md transition-all duration-300 hover:scale-[1.02] hover:from-blue-600 hover:to-indigo-700 hover:shadow-lg active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100 disabled:hover:from-blue-500 disabled:hover:to-indigo-600 disabled:hover:shadow-md"
+          className="group flex-1 rounded-lg bg-linear-to-r from-blue-500 to-indigo-600 px-4 py-2.5 text-base font-medium text-white shadow-md transition-all duration-300 hover:scale-[1.02] hover:from-blue-600 hover:to-indigo-700 hover:shadow-lg active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100 disabled:hover:from-blue-500 disabled:hover:to-indigo-600 disabled:hover:shadow-md sm:px-6 sm:py-3 sm:text-lg"
         />
       </div>
     </form>

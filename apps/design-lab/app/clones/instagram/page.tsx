@@ -43,7 +43,7 @@ export default function InstagramClonePage() {
             />
           </div>
           {/* MIDDLE - SEARCH */}
-          <div className="relative mt-1">
+          <div className="relative mx-2 mt-1 max-w-[220px] min-w-0 flex-1 sm:mx-0 sm:max-w-none sm:flex-none">
             <div className="absolute top-2 left-2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -62,7 +62,7 @@ export default function InstagramClonePage() {
             </div>
             <input
               placeholder="Search..."
-              className="rounded-md border border-gray-300 bg-gray-50 py-2 pr-4 pl-10 text-sm focus:border-gray-400 focus:ring-1 focus:ring-gray-400 focus:outline-none"
+              className="w-full rounded-md border border-gray-300 bg-gray-50 py-2 pr-4 pl-10 text-sm focus:border-gray-400 focus:ring-1 focus:ring-gray-400 focus:outline-none"
               type="text"
             />
           </div>
@@ -106,7 +106,7 @@ export default function InstagramClonePage() {
       <main className="mx-auto grid grid-cols-1 md:max-w-6xl md:grid-cols-3">
         <section className="md:col-span-2">
           {/* STORIES */}
-          <div className="scrollbar-none flex space-x-2 overflow-x-scroll rounded-sm border border-gray-200 p-6">
+          <div className="scrollbar-none flex space-x-2 overflow-x-scroll rounded-sm border border-gray-200 p-4 sm:p-6">
             {INSTAGRAM_STORIES.map((story) => (
               <div key={story.name} className="group relative cursor-pointer">
                 <Image

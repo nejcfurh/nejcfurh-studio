@@ -16,7 +16,7 @@ export default function InputFieldsPage() {
   };
 
   return (
-    <Background className="flex items-center justify-center">
+    <Background className="flex items-center justify-center px-4">
       {/* ANIMATED BACKGROUND GRADIENT OVERLAY */}
       <AnimatedBackgroundGradient />
 

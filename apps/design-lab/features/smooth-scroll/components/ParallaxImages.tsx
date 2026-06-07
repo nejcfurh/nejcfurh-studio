@@ -11,21 +11,21 @@ const ParallaxImages = () => {
         end={200}
       />
       <ParallaxImage
-        className="ml-96 w-2/3 rounded-sm shadow-2xl shadow-zinc-900/80"
+        className="ml-24 w-2/3 rounded-sm shadow-2xl shadow-zinc-900/80 sm:ml-96"
         alt="Example of launch trajectory"
         src="/images/smooth-scroll/launch-trajectory.jpg"
         start={200}
         end={-250}
       />
       <ParallaxImage
-        className="ml-[-150px] w-5/12 rounded-sm shadow-2xl shadow-zinc-900/80"
+        className="ml-[-40px] w-5/12 rounded-sm shadow-2xl shadow-zinc-900/80 sm:ml-[-150px]"
         alt="Astronauts"
         src="/images/smooth-scroll/astronauts.jpg"
         start={100}
         end={-500}
       />
       <ParallaxImage
-        className="ml-96 w-8/12 rounded-sm shadow-2xl shadow-zinc-900/80"
+        className="ml-12 w-8/12 rounded-sm shadow-2xl shadow-zinc-900/80 sm:ml-96"
         alt="Starship"
         src="/images/smooth-scroll/starship.jpg"
         start={-50}

@@ -57,7 +57,7 @@ const DropzoneArea = ({
       onDragLeave={handleDragLeave}
       onDragEnd={handleDragEnd}
       onDrop={handleDrop}
-      className={`group relative flex min-h-[200px] cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed p-8 transition-all duration-300 ${
+      className={`group relative flex min-h-[180px] cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed p-5 transition-all duration-300 sm:min-h-[200px] sm:p-8 ${
         isDragOver
           ? 'scale-[1.02] border-blue-500 bg-blue-50 shadow-lg dark:border-blue-400 dark:bg-blue-950/20'
           : 'dark:hover:bg-gray-750 border-gray-300 bg-gray-50 hover:scale-[1.01] hover:border-blue-400 hover:bg-gray-400/50 hover:shadow-md dark:border-gray-700 dark:bg-gray-800 dark:hover:border-blue-500'
