@@ -83,7 +83,7 @@ export default function Home() {
         </div>
 
         {/* FOOTER */}
-        <Footer year={2025} />
+        <Footer year={2026} />
       </div>
       <PageVisitTracker<AnalyticsClientPageEvent>
         pageEvent={{
