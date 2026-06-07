@@ -1,8 +1,11 @@
 'use client';
 
 import { MEDIA_SLIDER_DATA } from '@/features/media-slider/constants';
-import { computeClip } from '@/features/media-slider/utils';
-import { useState } from 'react';
+import {
+  computeClip,
+  computeClipHorizontal
+} from '@/features/media-slider/utils';
+import { useEffect, useState } from 'react';
 
 const AngledMediaSlider = ({
   enableText = false
@@ -11,9 +14,20 @@ const AngledMediaSlider = ({
 }) => {
   const videos = MEDIA_SLIDER_DATA;
   const [hovered, setHovered] = useState<number | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
   const split = 50;
   const count = videos.length;
   const pps = 100 / count;
+
+  // On mobile the videos stack vertically and are separated by horizontal
+  // (rather than vertical) angled lines.
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 640px)');
+    const onChange = () => setIsMobile(mq.matches);
+    onChange();
+    mq.addEventListener('change', onChange);
+    return () => mq.removeEventListener('change', onChange);
+  }, []);
 
   return (
     <ul className="slidey with-text relative m-0 grid h-full w-full list-none p-0">
@@ -28,7 +42,11 @@ const AngledMediaSlider = ({
             key={video.url}
             onMouseEnter={() => setHovered(idx)}
             onMouseLeave={() => setHovered(null)}
-            style={{ clipPath: computeClip(idx, hovered, pps, split, count) }}
+            style={{
+              clipPath: isMobile
+                ? computeClipHorizontal(idx, pps, split)
+                : computeClip(idx, hovered, pps, split, count)
+            }}
             className="relative outline-none"
           >
             <div className="background absolute top-0 left-0 h-full w-full">

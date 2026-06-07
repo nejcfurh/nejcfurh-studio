@@ -79,7 +79,7 @@ const Card = ({
     >
       {/* CARD STYLE */}
       <AnimatedDiv
-        className="relative mt-[25vh] h-[500px] w-[1000px] max-w-[90vw] origin-top overflow-hidden rounded-2xl border-2 border-white/60"
+        className="relative mt-[30vh] h-[340px] w-[1000px] max-w-[90vw] origin-top overflow-hidden rounded-2xl border-2 border-white/60 sm:h-[500px]"
         style={{ top: `calc(-10% + ${index * 25}px)`, scale: cardScale }}
       >
         <AnimatedImage
@@ -98,14 +98,14 @@ const Card = ({
 
         {/* CONTENT OVERLAY */}
         <AnimatedDiv
-          className="absolute inset-0 flex flex-col justify-end bg-linear-to-t from-black/95 via-black/65 to-transparent p-8 text-white"
+          className="absolute inset-0 flex flex-col justify-end bg-linear-to-t from-black/95 via-black/65 to-transparent p-5 text-white sm:p-8"
           variants={overlayContainer}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.4 }}
         >
           <AnimatedSubTitle
-            className="text-3xl font-bold"
+            className="text-xl font-bold sm:text-3xl"
             variants={overlayItem}
           >
             {name}

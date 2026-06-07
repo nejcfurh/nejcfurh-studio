@@ -2,6 +2,7 @@
 
 import AnimatedBackgroundGradient from '@/components/animation-core/AnimatedBackgroundGradient';
 import FloatingOrb from '@/components/animation-core/FloatingOrb';
+import AnimationTitle from '@/components/AnimationTitle';
 import BackButton from '@/components/buttons/BackButton';
 import Card from '@/features/smooth-scroll-cards/components/Card';
 import { CARD_DATA } from '@/features/smooth-scroll-cards/constants';
@@ -24,9 +25,14 @@ const SmoothScrollCardsPage = () => {
         <AnimatedBackgroundGradient />
         <FloatingOrb className="fixed top-20 left-10 h-72 w-72 animate-pulse rounded-full bg-blue-400/20 blur-3xl dark:bg-blue-500/10" />
         <BackButton className="fixed top-5 left-5" />
+        <AnimationTitle
+          title="Smooth Scroll Cards"
+          subtitle="Scroll down to watch the cards stack and scale into place."
+          className="fixed"
+        />
         <AnimatedDiv
           ref={containerRef}
-          className="relative w-full pt-[60vh] pb-[20vh]"
+          className="relative w-full pt-[60vh] pb-0 sm:pb-[5vh]"
         >
           {CARD_DATA.map((card, index) => {
             const targetScale = 1 - (CARD_DATA.length - index) * 0.05;

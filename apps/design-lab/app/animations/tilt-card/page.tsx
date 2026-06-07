@@ -1,5 +1,6 @@
 import AnimatedBackgroundGradient from '@/components/animation-core/AnimatedBackgroundGradient';
 import FloatingOrb from '@/components/animation-core/FloatingOrb';
+import AnimationTitle from '@/components/AnimationTitle';
 import BackButton from '@/components/buttons/BackButton';
 import LightingFilter from '@/features/tilt-card/components/LightingFilter';
 import HolographicCard from '@/features/tilt-card/components/TiltCard';
@@ -12,23 +13,18 @@ export const metadata: Metadata = {
 
 export default function TiltCardPage() {
   return (
-    <div className="flex min-h-screen items-center justify-evenly bg-linear-to-br from-gray-950 via-black to-gray-900">
+    <div className="relative flex min-h-screen items-center justify-evenly bg-linear-to-br from-gray-950 via-black to-gray-900">
       <AnimatedBackgroundGradient />
       <FloatingOrb className="absolute top-20 left-10 h-72 w-72 animate-pulse rounded-full bg-blue-400/20 blur-3xl dark:bg-blue-500/10" />
       <BackButton className="top-5 left-5" />
       <LightingFilter />
+      <AnimationTitle
+        title="Holographic 3D Card"
+        subtitle="Hover across the card to see the holographic effect • Click to flip"
+      />
 
       <div className="w-full max-w-7xl">
-        {/* INSTRUCTIONS */}
-        <div className="mb-12 text-center">
-          <h1 className="mb-4 text-5xl font-bold text-white">
-            Holographic 3D Card
-          </h1>
-          <p className="text-xl text-gray-400">
-            Hover across the card to see the holographic effect • Click to flip
-          </p>
-        </div>
-        <div className="flex items-center justify-center">
+        <div className="mt-0 flex items-center justify-center sm:mt-16">
           <HolographicCard
             name="Nejc Furh"
             title="Product Engineer"

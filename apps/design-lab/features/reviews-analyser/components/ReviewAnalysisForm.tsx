@@ -18,11 +18,11 @@ export function ReviewAnalysisForm() {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   return (
-    <div className="mx-auto my-5 max-w-4xl space-y-8 p-6 py-12">
+    <div className="mx-auto my-5 max-w-4xl space-y-8 px-4 py-12 sm:p-6 sm:py-12">
       {/* HEADER */}
       <div className="space-y-4 text-center">
         <div className="inline-block">
-          <h1 className="mb-3 bg-linear-to-r from-purple-200 via-pink-200 to-amber-200 bg-clip-text text-6xl font-bold text-transparent">
+          <h1 className="mb-3 bg-linear-to-r from-purple-200 via-pink-200 to-amber-200 bg-clip-text text-3xl font-bold text-transparent sm:text-5xl lg:text-6xl">
             Product Review Analyser
           </h1>
         </div>
@@ -38,7 +38,7 @@ export function ReviewAnalysisForm() {
           setIsTextAreaEmpty(false);
           formAction(formData);
         }}
-        className="flex w-full flex-col items-center justify-center space-y-6 rounded-2xl border border-white/20 bg-white/10 p-8 shadow-2xl backdrop-blur-xl"
+        className="flex w-full flex-col items-center justify-center space-y-6 rounded-2xl border border-white/20 bg-white/10 p-5 shadow-2xl backdrop-blur-xl sm:p-8"
       >
         <div className="relative w-full">
           {/* CLEAR BUTTON */}

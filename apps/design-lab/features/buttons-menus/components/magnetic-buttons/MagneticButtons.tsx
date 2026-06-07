@@ -36,7 +36,7 @@ const MAGNETIC_BUTTONS_DATA = [
 
 const MagneticButtons = () => {
   return (
-    <div className="z-50 mb-[40vh] flex flex-wrap items-center justify-center gap-20">
+    <div className="z-50 mb-[40vh] flex flex-wrap items-center justify-center gap-10 px-4 sm:gap-20">
       {MAGNETIC_BUTTONS_DATA.map((button) => (
         <AnimatedDiv
           key={button.id}

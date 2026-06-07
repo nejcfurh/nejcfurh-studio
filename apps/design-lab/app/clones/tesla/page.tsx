@@ -24,15 +24,15 @@ export default function TeslaClonePage() {
       {/* First section with header */}
       <TeslaSection {...TESLA_SECTIONS[0]} nextSectionId={TESLA_SECTIONS[1].id}>
         {/* Sticky-style header overlaid on first section */}
-        <div className="absolute inset-x-0 top-0 z-10 flex items-center justify-between pt-5 font-bold">
-          <div className="ml-8">
+        <div className="absolute inset-x-0 top-0 z-10 flex items-center justify-between px-4 pt-5 font-bold sm:px-6">
+          <div>
             <TeslaLogo />
           </div>
           <div className="hidden lg:inline">
             <TeslaNav />
           </div>
           <div>
-            <ul className="mr-2 flex space-x-4 text-sm">
+            <ul className="flex space-x-1 text-xs sm:space-x-4 sm:text-sm">
               {['Shop', 'Account', 'Menu'].map((item) => (
                 <li
                   key={item}

@@ -2,6 +2,7 @@
 
 import AnimatedBackgroundGradient from '@/components/animation-core/AnimatedBackgroundGradient';
 import FloatingOrb from '@/components/animation-core/FloatingOrb';
+import AnimationTitle from '@/components/AnimationTitle';
 import Background from '@/components/Background';
 import BackButton from '@/components/buttons/BackButton';
 import DragDropKanban from '@/features/drag-drop/components/DragDropKanban';
@@ -10,6 +11,10 @@ export default function Home() {
   return (
     <Background>
       <BackButton className="top-5 left-5 z-50" />
+      <AnimationTitle
+        title="Drag & Drop"
+        subtitle="A Jira-style Kanban board — drag cards between the columns."
+      />
       <div className="mx-auto">
         <AnimatedBackgroundGradient />
         <FloatingOrb className="absolute top-20 left-10 h-72 w-72 animate-pulse rounded-full bg-blue-400/20 blur-3xl dark:bg-blue-500/10" />

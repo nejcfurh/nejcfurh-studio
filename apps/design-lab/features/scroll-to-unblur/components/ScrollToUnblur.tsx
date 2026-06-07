@@ -2,77 +2,82 @@
 
 import { SCROLL_TO_UNBLUR_TEXT } from '@/features/scroll-to-unblur/contants';
 import { textIntoWords } from '@/features/scroll-to-unblur/utils';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useRef } from 'react';
 
 interface ScrollToUnblurProps {
-  containerHeight?: number;
   text?: string;
-  pxPerWordMultiplier?: number;
+  pxPerWord?: number;
 }
 
+const MAX_BLUR = 14;
+const MIN_OPACITY = 0.12;
+
 export default function ScrollToUnblur({
-  containerHeight,
   text = SCROLL_TO_UNBLUR_TEXT,
-  pxPerWordMultiplier = 40
+  pxPerWord = 45
 }: ScrollToUnblurProps) {
   const words: string[] = textIntoWords(text);
-  const wordCount = words.length;
-
-  const [dimensions, setDimensions] = useState<{
-    viewportHeight: number;
-    calculatedHeight: number;
-  }>(() => {
-    if (typeof window === 'undefined') {
-      return { viewportHeight: 0, calculatedHeight: 0 };
-    }
-    const vh = window.innerHeight;
-    const height = containerHeight ?? wordCount * pxPerWordMultiplier;
-    return { viewportHeight: vh, calculatedHeight: height };
-  });
+  const scrollRef = useRef<HTMLElement>(null);
+  const wordRefs = useRef<(HTMLSpanElement | null)[]>([]);
 
   useEffect(() => {
-    const handleResize = () => {
-      const vh = window.innerHeight;
-      const height = containerHeight ?? wordCount * pxPerWordMultiplier;
-      setDimensions({ viewportHeight: vh, calculatedHeight: height });
+    const el = scrollRef.current;
+    if (!el) return;
+
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      const scrollTop = el.scrollTop;
+      for (let i = 0; i < wordRefs.current.length; i++) {
+        const w = wordRefs.current[i];
+        if (!w) continue;
+        const p = Math.min(
+          1,
+          Math.max(0, (scrollTop - i * pxPerWord) / pxPerWord)
+        );
+        w.style.opacity = String(MIN_OPACITY + (1 - MIN_OPACITY) * p);
+        w.style.filter = `blur(${((1 - p) * MAX_BLUR).toFixed(2)}px)`;
+      }
     };
 
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, [containerHeight, wordCount, pxPerWordMultiplier]);
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(update);
+    };
 
-  if (dimensions.calculatedHeight === 0) {
-    return null;
-  }
+    update();
+    el.addEventListener('scroll', onScroll, { passive: true });
+    return () => {
+      el.removeEventListener('scroll', onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }, [words.length, pxPerWord]);
 
-  const { viewportHeight, calculatedHeight } = dimensions;
-  const totalScrollHeight = calculatedHeight + viewportHeight;
-  const pxPerWord = calculatedHeight / wordCount;
+  const revealDistance = words.length * pxPerWord;
 
   return (
-    <main
-      className="h-screen overflow-y-scroll pt-10"
-      style={
-        {
-          scrollTimelineName: '--section',
-          '--containerHeight': `${totalScrollHeight}px`,
-          '--wordCount': wordCount,
-          '--pxPerWord': `${pxPerWord}px`
-        } as React.CSSProperties
-      }
-    >
-      <div className="relative" style={{ height: `${totalScrollHeight}px` }}>
-        <p className="sticky top-20 px-8 text-xl leading-relaxed text-white md:px-20 md:text-4xl">
-          {words.map((word, index) => (
-            <span
-              key={index}
-              className="word"
-              style={{ '--i': index } as React.CSSProperties}
-            >
-              {word}{' '}
-            </span>
-          ))}
-        </p>
+    <main ref={scrollRef} className="scrollbar-none h-screen overflow-y-scroll">
+      <div
+        className="relative"
+        style={{ height: `calc(${revealDistance}px + 100vh)` }}
+      >
+        <div className="sticky top-0 flex h-screen items-center justify-center px-6 pt-24 pb-12 sm:px-10 md:px-20">
+          <p className="max-w-5xl text-justify text-base leading-relaxed text-white sm:text-xl md:text-3xl">
+            {words.map((word, index) => (
+              <span
+                key={index}
+                ref={(el) => {
+                  wordRefs.current[index] = el;
+                }}
+                style={{
+                  opacity: MIN_OPACITY,
+                  filter: `blur(${MAX_BLUR}px)`
+                }}
+              >
+                {word}{' '}
+              </span>
+            ))}
+          </p>
+        </div>
       </div>
     </main>
   );

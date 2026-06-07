@@ -1,7 +1,6 @@
 @import 'tailwindcss';
 @import './animations/scroll-to-decrypt/scroll-to-decrypt.css';
 @import './components-showcase/file-upload/file-upload.css';
-@import './animations/scroll-to-unblur/scroll-to-unblur.css';
 
 :root {
   --background: #ffffff;
@@ -273,6 +272,18 @@ ul.slidey > li:hover .fg_content h1 {
 .menu-horizontal.menu-open-state .menu-item:nth-child(5) {
   transition-duration: 490ms;
   transform: translate3d(440px, 0, 0);
+}
+
+/* MULTI-OPTION-MENU - MOBILE: scale down so the fixed-px layouts fit narrow screens */
+@media (max-width: 640px) {
+  .menu-circular {
+    transform: scale(0.78);
+  }
+
+  .menu-horizontal {
+    transform: scale(0.5);
+    transform-origin: 12% 50%;
+  }
 }
 
 /* HOLOGRAPHIC CARD  */

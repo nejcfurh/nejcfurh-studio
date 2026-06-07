@@ -12,7 +12,7 @@ const Card = ({ track }: { track: any }) => {
     <AnimatedDiv
       onHoverStart={() => setShowOverlay(true)}
       onHoverEnd={() => setShowOverlay(false)}
-      className="relative h-56 w-56 overflow-hidden rounded-2xl"
+      className="relative h-40 w-40 overflow-hidden rounded-2xl sm:h-56 sm:w-56"
     >
       <AnimatePresence>
         {showOverlay && (
