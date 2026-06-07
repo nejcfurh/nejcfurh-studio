@@ -27,7 +27,7 @@ const MultiLayerParallax = () => {
     >
       <AnimatedTitle
         style={{ y: textYPosition }}
-        className="relative z-10 mb-48 text-7xl font-bold text-white md:text-9xl"
+        className="relative z-10 mb-48 text-5xl font-bold text-white sm:text-7xl md:text-9xl"
       >
         Mountaintopia
       </AnimatedTitle>

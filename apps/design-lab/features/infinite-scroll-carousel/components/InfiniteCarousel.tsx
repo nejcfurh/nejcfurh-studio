@@ -87,7 +87,7 @@ const InfiniteCarousel = () => {
 
   if (isLoading) {
     return (
-      <div className="mx-auto flex animate-spin items-center justify-center py-32 font-bold text-white">
+      <div className="mx-auto flex h-screen animate-spin items-center justify-center font-bold text-white">
         <FaSpinner className="size-20" />
       </div>
     );
@@ -113,7 +113,7 @@ const InfiniteCarousel = () => {
         <AnimatedDiv
           ref={ref}
           style={{ x: xTranslate }}
-          className="absolute left-0 flex justify-center gap-4"
+          className="absolute inset-y-0 left-0 flex items-center justify-center gap-4"
           onHoverStart={() => {
             setDuration(SLOW_DURATION);
             setMustFinishAnimation(true);

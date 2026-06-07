@@ -138,7 +138,7 @@ const ScrollToDecrypt: React.FC<ScrollToDecryptProps> = ({
               <span className="sr-only">{title}</span>
               <div
                 ref={headingRef}
-                className="encrypted mx-auto"
+                className="encrypted mx-auto text-white"
                 style={
                   {
                     '--step-start': 'calc(var(--start, 0) * 1%)',

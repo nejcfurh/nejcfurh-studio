@@ -34,7 +34,7 @@ const DeleteArea = ({
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
-      className={`mt-12 grid h-48 w-48 shrink-0 place-content-center rounded-lg border text-3xl transition-colors duration-300 ${active ? 'border-red-800 bg-red-800/20 text-red-500' : 'border-neutral-500 bg-neutral-500/50 text-neutral-500'}`}
+      className={`mt-12 grid h-32 w-32 shrink-0 place-content-center rounded-lg border text-3xl transition-colors duration-300 sm:h-48 sm:w-48 ${active ? 'border-red-800 bg-red-800/20 text-red-500' : 'border-neutral-500 bg-neutral-500/50 text-neutral-500'}`}
     >
       {active ? (
         <FaFire className="size-10 animate-bounce" />

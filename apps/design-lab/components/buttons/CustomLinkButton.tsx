@@ -7,7 +7,7 @@ const CustomLinkButton = ({ name, path, icon, color }: MainPageItem) => {
     <Link
       key={path}
       href={path}
-      className="group relative overflow-hidden rounded-2xl bg-white p-4 px-5 shadow-sm ring-1 ring-gray-200 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:ring-2 hover:ring-gray-300 dark:bg-gray-900 dark:ring-gray-800 dark:hover:ring-gray-700"
+      className="group relative overflow-hidden rounded-2xl bg-gray-900 p-4 px-5 text-white shadow-sm ring-1 ring-gray-800 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:ring-2 hover:ring-gray-700"
     >
       {/* GRADIENT BACKGROUND ON HOVER */}
       <div
@@ -22,9 +22,7 @@ const CustomLinkButton = ({ name, path, icon, color }: MainPageItem) => {
           </span>
           <IoChevronForward className="size-8" />
         </div>
-        <h3 className="mb-2 text-base font-semibold text-gray-900 dark:text-white">
-          {name}
-        </h3>
+        <h3 className="mb-2 text-base font-semibold text-white">{name}</h3>
       </div>
 
       {/* BOTTOM BORDER GRADIENT */}

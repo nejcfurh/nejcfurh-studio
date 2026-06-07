@@ -2,7 +2,7 @@ import type { ReactNode } from 'react';
 
 const TeslaLogo = (): ReactNode => (
   <svg
-    className="w-32 cursor-pointer"
+    className="w-24 cursor-pointer sm:w-32"
     viewBox="0 0 342 35"
     xmlns="http://www.w3.org/2000/svg"
   >

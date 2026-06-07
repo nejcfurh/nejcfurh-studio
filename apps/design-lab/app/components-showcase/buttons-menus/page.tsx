@@ -26,12 +26,12 @@ export default function Home() {
   };
 
   return (
-    <Background className="grid h-full grid-rows-2 items-center justify-center">
+    <Background className="grid h-full grid-rows-2 items-center justify-center overflow-hidden">
       <AnimatedBackgroundGradient />
       <FloatingOrb className="absolute top-20 left-10 h-72 w-72 animate-pulse rounded-full bg-blue-400/20 blur-3xl dark:bg-blue-500/10" />
       <BackButton className="top-5 left-5" />
-      <div className="flex h-full flex-col items-center justify-start pt-8">
-        <div className="z-50 flex items-center justify-start gap-4">
+      <div className="flex h-full flex-col items-center justify-start px-4 pt-20 sm:pt-8">
+        <div className="z-50 flex flex-wrap items-center justify-center gap-2 sm:gap-4">
           {/* BUTTON TYPES */}
           <SelectionButton
             selected={buttonType === 'social-media'}

@@ -330,3 +330,23 @@
   z-index: 15;
   pointer-events: none;
 }
+
+/* MOBILE */
+@media (max-width: 640px) {
+  .card-line {
+    gap: 32px;
+  }
+
+  .card-wrapper,
+  .card,
+  .card-ascii {
+    width: 280px;
+    height: 175px;
+  }
+
+  /* Hide the edit options (controls + speed indicator) on mobile */
+  .controls,
+  .speed-indicator {
+    display: none;
+  }
+}

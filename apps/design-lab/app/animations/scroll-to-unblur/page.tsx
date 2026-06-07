@@ -1,8 +1,8 @@
 import AnimatedBackgroundGradient from '@/components/animation-core/AnimatedBackgroundGradient';
 import FloatingOrb from '@/components/animation-core/FloatingOrb';
+import AnimationTitle from '@/components/AnimationTitle';
 import Background from '@/components/Background';
 import BackButton from '@/components/buttons/BackButton';
-import Tooltip from '@/components/Tooltip';
 import ScrollToUnblur from '@/features/scroll-to-unblur/components/ScrollToUnblur';
 import type { Metadata } from 'next';
 
@@ -17,13 +17,11 @@ export default function Home() {
       <AnimatedBackgroundGradient />
       <FloatingOrb className="absolute top-20 left-10 h-72 w-72 animate-pulse rounded-full bg-blue-400/20 blur-3xl dark:bg-blue-500/10" />
       <BackButton className="top-5 left-5" />
-      <ScrollToUnblur />
-      <Tooltip
-        text="Scroll down to unblur"
-        bgColor="bg-amber-50/80 backdrop-blur-2xl"
-        textColor="text-black"
-        className="bottom-5 left-1/2 -translate-x-1/2"
+      <AnimationTitle
+        title="Scroll to Unblur"
+        subtitle="Scroll to bring the text gradually into focus."
       />
+      <ScrollToUnblur />
     </Background>
   );
 }

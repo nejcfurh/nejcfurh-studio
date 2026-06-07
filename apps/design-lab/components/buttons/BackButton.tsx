@@ -13,7 +13,7 @@ const BackButton = ({
     <Link
       href={href}
       className={cn(
-        'absolute top-5 left-5 z-10 cursor-pointer rounded-full bg-amber-50 p-4 backdrop-blur-3xl transition-all duration-300 hover:scale-[1.10] hover:opacity-80',
+        'absolute top-5 left-5 z-10 cursor-pointer rounded-full bg-amber-50 p-2 backdrop-blur-3xl transition-all duration-300 hover:scale-[1.10] hover:opacity-80 sm:p-4',
         className
       )}
     >

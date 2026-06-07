@@ -2,6 +2,7 @@
 
 import AnimatedBackgroundGradient from '@/components/animation-core/AnimatedBackgroundGradient';
 import FloatingOrb from '@/components/animation-core/FloatingOrb';
+import AnimationTitle from '@/components/AnimationTitle';
 import Background from '@/components/Background';
 import BackButton from '@/components/buttons/BackButton';
 import RippleShader from '@/features/ripple-shader/components/RippleShader';
@@ -18,14 +19,10 @@ const RippleShaderPage = () => {
         <RippleShader images={RIPPLE_IMAGES} />
       </div>
 
-      <div className="pointer-events-none absolute inset-x-0 top-5 flex flex-col items-center text-white">
-        <h1 className="text-5xl font-semibold drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)]">
-          Ripple Shader
-        </h1>
-        <p className="mt-2 text-sm text-white/70 drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
-          Move your cursor across the images
-        </p>
-      </div>
+      <AnimationTitle
+        title="Ripple Shader"
+        subtitle="Move your cursor across the images"
+      />
     </Background>
   );
 };

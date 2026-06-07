@@ -1,5 +1,6 @@
 'use client';
 
+import ScrollDownIndicator from '@/components/ScrollDownIndicator';
 import { Variants } from '@repo/ui/animation';
 import {
   AnimatedDiv,
@@ -37,7 +38,7 @@ const DescriptionSection = ({
   return (
     <AnimatedDiv
       style={{ backgroundColor: color }}
-      className="flex h-full w-full flex-col items-center justify-center gap-6 px-6 text-center text-white"
+      className="relative flex h-full w-full flex-col items-center justify-center gap-6 px-6 text-center text-white"
       variants={container}
       initial="hidden"
       whileInView="visible"
@@ -55,6 +56,10 @@ const DescriptionSection = ({
       >
         {description}
       </AnimatedText>
+
+      <AnimatedDiv variants={item} className="absolute bottom-8">
+        <ScrollDownIndicator />
+      </AnimatedDiv>
     </AnimatedDiv>
   );
 };
