@@ -5,7 +5,6 @@ import { useRef, useState } from 'react';
 
 import ActionButton from './ActionButton';
 import DropzoneArea from './DropzoneArea';
-import FileUploadHeader from './FileUploadHeader';
 
 const FileUpload = () => {
   const [isDragOver, setIsDragOver] = useState(false);
@@ -43,9 +42,6 @@ const FileUpload = () => {
       onReset={handleReset}
       className="z-50 w-full max-w-2xl rounded-2xl border border-gray-300 bg-white p-5 shadow-lg transition-all duration-300 hover:shadow-2xl sm:p-8 dark:border-gray-800 dark:bg-gray-900"
     >
-      {/* HEADER */}
-      <FileUploadHeader />
-
       {/* DROPZONE AREA */}
       <DropzoneArea
         isDragOver={isDragOver}

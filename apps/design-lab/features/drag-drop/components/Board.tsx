@@ -4,14 +4,12 @@ import { useState } from 'react';
 
 import DeleteArea from './DeleteArea';
 import DragDropColumn from './DragDropColumn';
-import DragDropHeader from './DragDropHeader';
 
 const Board = () => {
   const [cards, setCards] = useState<CardDataType[]>(CARD_DATA);
 
   return (
-    <div className="flex h-screen w-full flex-col justify-start gap-3 py-10">
-      <DragDropHeader />
+    <div className="flex h-screen w-full flex-col justify-start gap-3 pt-32 pb-6 sm:pt-40">
       <div className="flex w-full justify-start gap-3 overflow-x-auto px-4 lg:justify-center">
         <DragDropColumn
           title="Backlog"

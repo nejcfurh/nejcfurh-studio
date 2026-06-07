@@ -1,5 +1,6 @@
 import AnimatedBackgroundGradient from '@/components/animation-core/AnimatedBackgroundGradient';
 import FloatingOrb from '@/components/animation-core/FloatingOrb';
+import AnimationTitle from '@/components/AnimationTitle';
 import Background from '@/components/Background';
 import BackButton from '@/components/buttons/BackButton';
 import FileUpload from '@/features/file-upload/components/FileUpload';
@@ -11,11 +12,15 @@ export const metadata: Metadata = {
 };
 export default function Home() {
   return (
-    <Background className="flex items-center justify-center px-4">
+    <Background className="flex items-center justify-center px-4 pt-28 pb-10">
       <AnimatedBackgroundGradient />
       <FloatingOrb className="absolute top-20 left-10 h-72 w-72 animate-pulse rounded-full bg-blue-400/20 blur-3xl dark:bg-blue-500/10" />
       <FloatingOrb className="animation-delay-2000 absolute right-10 bottom-20 h-96 w-96 animate-pulse rounded-full bg-indigo-400/20 blur-3xl dark:bg-indigo-500/10" />
       <BackButton className="top-5 left-5" />
+      <AnimationTitle
+        title="File Upload"
+        subtitle="Drag & drop a file into the area, or click to browse."
+      />
       <FileUpload />
     </Background>
   );

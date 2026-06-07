@@ -57,7 +57,7 @@ export default function TeslaSection({
     <div
       ref={sectionRef}
       id={id}
-      className="relative h-screen bg-cover bg-center"
+      className="relative h-[100dvh] bg-cover bg-center bg-no-repeat"
       style={{ backgroundImage: `url('${bg}')` }}
     >
       {children}

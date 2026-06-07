@@ -106,7 +106,7 @@ export default function InstagramClonePage() {
       <main className="mx-auto grid grid-cols-1 md:max-w-6xl md:grid-cols-3">
         <section className="md:col-span-2">
           {/* STORIES */}
-          <div className="scrollbar-none flex space-x-2 overflow-x-scroll rounded-sm border border-gray-200 p-4 sm:p-6">
+          <div className="scrollbar-none flex space-x-2 overflow-x-scroll border-y border-gray-200 p-4 sm:rounded-sm sm:border sm:p-6">
             {INSTAGRAM_STORIES.map((story) => (
               <div key={story.name} className="group relative cursor-pointer">
                 <Image
@@ -143,7 +143,7 @@ export default function InstagramClonePage() {
           {INSTAGRAM_POSTS.map((post) => (
             <div
               key={post.user + post.caption}
-              className="my-7 rounded-md border border-gray-200 bg-white"
+              className="my-7 border-y border-gray-200 bg-white sm:rounded-md sm:border"
             >
               {/* POST HEADER */}
               <div className="flex items-center p-5">
