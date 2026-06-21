@@ -6,6 +6,12 @@ import {
 } from '@repo/ui/animation/core';
 import { ReactNode } from 'react';
 
+export const animationTitleEntrance = {
+  initial: { opacity: 0, y: -16 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.6, ease: 'easeOut' as const }
+};
+
 const AnimationTitle = ({
   title,
   subtitle,
@@ -17,9 +23,7 @@ const AnimationTitle = ({
 }): ReactNode => {
   return (
     <AnimatedDiv
-      initial={{ opacity: 0, y: -16 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, ease: 'easeOut' }}
+      {...animationTitleEntrance}
       className={cn(
         'pointer-events-none absolute inset-x-0 top-6 z-20 mx-auto max-w-3xl px-20 text-center',
         className
