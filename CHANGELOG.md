@@ -1,5 +1,21 @@
 # Changelog
 
+## v1.24.0 (2026-06-21)
+
+
+### Features
+
+- feat(design-lab): Curved sidebar menu and predictive text input field (#94) (d99b892)
+- feat(design-lab): Predictive text input field (989ac52)
+- feat(design-lab): Curved menu (3d5f7fa)
+
+
+### Bug Fixes & Improvements
+
+- fix(design-lab): Animate the input field into view (6c18aa9)
+
+# Changelog
+
 ## v1.23.1 (2026-06-07)
 
 
