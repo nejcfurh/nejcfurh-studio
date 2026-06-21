@@ -18,6 +18,7 @@ import { SlLayers } from 'react-icons/sl';
 import {
   TbCarouselHorizontal,
   TbDragDrop,
+  TbMenu,
   TbPerspective,
   TbRipple,
   TbTransitionBottomFilled
@@ -95,6 +96,12 @@ export const ANIMATIONS_DATA: MainPageItem[] = [
     path: '/animations/perspective-transition',
     icon: <TbPerspective />,
     color: 'from-pink-500 to-gray-500'
+  },
+  {
+    name: 'Curved Menu',
+    path: '/animations/curved-menu',
+    icon: <TbMenu />,
+    color: 'from-purple-500 to-orange-500'
   }
 ];
 
