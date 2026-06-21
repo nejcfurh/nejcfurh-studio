@@ -8,16 +8,16 @@ Created by [Nejc Furh](https://nejcfurh.dev)
 
 | App                                         | Description                                                                | Deployment                                    |
 | ------------------------------------------- | -------------------------------------------------------------------------- | --------------------------------------------- |
-| [design-lab](apps/design-lab)               | Animations, reusable components, UI clones & AI tools showcase             | [LINK](https://design-lab-nf.vercel.app/)     |
-| [n-drive](apps/n-drive)                     | Cloud storage and file sharing platform with Convex backend and Clerk auth | [LINK](https://n-drive.vercel.app/)           |
-| [backyard-skies](apps/backyard-skies)       | Interactive 3D weather visualization using Three.js and React Three Fiber  | [LINK](https://backyard-skies.vercel.app/)    |
-| [desktop-weather](apps/desktop-weather)     | Progressive Web App for weather information                                | [LINK](https://desktop-weather.vercel.app/)   |
+| [design-lab](apps/design-lab)               | Animations, reusable components, UI clones & AI tools showcase             | [LINK](https://design-lab.nejcfurh.dev/)      |
+| [n-drive](apps/n-drive)                     | Cloud storage and file sharing platform with Convex backend and Clerk auth | [LINK](https://n-drive.nejcfurh.dev/)         |
+| [backyard-skies](apps/backyard-skies)       | Interactive 3D weather visualization using Three.js and React Three Fiber  | [LINK](https://backyard-skies.nejcfurh.dev/)  |
+| [desktop-weather](apps/desktop-weather)     | Progressive Web App for weather information                                | [LINK](https://weather.nejcfurh.dev/)         |
 | [friends-of-nature](apps/friends-of-nature) | Community platform for nature enthusiasts with rich animations             | [LINK](https://friends-of-nature.vercel.app/) |
-| [blog-dev](apps/blog-dev)                   | Personal dev blog with MongoDB backend and admin authentication            | [LINK](https://blog-dev-nf.vercel.app/)       |
-| [to-do-cards](apps/to-do-cards)             | Card-based task manager with NextAuth, MongoDB, and Supabase storage       | [LINK](https://to-do-cards.vercel.app/)       |
-| [twabblr](apps/twabblr)                     | Social / messaging app with NextAuth, Prisma, and real-time (Pusher)       | [LINK](https://twabblr.vercel.app)            |
-| [elysantium](apps/elysantium)               | Luxury hotel site with admin panel (bookings, cabins, Supabase)            | [LINK](https://elysantium.vercel.app)         |
-| [domavia](apps/domavia)                     | Real estate listing platform with Firebase Auth, Firestore, and maps         | [LINK](https://domavia.vercel.app)            |
+| [blog-dev](apps/blog-dev)                   | Personal dev blog with MongoDB backend and admin authentication            | [LINK](https://blog.nejcfurh.dev/)            |
+| [to-do-cards](apps/to-do-cards)             | Card-based task manager with NextAuth, MongoDB, and Supabase storage       | [LINK](https://to-do-cards.nejcfurh.dev/)     |
+| [twabblr](apps/twabblr)                     | Social / messaging app with NextAuth, Prisma, and real-time (Pusher)       | [LINK](https://twabblr.nejcfurh.dev)          |
+| [elysantium](apps/elysantium)               | Luxury hotel site with admin panel (bookings, cabins, Supabase)            | [LINK](https://elysantium.nejcfurh.dev)       |
+| [domavia](apps/domavia)                     | Real estate listing platform with Firebase Auth, Firestore, and maps       | [LINK](https://domavia.nejcfurh.dev)          |
 
 ## Packages
 

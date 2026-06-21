@@ -35,7 +35,8 @@
         "FIREBASE_CLIENT_EMAIL",
         "FIREBASE_PRIVATE_KEY",
         "NEXT_PUBLIC_SUPABASE_ANON_KEY",
-        "LOCATIONIQ_GEOCODE_API_KEY"
+        "LOCATIONIQ_GEOCODE_API_KEY",
+        "AUTH_URL"
       ],
       "outputs": ["dist/**", ".next/**", "!.next/cache/**"]
     },
