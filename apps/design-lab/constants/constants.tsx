@@ -18,6 +18,7 @@ import { SlLayers } from 'react-icons/sl';
 import {
   TbCarouselHorizontal,
   TbDragDrop,
+  TbInputSpark,
   TbMenu,
   TbPerspective,
   TbRipple,
@@ -129,6 +130,12 @@ export const COMPONENTS_DATA: MainPageItem[] = [
     path: '/components-showcase/buttons-menus',
     icon: <IoShareSocialOutline />,
     color: 'from-cyan-500 to-blue-500'
+  },
+  {
+    name: 'Predictive Text Input',
+    path: '/components-showcase/predictive-text-input',
+    icon: <TbInputSpark />,
+    color: 'from-green-500 to-white'
   }
 ];
 
