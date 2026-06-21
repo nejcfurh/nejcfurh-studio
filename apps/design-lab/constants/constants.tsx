@@ -18,6 +18,8 @@ import { SlLayers } from 'react-icons/sl';
 import {
   TbCarouselHorizontal,
   TbDragDrop,
+  TbInputSpark,
+  TbMenu,
   TbPerspective,
   TbRipple,
   TbTransitionBottomFilled
@@ -95,6 +97,12 @@ export const ANIMATIONS_DATA: MainPageItem[] = [
     path: '/animations/perspective-transition',
     icon: <TbPerspective />,
     color: 'from-pink-500 to-gray-500'
+  },
+  {
+    name: 'Curved Menu',
+    path: '/animations/curved-menu',
+    icon: <TbMenu />,
+    color: 'from-purple-500 to-orange-500'
   }
 ];
 
@@ -122,6 +130,12 @@ export const COMPONENTS_DATA: MainPageItem[] = [
     path: '/components-showcase/buttons-menus',
     icon: <IoShareSocialOutline />,
     color: 'from-cyan-500 to-blue-500'
+  },
+  {
+    name: 'Predictive Text Input',
+    path: '/components-showcase/predictive-text-input',
+    icon: <TbInputSpark />,
+    color: 'from-green-500 to-white'
   }
 ];
 
