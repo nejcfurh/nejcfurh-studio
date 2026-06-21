@@ -314,7 +314,7 @@ export const PredictiveTextInput = forwardRef<
         onInput={handleInput}
         onKeyDown={handleKeyDown}
         className={cn(
-          'min-h-[3.25rem] w-full overflow-x-auto rounded-lg border-2 border-gray-300 bg-transparent p-4 text-base whitespace-nowrap text-gray-900 caret-blue-500 transition-all duration-300 outline-none selection:bg-blue-500/25 empty:before:pointer-events-none empty:before:text-gray-500 empty:before:content-[attr(data-placeholder)] focus:border-blue-500 dark:border-gray-700 dark:text-gray-100 dark:empty:before:text-gray-400 dark:focus:border-blue-400',
+          'min-h-13 w-full overflow-x-auto rounded-lg border-2 border-gray-300 bg-transparent p-4 text-base whitespace-nowrap text-gray-900 caret-blue-500 transition-all duration-300 outline-none selection:bg-blue-500/25 empty:before:pointer-events-none empty:before:text-gray-500 empty:before:content-[attr(data-placeholder)] focus:border-blue-500 dark:border-gray-700 dark:text-gray-100 dark:empty:before:text-gray-400 dark:focus:border-blue-400',
           className
         )}
         data-placeholder={value ? undefined : placeholder}

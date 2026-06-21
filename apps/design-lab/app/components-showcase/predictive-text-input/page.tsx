@@ -2,7 +2,9 @@
 
 import AnimatedBackgroundGradient from '@/components/animation-core/AnimatedBackgroundGradient';
 import FloatingOrb from '@/components/animation-core/FloatingOrb';
-import AnimationTitle from '@/components/AnimationTitle';
+import AnimationTitle, {
+  animationTitleEntrance
+} from '@/components/AnimationTitle';
 import Background from '@/components/Background';
 import BackButton from '@/components/buttons/BackButton';
 import { PredictiveTextInput } from '@/features/predictive-text-input/components/PredictiveTextInput';
@@ -26,7 +28,15 @@ export default function PredictiveTextInputPage() {
         subtitle="Ghost completions inline — Tab or → to accept."
       />
 
-      <AnimatedDiv className="z-50 w-full max-w-md rounded-2xl border border-gray-200 bg-white p-8 shadow-xl transition-all duration-300 hover:shadow-2xl dark:border-gray-800 dark:bg-gray-900">
+      <AnimatedDiv
+        initial={{ opacity: 0, y: 16 }}
+        animate={animationTitleEntrance.animate}
+        transition={{
+          ...animationTitleEntrance.transition,
+          delay: 0.15
+        }}
+        className="z-50 w-full max-w-md rounded-2xl border border-gray-200 bg-white p-8 shadow-xl transition-shadow duration-300 hover:shadow-2xl dark:border-gray-800 dark:bg-gray-900"
+      >
         <PredictiveTextInput
           keywords={QUERY_KEYWORDS}
           value={value}
