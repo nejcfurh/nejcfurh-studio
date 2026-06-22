@@ -1,5 +1,15 @@
 # Changelog
 
+## v1.24.1 (2026-06-22)
+
+
+### Bug Fixes & Improvements
+
+- fix(nejcfurh-studio): Fix turbo.json and Readme.md (#96) (b2c8bd1)
+- fix(nejcfurh-studio): Fix turbo.json and Readme.md (a5d6a9d)
+
+# Changelog
+
 ## v1.24.0 (2026-06-21)
 
 
