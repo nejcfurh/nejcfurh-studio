@@ -4,7 +4,7 @@ import { CiCreditCard2 } from 'react-icons/ci';
 import { FaBarsStaggered, FaInstagram } from 'react-icons/fa6';
 import { GiCardPlay } from 'react-icons/gi';
 import { HiOutlineCursorArrowRipple } from 'react-icons/hi2';
-import { IoShareSocialOutline } from 'react-icons/io5';
+import { IoEarthOutline, IoShareSocialOutline } from 'react-icons/io5';
 import {
   MdBlurOn,
   MdFolderCopy,
@@ -103,6 +103,12 @@ export const ANIMATIONS_DATA: MainPageItem[] = [
     path: '/animations/curved-menu',
     icon: <TbMenu />,
     color: 'from-purple-500 to-orange-500'
+  },
+  {
+    name: '3D Earth Scroll',
+    path: '/animations/3d-earth-scroll',
+    icon: <IoEarthOutline />,
+    color: 'from-green-500 to-red-500'
   }
 ];
 
