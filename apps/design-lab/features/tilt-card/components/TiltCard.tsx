@@ -6,6 +6,7 @@ import {
 } from '@/features/analytics/constants';
 import { AnalyticsClientEvent } from '@/features/analytics/types.client';
 import ItemsList from '@/features/staggered-animation/components/ItemsList';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { useAnalytics } from '@analytics/hooks/useAnalytics';
 import {
   motion,
@@ -18,6 +19,7 @@ import { MouseEvent, TouchEvent, useEffect, useRef, useState } from 'react';
 
 import ElectricBorder from './ElectricBorder';
 import ElectricBorderFilter from './ElectricBorderFilter';
+import ElectricBorderGL from './ElectricBorderGL';
 
 interface HolographicCardProps {
   name: string;
@@ -40,7 +42,19 @@ export default function TiltCard({
   const [isFlipped, setIsFlipped] = useState(false);
   const [isActive, setIsActive] = useState(false);
   const [isFlipping, setIsFlipping] = useState(false);
+  // Which face is currently toward the viewer, switched at the 90° crossover.
+  // Mobile Safari doesn't reliably honour backface-visibility mid-flip, so we
+  // drive face visibility off the real rotation instead of relying on it.
+  const [displayBack, setDisplayBack] = useState(false);
   const { trackEvent } = useAnalytics<AnalyticsClientEvent>();
+
+  // Mobile Safari runs the desktop SVG electric-border filter on the CPU, which
+  // is unusable even on powerful phones. On touch / small-screen devices, swap
+  // in the GPU shader version and never mount the SVG filter. Desktop is left
+  // exactly as-is.
+  const useGLElectricBorder = useMediaQuery(
+    '(max-width: 768px), (pointer: coarse)'
+  );
 
   const pointerX = useMotionValue(0);
   const pointerY = useMotionValue(0);
@@ -164,8 +178,8 @@ export default function TiltCard({
           className="absolute inset-0 z-100 cursor-pointer border-none bg-none opacity-0"
         />
 
-        {/* ELECTRIC BORDER */}
-        {electricBorder && (
+        {/* ELECTRIC BORDER (DESKTOP-ONLY SVG FILTER + GLOW) */}
+        {electricBorder && !useGLElectricBorder && (
           <>
             <ElectricBorderFilter />
             <div className="pointer-events-none absolute inset-0 transform-[translateZ(-60px)_scale(1.1)] rounded-2xl opacity-30 blur-[32px] [background:linear-gradient(-30deg,var(--electric-light-color),transparent,var(--electric-border-color))]" />
@@ -176,6 +190,12 @@ export default function TiltCard({
           className="relative h-full w-full transform-3d"
           animate={{ rotateY: isFlipped ? 180 : 0 }}
           transition={{ duration: 0.6, ease: 'easeOut' }}
+          onUpdate={(latest) => {
+            const shouldShowBack = (latest.rotateY as number) >= 90;
+            setDisplayBack((prev) =>
+              prev === shouldShowBack ? prev : shouldShowBack
+            );
+          }}
           style={{ transformStyle: 'preserve-3d' }}
         >
           {/* CARD REAR */}
@@ -184,11 +204,21 @@ export default function TiltCard({
             style={{
               backfaceVisibility: 'hidden',
               WebkitBackfaceVisibility: 'hidden',
-              visibility: isFlipped ? 'visible' : 'hidden',
-              transition: 'visibility 0.5s'
+              // Mobile Safari doesn't reliably honour backface-visibility nor
+              // visibility-transition timing, so on mobile we explicitly show
+              // exactly one face, swapped at the 90° crossover (displayBack).
+              // Desktop keeps its original visibility + transition.
+              visibility: useGLElectricBorder
+                ? displayBack
+                  ? 'visible'
+                  : 'hidden'
+                : isFlipped
+                  ? 'visible'
+                  : 'hidden',
+              transition: useGLElectricBorder ? undefined : 'visibility 0.5s'
             }}
           >
-            {isFlipped && (
+            {(isFlipped || isFlipping) && (
               <div className="relative flex h-full w-full flex-col items-center justify-center p-8">
                 {/* TITLE */}
                 <motion.h2
@@ -240,8 +270,15 @@ export default function TiltCard({
             style={{
               backfaceVisibility: 'hidden',
               WebkitBackfaceVisibility: 'hidden',
-              visibility: isFlipped ? 'hidden' : 'visible',
-              transition: 'visibility 0.5s'
+              // Mirror of the back face (see above).
+              visibility: useGLElectricBorder
+                ? displayBack
+                  ? 'hidden'
+                  : 'visible'
+                : isFlipped
+                  ? 'hidden'
+                  : 'visible',
+              transition: useGLElectricBorder ? undefined : 'visibility 0.5s'
             }}
           >
             {/* BASE IMAGE LAYER */}
@@ -328,8 +365,9 @@ export default function TiltCard({
             </div>
           </div>
 
-          {/* ELECTRIC BORDER EDGE - INSIDE THE FLIP TRANSFORM SO IT FLIPS WITH THE CARD */}
-          {electricBorder && (
+          {/* DESKTOP SVG ELECTRIC BORDER: INSIDE THE FLIP, ONE COPY PER FACE
+              (BACKFACE-HIDDEN) SO IT FLIPS WITH THE CARD. */}
+          {electricBorder && !useGLElectricBorder && (
             <>
               <div
                 className="pointer-events-none absolute inset-0 transform-[translateZ(1px)] backface-hidden"
@@ -352,6 +390,24 @@ export default function TiltCard({
             </>
           )}
         </motion.div>
+
+        {/* MOBILE GPU ELECTRIC BORDER: in its OWN 3D layer, NOT inside the card
+            flip. A WebGL canvas inside the animating flip makes the browser
+            snapshot that layer and stall the back face until the flip finishes;
+            keeping the canvas out of the flip subtree lets the back render
+            immediately. This layer rotates in sync, so the border stays glued
+            to the card. One canvas (symmetric frame reads fine when mirrored). */}
+        {electricBorder && useGLElectricBorder && (
+          <motion.div
+            className="pointer-events-none absolute inset-0 transform-3d"
+            initial={false}
+            animate={{ rotateY: isFlipped ? 180 : 0 }}
+            transition={{ duration: 0.6, ease: 'easeOut' }}
+            style={{ transformStyle: 'preserve-3d' }}
+          >
+            <ElectricBorderGL />
+          </motion.div>
+        )}
       </motion.div>
     </div>
   );
