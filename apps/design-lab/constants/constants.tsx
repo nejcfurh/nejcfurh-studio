@@ -12,7 +12,7 @@ import {
   MdOutlinePermMedia,
   MdOutlineRateReview
 } from 'react-icons/md';
-import { PiMouseScroll } from 'react-icons/pi';
+import { PiMouseScroll, PiPerspectiveFill } from 'react-icons/pi';
 import { SiSpacex, SiTesla } from 'react-icons/si';
 import { SlLayers } from 'react-icons/sl';
 import {
@@ -116,6 +116,12 @@ export const ANIMATIONS_DATA: MainPageItem[] = [
     path: '/animations/infinite-scroll-transition',
     icon: <TbTransitionBottom />,
     color: 'from-purple-500 to-white'
+  },
+  {
+    name: 'Animated Page Transitions',
+    path: '/animations/animated-page-transitions',
+    icon: <PiPerspectiveFill />,
+    color: 'from-white to-orange-500'
   }
 ];
 
