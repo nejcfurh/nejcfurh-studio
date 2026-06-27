@@ -1,0 +1,22 @@
+@import 'tailwindcss';
+
+/* Hide scrollbar ONLY on /animations/infinite-scroll-transition page */
+
+html:has(#infinite-scroll-transition) {
+  scrollbar-width: none;
+  /* Firefox */
+  -ms-overflow-style: none;
+  /* IE/Edge */
+}
+
+html:has(#infinite-scroll-transition)::-webkit-scrollbar {
+  display: none;
+  /* Chrome/Safari */
+  width: 0;
+  height: 0;
+}
+
+html,
+body {
+  background: #000;
+}

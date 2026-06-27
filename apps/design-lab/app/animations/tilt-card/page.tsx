@@ -3,7 +3,7 @@ import FloatingOrb from '@/components/animation-core/FloatingOrb';
 import AnimationTitle from '@/components/AnimationTitle';
 import BackButton from '@/components/buttons/BackButton';
 import LightingFilter from '@/features/tilt-card/components/LightingFilter';
-import HolographicCard from '@/features/tilt-card/components/TiltCard';
+import TiltCardShowcase from '@/features/tilt-card/components/TiltCardShowcase';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -20,12 +20,11 @@ export default function TiltCardPage() {
       <LightingFilter />
       <AnimationTitle
         title="Holographic 3D Card"
-        subtitle="Hover across the card to see the holographic effect • Click to flip"
+        subtitle="Hover across the card to see the holographic effect • Click to flip the card"
       />
-
       <div className="w-full max-w-7xl">
         <div className="mt-0 flex items-center justify-center sm:mt-16">
-          <HolographicCard
+          <TiltCardShowcase
             name="Nejc Furh"
             title="Product Engineer"
             imageUrl="/images/tilt-card/portrait.jpeg"

@@ -4,7 +4,7 @@ import { CiCreditCard2 } from 'react-icons/ci';
 import { FaBarsStaggered, FaInstagram } from 'react-icons/fa6';
 import { GiCardPlay } from 'react-icons/gi';
 import { HiOutlineCursorArrowRipple } from 'react-icons/hi2';
-import { IoShareSocialOutline } from 'react-icons/io5';
+import { IoEarthOutline, IoShareSocialOutline } from 'react-icons/io5';
 import {
   MdBlurOn,
   MdFolderCopy,
@@ -12,7 +12,7 @@ import {
   MdOutlinePermMedia,
   MdOutlineRateReview
 } from 'react-icons/md';
-import { PiMouseScroll } from 'react-icons/pi';
+import { PiMouseScroll, PiPerspectiveFill } from 'react-icons/pi';
 import { SiSpacex, SiTesla } from 'react-icons/si';
 import { SlLayers } from 'react-icons/sl';
 import {
@@ -22,6 +22,7 @@ import {
   TbMenu,
   TbPerspective,
   TbRipple,
+  TbTransitionBottom,
   TbTransitionBottomFilled
 } from 'react-icons/tb';
 
@@ -103,6 +104,24 @@ export const ANIMATIONS_DATA: MainPageItem[] = [
     path: '/animations/curved-menu',
     icon: <TbMenu />,
     color: 'from-purple-500 to-orange-500'
+  },
+  {
+    name: '3D Earth Scroll',
+    path: '/animations/3d-earth-scroll',
+    icon: <IoEarthOutline />,
+    color: 'from-green-500 to-red-500'
+  },
+  {
+    name: 'Infinite Scroll Transition',
+    path: '/animations/infinite-scroll-transition',
+    icon: <TbTransitionBottom />,
+    color: 'from-purple-500 to-white'
+  },
+  {
+    name: 'Animated Page Transitions',
+    path: '/animations/animated-page-transitions',
+    icon: <PiPerspectiveFill />,
+    color: 'from-white to-orange-500'
   }
 ];
 
