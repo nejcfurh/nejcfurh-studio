@@ -22,6 +22,7 @@ import {
   TbMenu,
   TbPerspective,
   TbRipple,
+  TbTransitionBottom,
   TbTransitionBottomFilled
 } from 'react-icons/tb';
 
@@ -109,6 +110,12 @@ export const ANIMATIONS_DATA: MainPageItem[] = [
     path: '/animations/3d-earth-scroll',
     icon: <IoEarthOutline />,
     color: 'from-green-500 to-red-500'
+  },
+  {
+    name: 'Infinite Scroll Transition',
+    path: '/animations/infinite-scroll-transition',
+    icon: <TbTransitionBottom />,
+    color: 'from-purple-500 to-white'
   }
 ];
 

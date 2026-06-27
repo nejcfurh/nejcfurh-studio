@@ -112,8 +112,8 @@ const InfiniteCarousel = () => {
       {items && (
         <AnimatedDiv
           ref={ref}
-          style={{ x: xTranslate }}
-          className="absolute inset-y-0 left-0 flex items-center justify-center gap-4"
+          style={{ x: xTranslate, y: '-50%' }}
+          className="absolute top-1/2 left-0 flex w-max items-center gap-4"
           onHoverStart={() => {
             setDuration(SLOW_DURATION);
             setMustFinishAnimation(true);
