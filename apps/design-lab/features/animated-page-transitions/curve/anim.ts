@@ -4,6 +4,7 @@ import type { Variants } from '@repo/ui/animation';
 const EASE_IN_OUT: [number, number, number, number] = [0.76, 0, 0.24, 1];
 const EASE_OUT: [number, number, number, number] = [0.33, 1, 0.68, 1];
 
+// EACH VARIANT SET HAS A `REST` STATE: THE SETTLED, OFF-SCREEN/INVISIBLE END STATE, USED (WITH INITIAL=FALSE) TO MOUNT WITHOUT ANIMATING — ON FIRST LOAD AND ON SILENT TOGGLE SWAPS. IT MATCHES WHERE `ENTER` LANDS AFTER TRANSITIONEND.
 export const text: Variants = {
   initial: {
     opacity: 1
@@ -18,6 +19,10 @@ export const text: Variants = {
     opacity: 1,
     top: '40%',
     transition: { duration: 0.5, delay: 0.4, ease: EASE_OUT }
+  },
+  rest: {
+    opacity: 0,
+    top: '47.5%'
   }
 };
 
@@ -32,6 +37,9 @@ export const curve = (initialPath: string, targetPath: string): Variants => ({
   exit: {
     d: initialPath,
     transition: { duration: 0.75, ease: EASE_IN_OUT }
+  },
+  rest: {
+    d: targetPath
   }
 });
 
@@ -47,5 +55,8 @@ export const translate: Variants = {
   exit: {
     top: '-300px',
     transition: { duration: 0.75, ease: EASE_IN_OUT }
+  },
+  rest: {
+    top: '100vh'
   }
 };

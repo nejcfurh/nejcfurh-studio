@@ -5,15 +5,15 @@ import { motion } from '@repo/ui/animation';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-import { CURVE_LINKS } from '../constants';
+import { LINKS } from '../constants';
 
-export default function CurveNav() {
+export default function Nav() {
   const pathname = usePathname();
 
   return (
     <nav className="fixed top-5 left-1/2 z-100 -translate-x-1/2">
       <ul className="flex items-center gap-1 rounded-full bg-white/10 p-1 ring-1 ring-white/15 backdrop-blur-md">
-        {CURVE_LINKS.map((link) => {
+        {LINKS.map((link) => {
           const active = pathname === link.href;
 
           return (
@@ -28,7 +28,7 @@ export default function CurveNav() {
               >
                 {active && (
                   <motion.span
-                    layoutId="curve-nav-pill"
+                    layoutId="page-nav-pill"
                     className="absolute inset-0 rounded-full bg-white"
                     transition={{ type: 'spring', stiffness: 380, damping: 32 }}
                   />

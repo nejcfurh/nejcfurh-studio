@@ -118,8 +118,8 @@ export const ANIMATIONS_DATA: MainPageItem[] = [
     color: 'from-purple-500 to-white'
   },
   {
-    name: 'Curve Page Transition',
-    path: '/animations/curve-page-transition',
+    name: 'Animated Page Transitions',
+    path: '/animations/animated-page-transitions',
     icon: <PiPerspectiveFill />,
     color: 'from-white to-orange-500'
   }
