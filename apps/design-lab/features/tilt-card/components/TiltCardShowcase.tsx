@@ -26,7 +26,7 @@ export default function TiltCardShowcase({
       <button
         onClick={toggleElectricBorder}
         aria-pressed={electricBorder}
-        className="absolute bottom-10 left-1/2 z-30 min-w-52 -translate-x-1/2 cursor-pointer rounded-full bg-white/50 px-4 py-2 backdrop-blur-3xl transition-all duration-300 hover:scale-[1.02] hover:opacity-80"
+        className="absolute bottom-10 left-1/2 z-30 min-w-56 -translate-x-1/2 cursor-pointer rounded-full bg-white/50 px-4 py-2 backdrop-blur-3xl transition-all duration-300 hover:scale-[1.02] hover:opacity-80 md:min-w-52"
       >
         <span className="text-lg font-light text-black">
           {electricBorder ? 'Without' : 'With'} Electric Border

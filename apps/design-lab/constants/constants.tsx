@@ -2,7 +2,7 @@ import { MainPageItem } from '@/utils/types';
 import { BsInputCursor } from 'react-icons/bs';
 import { CiCreditCard2 } from 'react-icons/ci';
 import { FaBarsStaggered, FaInstagram } from 'react-icons/fa6';
-import { GiCardPlay } from 'react-icons/gi';
+import { GiCardPlay, GiFireWave } from 'react-icons/gi';
 import { HiOutlineCursorArrowRipple } from 'react-icons/hi2';
 import { IoEarthOutline, IoShareSocialOutline } from 'react-icons/io5';
 import {
@@ -155,6 +155,12 @@ export const COMPONENTS_DATA: MainPageItem[] = [
     path: '/components-showcase/predictive-text-input',
     icon: <TbInputSpark />,
     color: 'from-green-500 to-white'
+  },
+  {
+    name: 'Tubes Cursor',
+    path: '/components-showcase/tubes-cursor',
+    icon: <GiFireWave />,
+    color: 'from-pink-500 to-cyan-500'
   }
 ];
 
