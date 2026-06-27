@@ -1,5 +1,27 @@
 # Changelog
 
+## v1.25.0 (2026-06-27)
+
+
+### Features
+
+- feat(design-lab): Seamless curve and stairs page transition (#102) (a410775)
+- feat(design-lab): Added stairs animation with switcher (879e130)
+- feat(design-lab): Curve page transition animation (dcf3963)
+- feat(design-lab): Added a toggle for electric border in tilt-card (#101) (ff1e49e)
+- feat(design-lab): Added a toggle for electric border in tilt-card (0b5b5a8)
+- feat(design-lab): Smooth infinite scroll page transition (#100) (b440899)
+- feat(design-lab): Infinite scroll page transition (7a14964)
+- feat(design-lab): 3D Earth scroll (#98) (663df6e)
+- feat(design-lab): 3D Earth scroll (643610c)
+
+
+### Bug Fixes & Improvements
+
+- fix(design-lab): Infinite scroll carousel hover effect slowdown fix (6fee7d0)
+
+# Changelog
+
 ## v1.24.1 (2026-06-22)
 
 
