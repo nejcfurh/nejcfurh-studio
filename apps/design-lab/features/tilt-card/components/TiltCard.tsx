@@ -16,20 +16,25 @@ import {
 import Image from 'next/image';
 import { MouseEvent, TouchEvent, useEffect, useRef, useState } from 'react';
 
+import ElectricBorder from './ElectricBorder';
+import ElectricBorderFilter from './ElectricBorderFilter';
+
 interface HolographicCardProps {
   name: string;
   title: string;
   imageUrl: string;
   logo?: string;
   className?: string;
+  electricBorder?: boolean;
 }
 
-export default function HolographicCard({
+export default function TiltCard({
   name,
   title,
   imageUrl,
   logo,
-  className = ''
+  className = '',
+  electricBorder = false
 }: HolographicCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [isFlipped, setIsFlipped] = useState(false);
@@ -131,7 +136,7 @@ export default function HolographicCard({
     <div className="h-120 w-80 perspective-distant sm:h-144 sm:w-96">
       <motion.div
         ref={cardRef}
-        className={`holographic-card relative h-full w-full cursor-pointer overflow-hidden will-change-transform transform-3d ${className}`}
+        className={`holographic-card relative h-full w-full cursor-pointer transform-3d ${electricBorder ? '' : 'will-change-transform'} ${className}`}
         data-active={isActive}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
@@ -142,7 +147,10 @@ export default function HolographicCard({
             rotateX,
             rotateY,
             '--pointer-x': pointerX,
-            '--pointer-y': pointerY
+            '--pointer-y': pointerY,
+            '--electric-border-color': '#dd8448',
+            '--electric-light-color':
+              'oklch(from var(--electric-border-color) l c h)'
           } as unknown as MotionStyle
         }
         initial={{ opacity: 0, scale: 0.8 }}
@@ -155,6 +163,14 @@ export default function HolographicCard({
           aria-pressed={isFlipped}
           className="absolute inset-0 z-100 cursor-pointer border-none bg-none opacity-0"
         />
+
+        {/* ELECTRIC BORDER */}
+        {electricBorder && (
+          <>
+            <ElectricBorderFilter />
+            <div className="pointer-events-none absolute inset-0 transform-[translateZ(-60px)_scale(1.1)] rounded-2xl opacity-30 blur-[32px] [background:linear-gradient(-30deg,var(--electric-light-color),transparent,var(--electric-border-color))]" />
+          </>
+        )}
 
         <motion.div
           className="relative h-full w-full transform-3d"
@@ -233,9 +249,9 @@ export default function HolographicCard({
               <Image
                 src={imageUrl}
                 alt={name}
-                className="absolute bottom-[-10] h-full w-full scale-x-[1.04] object-cover"
-                width={2500}
-                height={2000}
+                className="absolute bottom-[-10] left-0 h-auto w-full scale-x-[1.04]"
+                width={1024}
+                height={1686}
                 priority
               />
             </div>
@@ -307,10 +323,34 @@ export default function HolographicCard({
               {/* SPOTLIGHT EFFECT */}
               <div className="card__spotlight" />
 
-              {/* Border for front face */}
+              {/* BORDER FOR FRONT FACE */}
               <div className="pointer-events-none absolute inset-0 rounded-2xl border-[5px] border-white/30 shadow-[0_10px_30px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.1)]" />
             </div>
           </div>
+
+          {/* ELECTRIC BORDER EDGE - INSIDE THE FLIP TRANSFORM SO IT FLIPS WITH THE CARD */}
+          {electricBorder && (
+            <>
+              <div
+                className="pointer-events-none absolute inset-0 transform-[translateZ(1px)] backface-hidden"
+                style={{
+                  backfaceVisibility: 'hidden',
+                  WebkitBackfaceVisibility: 'hidden'
+                }}
+              >
+                <ElectricBorder />
+              </div>
+              <div
+                className="pointer-events-none absolute inset-0 transform-[rotateY(180deg)_translateZ(1px)] backface-hidden"
+                style={{
+                  backfaceVisibility: 'hidden',
+                  WebkitBackfaceVisibility: 'hidden'
+                }}
+              >
+                <ElectricBorder />
+              </div>
+            </>
+          )}
         </motion.div>
       </motion.div>
     </div>
