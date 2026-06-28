@@ -1,5 +1,30 @@
 # Changelog
 
+## v1.26.0 (2026-06-28)
+
+
+### Features
+
+- feat(nejcfurh-studio): Update blog-dev and elysantium UI, simplify cn() import (#106) (4df31d9)
+- feat(elysantium): Styling update (8552dce)
+- feat(nejcfurh-studio): Updated blog-dev and elysantium (9457fa6)
+- feat(design-lab): Animated container bounds based on internal content (#105) (89d737b)
+- feat(design-lab): Animated container bounds based on internal content (fda5e4d)
+- feat(design-lab): Added tubes-cursor component to components-showcase (#103) (f98418a)
+- feat(design-lab): Added tubes-cursor component to components-showcase (1c1d053)
+
+
+### Bug Fixes & Improvements
+
+- fix(design-lab): Fix the electric border on tilt-card on mobile (322f666)
+
+
+### Other Changes
+
+- chore(nejcfurh-studio): Remove clsx and tailwind merge per app, use packages import (d773f7d)
+
+# Changelog
+
 ## v1.25.0 (2026-06-27)
 
 
