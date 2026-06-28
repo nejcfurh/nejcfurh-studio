@@ -1,5 +1,6 @@
 'use client';
 
+import { motion, useReducedMotion } from '@repo/ui/animation';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 interface FilterOption {
@@ -16,6 +17,7 @@ function Filter({ filterField, options }: FilterProps) {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
+  const reduce = useReducedMotion();
 
   const currentFilter = searchParams.get(filterField) || options.at(0)?.value;
 
@@ -27,22 +29,40 @@ function Filter({ filterField, options }: FilterProps) {
   }
 
   return (
-    <div className="flex gap-1 rounded-[var(--border-radius-sm)] border border-[var(--color-grey-100)] bg-[var(--color-grey-0)] p-1 shadow-[var(--shadow-sm)]">
-      {options.map((option) => (
-        <button
-          key={option.value}
-          value={option.value}
-          onClick={() => handleClick(option.value)}
-          disabled={option.value === currentFilter}
-          className={`rounded-[var(--border-radius-sm)] border-none px-2 py-[0.44rem] text-sm font-medium transition-all duration-300 hover:not-disabled:bg-[var(--color-brand-600)] hover:not-disabled:text-[var(--color-brand-50)] ${
-            option.value === currentFilter
-              ? 'bg-[var(--color-brand-600)] text-[var(--color-brand-50)]'
-              : 'bg-[var(--color-grey-0)]'
-          }`}
-        >
-          {option.label}
-        </button>
-      ))}
+    <div className="flex gap-1 rounded-full border border-(--color-grey-100) bg-(--color-grey-0) p-1 shadow-(--shadow-sm)">
+      {options.map((option) => {
+        const isActive = option.value === currentFilter;
+        return (
+          <button
+            key={option.value}
+            value={option.value}
+            onClick={() => handleClick(option.value)}
+            disabled={isActive}
+            className="relative rounded-full px-4 py-1.5 text-sm font-medium transition-colors duration-200"
+          >
+            {isActive && (
+              <motion.span
+                layoutId={`filter-${filterField}`}
+                className="absolute inset-0 rounded-full bg-(--color-brand-600)"
+                transition={
+                  reduce
+                    ? { duration: 0 }
+                    : { type: 'spring', duration: 0.4, bounce: 0.15 }
+                }
+              />
+            )}
+            <span
+              className={`relative z-10 ${
+                isActive
+                  ? 'text-(--color-brand-50)'
+                  : 'text-(--color-grey-600) hover:text-(--color-grey-800)'
+              }`}
+            >
+              {option.label}
+            </span>
+          </button>
+        );
+      })}
     </div>
   );
 }

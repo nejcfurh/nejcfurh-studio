@@ -4,6 +4,7 @@ import { formatCurrency } from '@/lib/utils/helpers';
 import { HiOutlineBriefcase, HiOutlineChartBar } from 'react-icons/hi';
 import { HiOutlineBanknotes, HiOutlineCalendarDays } from 'react-icons/hi2';
 
+import CountUp from './CountUp';
 import Stat from './Stat';
 
 interface StayData {
@@ -46,27 +47,29 @@ function Stats({
     <>
       <Stat
         title="Bookings"
-        color="blue"
         icon={<HiOutlineBriefcase />}
-        value={numBookings}
+        value={<CountUp value={numBookings} />}
       />
       <Stat
         title="Stays"
-        color="green"
         icon={<HiOutlineBanknotes />}
-        value={formatCurrency(sales)}
+        value={<CountUp value={sales} format={formatCurrency} />}
       />
       <Stat
         title="Check-ins"
-        color="indigo"
         icon={<HiOutlineCalendarDays />}
-        value={checkins}
+        value={<CountUp value={checkins} />}
       />
       <Stat
         title="Occupancy Rate"
-        color="yellow"
         icon={<HiOutlineChartBar />}
-        value={Math.round(occupancy * 100) + '%'}
+        value={
+          <CountUp
+            value={Math.round(occupancy * 100)}
+            format={(n) => `${Math.round(n)}%`}
+          />
+        }
+        progress={occupancy}
       />
     </>
   );

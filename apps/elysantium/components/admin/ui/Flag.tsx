@@ -8,7 +8,8 @@ export function Flag({ className = '', ...props }: FlagProps) {
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img
-      className={`block max-w-[2rem] rounded-[var(--border-radius-tiny)] border border-[var(--color-grey-100)] ${className}`}
+      alt=""
+      className={`block h-5 w-7 rounded-(--border-radius-tiny) border border-(--color-grey-100) object-cover ${className}`}
       {...props}
     />
   );

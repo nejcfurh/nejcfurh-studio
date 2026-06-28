@@ -1,27 +1,125 @@
 @import 'tailwindcss';
 
+/*
+ * Design system ported from nejcfurh.dev (app/globals.css + tailwind.config.ts).
+ * Steel-blue accent, full light + dark theme via [data-theme='light'] override,
+ * named component utilities reused across the blog instead of ad-hoc gradients.
+ */
+
 @theme inline {
-  --color-background: #ffffff;
-  --color-foreground: #111111;
-  --color-muted: #767676;
-  --color-muted-foreground: #767676;
-  --color-surface: #f5f5f5;
-  --color-border: #e5e5e5;
-  --color-accent: #111111;
-  --color-accent-foreground: #ffffff;
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--background);
+  --color-secondary: var(--muted);
+  --color-tertiary: var(--surface);
+  --color-accent: var(--accent);
+  --color-accent-light: var(--accent-light);
+  --color-card-bg: var(--card-bg);
+  --color-white-100: var(--foreground);
+  --color-muted: var(--muted);
+  --color-surface: var(--surface);
+
+  --font-sans: var(--font-geist-sans), system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), monospace;
+  --font-inter: var(--font-inter), system-ui, sans-serif;
+
+  --shadow-card: 0px 35px 120px -15px #211e35;
+  --shadow-glow: 0 0 40px rgba(96, 134, 190, 0.15);
 }
 
 @layer base {
+  :root {
+    color-scheme: dark;
+
+    --background: #050505;
+    --foreground: #fafafa;
+    --muted: #888888;
+    --surface: #111111;
+    --surface-2: #0a0a0a;
+
+    --accent: #6086be;
+    --accent-light: #8aaed6;
+
+    --card-bg: rgba(255, 255, 255, 0.055);
+    --card-bg-hover: rgba(255, 255, 255, 0.09);
+    --card-border: rgba(255, 255, 255, 0.11);
+    --card-border-hover: rgba(255, 255, 255, 0.2);
+
+    --form-bg: rgba(255, 255, 255, 0.03);
+    --form-border: rgba(255, 255, 255, 0.08);
+
+    --accent-tint: rgba(96, 134, 190, 0.1);
+    --accent-tint-strong: rgba(96, 134, 190, 0.2);
+    --accent-border: rgba(96, 134, 190, 0.3);
+    --accent-glow: rgba(96, 134, 190, 0.25);
+    --accent-glow-soft: rgba(96, 134, 190, 0.15);
+
+    --outline-subtle: rgba(255, 255, 255, 0.2);
+    --divider: rgba(255, 255, 255, 0.08);
+    --chip-bg: rgba(255, 255, 255, 0.05);
+    --chip-bg-hover: rgba(255, 255, 255, 0.1);
+    --overlay-strong: rgba(0, 0, 0, 0.7);
+    --overlay-medium: rgba(0, 0, 0, 0.5);
+
+    --text-gradient-top: #ffffff;
+    --text-gradient-bottom: rgba(255, 255, 255, 0.5);
+
+    --grain-opacity: 0.03;
+    --logo-text: #c2c2c2;
+  }
+
+  [data-theme='light'] {
+    color-scheme: light;
+
+    --background: #f7f7f5;
+    --foreground: #0a0a0a;
+    --muted: #5a5a5a;
+    --surface: #ffffff;
+    --surface-2: #eeeeee;
+
+    --accent: #3f6399;
+    --accent-light: #264567;
+
+    --card-bg: rgba(10, 10, 10, 0.05);
+    --card-bg-hover: rgba(10, 10, 10, 0.08);
+    --card-border: rgba(10, 10, 10, 0.12);
+    --card-border-hover: rgba(10, 10, 10, 0.2);
+
+    --form-bg: rgba(10, 10, 10, 0.03);
+    --form-border: rgba(10, 10, 10, 0.1);
+
+    --accent-tint: rgba(63, 99, 153, 0.08);
+    --accent-tint-strong: rgba(63, 99, 153, 0.15);
+    --accent-border: rgba(63, 99, 153, 0.35);
+    --accent-glow: rgba(63, 99, 153, 0.25);
+    --accent-glow-soft: rgba(63, 99, 153, 0.15);
+
+    --outline-subtle: rgba(10, 10, 10, 0.2);
+    --divider: rgba(10, 10, 10, 0.1);
+    --chip-bg: rgba(10, 10, 10, 0.04);
+    --chip-bg-hover: rgba(10, 10, 10, 0.08);
+    --overlay-strong: rgba(10, 10, 10, 0.55);
+    --overlay-medium: rgba(10, 10, 10, 0.35);
+
+    --text-gradient-top: #0a0a0a;
+    --text-gradient-bottom: rgba(10, 10, 10, 0.5);
+
+    --grain-opacity: 0.05;
+    --logo-text: #2a2a2a;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    background: var(--color-background);
-    color: var(--color-foreground);
+    background: var(--background);
+    color: var(--foreground);
     font-family:
-      var(--font-sans),
+      var(--font-geist-sans),
       system-ui,
       -apple-system,
       sans-serif;
@@ -35,7 +133,200 @@
   }
 
   ::selection {
-    background: var(--color-foreground);
-    color: var(--color-background);
+    background: var(--accent);
+    color: white;
+  }
+}
+
+@layer components {
+  /* ---- Scroll Progress Bar ---- */
+  .scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--accent);
+    transform-origin: 0%;
+    z-index: 100;
+  }
+
+  /* ---- Grain Overlay ---- */
+  .grain-overlay {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 90;
+    opacity: var(--grain-opacity);
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 256px 256px;
+  }
+
+  /* ---- Glass Card ---- */
+  .glass-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 1.5rem;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    /* Lift off the background + a subtle top edge highlight so cards read
+       with depth instead of looking flat. */
+    box-shadow:
+      0 18px 44px -22px rgba(0, 0, 0, 0.55),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.06);
+  }
+
+  .glass-card-hover {
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .glass-card-hover:hover {
+    background: var(--card-bg-hover);
+    border-color: var(--card-border-hover);
+    transform: translateY(-4px);
+  }
+
+  /* ---- Gradient Orbs ---- */
+  .gradient-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(120px);
+    opacity: 0.15;
+    pointer-events: none;
+  }
+
+  .gradient-orb-accent {
+    background: var(--accent);
+  }
+
+  .gradient-orb-purple {
+    background: #7c3aed;
+  }
+
+  /* ---- Text Gradients ---- */
+  .text-gradient-accent {
+    background: linear-gradient(
+      135deg,
+      var(--accent) 0%,
+      var(--accent-light) 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-gradient-white {
+    background: linear-gradient(
+      180deg,
+      var(--text-gradient-top) 0%,
+      var(--text-gradient-bottom) 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* ---- Project / Post Card Hover ---- */
+  .project-card-image {
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .project-card:hover .project-card-image {
+    transform: scale(1.05);
+  }
+
+  /* ---- Form Inputs ---- */
+  .form-input {
+    background: var(--form-bg);
+    border: 1px solid var(--form-border);
+    border-radius: 0.625rem;
+    padding: 0.875rem 1rem;
+    color: var(--foreground);
+    font-size: 0.875rem;
+    transition: border-color 0.3s ease;
+    outline: none;
+    width: 100%;
+  }
+
+  .form-input:focus {
+    border-color: var(--accent);
+  }
+
+  .form-input::placeholder {
+    color: var(--muted);
+  }
+
+  /* ---- Social Link ---- */
+  .social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid var(--outline-subtle);
+    color: var(--muted);
+    transition: all 0.3s ease;
+  }
+
+  .social-link:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--accent-tint);
+  }
+
+  /* ---- Tag pill ---- */
+  .tag-pill {
+    display: inline-flex;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    background: var(--accent-tint);
+    color: var(--accent-light);
+    border: 1px solid var(--accent-tint-strong);
+  }
+}
+
+@layer utilities {
+  /* ---- Scroll indicator ---- */
+  .scroll-indicator {
+    animation: scrollBounce 2s ease-in-out infinite;
+  }
+}
+
+@keyframes scrollBounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(8px);
+  }
+}
+
+/* ---- Theme transition (View Transitions API) ---- */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  z-index: 2;
+}
+
+/* ---- Reduced motion ---- */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .scroll-indicator {
+    animation: none;
   }
 }

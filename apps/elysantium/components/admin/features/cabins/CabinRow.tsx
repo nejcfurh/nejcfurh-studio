@@ -55,19 +55,19 @@ function CabinRow({ cabin }: CabinRowProps): React.ReactElement {
     <Table.Row>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        className="block aspect-[3/2] w-16 -translate-x-[7px] scale-150 rounded-tr-[10%] rounded-br-[10%] object-cover object-center"
+        className="block aspect-3/2 w-16 -translate-x-[7px] scale-150 rounded-tr-[10%] rounded-br-[10%] object-cover object-center"
         src={image}
         alt={name}
       />
-      <div className="font-[Sono] text-base font-semibold text-[var(--color-grey-600)]">
+      <div className="text-base font-semibold text-(--color-grey-600)">
         {name}
       </div>
       <div>Fits up to {maxCapacity} guests!</div>
-      <div className="font-[Sono] font-semibold">
+      <div className="font-semibold tabular-nums">
         {formatCurrency(regularPrice)}
       </div>
       {discount ? (
-        <div className="font-[Sono] font-medium text-[var(--color-green-700)]">
+        <div className="font-medium text-green-700 tabular-nums">
           {formatCurrency(discount)}
         </div>
       ) : (

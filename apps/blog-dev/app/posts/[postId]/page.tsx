@@ -1,8 +1,8 @@
+import PostContent from '@/components/PostContent';
 import { connectDB } from '@/lib/db';
 import type { IPost } from '@/lib/models/post';
 import { Post } from '@/lib/models/post';
-import { ArrowLeft } from 'lucide-react';
-import Link from 'next/link';
+import Image from 'next/image';
 import { notFound } from 'next/navigation';
 
 export default async function PostPage({
@@ -17,11 +17,11 @@ export default async function PostPage({
   } catch {
     return (
       <div className="mx-auto max-w-2xl px-6 py-16">
-        <div className="rounded-2xl border border-red-200 bg-red-50 p-6 text-center">
-          <p className="font-medium text-red-800">
+        <div className="glass-card p-6 text-center">
+          <p className="text-accent-light font-medium">
             Could not connect to the database.
           </p>
-          <p className="mt-1 text-sm text-red-600">
+          <p className="text-secondary mt-1 text-sm">
             Please check your MONGODB_URI environment variable.
           </p>
         </div>
@@ -57,44 +57,26 @@ export default async function PostPage({
 
   return (
     <article>
-      {/* Cover image */}
+      {/* COVER IMAGE */}
       {post.imageLink && (
         <div className="mx-auto max-w-5xl px-6 pt-8">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+          <Image
             src={post.imageLink}
             alt={post.title}
-            className="aspect-[2/1] w-full rounded-2xl object-cover"
+            width={1000}
+            height={1000}
+            className="aspect-2/1 w-full rounded-2xl object-cover ring-1 ring-(--card-border)"
           />
         </div>
       )}
 
-      {/* Content */}
-      <div className="mx-auto max-w-2xl px-6 py-12">
-        <Link
-          href="/"
-          className="text-muted hover:text-foreground mb-8 inline-flex items-center gap-1.5 text-sm font-medium transition-colors"
-        >
-          <ArrowLeft size={14} />
-          Back to posts
-        </Link>
-
-        <div className="text-muted mb-6 flex items-center gap-3 text-sm">
-          <span className="text-foreground font-semibold tracking-wider uppercase">
-            {post.author.toUpperCase()}
-          </span>
-          <span className="bg-border h-1 w-1 rounded-full" />
-          <time>{formattedDate}</time>
-        </div>
-
-        <h1 className="text-4xl leading-tight font-bold tracking-tight">
-          {post.title}
-        </h1>
-
-        <div className="text-muted mt-8 text-lg leading-relaxed whitespace-pre-line">
-          {post.content}
-        </div>
-      </div>
+      {/* POST CONTENT */}
+      <PostContent
+        title={post.title}
+        author={post.author}
+        content={post.content}
+        formattedDate={formattedDate}
+      />
     </article>
   );
 }

@@ -1,7 +1,7 @@
 'use client';
 
-import { cn } from '@/utils/utils';
 import { AnimatePresence } from '@repo/ui/animation';
+import { cn } from '@repo/ui/utils';
 import { useState } from 'react';
 
 import Nav from './Nav';

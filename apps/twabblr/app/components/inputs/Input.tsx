@@ -1,6 +1,6 @@
 'use client';
 
-import clsx from 'clsx';
+import { cn } from '@repo/ui/utils';
 import { FieldErrors, FieldValues, UseFormRegister } from 'react-hook-form';
 
 interface InputProps {
@@ -37,7 +37,7 @@ const Input: React.FC<InputProps> = ({
           autoComplete={id}
           disabled={disabled}
           {...register(id, { required: required })}
-          className={clsx(
+          className={cn(
             `block w-full rounded-md border-0 px-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-gray-300 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-gray-400 focus:ring-inset sm:text-sm sm:leading-6`,
             errors[id] && 'focus:ring-rose-500',
             disabled && 'cursor-default opacity-50'

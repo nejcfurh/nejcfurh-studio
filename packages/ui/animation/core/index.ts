@@ -11,3 +11,4 @@ export { default as AnimatedListItem } from './AnimatedListItem';
 export { default as AnimatedNav } from './AnimatedNav';
 export { default as AnimatedHeader } from './AnimatedHeader';
 export { default as AnimatedFooter } from './AnimatedFooter';
+export { default as AnimatedAside } from './AnimatedAside';

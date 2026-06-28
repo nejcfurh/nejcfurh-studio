@@ -3,7 +3,7 @@
 import Avatar from '@/app/components/Avatar';
 import { FullMessageType } from '@/app/types';
 import { useSession } from '@repo/auth/next-auth/react';
-import clsx from 'clsx';
+import { cn } from '@repo/ui/utils';
 import { format } from 'date-fns';
 import Image from 'next/image';
 import { useState } from 'react';
@@ -26,10 +26,10 @@ const MessageBox: React.FC<MessageBoxProps> = ({ data, isLast }) => {
     .join(', ');
 
   // classes for styling
-  const container = clsx('flex gap-3 p-4', isOwn && 'justify-end');
-  const avatar = clsx(isOwn && 'order-2');
-  const body = clsx('flex flex-col gap-2', isOwn && 'items-end');
-  const message = clsx(
+  const container = cn('flex gap-3 p-4', isOwn && 'justify-end');
+  const avatar = cn(isOwn && 'order-2');
+  const body = cn('flex flex-col gap-2', isOwn && 'items-end');
+  const message = cn(
     'text-sm w-fit overflow-hidden',
     isOwn ? 'bg-gray-600 text-white' : 'bg-gray-100',
     data.image ? 'rounded-md p-0' : 'rounded-full py-2 px-3'

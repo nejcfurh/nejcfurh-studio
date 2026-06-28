@@ -2,6 +2,7 @@
 
 import Heading from '@/components/admin/ui/Heading';
 import { useDarkMode } from '@/lib/context/DarkModeContext';
+import { AnimatedDiv } from '@repo/ui/animation/core';
 import {
   Cell,
   Legend,
@@ -10,6 +11,8 @@ import {
   ResponsiveContainer,
   Tooltip
 } from 'recharts';
+
+import { dashboardItem } from './motion';
 
 interface StayData {
   numNights: number;
@@ -25,27 +28,37 @@ interface DurationDataItem {
   color: string;
 }
 
-const startDataLight: DurationDataItem[] = [
-  { duration: '1 night', value: 0, color: '#ef4444' },
-  { duration: '2 nights', value: 0, color: '#f97316' },
-  { duration: '3 nights', value: 0, color: '#eab308' },
-  { duration: '4-5 nights', value: 0, color: '#84cc16' },
-  { duration: '6-7 nights', value: 0, color: '#22c55e' },
-  { duration: '8-14 nights', value: 0, color: '#14b8a6' },
-  { duration: '15-21 nights', value: 0, color: '#3b82f6' },
-  { duration: '21+ nights', value: 0, color: '#a855f7' }
+// Cohesive, on-brand palette: gold → bronze → slate (warm to cool),
+// instead of a clashing rainbow.
+const DURATION_PALETTE = [
+  '#d4a954', // gold
+  '#c2913c', // deep gold
+  '#aa7a30', // bronze
+  '#8f6b3d', // olive bronze
+  '#9a9488', // warm sand-grey
+  '#76808a', // slate
+  '#5d6b78', // deep slate
+  '#465a6b' // steel
 ];
 
-const startDataDark: DurationDataItem[] = [
-  { duration: '1 night', value: 0, color: '#b91c1c' },
-  { duration: '2 nights', value: 0, color: '#c2410c' },
-  { duration: '3 nights', value: 0, color: '#a16207' },
-  { duration: '4-5 nights', value: 0, color: '#4d7c0f' },
-  { duration: '6-7 nights', value: 0, color: '#15803d' },
-  { duration: '8-14 nights', value: 0, color: '#0f766e' },
-  { duration: '15-21 nights', value: 0, color: '#1d4ed8' },
-  { duration: '21+ nights', value: 0, color: '#7e22ce' }
-];
+const buildStartData = (): DurationDataItem[] =>
+  [
+    '1 night',
+    '2 nights',
+    '3 nights',
+    '4-5 nights',
+    '6-7 nights',
+    '8-14 nights',
+    '15-21 nights',
+    '21+ nights'
+  ].map((duration, i) => ({
+    duration,
+    value: 0,
+    color: DURATION_PALETTE[i]!
+  }));
+
+const startDataLight: DurationDataItem[] = buildStartData();
+const startDataDark: DurationDataItem[] = buildStartData();
 
 function prepareData(
   startData: DurationDataItem[],
@@ -87,16 +100,26 @@ function DurationChart({
   const data = prepareData(startData, confirmedStays);
 
   return (
-    <div className="col-[3/span_2] rounded-[var(--border-radius-md)] border border-[var(--color-grey-100)] bg-[var(--color-grey-0)] px-8 py-6 [&_.recharts-pie-label-text]:font-semibold [&>*:first-child]:mb-4">
-      <Heading as="h2">Stay duration summary</Heading>
+    <AnimatedDiv
+      variants={dashboardItem}
+      className="col-[3/span_2] rounded-(--border-radius-md) border border-(--color-grey-100) bg-(--color-grey-0) px-8 py-6 shadow-(--shadow-card) [&_.recharts-pie-label-text]:font-semibold [&>*:first-child]:mb-4"
+    >
+      <Heading
+        as="h2"
+        className="flex items-center gap-3 before:h-5 before:w-1 before:rounded-full before:bg-(--color-brand-500) before:content-['']"
+      >
+        Stay duration summary
+      </Heading>
       <ResponsiveContainer width="100%" height={248}>
         <PieChart>
           <Pie
             data={data}
             nameKey="duration"
             dataKey="value"
-            innerRadius={80}
-            outerRadius={110}
+            cx="42%"
+            cy="50%"
+            innerRadius={65}
+            outerRadius={95}
             paddingAngle={1.5}
           >
             {data.map((entry) => (
@@ -111,14 +134,17 @@ function DurationChart({
           <Legend
             verticalAlign="middle"
             align="right"
-            width={250}
+            width={170}
             layout="vertical"
             iconType="circle"
-            iconSize={15}
+            iconSize={12}
+            formatter={(value) => (
+              <span className="text-sm text-(--color-grey-600)">{value}</span>
+            )}
           />
         </PieChart>
       </ResponsiveContainer>
-    </div>
+    </AnimatedDiv>
   );
 }
 

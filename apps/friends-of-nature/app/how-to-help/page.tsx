@@ -12,7 +12,7 @@ import {
   AnimatedText,
   AnimatedTitle
 } from '@repo/ui/animation/core';
-import { cn } from 'lib/utils';
+import { cn } from '@repo/ui/utils';
 import { ArrowLeft, ArrowRight, Loader2Icon, MapPin } from 'lucide-react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';

@@ -1,6 +1,6 @@
 'use client';
 
-import { cn } from 'lib/utils';
+import { cn } from '@repo/ui/utils';
 import localFont from 'next/font/local';
 import Image from 'next/image';
 import { useState } from 'react';

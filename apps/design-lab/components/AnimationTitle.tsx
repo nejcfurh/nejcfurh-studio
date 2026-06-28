@@ -1,9 +1,9 @@
-import { cn } from '@/utils/utils';
 import {
   AnimatedDiv,
   AnimatedText,
   AnimatedTitle
 } from '@repo/ui/animation/core';
+import { cn } from '@repo/ui/utils';
 import { ReactNode } from 'react';
 
 export const animationTitleEntrance = {
