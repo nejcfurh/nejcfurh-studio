@@ -1,6 +1,6 @@
 'use client';
 
-import clsx from 'clsx';
+import { cn } from '@repo/ui/utils';
 
 import EmptyState from '../components/EmptyState';
 import useConversation from '../hooks/useConversation';
@@ -10,7 +10,7 @@ const Home = () => {
 
   return (
     <div
-      className={clsx('h-full lg:block lg:pl-80', isOpen ? 'block' : 'hidden')}
+      className={cn('h-full lg:block lg:pl-80', isOpen ? 'block' : 'hidden')}
     >
       <EmptyState />
     </div>

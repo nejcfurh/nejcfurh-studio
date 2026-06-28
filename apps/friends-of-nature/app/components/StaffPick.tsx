@@ -3,7 +3,7 @@ import {
   AnimatedText,
   AnimatedTitle
 } from '@repo/ui/animation/core';
-import { cn } from 'lib/utils';
+import { cn } from '@repo/ui/utils';
 import Image from 'next/image';
 import Link from 'next/link';
 

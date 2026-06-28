@@ -5,7 +5,7 @@ import { pusherClient } from '@/app/libs/pusher';
 import { FullConversationType } from '@/app/types';
 import { User } from '@prisma/client';
 import { useSession } from '@repo/auth/next-auth/react';
-import clsx from 'clsx';
+import { cn } from '@repo/ui/utils';
 import { find } from 'lodash';
 import { useRouter } from 'next/navigation';
 import { useEffect, useMemo, useState } from 'react';
@@ -95,7 +95,7 @@ const ConversationList: React.FC<ConversationListProps> = ({
         users={users}
       />
       <aside
-        className={clsx(
+        className={cn(
           `fixed inset-y-0 overflow-y-auto border-r border-gray-200 pb-20 lg:left-20 lg:block lg:w-80 lg:pb-0`,
           isOpen ? 'hidden' : 'left-0 block w-full'
         )}
