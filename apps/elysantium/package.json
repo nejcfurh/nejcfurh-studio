@@ -20,6 +20,7 @@
   "dependencies": {
     "@repo/database": "workspace:*",
     "@repo/react-query": "workspace:*",
+    "@repo/ui": "workspace:*",
     "date-fns": "^3.6.0",
     "next": "16.2.6",
     "react": "19.2.4",

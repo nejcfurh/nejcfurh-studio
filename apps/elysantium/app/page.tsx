@@ -1,7 +1,8 @@
+import Navbar from '@/components/Navbar';
+import RoomsSection from '@/components/RoomsSection';
 import { AnalyticsClientPageEvent } from '@/features/analytics/types.client';
 import { PageName } from '@/utils/constants/page.data';
 import { PageVisitTracker } from '@analytics/components/PageVisitTracker';
-import Link from 'next/link';
 
 export default function HomePage() {
   return (
@@ -15,63 +16,27 @@ export default function HomePage() {
       </div>
 
       {/* Navigation */}
-      <nav className="relative z-10 flex items-center justify-between px-10">
-        <Link
-          href="/"
-          className="text-2xl font-light tracking-[0.3em] text-[#d4a954] uppercase"
-        >
-          Elysantium
-        </Link>
-        <div className="flex items-center gap-10">
-          <a
-            href="#about"
-            className="text-sm tracking-widest text-white/70 uppercase transition-colors hover:text-[#d4a954]"
-          >
-            About
-          </a>
-          <a
-            href="#rooms"
-            className="text-sm tracking-widest text-white/70 uppercase transition-colors hover:text-[#d4a954]"
-          >
-            Rooms
-          </a>
-          <a
-            href="#contact"
-            className="text-sm tracking-widest text-white/70 uppercase transition-colors hover:text-[#d4a954]"
-          >
-            Contact
-          </a>
-          <Link
-            href="/admin-login"
-            className="border border-[#d4a954]/40 px-5 py-2 text-sm tracking-widest text-[#d4a954] uppercase transition-all hover:border-[#d4a954] hover:bg-[#d4a954]/10"
-          >
-            Staff
-          </Link>
-        </div>
-      </nav>
+      <Navbar />
 
       {/* Hero content */}
       <section className="relative z-10 flex min-h-[calc(100vh-120px)] flex-col items-center justify-end pb-32 text-center">
-        <h1 className="mb-6 text-5xl font-extralight tracking-wider text-white md:text-6xl lg:text-9xl">
-          Elysantium
-        </h1>
-        <p className="mb-4 text-lg font-light tracking-wide text-white/60 md:text-xl">
+        <p className="mb-6 max-w-4xl text-4xl leading-[1.1] font-light tracking-tight text-balance text-white/90 sm:text-5xl md:text-6xl lg:text-7xl">
           Where timeless luxury meets modern comfort
         </p>
-        <p className="mb-14 max-w-md text-sm leading-relaxed font-light text-white/40">
+        <p className="mb-16 max-w-md text-sm leading-relaxed font-light text-white/40 md:text-base">
           A retreat crafted for those who seek refinement in every detail.
         </p>
 
-        <div className="flex items-center gap-6">
+        <div className="flex flex-col items-center gap-8 sm:flex-row">
           <a
             href="#rooms"
-            className="border border-[#d4a954] bg-[#d4a954]/10 px-10 py-3.5 text-sm tracking-[0.25em] text-[#d4a954] uppercase backdrop-blur-sm transition-colors hover:bg-[#d4a954]/20 hover:shadow-[0_0_30px_rgba(212,169,84,0.15)]"
+            className="border border-[#d4a954] bg-[#d4a954]/10 px-14 py-5 text-base font-light tracking-[0.3em] text-[#d4a954] uppercase backdrop-blur-sm transition-all duration-300 ease-out hover:scale-[1.03] hover:bg-[#d4a954]/20 hover:shadow-[0_0_45px_rgba(212,169,84,0.25)] active:scale-[0.98] motion-reduce:transform-none md:text-lg"
           >
             Explore Rooms
           </a>
           <a
             href="#contact"
-            className="px-10 py-3.5 text-sm tracking-[0.25em] text-white/60 uppercase transition-all hover:text-white"
+            className="ease px-10 py-4 text-sm tracking-[0.25em] text-white/60 uppercase transition-colors duration-300 hover:text-white"
           >
             Get in touch
           </a>
@@ -101,53 +66,7 @@ export default function HomePage() {
       </section>
 
       {/* Rooms preview */}
-      <section
-        id="rooms"
-        className="relative z-10 flex flex-col items-center py-36 text-center"
-      >
-        <div className="mb-8 h-px w-16 bg-linear-to-r from-transparent via-[#d4a954] to-transparent" />
-        <p className="mb-4 text-sm tracking-[0.3em] text-[#d4a954]/70 uppercase">
-          Accommodations
-        </p>
-        <h2 className="mb-16 text-3xl font-extralight tracking-wider text-white md:text-4xl">
-          Our Rooms
-        </h2>
-
-        <div className="grid w-full max-w-5xl gap-10 px-8 md:grid-cols-3">
-          {[
-            {
-              name: 'The Sanctum',
-              desc: 'Intimate elegance for the discerning solo traveler. Bathed in golden warmth.',
-              price: 'From $320 / night'
-            },
-            {
-              name: 'The Arcadia Suite',
-              desc: 'Spacious grandeur with arched windows overlooking the grounds.',
-              price: 'From $580 / night'
-            },
-            {
-              name: 'The Elysian Hall',
-              desc: 'Our finest — a palatial retreat of unparalleled luxury and privacy.',
-              price: 'From $1,200 / night'
-            }
-          ].map((room) => (
-            <div
-              key={room.name}
-              className="group border border-white/10 bg-white/2 p-8 text-center backdrop-blur-sm transition-all hover:border-[#d4a954]/30 hover:bg-white/4"
-            >
-              <h3 className="mb-4 text-lg font-light tracking-wider text-white transition-colors group-hover:text-[#d4a954]">
-                {room.name}
-              </h3>
-              <p className="mb-6 text-sm leading-relaxed font-light text-white/40">
-                {room.desc}
-              </p>
-              <p className="text-sm tracking-wider text-[#d4a954]/70">
-                {room.price}
-              </p>
-            </div>
-          ))}
-        </div>
-      </section>
+      <RoomsSection />
 
       {/* Contact / CTA */}
       <section
