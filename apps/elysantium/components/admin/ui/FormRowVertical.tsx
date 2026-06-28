@@ -17,9 +17,7 @@ function FormRowVertical({ label, error, children }: FormRowVerticalProps) {
         </label>
       )}
       {children}
-      {error && (
-        <span className="text-sm text-[var(--color-red-700)]">{error}</span>
-      )}
+      {error && <span className="text-sm text-red-700">{error}</span>}
     </div>
   );
 }

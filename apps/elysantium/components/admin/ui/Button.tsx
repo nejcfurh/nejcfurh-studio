@@ -21,7 +21,7 @@ const variationClasses: Record<ButtonVariation, string> = {
   primary:
     'text-[var(--color-brand-50)] bg-[var(--color-brand-600)] hover:bg-[var(--color-brand-700)]',
   secondary:
-    'text-[var(--color-grey-600)] bg-[var(--color-grey-0)] border border-[var(--color-grey-200)] hover:bg-[var(--color-grey-50)]',
+    'text-[var(--color-grey-700)] bg-[var(--color-grey-100)] border border-[var(--color-grey-300)] hover:bg-[var(--color-grey-200)]',
   danger:
     'text-[var(--color-red-100)] bg-[var(--color-red-700)] hover:bg-[var(--color-red-800)]'
 };
@@ -35,7 +35,7 @@ function Button({
 }: ButtonProps) {
   return (
     <button
-      className={`cursor-pointer rounded-[var(--border-radius-sm)] border-none shadow-[var(--shadow-sm)] ${sizeClasses[$size]} ${variationClasses[$variation]} ${className}`}
+      className={`inline-flex cursor-pointer items-center justify-center gap-2 rounded-lg border-none shadow-(--shadow-sm) ${sizeClasses[$size]} ${variationClasses[$variation]} ${className}`}
       {...props}
     >
       {children}

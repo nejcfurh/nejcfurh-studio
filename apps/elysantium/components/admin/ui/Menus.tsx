@@ -71,7 +71,7 @@ function Toggle({ id }: ToggleProps) {
   return (
     <button
       onClick={handleClick}
-      className="translate-x-2 rounded-[var(--border-radius-sm)] border-none bg-transparent p-1 transition-all duration-200 hover:bg-[var(--color-grey-100)] [&_svg]:h-6 [&_svg]:w-6 [&_svg]:text-[var(--color-grey-700)]"
+      className="translate-x-2 rounded-(--border-radius-sm) border-none bg-transparent p-1 transition-all duration-200 hover:bg-(--color-grey-100) [&_svg]:h-6 [&_svg]:w-6 [&_svg]:text-(--color-grey-700)"
     >
       <HiEllipsisVertical />
     </button>
@@ -93,7 +93,7 @@ function List({ id, children }: ListProps) {
   return createPortal(
     <ul
       ref={ref}
-      className="fixed rounded-[var(--border-radius-md)] bg-[var(--color-grey-0)] shadow-[var(--shadow-md)]"
+      className="fixed overflow-hidden rounded-(--border-radius-md) border border-(--color-grey-100) bg-(--color-grey-0) shadow-(--shadow-md)"
       style={{ right: `${position!.x}px`, top: `${position!.y}px` }}
     >
       {children}
@@ -122,7 +122,7 @@ function Button({ children, icon, onClick, disabled }: MenuButtonProps) {
       <button
         disabled={disabled}
         onClick={handleClick}
-        className="flex w-full items-center gap-4 border-none bg-transparent px-6 py-3 text-left text-sm transition-all duration-200 hover:bg-[var(--color-grey-50)] [&_svg]:h-4 [&_svg]:w-4 [&_svg]:text-[var(--color-grey-400)] [&_svg]:transition-all [&_svg]:duration-300"
+        className="flex w-full items-center gap-4 border-none bg-transparent px-6 py-3 text-left text-sm transition-all duration-200 hover:bg-(--color-grey-50) [&_svg]:h-4 [&_svg]:w-4 [&_svg]:text-(--color-grey-400) [&_svg]:transition-all [&_svg]:duration-300"
       >
         {icon}
         <span>{children}</span>

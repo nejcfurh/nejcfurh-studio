@@ -1,11 +1,15 @@
-'use client';
-
 import AppLayout from '@/components/admin/ui/AppLayout';
 import ProtectedRoute from '@/components/admin/ui/ProtectedRoute';
 import { DarkModeProvider } from '@/lib/context/DarkModeContext';
 import { QueryProvider } from '@repo/react-query';
 import { ReactQueryDevtools } from '@repo/react-query/devtools';
+import { Metadata } from 'next';
 import { Toaster } from 'react-hot-toast';
+
+export const metadata: Metadata = {
+  title: 'Elysantium Hotel | Admin ',
+  description: 'Elysantium Hotel | Admin Panel'
+};
 
 export default function AdminLayout({
   children

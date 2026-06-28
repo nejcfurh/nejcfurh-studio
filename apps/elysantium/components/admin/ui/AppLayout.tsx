@@ -11,11 +11,19 @@ interface AppLayoutProps {
 function AppLayout({ children }: AppLayoutProps) {
   return (
     <>
-      <div className="grid h-screen grid-cols-[26rem_1fr] grid-rows-[auto_1fr]">
-        <Header />
+      <div className="grid h-screen grid-cols-[5rem_1fr] grid-rows-[auto_1fr]">
         <Sidebar />
-        <main className="overflow-auto bg-[var(--color-grey-50)] px-12 pt-10 pb-16">
-          <div className="mx-auto flex max-w-[120rem] flex-col gap-9">
+        <Header />
+        <main
+          className="col-start-2 row-start-2 overflow-auto bg-(--color-grey-50) px-12 pt-10 pb-16"
+          style={{
+            backgroundImage:
+              'radial-gradient(48rem 32rem at 100% 0%, color-mix(in srgb, var(--color-brand-500) 7%, transparent), transparent 70%)',
+            backgroundRepeat: 'no-repeat',
+            backgroundAttachment: 'local'
+          }}
+        >
+          <div className="mx-auto flex max-w-480 flex-col gap-9">
             {children}
           </div>
         </main>
