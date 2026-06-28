@@ -1,22 +1,33 @@
 'use client';
 
-import { useDarkMode } from '@/lib/context/DarkModeContext';
-import Image from 'next/image';
+import { motion } from '@repo/ui/animation';
 
-function Logo() {
-  const { isDarkMode } = useDarkMode();
-  const src = isDarkMode ? '/logo-dark.png' : '/logo-light.png';
+const EASE_OUT = [0.215, 0.61, 0.355, 1] as const;
 
+interface LogoProps {
+  expanded: boolean;
+  reduce: boolean;
+}
+
+function Logo({ expanded, reduce }: LogoProps) {
   return (
-    <div className="text-center">
-      <Image
-        src={src}
-        alt="Logo"
-        className="hidden h-24 w-auto"
-        width={100}
-        height={100}
-      />
-      <div className="text-4xl font-extralight tracking-wider">Elysantium</div>
+    <div
+      aria-label="Elysantium"
+      className="ml-1.5 flex h-9 items-center justify-start px-3 text-2xl font-light tracking-wider text-[#d4a954] uppercase"
+    >
+      {/* The "E" is always shown; "lysantium" grows out of it. */}
+      <span aria-hidden>E</span>
+      <motion.span
+        aria-hidden
+        initial={false}
+        animate={{ maxWidth: expanded ? 220 : 0, opacity: expanded ? 1 : 0 }}
+        transition={
+          reduce ? { duration: 0 } : { duration: 0.4, ease: EASE_OUT }
+        }
+        className="overflow-hidden whitespace-nowrap"
+      >
+        lysantium
+      </motion.span>
     </div>
   );
 }

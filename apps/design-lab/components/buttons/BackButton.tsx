@@ -1,4 +1,4 @@
-import { cn } from '@/utils/utils';
+import { cn } from '@repo/ui/utils';
 import Link from 'next/link';
 import { IoArrowBack } from 'react-icons/io5';
 

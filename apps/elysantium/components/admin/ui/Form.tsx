@@ -10,8 +10,7 @@ interface FormProps extends React.FormHTMLAttributes<HTMLFormElement> {
 }
 
 const typeClasses: Record<FormType, string> = {
-  regular:
-    'py-6 px-10 bg-[var(--color-grey-0)] border border-[var(--color-grey-100)] rounded-[var(--border-radius-md)]',
+  regular: 'py-4 px-4 bg-[var(--color-grey-0)] rounded-lg',
   modal: 'w-[80rem]'
 };
 

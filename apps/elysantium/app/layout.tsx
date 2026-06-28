@@ -14,8 +14,20 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: 'Elysantium Hotel',
-  description: 'Luxury hotel experience'
+  title: 'Elysantium Hotel | Luxury Hotel Resort',
+  description:
+    'Elysantium Hotel is a luxury hotel experience in the heart of the city. It is a place where you can relax and enjoy your stay.',
+  keywords: ['hotel', 'luxury', 'experience', 'city', 'relax', 'enjoy'],
+  authors: [
+    { name: 'Elysantium Hotel', url: 'https://elysantium.nejcfurh.dev' }
+  ],
+  openGraph: {
+    title: 'Elysantium Hotel | Luxury Hotel Resort',
+    description:
+      'Elysantium Hotel is a luxury hotel experience in the heart of the city. It is a place where you can relax and enjoy your stay.',
+    url: 'https://elysantium.nejcfurh.dev',
+    siteName: 'Elysantium Hotel'
+  }
 };
 
 const posthogConfig: AnalyticsPostHogConfig = {

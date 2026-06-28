@@ -1,4 +1,4 @@
-import { cn } from '@/utils/utils';
+import { cn } from '@repo/ui/utils';
 import mergeRefs from 'merge-refs';
 import {
   forwardRef,

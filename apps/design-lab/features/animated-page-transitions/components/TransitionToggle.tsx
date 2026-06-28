@@ -1,7 +1,7 @@
 'use client';
 
-import { cn } from '@/utils/utils';
 import { motion } from '@repo/ui/animation';
+import { cn } from '@repo/ui/utils';
 
 export type TransitionMode = 'curve' | 'stairs';
 

@@ -4,7 +4,8 @@
   "types": "./animation/index.ts",
   "exports": {
     "./animation": "./animation/index.ts",
-    "./animation/core": "./animation/core/index.ts"
+    "./animation/core": "./animation/core/index.ts",
+    "./utils": "./utils/index.ts"
   },
   "scripts": {
     "base:prettier": "prettier './**/*.{ts,tsx,html,json,md,css}' --config .prettierrc --cache",
@@ -30,6 +31,8 @@
     "typescript": "5.9.3"
   },
   "dependencies": {
-    "motion": "12.38.0"
+    "clsx": "^2.1.1",
+    "motion": "12.38.0",
+    "tailwind-merge": "^3.4.0"
   }
 }

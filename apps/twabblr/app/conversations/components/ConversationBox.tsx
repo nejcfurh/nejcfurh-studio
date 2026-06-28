@@ -5,7 +5,7 @@ import AvatarGroup from '@/app/components/AvatarGroup';
 import useOtherUser from '@/app/hooks/useOtherUser';
 import { FullConversationType } from '@/app/types';
 import { useSession } from '@repo/auth/next-auth/react';
-import clsx from 'clsx';
+import { cn } from '@repo/ui/utils';
 import { format } from 'date-fns';
 import { useRouter } from 'next/navigation';
 import { useCallback, useMemo } from 'react';
@@ -69,7 +69,7 @@ const ConversationBox: React.FC<ConversationBoxProps> = ({
 
   return (
     <div
-      className={clsx(
+      className={cn(
         'relative flex w-full cursor-pointer items-center space-x-3 rounded-lg p-3 transition hover:bg-neutral-100',
         selected ? 'bg-neutral-100' : 'bg-white'
       )}
@@ -93,7 +93,7 @@ const ConversationBox: React.FC<ConversationBoxProps> = ({
             )}
           </div>
           <p
-            className={clsx(
+            className={cn(
               'truncate text-xs',
               hasSeen ? 'text-gray-500' : 'font-medium text-black'
             )}

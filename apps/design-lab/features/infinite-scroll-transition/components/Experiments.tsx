@@ -1,7 +1,7 @@
 'use client';
 
-import { cn } from '@/utils/utils';
 import { AnimatedDiv } from '@repo/ui/animation/core';
+import { cn } from '@repo/ui/utils';
 import Image from 'next/image';
 
 import { InfiniteScrollTransitionData } from '../types';

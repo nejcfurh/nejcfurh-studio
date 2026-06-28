@@ -2,7 +2,7 @@
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { AnimatePresence, motion, useInView } from '@repo/ui/animation';
-import { cn } from 'lib/utils';
+import { cn } from '@repo/ui/utils';
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 import type { ReactElement, RefObject } from 'react';

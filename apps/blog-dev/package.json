@@ -22,6 +22,7 @@
     "@mailchimp/mailchimp_marketing": "^3.0.80",
     "@repo/auth": "workspace:*",
     "@repo/database": "workspace:*",
+    "@repo/ui": "workspace:*",
     "lucide-react": "^0.511.0",
     "next": "16.2.6",
     "react": "19.2.3",

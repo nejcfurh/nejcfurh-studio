@@ -2,7 +2,7 @@ import { MainPageItem } from '@/utils/types';
 import { BsInputCursor } from 'react-icons/bs';
 import { CiCreditCard2 } from 'react-icons/ci';
 import { FaBarsStaggered, FaInstagram } from 'react-icons/fa6';
-import { GiCardPlay } from 'react-icons/gi';
+import { GiCardPlay, GiFireWave } from 'react-icons/gi';
 import { HiOutlineCursorArrowRipple } from 'react-icons/hi2';
 import { IoEarthOutline, IoShareSocialOutline } from 'react-icons/io5';
 import {
@@ -12,7 +12,7 @@ import {
   MdOutlinePermMedia,
   MdOutlineRateReview
 } from 'react-icons/md';
-import { PiMouseScroll, PiPerspectiveFill } from 'react-icons/pi';
+import { PiMouseScroll, PiPerspectiveFill, PiResize } from 'react-icons/pi';
 import { SiSpacex, SiTesla } from 'react-icons/si';
 import { SlLayers } from 'react-icons/sl';
 import {
@@ -128,7 +128,7 @@ export const ANIMATIONS_DATA: MainPageItem[] = [
 export const COMPONENTS_DATA: MainPageItem[] = [
   {
     name: 'Drag & Drop',
-    path: '/components-showcase/drap-drop',
+    path: '/components-showcase/drag-drop',
     icon: <TbDragDrop />,
     color: 'from-purple-500 to-pink-500'
   },
@@ -155,6 +155,18 @@ export const COMPONENTS_DATA: MainPageItem[] = [
     path: '/components-showcase/predictive-text-input',
     icon: <TbInputSpark />,
     color: 'from-green-500 to-white'
+  },
+  {
+    name: 'Tubes Cursor',
+    path: '/components-showcase/tubes-cursor',
+    icon: <GiFireWave />,
+    color: 'from-pink-500 to-cyan-500'
+  },
+  {
+    name: 'Animated Bounds Container',
+    path: '/components-showcase/animated-bounds-container',
+    icon: <PiResize />,
+    color: 'from-emerald-300 to-red-300'
   }
 ];
 

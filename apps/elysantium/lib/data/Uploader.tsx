@@ -6,6 +6,7 @@ import { cabins } from '@/lib/data/data-cabins';
 import { guests } from '@/lib/data/data-guests';
 import supabase from '@/lib/services/supabase';
 import { subtractDates } from '@/lib/utils/helpers';
+import { AnimatedDiv } from '@repo/ui/animation/core';
 import { isFuture, isPast, isToday } from 'date-fns';
 import React, { useState } from 'react';
 
@@ -106,8 +107,13 @@ async function createBookings(): Promise<void> {
   if (error) console.log(error.message);
 }
 
-function Uploader(): React.JSX.Element {
+interface UploaderProps {
+  reduce: boolean;
+}
+
+function Uploader({ reduce }: UploaderProps): React.JSX.Element {
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [revealed, setRevealed] = useState<boolean>(false);
 
   async function uploadAll(): Promise<void> {
     setIsLoading(true);
@@ -132,28 +138,39 @@ function Uploader(): React.JSX.Element {
   }
 
   return (
-    <div
-      style={{
-        marginTop: 'auto',
-        backgroundColor: '#e0e7ff',
-        padding: '8px',
-        borderRadius: '5px',
-        textAlign: 'center',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '8px'
-      }}
+    <AnimatedDiv
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={reduce ? { duration: 0 } : { duration: 0.5, delay: 0.5 }}
+      className="mt-auto flex flex-col gap-2"
     >
-      <h3>SAMPLE DATA</h3>
-
-      <Button onClick={uploadAll} disabled={isLoading}>
-        Upload ALL
-      </Button>
-
-      <Button onClick={uploadBookings} disabled={isLoading}>
-        Upload bookings ONLY
-      </Button>
-    </div>
+      {!revealed ? (
+        <Button
+          $variation="danger"
+          $size="small"
+          onClick={() => setRevealed(true)}
+        >
+          Danger — Sample data
+        </Button>
+      ) : (
+        <div className="flex flex-col gap-2">
+          <Button $size="small" onClick={uploadAll} disabled={isLoading}>
+            Upload ALL
+          </Button>
+          <Button $size="small" onClick={uploadBookings} disabled={isLoading}>
+            Upload bookings ONLY
+          </Button>
+          <Button
+            $variation="secondary"
+            $size="small"
+            onClick={() => setRevealed(false)}
+            disabled={isLoading}
+          >
+            Cancel
+          </Button>
+        </div>
+      )}
+    </AnimatedDiv>
   );
 }
 

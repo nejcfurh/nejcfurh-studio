@@ -35,34 +35,40 @@ export default function ComposeForm() {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
       <div>
-        <label className="mb-2 block text-sm font-medium">Title</label>
+        <label className="text-white-100 mb-2 block text-sm font-medium">
+          Title
+        </label>
         <input
           {...register('title')}
           placeholder="Give your post a title..."
-          className="border-border focus:border-foreground w-full rounded-xl border bg-white px-4 py-3 text-sm transition-colors focus:ring-0 focus:outline-none"
+          className="form-input"
         />
         {errors.title && (
           <p className="mt-1.5 text-xs text-red-500">{errors.title.message}</p>
         )}
       </div>
       <div>
-        <label className="mb-2 block text-sm font-medium">Author</label>
+        <label className="text-white-100 mb-2 block text-sm font-medium">
+          Author
+        </label>
         <input
           {...register('author')}
           placeholder="Who is writing this?"
-          className="border-border focus:border-foreground w-full rounded-xl border bg-white px-4 py-3 text-sm transition-colors focus:ring-0 focus:outline-none"
+          className="form-input"
         />
         {errors.author && (
           <p className="mt-1.5 text-xs text-red-500">{errors.author.message}</p>
         )}
       </div>
       <div>
-        <label className="mb-2 block text-sm font-medium">Content</label>
+        <label className="text-white-100 mb-2 block text-sm font-medium">
+          Content
+        </label>
         <textarea
           {...register('content')}
           rows={8}
           placeholder="Write your post content..."
-          className="border-border focus:border-foreground w-full rounded-xl border bg-white px-4 py-3 text-sm transition-colors focus:ring-0 focus:outline-none"
+          className="form-input"
         />
         {errors.content && (
           <p className="mt-1.5 text-xs text-red-500">
@@ -71,20 +77,20 @@ export default function ComposeForm() {
         )}
       </div>
       <div>
-        <label className="mb-2 block text-sm font-medium">
+        <label className="text-white-100 mb-2 block text-sm font-medium">
           Cover image URL{' '}
-          <span className="text-muted font-normal">(optional)</span>
+          <span className="text-secondary font-normal">(optional)</span>
         </label>
         <input
           {...register('imageLink')}
           placeholder="https://example.com/image.jpg"
-          className="border-border focus:border-foreground w-full rounded-xl border bg-white px-4 py-3 text-sm transition-colors focus:ring-0 focus:outline-none"
+          className="form-input"
         />
       </div>
       <button
         type="submit"
         disabled={isSubmitting}
-        className="bg-accent text-accent-foreground cursor-pointer self-start rounded-full px-8 py-3 text-sm font-semibold transition-opacity hover:opacity-80 disabled:cursor-not-allowed disabled:opacity-40"
+        className="bg-accent cursor-pointer self-start rounded-full px-8 py-3 text-sm font-medium text-white transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-[0_0_25px_var(--accent-glow)] active:scale-100 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:scale-100 disabled:hover:shadow-none"
       >
         {isSubmitting ? 'Publishing...' : 'Publish post'}
       </button>

@@ -79,16 +79,16 @@ function BookingRow({ booking }: BookingRowProps): React.ReactElement {
 
   return (
     <Table.Row>
-      <div className="font-[Sono] text-base font-semibold text-[var(--color-grey-600)]">
+      <div className="text-base font-semibold text-(--color-grey-600)">
         {cabinName}
       </div>
 
-      <div className="flex flex-col gap-0.5 [&_span:first-child]:font-medium [&_span:last-child]:text-xs [&_span:last-child]:text-[var(--color-grey-500)]">
+      <div className="flex flex-col gap-0.5 [&_span:first-child]:font-medium [&_span:last-child]:text-xs [&_span:last-child]:text-(--color-grey-500)">
         <span>{guestName}</span>
         <span>{email}</span>
       </div>
 
-      <div className="flex flex-col gap-0.5 [&_span:first-child]:font-medium [&_span:last-child]:text-xs [&_span:last-child]:text-[var(--color-grey-500)]">
+      <div className="flex flex-col gap-0.5 [&_span:first-child]:font-medium [&_span:last-child]:text-xs [&_span:last-child]:text-(--color-grey-500)">
         <span>
           {isToday(new Date(startDate))
             ? 'Today'
@@ -103,7 +103,7 @@ function BookingRow({ booking }: BookingRowProps): React.ReactElement {
 
       <Tag type={statusToTagName[status]}>{status.replace('-', ' ')}</Tag>
 
-      <div className="font-[Sono] font-medium">
+      <div className="font-medium tabular-nums">
         {formatCurrency(totalPrice)}
       </div>
 
