@@ -39,7 +39,10 @@ const ArchiveSection = ({
       };
 
   return (
-    <section className="mx-auto max-w-6xl px-6 pb-24 sm:px-8 lg:px-12">
+    <section
+      id="archive"
+      className="mx-auto max-w-6xl scroll-mt-24 px-6 pb-24 sm:px-8 lg:px-12"
+    >
       {/* HEADING ANIMATES IN WHEN SCROLLED INTO VIEW. */}
       <AnimatedDiv
         initial="hidden"
