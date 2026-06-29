@@ -45,6 +45,10 @@ const PostCard = ({ post, isAdmin, active }: PostCardProps): JSX.Element => {
             width={1000}
             height={1000}
             draggable={false}
+            // Cards render at ~340px (carousel) up to a third of the grid; tell
+            // Next so it serves a right-sized image instead of the full 1000px
+            // source — a big mobile download/decode win.
+            sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 360px"
             className="project-card-image h-full w-full object-cover"
           />
         </Link>

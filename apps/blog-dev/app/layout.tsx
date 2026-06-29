@@ -12,6 +12,8 @@ import './globals.css';
 import { appConfig } from '@/config/app.config';
 import { AnalyticsProvider } from '@analytics/providers/AnalyticsProvider';
 import { AnalyticsPostHogConfig } from '@analytics/services/posthog/types';
+import { easeOut } from '@repo/ui/animation';
+import { AnimatedDiv } from '@repo/ui/animation/core';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -63,10 +65,15 @@ export default async function RootLayout({
             {/* AMBIENT DEPTH + TEXTURE, RENDERED GLOBALLY BEHIND ALL SECTIONS AS ONE CONTINUOUS FIELD (NO PER-SECTION BACKGROUNDS). */}
             <ScrollProgress />
             <GrainOverlay />
-            <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
-              <div className="gradient-orb gradient-orb-purple absolute top-1/3 -right-40 h-[420px] w-[420px]" />
-              <div className="gradient-orb gradient-orb-accent absolute -bottom-40 left-1/4 h-[440px] w-[440px]" />
-            </div>
+            <AnimatedDiv
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, ease: easeOut, delay: 1 }}
+              className="pointer-events-none absolute inset-0 z-0 overflow-hidden"
+            >
+              <div className="gradient-orb gradient-orb-accent absolute bottom-0 -left-32 h-[350px] w-[350px] sm:h-[440px] sm:w-[440px]" />
+            </AnimatedDiv>
 
             <div className="relative z-10 flex min-h-screen flex-col">
               <Navbar />

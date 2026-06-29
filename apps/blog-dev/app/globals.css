@@ -41,6 +41,8 @@
     --accent-light: #8aaed6;
 
     --card-bg: rgba(255, 255, 255, 0.055);
+    /* Opaque fallback used on touch devices where backdrop-filter is dropped. */
+    --card-bg-solid: rgba(28, 28, 31, 0.92);
     --card-bg-hover: rgba(255, 255, 255, 0.09);
     --card-border: rgba(255, 255, 255, 0.11);
     --card-border-hover: rgba(255, 255, 255, 0.2);
@@ -81,6 +83,7 @@
     --accent-light: #264567;
 
     --card-bg: rgba(10, 10, 10, 0.05);
+    --card-bg-solid: rgba(255, 255, 255, 0.94);
     --card-bg-hover: rgba(10, 10, 10, 0.08);
     --card-border: rgba(10, 10, 10, 0.12);
     --card-border-hover: rgba(10, 10, 10, 0.2);
@@ -177,6 +180,18 @@
       inset 0 1px 0 0 rgba(255, 255, 255, 0.06);
   }
 
+  /* Mobile Safari re-rasterizes a backdrop-filter on every frame while a card
+     animates or the page scrolls — and the carousel animates glass cards with
+     3D transforms. Drop the live blur on touch devices and use an opaque fill
+     so cards still read as solid frosted panels, minus the per-frame cost. */
+  @media (hover: none) and (pointer: coarse) {
+    .glass-card {
+      background: var(--card-bg-solid);
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
+  }
+
   .glass-card-hover {
     transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   }
@@ -188,20 +203,19 @@
   }
 
   /* ---- Gradient Orbs ---- */
+  /* Soft ambient glow via a radial gradient rather than a 120px `blur()`
+     filter. A large blur radius on big fixed elements is one of the heaviest
+     GPU/jank sources on mobile Safari (re-rasterized every scroll/anim frame);
+     a radial gradient gives the same look for almost no compositing cost. */
   .gradient-orb {
     position: absolute;
     border-radius: 50%;
-    filter: blur(120px);
-    opacity: 0.15;
+    opacity: 0.18;
     pointer-events: none;
   }
 
   .gradient-orb-accent {
-    background: var(--accent);
-  }
-
-  .gradient-orb-purple {
-    background: #7c3aed;
+    background: radial-gradient(closest-side, var(--accent), transparent);
   }
 
   /* ---- Text Gradients ---- */
