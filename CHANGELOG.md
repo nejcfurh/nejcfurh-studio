@@ -1,5 +1,15 @@
 # Changelog
 
+## v1.26.1 (2026-06-29)
+
+
+### Bug Fixes & Improvements
+
+- fix(blog-dev): Loading issues on mobile (#107) (ba7bab8)
+- fix(blog-dev): Loading issues on mobile (7cf96cd)
+
+# Changelog
+
 ## v1.26.0 (2026-06-28)
 
 
