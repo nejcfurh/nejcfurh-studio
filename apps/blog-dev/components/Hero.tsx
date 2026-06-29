@@ -43,7 +43,7 @@ const Hero = ({ posts, isAdmin }: HeroProps): JSX.Element => {
         )}
 
         {/* TITLE — RIGHT ALIGNED, NO SUBTITLE (RIGHT) */}
-        <div className="flex shrink-0 flex-col items-end text-right lg:w-auto">
+        <div className="flex shrink-0 flex-col items-center text-center lg:w-auto lg:items-end lg:text-right">
           {/* LABEL */}
           <AnimatedDiv
             initial={reduce ? false : { opacity: 0, y: 20 }}
