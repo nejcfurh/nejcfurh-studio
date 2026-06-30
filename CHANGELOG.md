@@ -1,5 +1,15 @@
 # Changelog
 
+## v1.27.1 (2026-06-30)
+
+
+### Bug Fixes & Improvements
+
+- fix(design-lab): Fix mobile display css-morphing (#111) (1ceb7c2)
+- fix(design-lab): Fix mobile display css-morphing (69ffe28)
+
+# Changelog
+
 ## v1.27.0 (2026-06-30)
 
 
