@@ -1,5 +1,5 @@
 import { MainPageItem } from '@/utils/types';
-import { BsInputCursor } from 'react-icons/bs';
+import { BsCircleSquare, BsInputCursor } from 'react-icons/bs';
 import { CiCreditCard2 } from 'react-icons/ci';
 import { FaBarsStaggered, FaInstagram } from 'react-icons/fa6';
 import { GiCardPlay, GiFireWave } from 'react-icons/gi';
@@ -76,12 +76,6 @@ export const ANIMATIONS_DATA: MainPageItem[] = [
     color: 'from-pink-500 to-cyan-500'
   },
   {
-    name: 'Media Slider',
-    path: '/animations/media-slider',
-    icon: <MdOutlinePermMedia />,
-    color: 'from-orange-500 to-red-500'
-  },
-  {
     name: 'Smooth Scroll Cards',
     path: '/animations/smooth-scroll-cards',
     icon: <TbTransitionBottomFilled />,
@@ -122,6 +116,12 @@ export const ANIMATIONS_DATA: MainPageItem[] = [
     path: '/animations/animated-page-transitions',
     icon: <PiPerspectiveFill />,
     color: 'from-white to-orange-500'
+  },
+  {
+    name: 'CSS Morphing Animation',
+    path: '/animations/css-morphing-animation',
+    icon: <BsCircleSquare />,
+    color: 'from-pink-200 to-red-500'
   }
 ];
 
@@ -167,6 +167,12 @@ export const COMPONENTS_DATA: MainPageItem[] = [
     path: '/components-showcase/animated-bounds-container',
     icon: <PiResize />,
     color: 'from-emerald-300 to-red-300'
+  },
+  {
+    name: 'Media Slider',
+    path: '/components-showcase/media-slider',
+    icon: <MdOutlinePermMedia />,
+    color: 'from-orange-500 to-red-500'
   }
 ];
 
