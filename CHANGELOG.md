@@ -1,5 +1,15 @@
 # Changelog
 
+## v1.27.0 (2026-06-30)
+
+
+### Features
+
+- feat(design-lab): Added CSS morphing animation (#109) (08d0565)
+- feat(design-lab): Added CSS morphing animation (b2892a2)
+
+# Changelog
+
 ## v1.26.1 (2026-06-29)
 
 
