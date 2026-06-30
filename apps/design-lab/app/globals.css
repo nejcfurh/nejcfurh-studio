@@ -519,7 +519,7 @@ ul.slidey > li:hover .fg_content h1 {
   }
 }
 
-@keyframes gradiensMoveVertical {
+@keyframes gradientsMoveVertical {
   0% {
     transform: translateY(-50%);
   }
@@ -554,6 +554,9 @@ ul.slidey > li:hover .fg_content h1 {
   overflow: hidden;
   top: 0;
   left: 0;
+  /* Treat finger drags as bubble input, not page pan/rubber-band scroll. */
+  touch-action: none;
+  overscroll-behavior: none;
   background: linear-gradient(
     40deg,
     var(--color-bg-gradient1),
@@ -564,10 +567,28 @@ ul.slidey > li:hover .fg_content h1 {
     display: none;
   }
 
+  /* Descendants fill the surface and are what the finger actually hits,
+     so they need touch-action:none too (it isn't inherited). */
+  * {
+    touch-action: none;
+  }
+
   .gradient-container {
     filter: url('#goo') blur(40px);
     width: 100%;
     height: 100%;
+  }
+
+  /* iOS Safari won't apply an SVG url(#goo) filter to a layer this large
+     (WebKit bug 208602 — confirmed: small elements like .menu-circular goo
+     fine, full-viewport ones don't, regardless of filter chaining). It
+     still paints the blobs but never merges them, so on touch devices we
+     drop the dead filter and keep blur() only — an intentional soft-gradient
+     look. Desktop keeps the real goo above. */
+  @media (pointer: coarse) {
+    .gradient-container {
+      filter: blur(40px);
+    }
   }
 
   .gradient-1 {
