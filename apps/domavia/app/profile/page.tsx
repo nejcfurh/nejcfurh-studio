@@ -4,7 +4,7 @@ import { SignOutButton } from '@/features/auth/components/SignOutButton';
 import { getCurrentUser } from '@/features/auth/utils/get-current-user';
 import { ListingsGrid } from '@/features/listings/components/ListingsGrid';
 import { getUserListings } from '@/features/listings/utils/get-user-listings';
-import { Home } from 'lucide-react';
+import { Home } from '@repo/ui/icons/lucide';
 import Image from 'next/image';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';

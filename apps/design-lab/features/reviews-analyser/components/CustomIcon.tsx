@@ -1,4 +1,8 @@
-import { FaMinus, FaThumbsDown, FaThumbsUp } from 'react-icons/fa';
+import {
+  FaMinus,
+  FaThumbsDown,
+  FaThumbsUp
+} from '@repo/ui/icons/react-icons/fa';
 
 const CustomIcon = ({ name }: { name: string }) => {
   switch (name) {

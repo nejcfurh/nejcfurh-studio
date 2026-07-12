@@ -2,9 +2,8 @@
 
 import { ACCENT, BG_IMAGE } from '@/lib/designTokens';
 import { AnimatedDiv } from '@repo/ui/animation/core';
-import { ComponentType } from 'react';
-import { BsFillDropletFill } from 'react-icons/bs';
-import { FaWheatAwn } from 'react-icons/fa6';
+import { BsFillDropletFill } from '@repo/ui/icons/react-icons/bs';
+import { FaWheatAwn } from '@repo/ui/icons/react-icons/fa6';
 import {
   PiArrowUpBold,
   PiBirdFill,
@@ -12,7 +11,8 @@ import {
   PiForkKnifeFill,
   PiStarFill,
   PiTargetBold
-} from 'react-icons/pi';
+} from '@repo/ui/icons/react-icons/pi';
+import { ComponentType } from 'react';
 
 import PageHeader from './PageHeader';
 import { Aurora } from './primitives';

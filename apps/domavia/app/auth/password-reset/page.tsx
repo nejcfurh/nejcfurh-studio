@@ -15,7 +15,7 @@ import {
   AnimatedText,
   AnimatedTitle
 } from '@repo/ui/animation/core';
-import { Loader2 } from 'lucide-react';
+import { Loader2 } from '@repo/ui/icons/lucide';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';

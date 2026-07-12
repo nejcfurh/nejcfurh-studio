@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { ListingsGrid } from '@/features/listings/components/ListingsGrid';
 import type { PaginatedListings } from '@/features/listings/utils/get-listings';
 import { AnimatedDiv, AnimatedText } from '@repo/ui/animation/core';
-import { Loader2 } from 'lucide-react';
+import { Loader2 } from '@repo/ui/icons/lucide';
 import { useState, useTransition } from 'react';
 import { toast } from 'sonner';
 

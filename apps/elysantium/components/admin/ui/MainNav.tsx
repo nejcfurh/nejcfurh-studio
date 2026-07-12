@@ -1,15 +1,15 @@
 'use client';
 
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { IconType } from 'react-icons';
+import { IconType } from '@repo/ui/icons';
 import {
   HiOutlineCalendarDays,
   HiOutlineCog6Tooth,
   HiOutlineHome,
   HiOutlineHomeModern,
   HiOutlineUsers
-} from 'react-icons/hi2';
+} from '@repo/ui/icons/react-icons/hi2';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 interface NavItem {
   to: string;

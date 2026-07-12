@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Loader2Icon, SearchIcon } from 'lucide-react';
+import { Loader2Icon, SearchIcon } from '@repo/ui/icons/lucide';
 import { usePathname } from 'next/navigation';
 import { Activity } from 'react';
 import { useForm } from 'react-hook-form';

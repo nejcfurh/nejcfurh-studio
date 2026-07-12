@@ -1,4 +1,4 @@
-import { Flower } from 'lucide-react';
+import { Flower } from '@repo/ui/icons/lucide';
 
 interface ManifestoCardProps {
   name: string;
@@ -44,7 +44,7 @@ const ManifestoCard = ({
               key={commitment.length}
               className="flex items-start gap-2 text-[#1e1e1e]/75 md:text-lg"
             >
-              <span className="min-w-[1.5rem] text-lg">
+              <span className="min-w-6 text-lg">
                 <Flower className="opacity-50" size={20} />
               </span>
               <span>{commitment}</span>

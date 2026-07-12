@@ -28,7 +28,6 @@
     "embla-carousel-react": "^8.1.8",
     "flubber": "^0.4.2",
     "@repo/ui": "workspace:*",
-    "lucide-react": "^0.469.0",
     "next": "16.2.6",
     "react": "19.2.4",
     "react-dom": "19.2.4",

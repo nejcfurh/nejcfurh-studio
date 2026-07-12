@@ -5,7 +5,11 @@ import Menus from '@/components/admin/ui/Menus';
 import Modal from '@/components/admin/ui/Modal';
 import Table from '@/components/admin/ui/Table';
 import { formatCurrency } from '@/lib/utils/helpers';
-import { HiPencil, HiSquare2Stack, HiTrash } from 'react-icons/hi2';
+import {
+  HiPencil,
+  HiSquare2Stack,
+  HiTrash
+} from '@repo/ui/icons/react-icons/hi2';
 
 import CreateCabinForm from './CreateCabinForm';
 import { useCreateCabin } from './useCreateCabin';

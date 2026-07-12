@@ -5,11 +5,11 @@ import { pusherClient } from '@/app/libs/pusher';
 import { FullConversationType } from '@/app/types';
 import { User } from '@prisma/client';
 import { useSession } from '@repo/auth/next-auth/react';
+import { MdOutlineGroupAdd } from '@repo/ui/icons/react-icons/md';
 import { cn } from '@repo/ui/utils';
 import { find } from 'lodash';
 import { useRouter } from 'next/navigation';
 import { useEffect, useMemo, useState } from 'react';
-import { MdOutlineGroupAdd } from 'react-icons/md';
 
 import ConversationBox from './ConversationBox';
 import GroupChatModal from './GroupChatModal';

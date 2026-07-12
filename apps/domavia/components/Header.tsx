@@ -7,7 +7,7 @@ import {
 import { useAuth } from '@/features/auth/hooks/useAuth';
 import { motion } from '@repo/ui/animation';
 import { AnimatedHeader, AnimatedNav } from '@repo/ui/animation/core';
-import { User } from 'lucide-react';
+import { User } from '@repo/ui/icons/lucide';
 import Image from 'next/image';
 import Link from 'next/link';
 

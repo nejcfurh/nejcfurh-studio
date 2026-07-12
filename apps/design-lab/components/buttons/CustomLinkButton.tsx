@@ -1,6 +1,6 @@
 import { MainPageItem } from '@/utils/types';
+import { IoChevronForward } from '@repo/ui/icons/react-icons/io5';
 import Link from 'next/link';
-import { IoChevronForward } from 'react-icons/io5';
 
 const CustomLinkButton = ({ name, path, icon, color }: MainPageItem) => {
   return (

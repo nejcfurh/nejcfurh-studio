@@ -1,7 +1,12 @@
 'use client';
 
 import { useGameStore } from '@/store/gameStore';
-import { PiArrowUpBold, PiPauseFill, PiPlayFill, PiX } from 'react-icons/pi';
+import {
+  PiArrowUpBold,
+  PiPauseFill,
+  PiPlayFill,
+  PiX
+} from '@repo/ui/icons/react-icons/pi';
 
 const FLAP_HINT_LIMIT = 5;
 

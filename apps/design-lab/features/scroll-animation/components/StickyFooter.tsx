@@ -1,8 +1,8 @@
+import { BsTwitterX } from '@repo/ui/icons/react-icons/bs';
+import { CgFacebook } from '@repo/ui/icons/react-icons/cg';
+import { SlSocialLinkedin } from '@repo/ui/icons/react-icons/sl';
+import { TbBrandInstagram } from '@repo/ui/icons/react-icons/tb';
 import Link from 'next/link';
-import { BsTwitterX } from 'react-icons/bs';
-import { CgFacebook } from 'react-icons/cg';
-import { SlSocialLinkedin } from 'react-icons/sl';
-import { TbBrandInstagram } from 'react-icons/tb';
 
 const footerSections = [
   {

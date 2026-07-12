@@ -1,6 +1,7 @@
 'use client';
 
 import useOutsideClick from '@/lib/hooks/useOutsideClick';
+import { HiXMark } from '@repo/ui/icons/react-icons/hi2';
 import React, {
   cloneElement,
   createContext,
@@ -8,7 +9,6 @@ import React, {
   useState
 } from 'react';
 import { createPortal } from 'react-dom';
-import { HiXMark } from 'react-icons/hi2';
 
 interface ModalContextValue {
   openName: string;

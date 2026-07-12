@@ -2,9 +2,9 @@
 
 import { useScroll, useSpring, useTransform } from '@repo/ui/animation';
 import { AnimatedDiv, AnimatedSpan } from '@repo/ui/animation/core';
+import { FiArrowDown } from '@repo/ui/icons/react-icons/fi';
 import Image from 'next/image';
 import { useRef } from 'react';
-import { FiArrowDown } from 'react-icons/fi';
 
 import {
   POWER3_OUT_ANIMATION,

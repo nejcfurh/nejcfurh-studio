@@ -1,4 +1,4 @@
-import { FaArrowRight } from 'react-icons/fa6';
+import { FaArrowRight } from '@repo/ui/icons/react-icons/fa6';
 
 export const SubmitButton = ({
   variant,

@@ -2,9 +2,9 @@
 
 import { ACCENT, SPECIES_ICON } from '@/lib/designTokens';
 import { BirdSpeciesId, LeaderboardEntry } from '@/types';
+import { BiChevronRight } from '@repo/ui/icons/react-icons/bi';
+import { FaTrophy } from '@repo/ui/icons/react-icons/fa';
 import Image from 'next/image';
-import { BiChevronRight } from 'react-icons/bi';
-import { FaTrophy } from 'react-icons/fa';
 
 import { GlassCard } from './primitives';
 

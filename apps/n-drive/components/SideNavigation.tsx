@@ -1,7 +1,7 @@
 'use client';
 
+import { FileIcon, HeartIcon, TrashIcon } from '@repo/ui/icons/lucide';
 import { cn } from '@repo/ui/utils';
-import { FileIcon, HeartIcon, TrashIcon } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 

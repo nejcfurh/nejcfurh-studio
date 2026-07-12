@@ -5,6 +5,8 @@
   "exports": {
     "./animation": "./animation/index.ts",
     "./animation/core": "./animation/core/index.ts",
+    "./icons": "./icons/index.ts",
+    "./icons/*": "./icons/*.ts",
     "./utils": "./utils/index.ts"
   },
   "scripts": {
@@ -32,7 +34,9 @@
   },
   "dependencies": {
     "clsx": "^2.1.1",
+    "lucide-react": "^1.24.0",
     "motion": "12.38.0",
+    "react-icons": "^5.7.0",
     "tailwind-merge": "^3.4.0"
   }
 }

@@ -5,7 +5,7 @@ import UploadImage from '@/components/UploadImage';
 import { addCard } from '@/lib/actions/todos';
 import type { IList } from '@/lib/models/user';
 import { truncateUrl } from '@/lib/utils/helpers';
-import { Upload } from 'lucide-react';
+import { Upload } from '@repo/ui/icons/lucide';
 import { useState } from 'react';
 import { toast } from 'sonner';
 

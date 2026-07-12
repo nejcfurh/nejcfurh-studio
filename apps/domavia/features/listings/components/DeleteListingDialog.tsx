@@ -12,7 +12,7 @@ import {
 } from '@/components/ui/alert-dialog';
 import { deleteListing } from '@/features/listings/actions/delete-listing';
 import { AnimatedSpan } from '@repo/ui/animation/core';
-import { Loader2 } from 'lucide-react';
+import { Loader2 } from '@repo/ui/icons/lucide';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { toast } from 'sonner';

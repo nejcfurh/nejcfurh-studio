@@ -1,8 +1,8 @@
 import { api } from '@/convex/_generated/api';
 import { Doc } from '@/convex/_generated/dataModel';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Loader2Icon } from '@repo/ui/icons/lucide';
 import { useMutation } from 'convex/react';
-import { Loader2Icon } from 'lucide-react';
 import { Controller, useForm } from 'react-hook-form';
 import { z } from 'zod';
 

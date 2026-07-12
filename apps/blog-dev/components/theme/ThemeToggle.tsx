@@ -2,7 +2,7 @@
 
 import { easeOut } from '@/utils/motion';
 import { AnimatePresence, motion } from '@repo/ui/animation';
-import { Moon, Sun } from 'lucide-react';
+import { Moon, Sun } from '@repo/ui/icons/lucide';
 import { JSX } from 'react';
 
 import { useTheme } from './ThemeProvider';

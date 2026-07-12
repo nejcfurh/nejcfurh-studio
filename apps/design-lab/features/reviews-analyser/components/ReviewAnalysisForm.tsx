@@ -1,8 +1,12 @@
 'use client';
 
+import { BsLightningCharge } from '@repo/ui/icons/react-icons/bs';
+import {
+  FaExclamationTriangle,
+  FaSpinner,
+  FaTrash
+} from '@repo/ui/icons/react-icons/fa';
 import { useActionState, useRef, useState } from 'react';
-import { BsLightningCharge } from 'react-icons/bs';
-import { FaExclamationTriangle, FaSpinner, FaTrash } from 'react-icons/fa';
 
 import { analyseReview } from '../actions/analyse';
 import { ReviewAnalysisDisplay } from './ReviewAnalysisDisplay';

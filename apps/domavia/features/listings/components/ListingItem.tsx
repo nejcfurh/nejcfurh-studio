@@ -19,12 +19,12 @@ import {
   AnimatedSpan,
   AnimatedText
 } from '@repo/ui/animation/core';
+import { Bath, Bed, Car, MapPin, Sofa } from '@repo/ui/icons/lucide';
+import { FiEdit2, FiTrash2 } from '@repo/ui/icons/react-icons/fi';
 import { formatDistanceToNow } from 'date-fns';
-import { Bath, Bed, Car, MapPin, Sofa } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState, type MouseEvent } from 'react';
-import { FiEdit2, FiTrash2 } from 'react-icons/fi';
 
 import type { Listing } from '../types';
 

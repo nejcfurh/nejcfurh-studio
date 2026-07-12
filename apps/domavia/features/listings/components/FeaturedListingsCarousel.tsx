@@ -14,8 +14,8 @@ import {
   AnimatedSubTitle,
   AnimatedText
 } from '@repo/ui/animation/core';
+import { MapPin } from '@repo/ui/icons/lucide';
 import Autoplay from 'embla-carousel-autoplay';
-import { MapPin } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';

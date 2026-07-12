@@ -11,9 +11,9 @@ import {
   TransitionChild
 } from '@headlessui/react';
 import { Conversation, User } from '@prisma/client';
+import { IoClose, IoTrash } from '@repo/ui/icons/react-icons/io5';
 import { format } from 'date-fns';
 import { Fragment, useMemo, useState } from 'react';
-import { IoClose, IoTrash } from 'react-icons/io5';
 
 import ConfirmModal from './ConfirmModal';
 

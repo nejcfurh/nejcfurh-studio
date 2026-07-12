@@ -3,14 +3,14 @@
 import { api } from '@/convex/_generated/api';
 import { Doc } from '@/convex/_generated/dataModel';
 import { Protect } from '@clerk/nextjs';
-import { useMutation, useQuery } from 'convex/react';
 import {
   DownloadIcon,
   EllipsisVerticalIcon,
   HeartIcon,
   Trash2Icon,
   Undo2Icon
-} from 'lucide-react';
+} from '@repo/ui/icons/lucide';
+import { useMutation, useQuery } from 'convex/react';
 import Link from 'next/link';
 import { useState } from 'react';
 import { toast } from 'sonner';

@@ -1,6 +1,6 @@
 import { FileInfo } from '@/features/file-upload/types';
 import { getFileIcon } from '@/features/file-upload/utils';
-import { FiFile, FiUploadCloud } from 'react-icons/fi';
+import { FiFile, FiUploadCloud } from '@repo/ui/icons/react-icons/fi';
 
 interface DropzoneAreaProps {
   isDragOver: boolean;

@@ -1,7 +1,7 @@
 'use client';
 
 import { deletePost } from '@/lib/actions/posts';
-import { Trash2 } from 'lucide-react';
+import { Trash2 } from '@repo/ui/icons/lucide';
 
 export default function DeletePostButton({ postId }: { postId: string }) {
   return (

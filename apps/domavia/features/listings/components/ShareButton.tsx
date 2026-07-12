@@ -1,7 +1,7 @@
 'use client';
 
 import { AnimatedButton } from '@repo/ui/animation/core';
-import { Share2 } from 'lucide-react';
+import { Share2 } from '@repo/ui/icons/lucide';
 import { toast } from 'sonner';
 
 export const ShareButton = () => {

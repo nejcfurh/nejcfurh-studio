@@ -4,8 +4,8 @@ import { ListingGallery } from '@/features/listings/components/ListingGallery';
 import { ListingMap } from '@/features/listings/components/ListingMap';
 import { ShareButton } from '@/features/listings/components/ShareButton';
 import { getListing } from '@/features/listings/utils/get-listing';
+import { Bath, Bed, Car, MapPin, Sofa } from '@repo/ui/icons/lucide';
 import { formatDistanceToNow } from 'date-fns';
-import { Bath, Bed, Car, MapPin, Sofa } from 'lucide-react';
 import { notFound } from 'next/navigation';
 
 const formatPrice = (n: number) => n.toLocaleString('en-US');

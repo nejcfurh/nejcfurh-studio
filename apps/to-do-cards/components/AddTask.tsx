@@ -2,7 +2,7 @@
 
 import { addItem } from '@/lib/actions/todos';
 import type { IList } from '@/lib/models/user';
-import { PlusCircle } from 'lucide-react';
+import { PlusCircle } from '@repo/ui/icons/lucide';
 import { useState } from 'react';
 import { toast } from 'sonner';
 

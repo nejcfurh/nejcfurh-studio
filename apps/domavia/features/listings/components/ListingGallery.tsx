@@ -20,7 +20,7 @@ import {
   AnimatedDiv,
   AnimatedSpan
 } from '@repo/ui/animation/core';
-import { X } from 'lucide-react';
+import { X } from '@repo/ui/icons/lucide';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 

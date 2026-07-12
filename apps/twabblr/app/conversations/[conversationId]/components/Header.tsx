@@ -5,9 +5,12 @@ import AvatarGroup from '@/app/components/AvatarGroup';
 import useActiveList from '@/app/hooks/useActiveList';
 import useOtherUser from '@/app/hooks/useOtherUser';
 import { Conversation, User } from '@prisma/client';
+import {
+  HiChevronLeft,
+  HiEllipsisHorizontal
+} from '@repo/ui/icons/react-icons/hi2';
 import Link from 'next/link';
 import { useMemo, useState } from 'react';
-import { HiChevronLeft, HiEllipsisHorizontal } from 'react-icons/hi2';
 
 import ProfileDrawer from './ProfileDrawer';
 

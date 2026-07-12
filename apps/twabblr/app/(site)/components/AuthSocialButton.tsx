@@ -1,4 +1,4 @@
-import { IconType } from 'react-icons';
+import { IconType } from '@repo/ui/icons';
 
 interface AuthSocialButtonProps {
   icon: IconType;

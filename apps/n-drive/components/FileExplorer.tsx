@@ -6,8 +6,8 @@ import UploadFile from '@/components/UploadFile';
 import { api } from '@/convex/_generated/api';
 import { Doc } from '@/convex/_generated/dataModel';
 import { useOrganization, useUser } from '@clerk/nextjs';
+import { Loader2Icon } from '@repo/ui/icons/lucide';
 import { useQuery } from 'convex/react';
-import { Loader2Icon } from 'lucide-react';
 import { Activity, useState } from 'react';
 
 import columns from './Columns';

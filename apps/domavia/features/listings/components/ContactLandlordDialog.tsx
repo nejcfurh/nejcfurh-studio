@@ -18,7 +18,7 @@ import {
   AnimatedDiv,
   AnimatedSpan
 } from '@repo/ui/animation/core';
-import { Loader2, Mail, MessageSquare } from 'lucide-react';
+import { Loader2, Mail, MessageSquare } from '@repo/ui/icons/lucide';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';

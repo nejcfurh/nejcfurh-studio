@@ -1,5 +1,5 @@
+import { IoChevronDownOutline } from '@repo/ui/icons/react-icons/io5';
 import { cn } from '@repo/ui/utils';
-import { IoChevronDownOutline } from 'react-icons/io5';
 
 /**
  * "Explore" scroll-down hint — a bouncing chevron indicating more content

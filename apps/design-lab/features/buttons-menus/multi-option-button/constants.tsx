@@ -5,7 +5,7 @@ import {
   FaEnvelope,
   FaHeart,
   FaPlus
-} from 'react-icons/fa';
+} from '@repo/ui/icons/react-icons/fa';
 
 import { MenuItem } from './types';
 

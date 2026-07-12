@@ -2,7 +2,7 @@
 
 import SocialMediaButtons from '@/components/SocialMediaButtons';
 import { registerAction } from '@/lib/actions/auth';
-import { Eye, EyeOff, Loader2 } from 'lucide-react';
+import { Eye, EyeOff, Loader2 } from '@repo/ui/icons/lucide';
 import { useState } from 'react';
 import { toast } from 'sonner';
 

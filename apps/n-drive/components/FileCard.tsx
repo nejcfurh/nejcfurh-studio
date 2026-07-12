@@ -7,8 +7,6 @@ import {
 } from '@/components/ui/card';
 import { api } from '@/convex/_generated/api';
 import { Doc, Id } from '@/convex/_generated/dataModel';
-import { useQuery } from 'convex/react';
-import { formatRelative } from 'date-fns';
 import {
   FileAxis3D,
   FileTextIcon,
@@ -16,7 +14,9 @@ import {
   ImageIcon,
   UserIcon,
   VideoIcon
-} from 'lucide-react';
+} from '@repo/ui/icons/lucide';
+import { useQuery } from 'convex/react';
+import { formatRelative } from 'date-fns';
 import Image from 'next/image';
 
 import ActionsDropdownMenu from './ActionsDropdownMenu';

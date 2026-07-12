@@ -6,7 +6,7 @@ import {
   Loader2Icon,
   OctagonXIcon,
   TriangleAlertIcon
-} from 'lucide-react';
+} from '@repo/ui/icons/lucide';
 import { Toaster as Sonner, type ToasterProps } from 'sonner';
 
 const Toaster = (props: ToasterProps) => {

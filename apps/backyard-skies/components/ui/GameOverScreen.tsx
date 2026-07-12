@@ -4,17 +4,17 @@ import { ACCENT, BG_IMAGE, SPECIES_ICON } from '@/lib/designTokens';
 import { useGameStore } from '@/store/gameStore';
 import { BirdSpeciesId, DeathReason } from '@/types';
 import { SCORE_EAGLE_DODGE_BONUS } from '@/utils/constants';
-import Image from 'next/image';
-import { ComponentType, useEffect, useState } from 'react';
-import { BsFillDropletFill } from 'react-icons/bs';
-import { FaWheatAwn } from 'react-icons/fa6';
+import { BsFillDropletFill } from '@repo/ui/icons/react-icons/bs';
+import { FaWheatAwn } from '@repo/ui/icons/react-icons/fa6';
 import {
   PiArrowClockwiseBold,
   PiBirdFill,
   PiCatFill,
   PiHouseBold,
   PiMedalFill
-} from 'react-icons/pi';
+} from '@repo/ui/icons/react-icons/pi';
+import Image from 'next/image';
+import { ComponentType, useEffect, useState } from 'react';
 
 import { ArcadeButton, GlassCard, Particles } from './primitives';
 

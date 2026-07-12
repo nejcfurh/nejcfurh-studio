@@ -26,7 +26,7 @@ import {
 } from '@/features/listings/schemas';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { AnimatedDiv } from '@repo/ui/animation/core';
-import { Loader2, Save } from 'lucide-react';
+import { Loader2, Save } from '@repo/ui/icons/lucide';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';

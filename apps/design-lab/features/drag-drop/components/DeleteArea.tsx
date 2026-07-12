@@ -1,6 +1,6 @@
 import { CardDataType } from '@/features/drag-drop/types';
+import { FaFire, FaTrash } from '@repo/ui/icons/react-icons/fa6';
 import { useState } from 'react';
-import { FaFire, FaTrash } from 'react-icons/fa6';
 
 const DeleteArea = ({
   setCards

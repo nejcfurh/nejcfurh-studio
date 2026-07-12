@@ -31,7 +31,7 @@ import {
   AnimatedDiv,
   AnimatedSpan
 } from '@repo/ui/animation/core';
-import { Loader2, Save, X } from 'lucide-react';
+import { Loader2, Save, X } from '@repo/ui/icons/lucide';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';

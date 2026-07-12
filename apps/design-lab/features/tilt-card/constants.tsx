@@ -1,7 +1,7 @@
-import { FaNodeJs, FaReact } from 'react-icons/fa';
-import { FaCss3, FaHtml5, FaJs } from 'react-icons/fa6';
-import { GrGraphQl } from 'react-icons/gr';
-import { IoLogoVercel } from 'react-icons/io5';
+import { FaNodeJs, FaReact } from '@repo/ui/icons/react-icons/fa';
+import { FaCss3, FaHtml5, FaJs } from '@repo/ui/icons/react-icons/fa6';
+import { GrGraphQl } from '@repo/ui/icons/react-icons/gr';
+import { IoLogoVercel } from '@repo/ui/icons/react-icons/io5';
 import {
   SiExpress,
   SiFramer,
@@ -11,8 +11,8 @@ import {
   SiRedux,
   SiTypescript,
   SiVercel
-} from 'react-icons/si';
-import { TbBrandTailwind } from 'react-icons/tb';
+} from '@repo/ui/icons/react-icons/si';
+import { TbBrandTailwind } from '@repo/ui/icons/react-icons/tb';
 
 import { TechStackItem } from './types';
 

@@ -1,4 +1,9 @@
-import { Facebook, Instagram, Linkedin, Mail } from 'lucide-react';
+import { Mail } from '@repo/ui/icons/lucide';
+import {
+  FiFacebook,
+  FiInstagram,
+  FiLinkedin
+} from '@repo/ui/icons/react-icons/fi';
 
 export default function ContactButtons() {
   return (
@@ -9,7 +14,7 @@ export default function ContactButtons() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <Instagram size={24} stroke="white" />
+          <FiInstagram size={24} stroke="white" />
         </a>
       </button>
       <button className="social-media-button">
@@ -47,7 +52,7 @@ export default function ContactButtons() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <Linkedin size={24} stroke="white" />
+          <FiLinkedin size={24} stroke="white" />
         </a>
       </button>
       <button className="social-media-button">
@@ -56,7 +61,7 @@ export default function ContactButtons() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <Facebook size={24} stroke="white" />
+          <FiFacebook size={24} stroke="white" />
         </a>
       </button>
     </div>

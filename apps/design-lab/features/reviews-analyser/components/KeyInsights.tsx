@@ -1,7 +1,7 @@
-import { BsLightningCharge } from 'react-icons/bs';
-import { IoIosCheckmark } from 'react-icons/io';
-import { IoAlertCircleOutline } from 'react-icons/io5';
-import { MdInsights } from 'react-icons/md';
+import { BsLightningCharge } from '@repo/ui/icons/react-icons/bs';
+import { IoIosCheckmark } from '@repo/ui/icons/react-icons/io';
+import { IoAlertCircleOutline } from '@repo/ui/icons/react-icons/io5';
+import { MdInsights } from '@repo/ui/icons/react-icons/md';
 
 const KeyInsights = ({ summary }: { summary: Record<string, string> }) => {
   return (

@@ -1,5 +1,5 @@
-import { IoMdHappy, IoMdSad } from 'react-icons/io';
-import { MdOutlineSentimentNeutral } from 'react-icons/md';
+import { IoMdHappy, IoMdSad } from '@repo/ui/icons/react-icons/io';
+import { MdOutlineSentimentNeutral } from '@repo/ui/icons/react-icons/md';
 
 import { getSentimentColor } from '../utils';
 

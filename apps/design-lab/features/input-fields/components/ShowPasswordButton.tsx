@@ -1,4 +1,4 @@
-import { FiEye, FiEyeOff } from 'react-icons/fi';
+import { FiEye, FiEyeOff } from '@repo/ui/icons/react-icons/fi';
 
 const ShowPasswordButton = ({
   viewPassword,

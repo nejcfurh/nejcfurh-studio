@@ -1,8 +1,8 @@
 import { AnimatePresence } from '@repo/ui/animation';
 import { AnimatedDiv, AnimatedTitle } from '@repo/ui/animation/core';
+import { FaSpotify } from '@repo/ui/icons/react-icons/fa6';
 import Image from 'next/image';
 import { useState } from 'react';
-import { FaSpotify } from 'react-icons/fa6';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const Card = ({ track }: { track: any }) => {

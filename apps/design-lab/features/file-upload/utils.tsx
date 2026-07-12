@@ -1,10 +1,10 @@
-import { BsFiletypePdf } from 'react-icons/bs';
-import { CiImageOn, CiVideoOn } from 'react-icons/ci';
-import { FaRegFolderOpen } from 'react-icons/fa';
-import { GoFileZip } from 'react-icons/go';
-import { IoDocumentTextOutline } from 'react-icons/io5';
-import { LuSheet } from 'react-icons/lu';
-import { PiFileAudioFill } from 'react-icons/pi';
+import { BsFiletypePdf } from '@repo/ui/icons/react-icons/bs';
+import { CiImageOn, CiVideoOn } from '@repo/ui/icons/react-icons/ci';
+import { FaRegFolderOpen } from '@repo/ui/icons/react-icons/fa';
+import { GoFileZip } from '@repo/ui/icons/react-icons/go';
+import { IoDocumentTextOutline } from '@repo/ui/icons/react-icons/io5';
+import { LuSheet } from '@repo/ui/icons/react-icons/lu';
+import { PiFileAudioFill } from '@repo/ui/icons/react-icons/pi';
 
 export const getFileIcon = (type: string) => {
   if (type.startsWith('image/')) return <CiImageOn />;

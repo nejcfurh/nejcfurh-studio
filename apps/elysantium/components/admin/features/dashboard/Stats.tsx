@@ -1,8 +1,14 @@
 'use client';
 
 import { formatCurrency } from '@/lib/utils/helpers';
-import { HiOutlineBriefcase, HiOutlineChartBar } from 'react-icons/hi';
-import { HiOutlineBanknotes, HiOutlineCalendarDays } from 'react-icons/hi2';
+import {
+  HiOutlineBriefcase,
+  HiOutlineChartBar
+} from '@repo/ui/icons/react-icons/hi';
+import {
+  HiOutlineBanknotes,
+  HiOutlineCalendarDays
+} from '@repo/ui/icons/react-icons/hi2';
 
 import CountUp from './CountUp';
 import Stat from './Stat';
