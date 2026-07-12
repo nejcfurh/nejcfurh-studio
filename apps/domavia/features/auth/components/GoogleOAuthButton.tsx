@@ -1,6 +1,6 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
+import { Button } from '@repo/ui/components/button';
 import { FcGoogle } from '@repo/ui/icons/react-icons/fc';
 import { cn } from '@repo/ui/utils';
 import * as React from 'react';

@@ -5,9 +5,9 @@ import UploadImage from '@/components/UploadImage';
 import { addCard } from '@/lib/actions/todos';
 import type { IList } from '@/lib/models/user';
 import { truncateUrl } from '@/lib/utils/helpers';
+import { toast } from '@repo/ui/components/sonner';
 import { Upload } from '@repo/ui/icons/lucide';
 import { useState } from 'react';
-import { toast } from 'sonner';
 
 interface AddCustomListProps {
   setDaily: React.Dispatch<React.SetStateAction<string>>;

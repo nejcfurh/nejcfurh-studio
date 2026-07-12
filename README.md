@@ -31,7 +31,8 @@ New apps start from [apps-template](apps/apps-template), a preconfigured Next.js
 | [database](packages/database)       | Database utilities                              |
 | [react-query](packages/react-query) | React Query configuration                       |
 | [ui](packages/ui)                   | Shared UI components, animations, and icons     |
-| [utils](packages/utils)             | Shared utility functions                        |
+| [utils](packages/utils)             | Shared utility functions and date-fns           |
+| [validation](packages/validation)   | Zod re-export — one zod version for all apps    |
 
 ### Icons
 
@@ -45,6 +46,18 @@ import type { IconType } from "@repo/ui/icons";
 ```
 
 All 31 react-icons sets are available under `@repo/ui/icons/react-icons/<set>`. Note: lucide 1.x removed brand/social icons (GitHub, Instagram, …) — use the Feather set (`react-icons/fi`) for those.
+
+### Components
+
+Shared [shadcn/ui](https://ui.shadcn.com/)-style components (button, dialog, form, table, tabs, carousel, sonner toaster, …) live in `@repo/ui/components/*`:
+
+```tsx
+import { Button } from "@repo/ui/components/button";
+import { toast } from "@repo/ui/components/sonner";
+import { ReactLenis } from "@repo/ui/animation/lenis";
+```
+
+Apps consuming these must add `@source '../../../packages/ui';` to their `globals.css` so Tailwind picks up the package's utility classes. Components use the consuming app's theme tokens (`--color-primary`, …), so they follow each app's branding. Note: `react-hook-form` stays a direct app dependency (not re-exported) — the React Compiler/eslint tooling special-cases its import path.
 
 ## Tooling
 
@@ -150,7 +163,8 @@ nejcfurh-studio/
 │   ├── database/              # Database utilities
 │   ├── react-query/           # React Query configuration
 │   ├── ui/                    # Shared UI components, animations & icons
-│   └── utils/                 # Shared utility functions
+│   ├── utils/                 # Shared utility functions & date-fns
+│   └── validation/            # Zod re-export (single version)
 ├── tooling/
 │   ├── browserslist-config-web/ # Browser targets
 │   ├── eslint-config-web/     # ESLint presets

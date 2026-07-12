@@ -1,8 +1,8 @@
-import { Button } from '@/components/ui/button';
 import { AnalyticsClientPageEvent } from '@/features/analytics/types.client';
 import { PageName } from '@/utils/constants/page.data';
 import { PageVisitTracker } from '@analytics/components/PageVisitTracker';
 import { SignedIn, SignedOut, SignInButton } from '@clerk/nextjs';
+import { Button } from '@repo/ui/components/button';
 import { ArrowRightIcon } from '@repo/ui/icons/lucide';
 import Image from 'next/image';
 import Link from 'next/link';

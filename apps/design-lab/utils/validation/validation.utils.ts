@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from '@repo/validation';
 
 //  anything else: is false
 export const boolean = (defaultValue = false) =>

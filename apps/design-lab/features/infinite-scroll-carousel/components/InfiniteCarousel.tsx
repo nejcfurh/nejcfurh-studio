@@ -3,9 +3,9 @@
 
 import { animate, useMotionValue } from '@repo/ui/animation';
 import { AnimatedDiv } from '@repo/ui/animation/core';
+import useMeasure from '@repo/ui/animation/use-measure';
 import { FaSpinner } from '@repo/ui/icons/react-icons/fa6';
 import { useEffect, useState } from 'react';
-import useMeasure from 'react-use-measure';
 
 import Card from './Card';
 

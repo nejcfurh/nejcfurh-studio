@@ -1,9 +1,9 @@
-import { Button } from '@/components/ui/button';
 import { EditableProfileForm } from '@/features/auth/components/EditableProfileForm';
 import { SignOutButton } from '@/features/auth/components/SignOutButton';
 import { getCurrentUser } from '@/features/auth/utils/get-current-user';
 import { ListingsGrid } from '@/features/listings/components/ListingsGrid';
 import { getUserListings } from '@/features/listings/utils/get-user-listings';
+import { Button } from '@repo/ui/components/button';
 import { Home } from '@repo/ui/icons/lucide';
 import Image from 'next/image';
 import Link from 'next/link';

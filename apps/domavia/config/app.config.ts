@@ -1,7 +1,7 @@
 import 'server-only';
 
 import { AppEnvironment } from '@/utils/enums/common.enums';
-import { z } from 'zod';
+import { z } from '@repo/validation';
 
 const AppConfigValidation = z.object({
   env: z.enum(AppEnvironment),

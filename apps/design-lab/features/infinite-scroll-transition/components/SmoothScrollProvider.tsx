@@ -1,7 +1,7 @@
 'use client';
 
 import BackButton from '@/components/buttons/BackButton';
-import { ReactLenis, useLenis } from 'lenis/react';
+import { ReactLenis, useLenis } from '@repo/ui/animation/lenis';
 import { usePathname } from 'next/navigation';
 import { useEffect, useLayoutEffect } from 'react';
 

@@ -5,11 +5,11 @@ import './globals.css';
 
 import DomaviaFooter from '@/components/Footer';
 import DomaviaHeader from '@/components/Header';
-import { Toaster } from '@/components/ui/sonner';
 import { appConfig } from '@/config/app.config';
 import { AuthProvider } from '@/features/auth/providers/AuthProvider';
 import { AnalyticsProvider } from '@analytics/providers/AnalyticsProvider';
 import { AnalyticsPostHogConfig } from '@analytics/services/posthog/types';
+import { Toaster } from '@repo/ui/components/sonner';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',

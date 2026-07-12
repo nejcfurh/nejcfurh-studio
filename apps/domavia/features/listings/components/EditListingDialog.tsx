@@ -1,24 +1,5 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle
-} from '@/components/ui/dialog';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
 import { updateListing } from '@/features/listings/actions/update-listing';
 import {
   editListingSchema,
@@ -26,11 +7,30 @@ import {
 } from '@/features/listings/schemas';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { AnimatedDiv } from '@repo/ui/animation/core';
+import { Button } from '@repo/ui/components/button';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle
+} from '@repo/ui/components/dialog';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage
+} from '@repo/ui/components/form';
+import { Input } from '@repo/ui/components/input';
+import { toast } from '@repo/ui/components/sonner';
+import { Textarea } from '@repo/ui/components/textarea';
 import { Loader2, Save } from '@repo/ui/icons/lucide';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { toast } from 'sonner';
 
 import type { Listing } from '../types';
 

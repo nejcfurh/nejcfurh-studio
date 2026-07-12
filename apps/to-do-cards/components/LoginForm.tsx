@@ -2,9 +2,9 @@
 
 import SocialMediaButtons from '@/components/SocialMediaButtons';
 import { loginAction } from '@/lib/actions/auth';
+import { toast } from '@repo/ui/components/sonner';
 import { Eye, EyeOff, Loader2 } from '@repo/ui/icons/lucide';
 import { useState } from 'react';
-import { toast } from 'sonner';
 
 export default function LoginForm() {
   const [isPending, setIsPending] = useState(false);

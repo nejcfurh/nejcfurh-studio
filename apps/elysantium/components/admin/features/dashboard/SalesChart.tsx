@@ -3,7 +3,12 @@
 import Heading from '@/components/admin/ui/Heading';
 import { useDarkMode } from '@/lib/context/DarkModeContext';
 import { AnimatedDiv } from '@repo/ui/animation/core';
-import { eachDayOfInterval, format, isSameDay, subDays } from 'date-fns';
+import {
+  eachDayOfInterval,
+  format,
+  isSameDay,
+  subDays
+} from '@repo/utils/date-fns';
 import {
   Area,
   AreaChart,

@@ -1,7 +1,7 @@
 'use server';
 
 import { generateObject, google } from '@repo/ai-sdk';
-import z from 'zod';
+import { z } from '@repo/validation';
 
 import { reviewAnalysisSchema } from './schema';
 import { AnalyseReviewState } from './types';
