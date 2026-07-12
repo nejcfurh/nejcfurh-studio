@@ -3,13 +3,13 @@
 import DataItem from '@/components/admin/ui/DataItem';
 import { Flag } from '@/components/admin/ui/Flag';
 import { formatCurrency, formatDistanceFromNow } from '@/lib/utils/helpers';
-import { format, isToday } from 'date-fns';
 import {
   HiOutlineChatBubbleBottomCenterText,
   HiOutlineCheckCircle,
   HiOutlineCurrencyDollar,
   HiOutlineHomeModern
-} from 'react-icons/hi2';
+} from '@repo/ui/icons/react-icons/hi2';
+import { format, isToday } from '@repo/utils/date-fns';
 
 interface Guest {
   id: number;

@@ -6,8 +6,8 @@ import {
   Transition,
   TransitionChild
 } from '@headlessui/react';
+import { IoClose } from '@repo/ui/icons/react-icons/io5';
 import { Fragment } from 'react';
-import { IoClose } from 'react-icons/io5';
 
 interface ModalProps {
   isOpen?: boolean;

@@ -3,8 +3,8 @@
 import Logout from '@/components/admin/features/authentication/Logout';
 import ButtonIcon from '@/components/admin/ui/ButtonIcon';
 import DarkModeToggle from '@/components/admin/ui/DarkModeToggle';
+import { HiOutlineUser } from '@repo/ui/icons/react-icons/hi';
 import { useRouter } from 'next/navigation';
-import { HiOutlineUser } from 'react-icons/hi';
 
 function HeaderMenu() {
   const router = useRouter();

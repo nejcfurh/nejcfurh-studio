@@ -7,7 +7,7 @@ import {
   AnimatedText,
   AnimatedTitle
 } from '@repo/ui/animation/core';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft } from '@repo/ui/icons/lucide';
 import Link from 'next/link';
 
 interface PostContentProps {

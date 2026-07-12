@@ -1,8 +1,11 @@
 import { signOut } from '@repo/auth/next-auth/react';
+import { HiChat } from '@repo/ui/icons/react-icons/hi';
+import {
+  HiArrowLeftEndOnRectangle,
+  HiUsers
+} from '@repo/ui/icons/react-icons/hi2';
 import { usePathname } from 'next/navigation';
 import { useMemo } from 'react';
-import { HiChat } from 'react-icons/hi';
-import { HiArrowLeftEndOnRectangle, HiUsers } from 'react-icons/hi2';
 
 import useConversation from './useConversation';
 

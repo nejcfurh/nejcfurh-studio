@@ -6,7 +6,7 @@ import ThemeToggle from '@/components/theme/ThemeToggle';
 import { easeOut } from '@/utils/motion';
 import { AnimatePresence } from '@repo/ui/animation';
 import { AnimatedDiv, AnimatedNav } from '@repo/ui/animation/core';
-import { LogOut, MenuIcon, PenLine } from 'lucide-react';
+import { LogOut, MenuIcon, PenLine } from '@repo/ui/icons/lucide';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { JSX, useEffect, useState, useSyncExternalStore } from 'react';

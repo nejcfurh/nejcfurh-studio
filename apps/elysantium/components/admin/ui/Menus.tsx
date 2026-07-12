@@ -1,9 +1,9 @@
 'use client';
 
 import useOutsideClick from '@/lib/hooks/useOutsideClick';
+import { HiEllipsisVertical } from '@repo/ui/icons/react-icons/hi2';
 import React, { createContext, useContext, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { HiEllipsisVertical } from 'react-icons/hi2';
 
 interface Position {
   x: number;

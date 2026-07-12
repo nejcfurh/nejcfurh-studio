@@ -4,8 +4,8 @@ import { ACCENT, BG_IMAGE } from '@/lib/designTokens';
 import { useGameStore } from '@/store/gameStore';
 import { AnimatePresence } from '@repo/ui/animation';
 import { AnimatedDiv } from '@repo/ui/animation/core';
+import { PiGear, PiPlayFill } from '@repo/ui/icons/react-icons/pi';
 import { useEffect, useState } from 'react';
-import { PiGear, PiPlayFill } from 'react-icons/pi';
 
 import Leaderboard from './Leaderboard';
 import { ArcadeButton, Particles } from './primitives';

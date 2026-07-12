@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from '@repo/ui/animation';
-import { ChevronLeft } from 'lucide-react';
+import { ChevronLeft } from '@repo/ui/icons/lucide';
 import Image from 'next/image';
 
 import type {

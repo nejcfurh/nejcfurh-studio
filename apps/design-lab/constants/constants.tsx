@@ -1,20 +1,27 @@
 import { MainPageItem } from '@/utils/types';
-import { BsCircleSquare, BsInputCursor } from 'react-icons/bs';
-import { CiCreditCard2 } from 'react-icons/ci';
-import { FaBarsStaggered, FaInstagram } from 'react-icons/fa6';
-import { GiCardPlay, GiFireWave } from 'react-icons/gi';
-import { HiOutlineCursorArrowRipple } from 'react-icons/hi2';
-import { IoEarthOutline, IoShareSocialOutline } from 'react-icons/io5';
+import { BsCircleSquare, BsInputCursor } from '@repo/ui/icons/react-icons/bs';
+import { CiCreditCard2 } from '@repo/ui/icons/react-icons/ci';
+import { FaBarsStaggered, FaInstagram } from '@repo/ui/icons/react-icons/fa6';
+import { GiCardPlay, GiFireWave } from '@repo/ui/icons/react-icons/gi';
+import { HiOutlineCursorArrowRipple } from '@repo/ui/icons/react-icons/hi2';
+import {
+  IoEarthOutline,
+  IoShareSocialOutline
+} from '@repo/ui/icons/react-icons/io5';
 import {
   MdBlurOn,
   MdFolderCopy,
   MdNoEncryption,
   MdOutlinePermMedia,
   MdOutlineRateReview
-} from 'react-icons/md';
-import { PiMouseScroll, PiPerspectiveFill, PiResize } from 'react-icons/pi';
-import { SiSpacex, SiTesla } from 'react-icons/si';
-import { SlLayers } from 'react-icons/sl';
+} from '@repo/ui/icons/react-icons/md';
+import {
+  PiMouseScroll,
+  PiPerspectiveFill,
+  PiResize
+} from '@repo/ui/icons/react-icons/pi';
+import { SiSpacex, SiTesla } from '@repo/ui/icons/react-icons/si';
+import { SlLayers } from '@repo/ui/icons/react-icons/sl';
 import {
   TbCarouselHorizontal,
   TbDragDrop,
@@ -24,7 +31,7 @@ import {
   TbRipple,
   TbTransitionBottom,
   TbTransitionBottomFilled
-} from 'react-icons/tb';
+} from '@repo/ui/icons/react-icons/tb';
 
 export const ANIMATIONS_DATA: MainPageItem[] = [
   {

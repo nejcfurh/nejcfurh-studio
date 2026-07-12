@@ -1,7 +1,7 @@
 'use client';
 
 import supabase from '@/lib/supabase';
-import { Loader2, LogIn, Upload } from 'lucide-react';
+import { Loader2, LogIn, Upload } from '@repo/ui/icons/lucide';
 import { useState } from 'react';
 
 const MIN_WIDTH = 700;

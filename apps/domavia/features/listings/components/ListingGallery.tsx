@@ -1,26 +1,26 @@
 'use client';
 
 import {
+  AnimatedButton,
+  AnimatedDiv,
+  AnimatedSpan
+} from '@repo/ui/animation/core';
+import {
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
   type CarouselApi
-} from '@/components/ui/carousel';
+} from '@repo/ui/components/carousel';
 import {
   Dialog,
   DialogClose,
   DialogContent,
   DialogDescription,
   DialogTitle
-} from '@/components/ui/dialog';
-import {
-  AnimatedButton,
-  AnimatedDiv,
-  AnimatedSpan
-} from '@repo/ui/animation/core';
-import { X } from 'lucide-react';
+} from '@repo/ui/components/dialog';
+import { X } from '@repo/ui/icons/lucide';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 

@@ -4,7 +4,7 @@ import NavBar from '@/features/smooth-scroll/components/NavBar';
 import Schedule from '@/features/smooth-scroll/components/Schedule';
 import SmoothScrollFooter from '@/features/smooth-scroll/components/SmoothScrollFooter';
 import ZoomParallaxGallery from '@/features/smooth-scroll/components/ZoomParallaxGallery';
-import { ReactLenis } from 'lenis/react';
+import { ReactLenis } from '@repo/ui/animation/lenis';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {

@@ -1,8 +1,8 @@
 'use client';
 
 import LoginForm from '@/components/admin/features/authentication/LoginForm';
+import { IoArrowBack } from '@repo/ui/icons/react-icons/io5';
 import Link from 'next/link';
-import { IoArrowBack } from 'react-icons/io5';
 
 function Login(): React.ReactElement {
   return (

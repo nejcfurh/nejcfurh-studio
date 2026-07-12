@@ -1,4 +1,4 @@
-import { PiSpeedometer } from 'react-icons/pi';
+import { PiSpeedometer } from '@repo/ui/icons/react-icons/pi';
 
 const SpeedIndicator = ({
   velocity,

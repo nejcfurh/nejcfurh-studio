@@ -1,14 +1,17 @@
+import { api } from '@/convex/_generated/api';
+import { Doc, Id } from '@/convex/_generated/dataModel';
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage
+} from '@repo/ui/components/avatar';
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
   CardTitle
-} from '@/components/ui/card';
-import { api } from '@/convex/_generated/api';
-import { Doc, Id } from '@/convex/_generated/dataModel';
-import { useQuery } from 'convex/react';
-import { formatRelative } from 'date-fns';
+} from '@repo/ui/components/card';
 import {
   FileAxis3D,
   FileTextIcon,
@@ -16,11 +19,12 @@ import {
   ImageIcon,
   UserIcon,
   VideoIcon
-} from 'lucide-react';
+} from '@repo/ui/icons/lucide';
+import { formatRelative } from '@repo/utils/date-fns';
+import { useQuery } from 'convex/react';
 import Image from 'next/image';
 
 import ActionsDropdownMenu from './ActionsDropdownMenu';
-import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 
 const FileCard = ({
   file,

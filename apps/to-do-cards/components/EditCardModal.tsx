@@ -3,9 +3,9 @@
 import { updateCard } from '@/lib/actions/todos';
 import type { IList } from '@/lib/models/user';
 import supabase, { deleteImageSupabase } from '@/lib/supabase';
-import { Loader2, LogIn, Upload } from 'lucide-react';
+import { toast } from '@repo/ui/components/sonner';
+import { Loader2, LogIn, Upload } from '@repo/ui/icons/lucide';
 import { useRef, useState } from 'react';
-import { toast } from 'sonner';
 
 interface EditCardModalProps {
   list: IList;

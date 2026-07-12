@@ -1,8 +1,8 @@
 'use client';
 
 import { AnimatedDiv } from '@repo/ui/animation/core';
+import { ChevronDown } from '@repo/ui/icons/lucide';
 import { cn } from '@repo/ui/utils';
-import { ChevronDown } from 'lucide-react';
 import { useState } from 'react';
 
 const FundsAvailable = ({
@@ -65,7 +65,7 @@ const FundsAvailable = ({
             isExpanded ? 'max-h-28 opacity-100' : 'max-h-0 opacity-0'
           )}
         >
-          <p className="font-archivo mb-5 px-5 !text-left !text-lg !text-black/75">
+          <p className="font-archivo mb-5 px-5 text-left! text-lg! text-black/75!">
             Anyone who is part of the Friends of Nature movement and has
             completed their first-week streak.
           </p>

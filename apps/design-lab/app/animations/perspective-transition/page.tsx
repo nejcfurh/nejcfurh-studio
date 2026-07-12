@@ -9,7 +9,7 @@ import {
   PerspectiveSlide
 } from '@/features/perspective-transition/constants';
 import { useScroll } from '@repo/ui/animation';
-import ReactLenis from 'lenis/react';
+import ReactLenis from '@repo/ui/animation/lenis';
 import { useRef } from 'react';
 
 // height of each panel, in viewport screens — bigger = pinned (sticky) longer.

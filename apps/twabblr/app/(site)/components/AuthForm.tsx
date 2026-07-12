@@ -8,6 +8,7 @@ import { PageName } from '@/utils/constants/page.data';
 import { PageVisitTracker } from '@analytics/components/PageVisitTracker';
 import { signIn, useSession } from '@repo/auth/next-auth/react';
 import { useMutation } from '@repo/react-query';
+import { BsFacebook, BsGithub, BsGoogle } from '@repo/ui/icons/react-icons/bs';
 import axios from 'axios';
 import { useRouter, useSearchParams } from 'next/navigation';
 import {
@@ -19,7 +20,6 @@ import {
 } from 'react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
-import { BsFacebook, BsGithub, BsGoogle } from 'react-icons/bs';
 
 import AuthSocialButton from './AuthSocialButton';
 

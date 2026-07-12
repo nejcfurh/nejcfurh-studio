@@ -1,9 +1,9 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
+import { Button } from '@repo/ui/components/button';
+import { FcGoogle } from '@repo/ui/icons/react-icons/fc';
 import { cn } from '@repo/ui/utils';
 import * as React from 'react';
-import { FcGoogle } from 'react-icons/fc';
 
 type GoogleOAuthButtonProps = Omit<
   React.ComponentProps<typeof Button>,

@@ -1,5 +1,5 @@
 import type { IList } from '@/lib/models/user';
-import { CheckCircle, ClipboardList, List } from 'lucide-react';
+import { CheckCircle, ClipboardList, List } from '@repo/ui/icons/lucide';
 
 interface ProfileTableProps {
   lists: IList[];

@@ -5,11 +5,11 @@ import Modal from '@/app/components/Modal';
 import useConversation from '@/app/hooks/useConversation';
 import { DialogTitle } from '@headlessui/react';
 import { useMutation } from '@repo/react-query';
+import { FiAlertTriangle } from '@repo/ui/icons/react-icons/fi';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { useCallback } from 'react';
 import toast from 'react-hot-toast';
-import { FiAlertTriangle } from 'react-icons/fi';
 
 interface ConfirmModalProps {
   isOpen?: boolean;

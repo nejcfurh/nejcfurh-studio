@@ -2,7 +2,7 @@ import AnimationTitle from '@/components/AnimationTitle';
 import BackButton from '@/components/buttons/BackButton';
 import ScrollHint from '@/features/3d-earth-scroll/components/ScrollHint';
 import ThreeDEarthScroll from '@/features/3d-earth-scroll/components/ThreeDEarthScroll';
-import { Lenis } from 'lenis/react';
+import { Lenis } from '@repo/ui/animation/lenis';
 
 const ThreeDEarthScrollPage = () => {
   return (

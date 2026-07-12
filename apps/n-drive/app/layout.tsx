@@ -5,10 +5,10 @@ import './globals.css';
 
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
-import { Toaster } from '@/components/ui/sonner';
 import { appConfig } from '@/config/app.config';
 import { AnalyticsProvider } from '@analytics/providers/AnalyticsProvider';
 import { AnalyticsPostHogConfig } from '@analytics/services/posthog/types';
+import { Toaster } from '@repo/ui/components/sonner';
 
 import ConvexClientProvider from '../context/ConvexClientProvider';
 

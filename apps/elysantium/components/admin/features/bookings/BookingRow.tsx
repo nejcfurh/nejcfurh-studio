@@ -7,10 +7,13 @@ import Modal from '@/components/admin/ui/Modal';
 import Table from '@/components/admin/ui/Table';
 import Tag from '@/components/admin/ui/Tag';
 import { formatCurrency, formatDistanceFromNow } from '@/lib/utils/helpers';
-import { format, isToday } from 'date-fns';
+import { HiEye, HiTrash } from '@repo/ui/icons/react-icons/hi';
+import {
+  HiArrowDownOnSquare,
+  HiArrowUpOnSquare
+} from '@repo/ui/icons/react-icons/hi2';
+import { format, isToday } from '@repo/utils/date-fns';
 import { useRouter } from 'next/navigation';
-import { HiEye, HiTrash } from 'react-icons/hi';
-import { HiArrowDownOnSquare, HiArrowUpOnSquare } from 'react-icons/hi2';
 
 import { useDeleteBooking } from './useDeleteBooking';
 

@@ -1,4 +1,4 @@
-import ReactLenis from 'lenis/react';
+import ReactLenis from '@repo/ui/animation/lenis';
 
 export default function TeslaLayout({
   children

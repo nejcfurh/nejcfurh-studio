@@ -1,5 +1,5 @@
-import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { GridIcon, Rows2Icon } from 'lucide-react';
+import { Tabs, TabsList, TabsTrigger } from '@repo/ui/components/tabs';
+import { GridIcon, Rows2Icon } from '@repo/ui/icons/lucide';
 
 const DisplaySelectionTab = ({
   display,

@@ -7,7 +7,7 @@ import {
   Snowflake,
   Sun,
   Zap
-} from 'lucide-react';
+} from '@repo/ui/icons/lucide';
 import React from 'react';
 
 export const mapWeatherCodeToIcon = (code: number): React.ReactNode => {

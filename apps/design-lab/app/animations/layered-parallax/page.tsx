@@ -7,7 +7,7 @@ import {
   LAYERED_PARALLAX_TEXT_2
 } from '@/features/layered-parallax/constants';
 import { AnimatedText } from '@repo/ui/animation/core';
-import ReactLenis from 'lenis/react';
+import ReactLenis from '@repo/ui/animation/lenis';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
