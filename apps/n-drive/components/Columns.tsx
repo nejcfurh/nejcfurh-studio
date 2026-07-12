@@ -4,9 +4,9 @@ import { api } from '@/convex/_generated/api';
 import { Doc, Id } from '@/convex/_generated/dataModel';
 import { Avatar, AvatarFallback, AvatarImage } from '@radix-ui/react-avatar';
 import { UserIcon } from '@repo/ui/icons/lucide';
+import { formatRelative } from '@repo/utils/date-fns';
 import { ColumnDef } from '@tanstack/react-table';
 import { useQuery } from 'convex/react';
-import { formatRelative } from 'date-fns';
 
 import ActionsDropdownMenu from './ActionsDropdownMenu';
 

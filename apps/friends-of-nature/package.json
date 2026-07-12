@@ -20,20 +20,20 @@
   },
   "dependencies": {
     "@headlessui/react": "^2.2.0",
-    "@hookform/resolvers": "^3.9.1",
+    "@hookform/resolvers": "^5.4.0",
     "@repo/ai-sdk": "workspace:*",
     "@repo/analytics": "workspace:*",
+    "@repo/ui": "workspace:*",
+    "@repo/validation": "workspace:*",
     "canvas-confetti": "^1.9.3",
     "embla-carousel-autoplay": "^8.1.8",
     "embla-carousel-react": "^8.1.8",
     "flubber": "^0.4.2",
-    "@repo/ui": "workspace:*",
     "next": "16.2.6",
     "react": "19.2.4",
     "react-dom": "19.2.4",
-    "react-hook-form": "^7.71.1",
-    "swiper": "11.0.4",
-    "zod": "^4.3.5"
+    "react-hook-form": "^7.77.0",
+    "swiper": "11.0.4"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

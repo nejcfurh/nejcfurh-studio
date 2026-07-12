@@ -4,7 +4,8 @@
   "types": "./src/index.ts",
   "exports": {
     ".": "./src/index.ts",
-    "./*": "./src/*"
+    "./*": "./src/*",
+    "./date-fns": "./src/date-fns.ts"
   },
   "scripts": {
     "base:prettier": "prettier './**/*.{ts,tsx,html,json,md,css}' --config .prettierrc --cache",
@@ -35,6 +36,7 @@
     "typescript": "5.9.3"
   },
   "dependencies": {
+    "date-fns": "^4.4.0",
     "uuid": "^13.0.0"
   }
 }

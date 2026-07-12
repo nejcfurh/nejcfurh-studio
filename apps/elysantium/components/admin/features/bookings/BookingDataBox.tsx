@@ -9,7 +9,7 @@ import {
   HiOutlineCurrencyDollar,
   HiOutlineHomeModern
 } from '@repo/ui/icons/react-icons/hi2';
-import { format, isToday } from 'date-fns';
+import { format, isToday } from '@repo/utils/date-fns';
 
 interface Guest {
   id: number;

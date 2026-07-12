@@ -2,7 +2,7 @@
 
 import { getBookingsAfterDate } from '@/lib/services/apiBookings';
 import { useQuery } from '@repo/react-query';
-import { subDays } from 'date-fns';
+import { subDays } from '@repo/utils/date-fns';
 import { useSearchParams } from 'next/navigation';
 
 interface Booking {

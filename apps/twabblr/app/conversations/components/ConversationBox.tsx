@@ -6,7 +6,7 @@ import useOtherUser from '@/app/hooks/useOtherUser';
 import { FullConversationType } from '@/app/types';
 import { useSession } from '@repo/auth/next-auth/react';
 import { cn } from '@repo/ui/utils';
-import { format } from 'date-fns';
+import { format } from '@repo/utils/date-fns';
 import { useRouter } from 'next/navigation';
 import { useCallback, useMemo } from 'react';
 

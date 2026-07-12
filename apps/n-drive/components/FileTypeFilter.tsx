@@ -1,11 +1,11 @@
+import { Doc } from '@/convex/_generated/dataModel';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue
-} from '@/components/ui/select';
-import { Doc } from '@/convex/_generated/dataModel';
+} from '@repo/ui/components/select';
 
 const FileTypeFilter = ({
   handleChangeType,

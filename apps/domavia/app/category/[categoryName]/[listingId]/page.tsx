@@ -5,7 +5,7 @@ import { ListingMap } from '@/features/listings/components/ListingMap';
 import { ShareButton } from '@/features/listings/components/ShareButton';
 import { getListing } from '@/features/listings/utils/get-listing';
 import { Bath, Bed, Car, MapPin, Sofa } from '@repo/ui/icons/lucide';
-import { formatDistanceToNow } from 'date-fns';
+import { formatDistanceToNow } from '@repo/utils/date-fns';
 import { notFound } from 'next/navigation';
 
 const formatPrice = (n: number) => n.toLocaleString('en-US');

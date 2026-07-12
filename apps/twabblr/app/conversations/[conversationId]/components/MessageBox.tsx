@@ -4,7 +4,7 @@ import Avatar from '@/app/components/Avatar';
 import { FullMessageType } from '@/app/types';
 import { useSession } from '@repo/auth/next-auth/react';
 import { cn } from '@repo/ui/utils';
-import { format } from 'date-fns';
+import { format } from '@repo/utils/date-fns';
 import Image from 'next/image';
 import { useState } from 'react';
 

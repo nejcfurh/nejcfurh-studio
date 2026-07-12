@@ -2,9 +2,9 @@
 
 import { addItem } from '@/lib/actions/todos';
 import type { IList } from '@/lib/models/user';
+import { toast } from '@repo/ui/components/sonner';
 import { PlusCircle } from '@repo/ui/icons/lucide';
 import { useState } from 'react';
-import { toast } from 'sonner';
 
 interface AddTaskProps {
   list: IList;

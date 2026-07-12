@@ -1,15 +1,19 @@
 import { api } from '@/convex/_generated/api';
 import { Doc } from '@/convex/_generated/dataModel';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Button } from '@repo/ui/components/button';
+import {
+  Field,
+  FieldError,
+  FieldGroup,
+  FieldLabel
+} from '@repo/ui/components/field';
+import { Input } from '@repo/ui/components/input';
+import { InputGroup } from '@repo/ui/components/input-group';
 import { Loader2Icon } from '@repo/ui/icons/lucide';
+import { z } from '@repo/validation';
 import { useMutation } from 'convex/react';
 import { Controller, useForm } from 'react-hook-form';
-import { z } from 'zod';
-
-import { Button } from './ui/button';
-import { Field, FieldError, FieldGroup, FieldLabel } from './ui/field';
-import { Input } from './ui/input';
-import { InputGroup } from './ui/input-group';
 
 const formSchema = z.object({
   title: z.string().min(1).max(100),

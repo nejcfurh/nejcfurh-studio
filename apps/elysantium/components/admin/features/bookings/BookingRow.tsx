@@ -12,7 +12,7 @@ import {
   HiArrowDownOnSquare,
   HiArrowUpOnSquare
 } from '@repo/ui/icons/react-icons/hi2';
-import { format, isToday } from 'date-fns';
+import { format, isToday } from '@repo/utils/date-fns';
 import { useRouter } from 'next/navigation';
 
 import { useDeleteBooking } from './useDeleteBooking';

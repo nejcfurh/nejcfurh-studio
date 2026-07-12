@@ -7,7 +7,7 @@ import { guests } from '@/lib/data/data-guests';
 import supabase from '@/lib/services/supabase';
 import { subtractDates } from '@/lib/utils/helpers';
 import { AnimatedDiv } from '@repo/ui/animation/core';
-import { isFuture, isPast, isToday } from 'date-fns';
+import { isFuture, isPast, isToday } from '@repo/utils/date-fns';
 import React, { useState } from 'react';
 
 // const originalSettings = {

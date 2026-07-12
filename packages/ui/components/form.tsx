@@ -1,6 +1,5 @@
 'use client';
 
-import { Label } from '@/components/ui/label';
 import { Slot } from '@radix-ui/react-slot';
 import { cn } from '@repo/ui/utils';
 import * as React from 'react';
@@ -13,6 +12,8 @@ import {
   type FieldPath,
   type FieldValues
 } from 'react-hook-form';
+
+import { Label } from './label';
 
 const Form = FormProvider;
 

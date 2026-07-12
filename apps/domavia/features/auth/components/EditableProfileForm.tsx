@@ -1,8 +1,5 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { updateProfile } from '@/features/auth/actions/profile';
 import { useAuth } from '@/features/auth/hooks/useAuth';
 import { getFirebaseErrorMessage } from '@/features/auth/utils/firebase-errors';
@@ -12,12 +9,15 @@ import { firebaseAuth } from '@/lib/firebase/client';
 import { supabaseBrowser } from '@/lib/supabase/client';
 import { STORAGE_BUCKET } from '@/lib/supabase/constants';
 import { AnimatedDiv, AnimatedText } from '@repo/ui/animation/core';
+import { Button } from '@repo/ui/components/button';
+import { Input } from '@repo/ui/components/input';
+import { Label } from '@repo/ui/components/label';
+import { toast } from '@repo/ui/components/sonner';
 import { Loader2, Save, Upload, User } from '@repo/ui/icons/lucide';
 import { verifyBeforeUpdateEmail } from 'firebase/auth';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
-import { toast } from 'sonner';
 
 type Props = {
   initialDisplayName: string | null;

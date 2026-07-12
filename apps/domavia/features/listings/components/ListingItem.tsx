@@ -1,13 +1,5 @@
 'use client';
 
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-  type CarouselApi
-} from '@/components/ui/carousel';
 import { useAuth } from '@/features/auth/hooks/useAuth';
 import { DeleteListingDialog } from '@/features/listings/components/DeleteListingDialog';
 import { EditListingDialog } from '@/features/listings/components/EditListingDialog';
@@ -19,9 +11,17 @@ import {
   AnimatedSpan,
   AnimatedText
 } from '@repo/ui/animation/core';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+  type CarouselApi
+} from '@repo/ui/components/carousel';
 import { Bath, Bed, Car, MapPin, Sofa } from '@repo/ui/icons/lucide';
 import { FiEdit2, FiTrash2 } from '@repo/ui/icons/react-icons/fi';
-import { formatDistanceToNow } from 'date-fns';
+import { formatDistanceToNow } from '@repo/utils/date-fns';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState, type MouseEvent } from 'react';

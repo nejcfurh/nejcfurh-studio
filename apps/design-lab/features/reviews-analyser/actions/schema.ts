@@ -1,4 +1,4 @@
-import z from 'zod';
+import { z } from '@repo/validation';
 
 export const reviewAnalysisSchema = z.object({
   sentiment: z.enum(['positive', 'negative', 'mixed']),

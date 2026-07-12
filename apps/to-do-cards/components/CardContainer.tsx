@@ -9,8 +9,8 @@ import {
 import type { IList } from '@/lib/models/user';
 import { deleteImageSupabase } from '@/lib/supabase';
 import { getDate } from '@/lib/utils/helpers';
+import { toast } from '@repo/ui/components/sonner';
 import { useState } from 'react';
-import { toast } from 'sonner';
 
 interface CardContainerProps {
   initialLists: IList[];

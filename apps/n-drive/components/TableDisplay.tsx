@@ -7,7 +7,7 @@ import {
   TableHead,
   TableHeader,
   TableRow
-} from '@/components/ui/table';
+} from '@repo/ui/components/table';
 import {
   ColumnDef,
   flexRender,

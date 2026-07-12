@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from '@repo/validation';
 
 import { AppEnvironment } from './utils';
 

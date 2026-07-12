@@ -3,8 +3,8 @@
 import NoTasks from '@/components/NoTasks';
 import { deleteCompletedItem } from '@/lib/actions/todos';
 import type { IItem, IList } from '@/lib/models/user';
+import { toast } from '@repo/ui/components/sonner';
 import { Trash2 } from '@repo/ui/icons/lucide';
-import { toast } from 'sonner';
 
 interface CompletedItemProps {
   completedItems: IItem[];

@@ -1,12 +1,11 @@
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Button } from '@repo/ui/components/button';
+import { Input } from '@repo/ui/components/input';
 import { Loader2Icon, SearchIcon } from '@repo/ui/icons/lucide';
+import { z } from '@repo/validation';
 import { usePathname } from 'next/navigation';
 import { Activity } from 'react';
 import { useForm } from 'react-hook-form';
-import { z } from 'zod';
-
-import { Button } from './ui/button';
-import { Input } from './ui/input';
 
 const formSchema = z.object({
   searchQuery: z.string().min(0).max(100)
