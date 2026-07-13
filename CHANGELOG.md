@@ -1,5 +1,22 @@
 # Changelog
 
+## v1.28.0 (2026-07-13)
+
+
+### Features
+
+- feat(nejcfurh-studio): Add react-icons and lucide icons to packages/ui (#113) (a17a6dd)
+- feat(nejcfurh-studio): Code reduction (#114) (4e1286e)
+- feat(nejcfurh-studio): Code reduction (d219ec7)
+- feat(nejcfurh-studio): Add react-icons and lucide icons to packages/ui (3f323b4)
+
+
+### Other Changes
+
+- chore(nejcfurh-studio): Update readme (3eb00e1)
+
+# Changelog
+
 ## v1.27.1 (2026-06-30)
 
 
