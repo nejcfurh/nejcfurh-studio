@@ -1,7 +1,7 @@
 'use client';
 
-import { FiArrowRight } from 'react-icons/fi';
-import { SiSpacex } from 'react-icons/si';
+import { FiArrowRight } from '@repo/ui/icons/react-icons/fi';
+import { SiSpacex } from '@repo/ui/icons/react-icons/si';
 
 const NavBar = () => {
   return (

@@ -11,9 +11,9 @@ import {
 import { useGameStore } from '@/store/gameStore';
 import { BirdSpeciesId } from '@/types';
 import { AnimatedDiv } from '@repo/ui/animation/core';
+import { BiChevronRight } from '@repo/ui/icons/react-icons/bi';
 import Image from 'next/image';
 import { useState } from 'react';
-import { BiChevronRight } from 'react-icons/bi';
 
 import PageHeader from './PageHeader';
 import { ArcadeButton, GlassCard, Particles } from './primitives';

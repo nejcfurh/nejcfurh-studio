@@ -2,7 +2,7 @@
 
 import NoTasks from '@/components/NoTasks';
 import type { IItem } from '@/lib/models/user';
-import { CircleCheck } from 'lucide-react';
+import { CircleCheck } from '@repo/ui/icons/lucide';
 
 interface TaskItemProps {
   handleCompleteTask: (

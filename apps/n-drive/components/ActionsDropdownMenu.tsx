@@ -3,18 +3,6 @@
 import { api } from '@/convex/_generated/api';
 import { Doc } from '@/convex/_generated/dataModel';
 import { Protect } from '@clerk/nextjs';
-import { useMutation, useQuery } from 'convex/react';
-import {
-  DownloadIcon,
-  EllipsisVerticalIcon,
-  HeartIcon,
-  Trash2Icon,
-  Undo2Icon
-} from 'lucide-react';
-import Link from 'next/link';
-import { useState } from 'react';
-import { toast } from 'sonner';
-
 import {
   AlertDialog,
   AlertDialogAction,
@@ -24,8 +12,8 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle
-} from './ui/alert-dialog';
-import { Button } from './ui/button';
+} from '@repo/ui/components/alert-dialog';
+import { Button } from '@repo/ui/components/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -33,7 +21,18 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger
-} from './ui/dropdown-menu';
+} from '@repo/ui/components/dropdown-menu';
+import { toast } from '@repo/ui/components/sonner';
+import {
+  DownloadIcon,
+  EllipsisVerticalIcon,
+  HeartIcon,
+  Trash2Icon,
+  Undo2Icon
+} from '@repo/ui/icons/lucide';
+import { useMutation, useQuery } from 'convex/react';
+import Link from 'next/link';
+import { useState } from 'react';
 
 export const ActionsDropdownMenu = ({
   file,

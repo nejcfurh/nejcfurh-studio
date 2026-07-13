@@ -8,7 +8,10 @@ export default [
       '**/*.test.ts',
       '**/*.test.tsx',
       'eslint.config.mjs',
-      'postcss.config.js'
+      'postcss.config.js',
+      // One-line date-fns re-export: import-x's export-map walker overflows
+      // the call stack on date-fns' huge re-export graph.
+      'src/date-fns.ts'
     ]
   }
 ];

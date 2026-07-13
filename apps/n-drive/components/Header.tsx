@@ -5,11 +5,10 @@ import {
   SignInButton,
   UserButton
 } from '@clerk/nextjs';
-import { ArrowRightIcon } from 'lucide-react';
+import { Button } from '@repo/ui/components/button';
+import { ArrowRightIcon } from '@repo/ui/icons/lucide';
 import Image from 'next/image';
 import Link from 'next/link';
-
-import { Button } from './ui/button';
 
 const Header = () => {
   return (

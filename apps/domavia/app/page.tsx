@@ -9,7 +9,7 @@ import {
 } from '@/features/listings/utils/get-listings';
 import { PageName } from '@/utils/constants/page.data';
 import { PageVisitTracker } from '@analytics/components/PageVisitTracker';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight } from '@repo/ui/icons/lucide';
 import Link from 'next/link';
 
 type SectionProps = {

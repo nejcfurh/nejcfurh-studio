@@ -1,6 +1,6 @@
 'use client';
 
-import { CheckCircle, ListTodo, Pencil } from 'lucide-react';
+import { CheckCircle, ListTodo, Pencil } from '@repo/ui/icons/lucide';
 import { useState } from 'react';
 
 interface MultiOptionMenuProps {

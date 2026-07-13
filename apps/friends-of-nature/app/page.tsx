@@ -5,7 +5,7 @@ import {
   AnimatedText,
   AnimatedTitle
 } from '@repo/ui/animation/core';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight } from '@repo/ui/icons/lucide';
 import Image from 'next/image';
 import Link from 'next/link';
 

@@ -1,4 +1,4 @@
-import { TbCategory2 } from 'react-icons/tb';
+import { TbCategory2 } from '@repo/ui/icons/react-icons/tb';
 
 import { getCategoryIcon, getSentimentColor } from '../utils';
 import CustomIcon from './CustomIcon';

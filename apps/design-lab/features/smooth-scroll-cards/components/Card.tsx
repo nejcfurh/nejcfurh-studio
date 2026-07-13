@@ -13,9 +13,9 @@ import {
   AnimatedSubTitle,
   AnimatedText
 } from '@repo/ui/animation/core';
+import { FiEye, FiGithub } from '@repo/ui/icons/react-icons/fi';
+import { HiArrowUpRight } from '@repo/ui/icons/react-icons/hi2';
 import { useRef } from 'react';
-import { FiEye, FiGithub } from 'react-icons/fi';
-import { HiArrowUpRight } from 'react-icons/hi2';
 
 import { CardDataType } from '../types';
 

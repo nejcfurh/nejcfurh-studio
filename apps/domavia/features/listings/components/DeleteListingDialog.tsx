@@ -1,5 +1,7 @@
 'use client';
 
+import { deleteListing } from '@/features/listings/actions/delete-listing';
+import { AnimatedSpan } from '@repo/ui/animation/core';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -9,13 +11,11 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle
-} from '@/components/ui/alert-dialog';
-import { deleteListing } from '@/features/listings/actions/delete-listing';
-import { AnimatedSpan } from '@repo/ui/animation/core';
-import { Loader2 } from 'lucide-react';
+} from '@repo/ui/components/alert-dialog';
+import { toast } from '@repo/ui/components/sonner';
+import { Loader2 } from '@repo/ui/icons/lucide';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { toast } from 'sonner';
 
 type Props = {
   listingId: string;

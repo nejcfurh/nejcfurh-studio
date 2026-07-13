@@ -12,8 +12,13 @@ import {
   AnimatedText,
   AnimatedTitle
 } from '@repo/ui/animation/core';
+import {
+  ArrowLeft,
+  ArrowRight,
+  Loader2Icon,
+  MapPin
+} from '@repo/ui/icons/lucide';
 import { cn } from '@repo/ui/utils';
-import { ArrowLeft, ArrowRight, Loader2Icon, MapPin } from 'lucide-react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import React, {

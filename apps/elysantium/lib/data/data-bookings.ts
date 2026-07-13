@@ -1,4 +1,4 @@
-import { add } from 'date-fns';
+import { add } from '@repo/utils/date-fns';
 
 interface Booking {
   created_at: string;

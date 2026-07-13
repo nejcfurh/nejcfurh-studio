@@ -1,21 +1,21 @@
 'use client';
 
 import {
+  AnimatedDiv,
+  AnimatedSpan,
+  AnimatedSubTitle,
+  AnimatedText
+} from '@repo/ui/animation/core';
+import {
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
   type CarouselApi
-} from '@/components/ui/carousel';
-import {
-  AnimatedDiv,
-  AnimatedSpan,
-  AnimatedSubTitle,
-  AnimatedText
-} from '@repo/ui/animation/core';
+} from '@repo/ui/components/carousel';
+import { MapPin } from '@repo/ui/icons/lucide';
 import Autoplay from 'embla-carousel-autoplay';
-import { MapPin } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';

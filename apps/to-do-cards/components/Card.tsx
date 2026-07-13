@@ -5,7 +5,7 @@ import Modal from '@/components/Modal';
 import MultiOptionMenu from '@/components/MultiOptionMenu';
 import Tasks from '@/components/Tasks';
 import type { IList } from '@/lib/models/user';
-import { Trash2 } from 'lucide-react';
+import { Trash2 } from '@repo/ui/icons/lucide';
 import { useState } from 'react';
 
 interface CardProps {

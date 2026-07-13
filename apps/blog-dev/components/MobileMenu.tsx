@@ -2,7 +2,12 @@
 
 import Logo from '@/components/Logo';
 import { AnimatedDiv } from '@repo/ui/animation/core';
-import { Github, Instagram, Linkedin, LogOut, X } from 'lucide-react';
+import { LogOut, X } from '@repo/ui/icons/lucide';
+import {
+  FiGithub,
+  FiInstagram,
+  FiLinkedin
+} from '@repo/ui/icons/react-icons/fi';
 import Link from 'next/link';
 import { JSX } from 'react';
 
@@ -22,17 +27,17 @@ const socialLinks = [
   {
     name: 'GitHub',
     href: 'https://github.com/nejcfurh',
-    icon: <Github size={18} />
+    icon: <FiGithub size={18} />
   },
   {
     name: 'LinkedIn',
     href: 'https://www.linkedin.com/in/nejcfurh/',
-    icon: <Linkedin size={18} />
+    icon: <FiLinkedin size={18} />
   },
   {
     name: 'Instagram',
     href: 'https://www.instagram.com/nejcfurh/',
-    icon: <Instagram size={18} />
+    icon: <FiInstagram size={18} />
   }
 ];
 

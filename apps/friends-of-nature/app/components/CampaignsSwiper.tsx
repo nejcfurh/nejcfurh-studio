@@ -1,6 +1,6 @@
 'use client';
 
-import { ArrowLeftIcon, ArrowRightIcon, MapPin } from 'lucide-react';
+import { ArrowLeftIcon, ArrowRightIcon, MapPin } from '@repo/ui/icons/lucide';
 import Image from 'next/image';
 
 import 'swiper/css';
@@ -98,7 +98,7 @@ const CampaignsSwiper = (): React.ReactNode => {
         {campaigns.map((campaign) => (
           <SwiperSlide
             key={campaign.id}
-            className="mb-10 flex !h-[500px] w-[85%]"
+            className="mb-10 flex h-[500px]! w-[85%]"
           >
             <div className="relative h-full rounded-3xl bg-[#396089] shadow-md">
               <div className="relative">

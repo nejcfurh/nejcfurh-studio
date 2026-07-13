@@ -1,4 +1,4 @@
-import { FiArrowUpRight } from 'react-icons/fi';
+import { FiArrowUpRight } from '@repo/ui/icons/react-icons/fi';
 
 const ExampleTextComponent = () => {
   return (

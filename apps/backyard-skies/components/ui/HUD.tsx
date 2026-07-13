@@ -7,9 +7,9 @@ import {
   RESOURCE_CRITICAL_THRESHOLD,
   RESOURCE_WARNING_THRESHOLD
 } from '@/utils/constants';
-import { BsFillDropletFill } from 'react-icons/bs';
-import { FaWheatAwn } from 'react-icons/fa6';
-import { PiCompassBold } from 'react-icons/pi';
+import { BsFillDropletFill } from '@repo/ui/icons/react-icons/bs';
+import { FaWheatAwn } from '@repo/ui/icons/react-icons/fa6';
+import { PiCompassBold } from '@repo/ui/icons/react-icons/pi';
 
 const FOOD_COLOR = '#b9f05a';
 const FOOD_DEEP = '#3a5a1a';

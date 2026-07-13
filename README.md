@@ -19,16 +19,45 @@ Created by [Nejc Furh](https://nejcfurh.dev)
 | [elysantium](apps/elysantium)               | Luxury hotel site with admin panel (bookings, cabins, Supabase)            | [LINK](https://elysantium.nejcfurh.dev)       |
 | [domavia](apps/domavia)                     | Real estate listing platform with Firebase Auth, Firestore, and maps       | [LINK](https://domavia.nejcfurh.dev)          |
 
+New apps start from [apps-template](apps/apps-template), a preconfigured Next.js starter wired to the shared packages and tooling.
+
 ## Packages
 
-| Package                             | Description                         |
-| ----------------------------------- | ----------------------------------- |
-| [ai-sdk](packages/ai-sdk)           | AI SDK integrations (Google Gemini) |
-| [analytics](packages/analytics)     | Analytics helpers                   |
-| [database](packages/database)       | Database utilities                  |
-| [react-query](packages/react-query) | React Query configuration           |
-| [ui](packages/ui)                   | Shared UI components and animations |
-| [utils](packages/utils)             | Shared utility functions            |
+| Package                             | Description                                     |
+| ----------------------------------- | ----------------------------------------------- |
+| [ai-sdk](packages/ai-sdk)           | AI SDK integrations (Google Gemini)             |
+| [analytics](packages/analytics)     | PostHog analytics (provider, hooks, components) |
+| [auth](packages/auth)               | Shared NextAuth configuration and helpers       |
+| [database](packages/database)       | Database utilities                              |
+| [react-query](packages/react-query) | React Query configuration                       |
+| [ui](packages/ui)                   | Shared UI components, animations, and icons     |
+| [utils](packages/utils)             | Shared utility functions and date-fns           |
+| [validation](packages/validation)   | Zod re-export — one zod version for all apps    |
+
+### Icons
+
+Icons are centralized in `@repo/ui` — apps don't install icon libraries directly. Both [lucide-react](https://lucide.dev/) and [react-icons](https://react-icons.github.io/react-icons/) are re-exported per set, so bundlers only compile the sets an app actually imports:
+
+```tsx
+import { ArrowRight } from "@repo/ui/icons/lucide";
+import { FaHome } from "@repo/ui/icons/react-icons/fa6";
+import { HiOutlineSparkles } from "@repo/ui/icons/react-icons/hi2";
+import type { IconType } from "@repo/ui/icons";
+```
+
+All 31 react-icons sets are available under `@repo/ui/icons/react-icons/<set>`. Note: lucide 1.x removed brand/social icons (GitHub, Instagram, …) — use the Feather set (`react-icons/fi`) for those.
+
+### Components
+
+Shared [shadcn/ui](https://ui.shadcn.com/)-style components (button, dialog, form, table, tabs, carousel, sonner toaster, …) live in `@repo/ui/components/*`:
+
+```tsx
+import { Button } from "@repo/ui/components/button";
+import { toast } from "@repo/ui/components/sonner";
+import { ReactLenis } from "@repo/ui/animation/lenis";
+```
+
+Apps consuming these must add `@source '../../../packages/ui';` to their `globals.css` so Tailwind picks up the package's utility classes. Components use the consuming app's theme tokens (`--color-primary`, …), so they follow each app's branding. Note: `react-hook-form` stays a direct app dependency (not re-exported) — the React Compiler/eslint tooling special-cases its import path.
 
 ## Tooling
 
@@ -105,6 +134,7 @@ pnpm run jobs-react-native
 - **UI:** React 19, Tailwind CSS 4
 - **Language:** TypeScript 5
 - **Monorepo:** Turborepo 2.8, pnpm workspaces
+- **Analytics:** PostHog (via `@repo/analytics`)
 - **Linting:** ESLint 9 (flat config), Prettier
 - **Git Hooks:** Husky (pre-commit: type check + format, commit-msg: commitlint)
 - **CI/CD:** GitHub Actions (code quality, auto-release PRs, semantic versioning)
@@ -114,6 +144,7 @@ pnpm run jobs-react-native
 ```
 nejcfurh-studio/
 ├── apps/
+│   ├── apps-template/         # Starter template for new apps
 │   ├── backyard-skies/        # 3D Bird Survival Game
 │   ├── blog-dev/              # Personal dev blog
 │   ├── design-lab/            # Animations, components, clones & tools
@@ -127,11 +158,13 @@ nejcfurh-studio/
 │   └── twabblr/               # Social / Messaging app
 ├── packages/
 │   ├── ai-sdk/                # AI SDK integrations (Google Gemini)
-│   ├── analytics/             # Analytics helpers
+│   ├── analytics/             # PostHog analytics
+│   ├── auth/                  # Shared NextAuth configuration
 │   ├── database/              # Database utilities
 │   ├── react-query/           # React Query configuration
-│   ├── ui/                    # Shared UI components & animations
-│   └── utils/                 # Shared utility functions
+│   ├── ui/                    # Shared UI components, animations & icons
+│   ├── utils/                 # Shared utility functions & date-fns
+│   └── validation/            # Zod re-export (single version)
 ├── tooling/
 │   ├── browserslist-config-web/ # Browser targets
 │   ├── eslint-config-web/     # ESLint presets

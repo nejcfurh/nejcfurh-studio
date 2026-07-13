@@ -1,7 +1,7 @@
 'use client';
 
 import type { IPost } from '@/lib/models/post';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight } from '@repo/ui/icons/lucide';
 import Image from 'next/image';
 import Link from 'next/link';
 import { JSX } from 'react';

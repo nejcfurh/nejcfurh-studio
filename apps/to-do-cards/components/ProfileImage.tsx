@@ -5,8 +5,8 @@ import UploadImage from '@/components/UploadImage';
 import { updateAvatar } from '@/lib/actions/account';
 import { deleteAvatarSupabase } from '@/lib/supabase';
 import { extractImageName } from '@/lib/utils/helpers';
+import { toast } from '@repo/ui/components/sonner';
 import { useEffect, useState } from 'react';
-import { toast } from 'sonner';
 
 interface ProfileImageProps {
   avatar?: string;

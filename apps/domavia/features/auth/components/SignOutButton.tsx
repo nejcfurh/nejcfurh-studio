@@ -1,12 +1,12 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
 import { destroySessionAndRedirectHome } from '@/features/auth/actions/session';
 import { firebaseAuth } from '@/lib/firebase/client';
+import { Button } from '@repo/ui/components/button';
+import { toast } from '@repo/ui/components/sonner';
+import { Loader2, LogOut } from '@repo/ui/icons/lucide';
 import { signOut as firebaseSignOut } from 'firebase/auth';
-import { Loader2, LogOut } from 'lucide-react';
 import { useState } from 'react';
-import { toast } from 'sonner';
 
 const isNextRedirect = (err: unknown): boolean =>
   err !== null &&

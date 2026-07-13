@@ -1,8 +1,13 @@
-import { BsFacebook, BsGithub, BsTwitterX, BsWhatsapp } from 'react-icons/bs';
-import { HiOutlineMail } from 'react-icons/hi';
-import { MdOutlineSms } from 'react-icons/md';
-import { SlSocialLinkedin } from 'react-icons/sl';
-import { TbBrandInstagram } from 'react-icons/tb';
+import {
+  BsFacebook,
+  BsGithub,
+  BsTwitterX,
+  BsWhatsapp
+} from '@repo/ui/icons/react-icons/bs';
+import { HiOutlineMail } from '@repo/ui/icons/react-icons/hi';
+import { MdOutlineSms } from '@repo/ui/icons/react-icons/md';
+import { SlSocialLinkedin } from '@repo/ui/icons/react-icons/sl';
+import { TbBrandInstagram } from '@repo/ui/icons/react-icons/tb';
 
 import { SocialMediaButtonsItem } from './types';
 

@@ -1,12 +1,12 @@
 'use client';
 
 import { useChat } from '@repo/ai-sdk';
+import { BiSend } from '@repo/ui/icons/react-icons/bi';
+import { CiChat2 } from '@repo/ui/icons/react-icons/ci';
+import { FaSpinner } from '@repo/ui/icons/react-icons/fa';
+import { GrGoogle } from '@repo/ui/icons/react-icons/gr';
+import { HiOutlineXMark } from '@repo/ui/icons/react-icons/hi2';
 import { useEffect, useRef, useState } from 'react';
-import { BiSend } from 'react-icons/bi';
-import { CiChat2 } from 'react-icons/ci';
-import { FaSpinner } from 'react-icons/fa';
-import { GrGoogle } from 'react-icons/gr';
-import { HiOutlineXMark } from 'react-icons/hi2';
 
 const REVEAL_INTERVAL_MS = 65; // slower = higher (e.g. 80–100)
 const CHARS_PER_TICK = 2;

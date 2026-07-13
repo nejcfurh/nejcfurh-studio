@@ -1,5 +1,11 @@
 import { logoutAction } from '@/lib/actions/auth';
-import { Home, Info, LogOut, Megaphone, UserCircle } from 'lucide-react';
+import {
+  Home,
+  Info,
+  LogOut,
+  Megaphone,
+  UserCircle
+} from '@repo/ui/icons/lucide';
 import Image from 'next/image';
 import Link from 'next/link';
 

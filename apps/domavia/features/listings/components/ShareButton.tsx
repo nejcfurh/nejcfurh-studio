@@ -1,8 +1,8 @@
 'use client';
 
 import { AnimatedButton } from '@repo/ui/animation/core';
-import { Share2 } from 'lucide-react';
-import { toast } from 'sonner';
+import { toast } from '@repo/ui/components/sonner';
+import { Share2 } from '@repo/ui/icons/lucide';
 
 export const ShareButton = () => {
   const handleClick = async () => {

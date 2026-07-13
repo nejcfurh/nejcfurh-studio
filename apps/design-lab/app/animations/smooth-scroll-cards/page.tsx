@@ -8,7 +8,7 @@ import Card from '@/features/smooth-scroll-cards/components/Card';
 import { CARD_DATA } from '@/features/smooth-scroll-cards/constants';
 import { useScroll } from '@repo/ui/animation';
 import { AnimatedDiv } from '@repo/ui/animation/core';
-import ReactLenis from 'lenis/react';
+import ReactLenis from '@repo/ui/animation/lenis';
 import { useRef } from 'react';
 
 const SmoothScrollCardsPage = () => {

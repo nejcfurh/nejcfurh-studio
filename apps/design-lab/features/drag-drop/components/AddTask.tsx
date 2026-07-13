@@ -1,8 +1,8 @@
 import { CardDataType } from '@/features/drag-drop/types';
 import { motion } from '@repo/ui/animation';
+import { FaTimes } from '@repo/ui/icons/react-icons/fa';
+import { FiPlus } from '@repo/ui/icons/react-icons/fi';
 import { useState } from 'react';
-import { FaTimes } from 'react-icons/fa';
-import { FiPlus } from 'react-icons/fi';
 
 const AddTask = ({
   column,

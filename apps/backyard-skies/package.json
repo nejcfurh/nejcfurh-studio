@@ -18,18 +18,17 @@
     "type:check": "tsc --noEmit"
   },
   "dependencies": {
-    "@repo/database": "workspace:*",
-    "@repo/ui": "workspace:*",
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.5.0",
     "@react-three/postprocessing": "^3.0.4",
+    "@repo/database": "workspace:*",
+    "@repo/ui": "workspace:*",
+    "@repo/validation": "workspace:*",
     "@types/three": "^0.183.0",
     "next": "16.2.6",
     "react": "19.2.3",
     "react-dom": "19.2.3",
-    "react-icons": "^5.5.0",
     "three": "^0.183.0",
-    "zod": "^4.1.12",
     "zustand": "^5.0.11"
   },
   "devDependencies": {

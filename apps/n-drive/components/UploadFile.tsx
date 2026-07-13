@@ -1,13 +1,13 @@
 import Form from '@/components/Form';
-import { Button } from '@/components/ui/button';
+import { Button } from '@repo/ui/components/button';
 import {
   Dialog,
   DialogContent,
   DialogTitle,
   DialogTrigger
-} from '@/components/ui/dialog';
+} from '@repo/ui/components/dialog';
+import { toast } from '@repo/ui/components/sonner';
 import { useState } from 'react';
-import { toast } from 'sonner';
 
 const UploadFile = ({ organizationId }: { organizationId: string }) => {
   const [modalOpen, setModalOpen] = useState(false);

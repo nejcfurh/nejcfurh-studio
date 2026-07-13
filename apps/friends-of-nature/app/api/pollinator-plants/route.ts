@@ -1,6 +1,6 @@
 import { generateObject, google } from '@repo/ai-sdk';
+import { z } from '@repo/validation';
 import { NextResponse } from 'next/server';
-import { z } from 'zod';
 
 const PlantSchema = z.object({
   name: z.string(),

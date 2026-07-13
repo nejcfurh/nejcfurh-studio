@@ -1,6 +1,12 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
+import { getLandlordContact } from '@/features/listings/actions/get-landlord-contact';
+import {
+  AnimatedButton,
+  AnimatedDiv,
+  AnimatedSpan
+} from '@repo/ui/animation/core';
+import { Button } from '@repo/ui/components/button';
 import {
   Dialog,
   DialogContent,
@@ -9,20 +15,14 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger
-} from '@/components/ui/dialog';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { getLandlordContact } from '@/features/listings/actions/get-landlord-contact';
-import {
-  AnimatedButton,
-  AnimatedDiv,
-  AnimatedSpan
-} from '@repo/ui/animation/core';
-import { Loader2, Mail, MessageSquare } from 'lucide-react';
+} from '@repo/ui/components/dialog';
+import { Label } from '@repo/ui/components/label';
+import { toast } from '@repo/ui/components/sonner';
+import { Textarea } from '@repo/ui/components/textarea';
+import { Loader2, Mail, MessageSquare } from '@repo/ui/icons/lucide';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
-import { toast } from 'sonner';
 
 type Props = {
   listingId: string;

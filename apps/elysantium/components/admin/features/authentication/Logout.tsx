@@ -2,7 +2,7 @@
 
 import ButtonIcon from '@/components/admin/ui/ButtonIcon';
 import SpinnerMini from '@/components/admin/ui/SpinnerMini';
-import { HiArrowRightOnRectangle } from 'react-icons/hi2';
+import { HiArrowRightOnRectangle } from '@repo/ui/icons/react-icons/hi2';
 
 import { useLogout } from './useLogout';
 

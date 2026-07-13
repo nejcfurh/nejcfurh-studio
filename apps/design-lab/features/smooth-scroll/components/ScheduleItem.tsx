@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from '@repo/ui/animation';
-import { FiMapPin } from 'react-icons/fi';
+import { FiMapPin } from '@repo/ui/icons/react-icons/fi';
 
 const ScheduleItem = ({
   title,

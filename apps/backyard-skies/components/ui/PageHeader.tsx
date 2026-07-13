@@ -1,8 +1,8 @@
 'use client';
 
 import { AnimatedButton, AnimatedDiv } from '@repo/ui/animation/core';
+import { BiChevronLeft } from '@repo/ui/icons/react-icons/bi';
 import { ReactNode } from 'react';
-import { BiChevronLeft } from 'react-icons/bi';
 
 const spring = { type: 'spring' as const, stiffness: 300, damping: 30 };
 

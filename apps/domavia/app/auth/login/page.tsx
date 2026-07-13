@@ -1,9 +1,6 @@
 'use client';
 
 import Spinner from '@/components/Spinner';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { GoogleOAuthButton } from '@/features/auth/components/GoogleOAuthButton';
 import { useAuth } from '@/features/auth/hooks/useAuth';
 import {
@@ -18,12 +15,15 @@ import {
   AnimatedText,
   AnimatedTitle
 } from '@repo/ui/animation/core';
-import { Loader2 } from 'lucide-react';
+import { Button } from '@repo/ui/components/button';
+import { Input } from '@repo/ui/components/input';
+import { Label } from '@repo/ui/components/label';
+import { toast } from '@repo/ui/components/sonner';
+import { Loader2 } from '@repo/ui/icons/lucide';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense, useState } from 'react';
-import { toast } from 'sonner';
 
 const isSafeRedirectPath = (path: string | null): path is string =>
   typeof path === 'string' && path.startsWith('/') && !path.startsWith('//');

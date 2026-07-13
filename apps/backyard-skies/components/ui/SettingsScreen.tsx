@@ -4,8 +4,7 @@ import { ACCENT, BG_IMAGE } from '@/lib/designTokens';
 import { useGameStore } from '@/store/gameStore';
 import { AnimatePresence } from '@repo/ui/animation';
 import { AnimatedDiv } from '@repo/ui/animation/core';
-import { ComponentType, ReactNode, useState } from 'react';
-import { BiChevronRight } from 'react-icons/bi';
+import { BiChevronRight } from '@repo/ui/icons/react-icons/bi';
 import {
   PiInfoBold,
   PiPlayFill,
@@ -13,7 +12,8 @@ import {
   PiSpeakerHighBold,
   PiUserBold,
   PiXBold
-} from 'react-icons/pi';
+} from '@repo/ui/icons/react-icons/pi';
+import { ComponentType, ReactNode, useState } from 'react';
 
 import PageHeader from './PageHeader';
 import { ArcadeButton, GlassCard } from './primitives';
