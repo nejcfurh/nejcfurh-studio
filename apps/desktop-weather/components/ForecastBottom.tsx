@@ -4,7 +4,7 @@ import { useFetchWeatherData } from '../app/hooks/useFetchWeatherData';
 import { describeWeatherCode } from './weather-icons/weather-code';
 import { WeatherIcon } from './weather-icons/WeatherIcon';
 
-const FORECAST_ICON_SIZE = 80;
+const FORECAST_ICON_SIZE = 96;
 
 const formatWeekday = (dateString: string) =>
   new Date(dateString).toLocaleDateString('sl-SI', { weekday: 'short' });
@@ -26,7 +26,6 @@ export function ForecastBottom() {
     <div className="mx-auto flex h-full w-full max-w-5xl items-center justify-between gap-4 px-10">
       {forecast.time?.map((date: string, idx: number) => {
         const condition = describeWeatherCode(forecast.weathercode[idx]);
-        const isToday = idx === 0;
 
         return (
           <div
@@ -34,11 +33,7 @@ export function ForecastBottom() {
             className="flex min-w-0 flex-1 flex-col items-center gap-3 px-2 py-4"
           >
             <div className="text-center">
-              <div
-                className={`text-lg font-medium tracking-wide uppercase ${
-                  isToday ? 'text-white' : 'text-white/60'
-                }`}
-              >
+              <div className="text-lg font-medium tracking-wide text-white/60 uppercase">
                 {formatWeekday(date)}
               </div>
               <div className="text-sm text-white/40">{formatDate(date)}</div>
