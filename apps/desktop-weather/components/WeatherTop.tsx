@@ -3,7 +3,8 @@
 import { useDisplayCurrentTime } from '../app/hooks/useDisplayCurrentTime';
 import { useFetchWeatherData } from '../app/hooks/useFetchWeatherData';
 import { useUserLocation } from '../app/hooks/useUserLocation';
-import { mapWeatherCodeToIcon } from '../app/utils/mappers';
+import { describeWeatherCode } from './weather-icons/weather-code';
+import { WeatherIcon } from './weather-icons/WeatherIcon';
 
 export function WeatherTop() {
   const { data } = useFetchWeatherData();
@@ -23,11 +24,11 @@ export function WeatherTop() {
     year: 'numeric'
   });
 
-  const icon = data ? mapWeatherCodeToIcon(data.weathercode) : null;
+  const condition = data ? describeWeatherCode(data.weathercode) : null;
 
   return (
     <div className="flex h-full flex-col items-center justify-center">
-      <div className="mb-8 text-center">
+      <div className="mb-3 text-center">
         <div className="font-roboto mb-2 text-9xl font-bold">{timeString}</div>
         <div className="font-roboto text-4xl text-gray-400">{dateString}</div>
         {location && location.city && (
@@ -38,9 +39,13 @@ export function WeatherTop() {
           </div>
         )}
       </div>
-      {data && (
-        <div className="flex items-center gap-6">
-          {icon}
+      {data && condition && (
+        <div className="flex items-center gap-4">
+          <WeatherIcon
+            name={condition.icon}
+            label={condition.label}
+            size={96}
+          />
           <span className="font-roboto text-5xl font-light">
             {data.temperature} °C
           </span>
