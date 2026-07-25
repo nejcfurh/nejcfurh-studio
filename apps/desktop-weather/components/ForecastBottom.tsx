@@ -1,44 +1,70 @@
 'use client';
 
+import { AnimatedDiv } from '@repo/ui/animation/core';
+
 import { useFetchWeatherData } from '../app/hooks/useFetchWeatherData';
-import { mapWeatherCodeToIcon } from '../app/utils/mappers';
+import { describeWeatherCode } from './weather-icons/weather-code';
+import { WeatherIcon } from './weather-icons/WeatherIcon';
+import { forecastColumnVariants, forecastRowVariants } from './weather-motion';
+
+const FORECAST_ICON_SIZE = 96;
+
+const formatWeekday = (dateString: string) =>
+  new Date(dateString).toLocaleDateString('sl-SI', { weekday: 'short' });
+
+const formatDate = (dateString: string) =>
+  new Date(dateString).toLocaleDateString('sl-SI', {
+    day: 'numeric',
+    month: 'short'
+  });
 
 export function ForecastBottom() {
   const { forecast } = useFetchWeatherData();
 
   if (!forecast) return null;
 
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString('sl-SI', {
-      day: 'numeric',
-      month: 'long'
-    });
-  };
-
   return (
-    <div className="mx-auto flex h-full w-full items-center justify-center overflow-x-hidden">
-      {forecast.time?.map((date: string, idx: number) => (
-        <div
-          key={date}
-          className="mx-5 flex min-w-[30] shrink-0 flex-col items-center justify-center rounded p-2"
-        >
-          <div className="mb-2 text-lg font-bold">{formatDate(date)}</div>
-          <div className="flex flex-col items-center gap-4">
-            {mapWeatherCodeToIcon(forecast.weathercode[idx])}
-            <div className="mt-2 flex flex-col gap-2 text-center text-lg">
-              <p className="font-thing">
-                <span className="font-bold">Max:</span>{' '}
-                {Math.round(forecast.temperature_2m_max[idx])}°C
-              </p>
-              <p className="font-thin">
-                <span className="font-bold">Min:</span>{' '}
-                {Math.round(forecast.temperature_2m_min[idx])}°C
-              </p>
+    // Capped width keeps the seven days reading as one group on a wide kiosk
+    // screen, and flexing within it fits them all instead of clipping.
+    <AnimatedDiv
+      className="mx-auto flex h-full w-full max-w-5xl items-center justify-between gap-4 px-10"
+      variants={forecastRowVariants}
+      initial="hidden"
+      animate="visible"
+    >
+      {forecast.time?.map((date: string, idx: number) => {
+        // Daily rollups have no day/night, so these stay on the day icons.
+        const condition = describeWeatherCode(forecast.weathercode[idx]);
+
+        return (
+          <AnimatedDiv
+            key={date}
+            className="flex min-w-0 flex-1 flex-col items-center gap-3 px-2 py-4"
+            variants={forecastColumnVariants}
+          >
+            <div className="text-center">
+              <div className="text-lg font-medium tracking-wide text-white/60 uppercase">
+                {formatWeekday(date)}
+              </div>
+              <div className="text-sm text-white/40">{formatDate(date)}</div>
             </div>
-          </div>
-        </div>
-      ))}
-    </div>
+            <WeatherIcon
+              name={condition.icon}
+              label={condition.label}
+              size={FORECAST_ICON_SIZE}
+            />
+            {/* High leads, low recedes — the old markup bolded the labels instead. */}
+            <div className="flex items-baseline gap-2 tabular-nums">
+              <span className="text-3xl font-medium">
+                {Math.round(forecast.temperature_2m_max[idx])}°
+              </span>
+              <span className="text-xl font-light text-white/45">
+                {Math.round(forecast.temperature_2m_min[idx])}°
+              </span>
+            </div>
+          </AnimatedDiv>
+        );
+      })}
+    </AnimatedDiv>
   );
 }

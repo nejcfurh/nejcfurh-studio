@@ -6,6 +6,8 @@ import { useUserLocation } from './useUserLocation';
 interface WeatherData {
   temperature: number;
   weathercode: number;
+  /** 1 while the sun is up at the reading's location, 0 after dark. */
+  is_day: number;
 }
 
 interface ForecastData {
