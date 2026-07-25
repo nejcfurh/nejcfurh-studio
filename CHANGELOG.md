@@ -1,5 +1,28 @@
 # Changelog
 
+## v1.29.0 (2026-07-25)
+
+
+### Features
+
+- feat(desktop-weather): Animate the weather icons and restyle the kiosk display (#116) (c3c7792)
+- feat(desktop-weather): Show moon icons after dark (d145f72)
+- feat(desktop-weather): Add the motion choreography (2069d35)
+- feat(desktop-weather): Animate the weather icons with inline meteocons art (99c513e)
+
+
+### Bug Fixes & Improvements
+
+- fix(desktop-weather): Repair the font pipeline and tighten the layout (b095e7d)
+
+
+### Other Changes
+
+- chore(desktop-weather): Align the metadata with the rest of the monorepo (c03c79e)
+- style(desktop-weather): Enlarge the forecast icons and drop the today accent (e8622dd)
+
+# Changelog
+
 ## v1.28.0 (2026-07-13)
 
 
