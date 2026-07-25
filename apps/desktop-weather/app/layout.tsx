@@ -44,6 +44,12 @@ export const metadata: Metadata = {
     capable: true,
     title: 'Desktop Weather',
     statusBarStyle: 'black-translucent'
+  },
+  // Next derives only the modern mobile-web-app-capable from appleWebApp and
+  // never emits the Apple-prefixed name, so it is restored by hand: it is the
+  // one tag the previous hand-written head carried that the metadata drops.
+  other: {
+    'apple-mobile-web-app-capable': 'yes'
   }
 };
 
