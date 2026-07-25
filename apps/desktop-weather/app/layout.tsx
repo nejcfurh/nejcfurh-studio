@@ -15,11 +15,17 @@ const TITLE = 'Desktop Weather | Current conditions at a glance';
 const DESCRIPTION =
   'A kiosk weather display for a wall-mounted tablet, showing the current conditions alongside a seven day forecast.';
 
-// Vercel provides VERCEL_URL per deployment, so the app needs no root-url of
-// its own to resolve the relative asset paths below against.
-const webRootUrl = process.env.VERCEL_URL
-  ? `https://${process.env.VERCEL_URL}`
-  : 'http://localhost:3000';
+/**
+ * Resolves the relative asset paths below. VERCEL_PROJECT_PRODUCTION_URL is the
+ * project's production domain, which is what these should point at; VERCEL_URL
+ * names the individual deployment, so using it left production advertising
+ * assets on a per-deployment hostname instead of the real one.
+ */
+const productionUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL;
+const deploymentUrl = process.env.VERCEL_URL;
+const host = productionUrl ?? deploymentUrl;
+
+const webRootUrl = host ? `https://${host}` : 'http://localhost:3000';
 
 export const metadata: Metadata = {
   metadataBase: new URL(webRootUrl),
@@ -44,6 +50,12 @@ export const metadata: Metadata = {
     capable: true,
     title: 'Desktop Weather',
     statusBarStyle: 'black-translucent'
+  },
+  // Next derives only the modern mobile-web-app-capable from appleWebApp and
+  // never emits the Apple-prefixed name, so it is restored by hand: it is the
+  // one tag the previous hand-written head carried that the metadata drops.
+  other: {
+    'apple-mobile-web-app-capable': 'yes'
   }
 };
 
