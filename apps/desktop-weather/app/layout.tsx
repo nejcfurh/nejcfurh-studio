@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Roboto } from 'next/font/google';
 
 import Providers from './providers';
@@ -11,9 +11,46 @@ const roboto = Roboto({
   subsets: ['latin']
 });
 
+const TITLE = 'Desktop Weather | Current conditions at a glance';
+const DESCRIPTION =
+  'A kiosk weather display for a wall-mounted tablet, showing the current conditions alongside a seven day forecast.';
+
+// Vercel provides VERCEL_URL per deployment, so the app needs no root-url of
+// its own to resolve the relative asset paths below against.
+const webRootUrl = process.env.VERCEL_URL
+  ? `https://${process.env.VERCEL_URL}`
+  : 'http://localhost:3000';
+
 export const metadata: Metadata = {
-  title: 'Desktop Weather',
-  description: 'Desktop Weather'
+  metadataBase: new URL(webRootUrl),
+  title: TITLE,
+  description: DESCRIPTION,
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    images: [
+      {
+        url: '/icon-512.png'
+      }
+    ]
+  },
+  manifest: '/manifest.json',
+  icons: {
+    apple: '/icon-192.png'
+  },
+  // capable is what lets the Surface install this as a standalone kiosk app
+  // rather than a browser tab; Next emits mobile-web-app-capable from it.
+  appleWebApp: {
+    capable: true,
+    title: 'Desktop Weather',
+    statusBarStyle: 'black-translucent'
+  }
+};
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  themeColor: '#000000'
 };
 
 export default function RootLayout({
@@ -23,14 +60,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="manifest" href="/manifest.json" />
-        <meta name="theme-color" content="#000000" />
-        <link rel="apple-touch-icon" href="/icon-192.png" />
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="mobile-web-app-capable" content="yes" />
-      </head>
       <body
         className={`${roboto.variable} h-screen overflow-hidden bg-black font-sans text-white antialiased`}
       >
