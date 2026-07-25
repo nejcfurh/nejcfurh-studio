@@ -1,17 +1,13 @@
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
+import { Roboto } from 'next/font/google';
 
 import Providers from './providers';
 
 import './globals.css';
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
-  subsets: ['latin']
-});
-
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
+// Self-hosted so the kiosk renders text without reaching fonts.googleapis.com.
+const roboto = Roboto({
+  variable: '--font-roboto',
   subsets: ['latin']
 });
 
@@ -36,7 +32,7 @@ export default function RootLayout({
         <meta name="mobile-web-app-capable" content="yes" />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} h-screen overflow-hidden bg-black text-white antialiased`}
+        className={`${roboto.variable} h-screen overflow-hidden bg-black font-sans text-white antialiased`}
       >
         <Providers>{children}</Providers>
       </body>
