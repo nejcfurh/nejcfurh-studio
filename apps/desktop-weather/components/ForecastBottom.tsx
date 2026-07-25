@@ -1,8 +1,11 @@
 'use client';
 
+import { AnimatedDiv } from '@repo/ui/animation/core';
+
 import { useFetchWeatherData } from '../app/hooks/useFetchWeatherData';
 import { describeWeatherCode } from './weather-icons/weather-code';
 import { WeatherIcon } from './weather-icons/WeatherIcon';
+import { forecastColumnVariants, forecastRowVariants } from './weather-motion';
 
 const FORECAST_ICON_SIZE = 96;
 
@@ -23,14 +26,20 @@ export function ForecastBottom() {
   return (
     // Capped width keeps the seven days reading as one group on a wide kiosk
     // screen, and flexing within it fits them all instead of clipping.
-    <div className="mx-auto flex h-full w-full max-w-5xl items-center justify-between gap-4 px-10">
+    <AnimatedDiv
+      className="mx-auto flex h-full w-full max-w-5xl items-center justify-between gap-4 px-10"
+      variants={forecastRowVariants}
+      initial="hidden"
+      animate="visible"
+    >
       {forecast.time?.map((date: string, idx: number) => {
         const condition = describeWeatherCode(forecast.weathercode[idx]);
 
         return (
-          <div
+          <AnimatedDiv
             key={date}
             className="flex min-w-0 flex-1 flex-col items-center gap-3 px-2 py-4"
+            variants={forecastColumnVariants}
           >
             <div className="text-center">
               <div className="text-lg font-medium tracking-wide text-white/60 uppercase">
@@ -52,9 +61,9 @@ export function ForecastBottom() {
                 {Math.round(forecast.temperature_2m_min[idx])}°
               </span>
             </div>
-          </div>
+          </AnimatedDiv>
         );
       })}
-    </div>
+    </AnimatedDiv>
   );
 }
