@@ -1,5 +1,18 @@
 # Changelog
 
+## v1.29.1 (2026-07-25)
+
+
+### Bug Fixes & Improvements
+
+- fix(desktop-weather): Point the metadata at the production domain and untrack the generated sw (#120) (9e0e144)
+- fix(desktop-weather): Point the metadata at the production domain (fc54909)
+- fix(desktop-weather): Always animate on the kiosk and restore the apple web-app tag (#118) (b180358)
+- fix(desktop-weather): Always animate, ignoring the OS reduced-motion setting (880b235)
+- fix(desktop-weather): Restore the apple web-app capable tag (4412902)
+
+# Changelog
+
 ## v1.29.0 (2026-07-25)
 
 
