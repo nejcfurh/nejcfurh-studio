@@ -9,11 +9,12 @@ export default function Home() {
   useDeploymentCheck();
 
   return (
-    <main className="flex h-screen w-screen flex-col divide-y divide-white/50">
+    // A kiosk display never scrolls, so neither axis gets an overflow.
+    <main className="flex h-screen w-screen flex-col divide-y divide-white/10 overflow-hidden">
       <div className="flex-1">
         <WeatherTop />
       </div>
-      <div className="flex-1 overflow-y-auto">
+      <div className="flex-1">
         <ForecastBottom />
       </div>
     </main>
