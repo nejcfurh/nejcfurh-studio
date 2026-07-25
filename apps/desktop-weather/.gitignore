@@ -20,6 +20,13 @@
 # production
 /build
 
+# next-pwa writes these into public/ on every production build, so a committed
+# copy only goes stale: production already serves a different workbox hash
+/public/sw.js
+/public/sw.js.map
+/public/workbox-*.js
+/public/workbox-*.js.map
+
 # misc
 .DS_Store
 *.pem
