@@ -4,11 +4,14 @@ import { useReducedMotion } from '@repo/ui/animation';
 import { useEffect, useId, useRef } from 'react';
 
 import { ClearDayArt } from './art/clear-day';
+import { ClearNightArt } from './art/clear-night';
 import { DrizzleArt } from './art/drizzle';
 import { FogArt } from './art/fog';
 import { MostlyClearDayArt } from './art/mostly-clear-day';
+import { MostlyClearNightArt } from './art/mostly-clear-night';
 import { OvercastArt } from './art/overcast';
 import { PartlyCloudyDayArt } from './art/partly-cloudy-day';
+import { PartlyCloudyNightArt } from './art/partly-cloudy-night';
 import { RainArt } from './art/rain';
 import { SleetArt } from './art/sleet';
 import { SnowArt } from './art/snow';
@@ -21,8 +24,11 @@ const ART: Record<
   (props: WeatherArtProps) => React.ReactNode
 > = {
   'clear-day': ClearDayArt,
+  'clear-night': ClearNightArt,
   'mostly-clear-day': MostlyClearDayArt,
+  'mostly-clear-night': MostlyClearNightArt,
   'partly-cloudy-day': PartlyCloudyDayArt,
+  'partly-cloudy-night': PartlyCloudyNightArt,
   overcast: OvercastArt,
   fog: FogArt,
   drizzle: DrizzleArt,

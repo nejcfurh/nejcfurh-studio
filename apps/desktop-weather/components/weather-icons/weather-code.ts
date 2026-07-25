@@ -1,7 +1,10 @@
 export type WeatherIconName =
   | 'clear-day'
+  | 'clear-night'
   | 'mostly-clear-day'
+  | 'mostly-clear-night'
   | 'partly-cloudy-day'
+  | 'partly-cloudy-night'
   | 'overcast'
   | 'fog'
   | 'drizzle'
@@ -52,5 +55,31 @@ const UNKNOWN: WeatherCondition = {
   label: 'Unknown conditions'
 };
 
-export const describeWeatherCode = (code: number): WeatherCondition =>
-  CONDITIONS[code] ?? UNKNOWN;
+/**
+ * Only the icons that actually draw a sun have a night counterpart. Overcast,
+ * fog and the precipitation icons hide the sky anyway, so they are drawn the
+ * same after dark and are deliberately absent here.
+ */
+const NIGHT_EQUIVALENT: Partial<Record<WeatherIconName, WeatherIconName>> = {
+  'clear-day': 'clear-night',
+  'mostly-clear-day': 'mostly-clear-night',
+  'partly-cloudy-day': 'partly-cloudy-night'
+};
+
+interface DescribeOptions {
+  /** Open-Meteo reports this per reading; a daily forecast has no such thing. */
+  isDay?: boolean;
+}
+
+export const describeWeatherCode = (
+  code: number,
+  { isDay = true }: DescribeOptions = {}
+): WeatherCondition => {
+  const condition = CONDITIONS[code] ?? UNKNOWN;
+
+  if (isDay) return condition;
+
+  const nightIcon = NIGHT_EQUIVALENT[condition.icon];
+
+  return nightIcon ? { ...condition, icon: nightIcon } : condition;
+};

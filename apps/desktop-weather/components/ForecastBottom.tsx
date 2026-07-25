@@ -33,6 +33,7 @@ export function ForecastBottom() {
       animate="visible"
     >
       {forecast.time?.map((date: string, idx: number) => {
+        // Daily rollups have no day/night, so these stay on the day icons.
         const condition = describeWeatherCode(forecast.weathercode[idx]);
 
         return (

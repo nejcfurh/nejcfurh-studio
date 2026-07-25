@@ -38,7 +38,9 @@ export function WeatherTop() {
     year: 'numeric'
   });
 
-  const condition = data ? describeWeatherCode(data.weathercode) : null;
+  const condition = data
+    ? describeWeatherCode(data.weathercode, { isDay: data.is_day === 1 })
+    : null;
 
   const city =
     location?.city === 'Rače'
