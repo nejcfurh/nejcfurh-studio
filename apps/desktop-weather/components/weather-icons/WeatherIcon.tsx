@@ -1,7 +1,6 @@
 'use client';
 
-import { useReducedMotion } from '@repo/ui/animation';
-import { useEffect, useId, useRef } from 'react';
+import { useId } from 'react';
 
 import { ClearDayArt } from './art/clear-day';
 import { ClearNightArt } from './art/clear-night';
@@ -51,28 +50,13 @@ export function WeatherIcon({
   size,
   className
 }: WeatherIconProps): React.ReactNode {
-  const ref = useRef<SVGSVGElement>(null);
-  const reducedMotion = useReducedMotion();
   // Ids land in url(#…) references, so strip anything not valid in a fragment
   // identifier rather than depending on React's useId format.
   const uid = useId().replace(/[^\w-]/g, '');
   const Art = ART[name];
 
-  useEffect(() => {
-    const svg = ref.current;
-    if (!svg) return;
-
-    // SMIL animations ignore prefers-reduced-motion, so they need pausing by hand.
-    if (reducedMotion) {
-      svg.pauseAnimations();
-    } else {
-      svg.unpauseAnimations();
-    }
-  }, [reducedMotion]);
-
   return (
     <svg
-      ref={ref}
       viewBox="0 0 128 128"
       width={size}
       height={size}
