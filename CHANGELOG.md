@@ -1,5 +1,15 @@
 # Changelog
 
+## v1.29.2 (2026-07-31)
+
+
+### Bug Fixes & Improvements
+
+- fix(design-lab): Replace the portrait photos (#121) (7d54a78)
+- fix(design-lab): Replace the portrait photos (2e082fa)
+
+# Changelog
+
 ## v1.29.1 (2026-07-25)
 
 
