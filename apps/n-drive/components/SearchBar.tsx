@@ -22,6 +22,7 @@ const SearchBar = ({
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
+    mode: 'onTouched',
     defaultValues: {
       searchQuery: ''
     }

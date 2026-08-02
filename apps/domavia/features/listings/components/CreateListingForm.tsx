@@ -68,6 +68,7 @@ export const CreateListingForm = () => {
 
   const form = useForm<ListingFormValues>({
     resolver: zodResolver(createListingSchema),
+    mode: 'onTouched',
     defaultValues
   });
 
