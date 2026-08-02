@@ -7,6 +7,16 @@ import {
 } from '@/features/listings/schemas';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { AnimatedDiv } from '@repo/ui/animation/core';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle
+} from '@repo/ui/components/alert-dialog';
 import { Button } from '@repo/ui/components/button';
 import {
   Dialog,
@@ -31,7 +41,7 @@ import { Textarea } from '@repo/ui/components/textarea';
 import { applyActionResult } from '@repo/ui/forms';
 import { Loader2, Save } from '@repo/ui/icons/lucide';
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 
 import type { Listing } from '../types';
@@ -66,6 +76,23 @@ export const EditListingDialog = ({ listing, open, onOpenChange }: Props) => {
 
   const { control, handleSubmit, reset, formState } = form;
   const isSubmitting = formState.isSubmitting;
+  const [discardPrompted, setDiscardPrompted] = useState(false);
+
+  // Esc and the overlay reach the same handler as Cancel, so all three routes
+  // out of a half-finished edit are gated here rather than on the button.
+  const handleOpenChange = (next: boolean) => {
+    if (!next && formState.isDirty && !isSubmitting) {
+      setDiscardPrompted(true);
+      return;
+    }
+    onOpenChange(next);
+  };
+
+  const discardChanges = () => {
+    setDiscardPrompted(false);
+    reset(toDefaults(listing));
+    onOpenChange(false);
+  };
   const type = useWatch({ control, name: 'type' });
   const offer = useWatch({ control, name: 'offer' });
 
@@ -106,7 +133,7 @@ export const EditListingDialog = ({ listing, open, onOpenChange }: Props) => {
   };
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-2xl">
         <DialogHeader>
           <DialogTitle>Edit listing</DialogTitle>
@@ -382,7 +409,7 @@ export const EditListingDialog = ({ listing, open, onOpenChange }: Props) => {
               <Button
                 type="button"
                 variant="outline"
-                onClick={() => onOpenChange(false)}
+                onClick={() => handleOpenChange(false)}
                 disabled={isSubmitting}
               >
                 Cancel
@@ -395,6 +422,24 @@ export const EditListingDialog = ({ listing, open, onOpenChange }: Props) => {
           </form>
         </Form>
       </DialogContent>
+
+      <AlertDialog open={discardPrompted} onOpenChange={setDiscardPrompted}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Discard your changes?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This listing has edits you haven&apos;t saved. Closing now loses
+              them.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Keep editing</AlertDialogCancel>
+            <AlertDialogAction onClick={discardChanges}>
+              Discard
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </Dialog>
   );
 };

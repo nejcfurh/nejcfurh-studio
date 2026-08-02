@@ -1,7 +1,11 @@
 'use client';
 
 import { createListing } from '@/features/listings/actions/create-listing';
-import { requestListingUploadTickets } from '@/features/listings/actions/request-upload-tickets';
+import {
+  discardPendingUploads,
+  requestListingUploadTickets,
+  type UploadTicket
+} from '@/features/listings/actions/request-upload-tickets';
 import {
   ALLOWED_IMAGE_MIME,
   MAX_IMAGE_BYTES,
@@ -88,9 +92,11 @@ export const CreateListingForm = () => {
   const onSubmit = async (data: ListingFormValues) => {
     form.clearErrors('root');
 
+    let tickets: UploadTicket[] = [];
+
     try {
       const mimeTypes = data.images.map((file) => file.type);
-      const tickets = await requestListingUploadTickets(mimeTypes);
+      tickets = await requestListingUploadTickets(mimeTypes);
 
       await Promise.all(
         data.images.map(async (file, i) => {
@@ -120,12 +126,19 @@ export const CreateListingForm = () => {
         imagePaths: tickets.map((t) => t.path)
       });
 
-      if (!applyActionResult(form, result)) return;
+      if (!applyActionResult(form, result)) {
+        // createListing rolls back its own uploads before reporting.
+        return;
+      }
 
       toast.success('Listing created.');
       router.push('/profile');
     } catch (err) {
-      // The action never returned — upload or transport failure, not a rejection.
+      // The action never returned — upload or transport failure, not a
+      // rejection. Release whatever reached `_pending/` so a retry does not
+      // leave a copy behind.
+      await discardPendingUploads(tickets.map((ticket) => ticket.path));
+
       form.setError('root', {
         message:
           err instanceof Error

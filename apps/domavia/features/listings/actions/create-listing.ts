@@ -157,7 +157,12 @@ export const createListing = async (
     revalidatePath('/profile');
     return succeeded({ listingId: docRef.id });
   } catch (err) {
-    await removeUploadedFiles(movedPaths);
+    // Roll back both sides of the move: what already landed under `listings/`
+    // and what is still sitting in `_pending/`. Missing the latter is how a
+    // failed submit leaves orphans no later request will ever reference.
+    const unmoved = input.imagePaths.slice(movedPaths.length);
+    await removeUploadedFiles([...movedPaths, ...unmoved]);
+
     // Retryable: the uploads were rolled back, so the same payload can be resent.
     return failed(
       err instanceof Error ? err.message : 'Failed to create listing.'
