@@ -5,20 +5,24 @@ import Form from '@/components/admin/ui/Form';
 import FormRow from '@/components/admin/ui/FormRow';
 import Input from '@/components/admin/ui/Input';
 import SpinnerMini from '@/components/admin/ui/SpinnerMini';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 
+import { signupSchema, type SignupFormValues } from './schemas';
 import { useSignUp } from './useSignUp';
 
-interface SignupFormValues {
-  fullName: string;
-  email: string;
-  password: string;
-  passwordConfirm: string;
-}
-
 function SignupForm(): React.ReactElement {
-  const { register, formState, getValues, handleSubmit, reset } =
-    useForm<SignupFormValues>();
+  const { register, formState, handleSubmit, reset } =
+    useForm<SignupFormValues>({
+      resolver: zodResolver(signupSchema),
+      mode: 'onTouched',
+      defaultValues: {
+        fullName: '',
+        email: '',
+        password: '',
+        passwordConfirm: ''
+      }
+    });
   const { errors } = formState;
 
   const { signup, isPending } = useSignUp();
@@ -34,7 +38,7 @@ function SignupForm(): React.ReactElement {
           type="text"
           id="fullName"
           disabled={isPending}
-          {...register('fullName', { required: 'This field is required!' })}
+          {...register('fullName')}
         />
       </FormRow>
 
@@ -43,13 +47,7 @@ function SignupForm(): React.ReactElement {
           type="email"
           id="email"
           disabled={isPending}
-          {...register('email', {
-            required: 'This field is required!',
-            pattern: {
-              value: /\S+@\S+\.\S+/,
-              message: 'Provide a valid email address!'
-            }
-          })}
+          {...register('email')}
         />
       </FormRow>
 
@@ -61,13 +59,7 @@ function SignupForm(): React.ReactElement {
           type="password"
           id="password"
           disabled={isPending}
-          {...register('password', {
-            required: 'This field is required!',
-            minLength: {
-              value: 8,
-              message: 'Password needs a minimum of 8 characters!'
-            }
-          })}
+          {...register('password')}
         />
       </FormRow>
 
@@ -76,11 +68,7 @@ function SignupForm(): React.ReactElement {
           type="password"
           id="passwordConfirm"
           disabled={isPending}
-          {...register('passwordConfirm', {
-            required: 'This field is required!',
-            validate: (value: string) =>
-              value === getValues().password || 'Passwords need to match!'
-          })}
+          {...register('passwordConfirm')}
         />
       </FormRow>
 

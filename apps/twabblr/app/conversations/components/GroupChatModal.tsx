@@ -4,11 +4,13 @@ import Button from '@/app/components/Button';
 import Input from '@/app/components/inputs/Input';
 import Select from '@/app/components/inputs/Select';
 import Modal from '@/app/components/Modal';
+import { groupChatSchema, type GroupChatFormValues } from '@/app/schemas';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { User } from '@prisma/client';
 import { useMutation } from '@repo/react-query';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
-import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+import { SubmitHandler, useForm, useWatch } from 'react-hook-form';
 import toast from 'react-hot-toast';
 
 interface GroupChatModalProps {
@@ -25,7 +27,7 @@ const GroupChatModal: React.FC<GroupChatModalProps> = ({
   const router = useRouter();
 
   const createGroup = useMutation({
-    mutationFn: (data: FieldValues) =>
+    mutationFn: (data: GroupChatFormValues) =>
       axios.post('/api/conversations', { ...data, isGroup: true }),
     onSuccess: () => {
       router.refresh();
@@ -43,18 +45,20 @@ const GroupChatModal: React.FC<GroupChatModalProps> = ({
     register,
     handleSubmit,
     setValue,
-    watch,
+    control,
     formState: { errors }
-  } = useForm<FieldValues>({
+  } = useForm<GroupChatFormValues>({
+    resolver: zodResolver(groupChatSchema),
+    mode: 'onTouched',
     defaultValues: {
       name: '',
       members: []
     }
   });
 
-  const members = watch('members');
+  const members = useWatch({ control, name: 'members' });
 
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+  const onSubmit: SubmitHandler<GroupChatFormValues> = (data) => {
     createGroup.mutate(data);
   };
 
@@ -86,7 +90,7 @@ const GroupChatModal: React.FC<GroupChatModalProps> = ({
                   label: user.name
                 }))}
                 onChange={(value) =>
-                  setValue('members', value, {
+                  setValue('members', [...value], {
                     shouldValidate: true
                   })
                 }

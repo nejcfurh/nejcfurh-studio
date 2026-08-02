@@ -5,18 +5,19 @@ import Form from '@/components/admin/ui/Form';
 import FormRow from '@/components/admin/ui/FormRow';
 import Input from '@/components/admin/ui/Input';
 import SpinnerMini from '@/components/admin/ui/SpinnerMini';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 
+import { updatePasswordSchema, type PasswordFormValues } from './schemas';
 import { useUpdateUser } from './useUpdateUser';
 
-interface PasswordFormValues {
-  password: string;
-  passwordConfirm: string;
-}
-
 function UpdatePasswordForm(): React.ReactElement {
-  const { register, handleSubmit, formState, getValues, reset } =
-    useForm<PasswordFormValues>();
+  const { register, handleSubmit, formState, reset } =
+    useForm<PasswordFormValues>({
+      resolver: zodResolver(updatePasswordSchema),
+      mode: 'onTouched',
+      defaultValues: { password: '', passwordConfirm: '' }
+    });
   const { errors } = formState;
 
   const { updateUser, isUpdating } = useUpdateUser();
@@ -36,13 +37,7 @@ function UpdatePasswordForm(): React.ReactElement {
           id="password"
           autoComplete="current-password"
           disabled={isUpdating}
-          {...register('password', {
-            required: 'This field is required',
-            minLength: {
-              value: 8,
-              message: 'Password needs a minimum of 8 characters'
-            }
-          })}
+          {...register('password')}
         />
       </FormRow>
 
@@ -55,11 +50,7 @@ function UpdatePasswordForm(): React.ReactElement {
           autoComplete="new-password"
           id="passwordConfirm"
           disabled={isUpdating}
-          {...register('passwordConfirm', {
-            required: 'This field is required',
-            validate: (value: string) =>
-              getValues().password === value || 'Passwords need to match'
-          })}
+          {...register('passwordConfirm')}
         />
       </FormRow>
       <FormRow>
