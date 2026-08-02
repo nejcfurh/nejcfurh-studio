@@ -3,6 +3,12 @@ import { createBaseConfig } from 'eslint-config-web/react-library.js';
 export default [
   ...createBaseConfig(import.meta.dirname),
   {
-    ignores: ['eslint.config.mjs']
+    ignores: [
+      '**/__tests__/**',
+      '**/*.test.ts',
+      '**/*.test.tsx',
+      'eslint.config.mjs',
+      'vitest.config.mts'
+    ]
   }
 ];

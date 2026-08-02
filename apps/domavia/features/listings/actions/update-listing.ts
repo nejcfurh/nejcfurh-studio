@@ -4,6 +4,12 @@ import { requireUid } from '@/features/auth/utils/require-uid';
 import { LISTINGS_COLLECTION } from '@/features/listings/constants';
 import { listingServerSchema } from '@/features/listings/schemas';
 import { adminDb } from '@/lib/firebase/admin';
+import {
+  invalid,
+  rejected,
+  succeeded,
+  type ActionResult
+} from '@repo/validation';
 import { FieldValue } from 'firebase-admin/firestore';
 import { revalidatePath } from 'next/cache';
 
@@ -24,10 +30,10 @@ export type UpdateListingInput = {
 export const updateListing = async (
   listingId: string,
   input: UpdateListingInput
-): Promise<void> => {
+): Promise<ActionResult<void>> => {
   const uid = await requireUid();
 
-  const parsed = listingServerSchema.parse({
+  const parsed = listingServerSchema.safeParse({
     type: input.type,
     name: input.name,
     bedrooms: input.bedrooms,
@@ -41,27 +47,35 @@ export const updateListing = async (
     discountedPrice: input.discountedPrice ?? undefined
   });
 
+  if (!parsed.success) {
+    return invalid(parsed.error);
+  }
+
+  const listing = parsed.data;
+
   const ref = adminDb.collection(LISTINGS_COLLECTION).doc(listingId);
   const snap = await ref.get();
-  if (!snap.exists) throw new Error('Listing not found.');
+  if (!snap.exists) return rejected('Listing not found.');
   if (snap.data()?.ownerUid !== uid) {
-    throw new Error('You can only edit your own listings.');
+    return rejected('You can only edit your own listings.');
   }
 
   await ref.update({
-    type: parsed.type,
-    name: parsed.name,
-    bedrooms: parsed.bedrooms,
-    bathrooms: parsed.bathrooms,
-    parking: parsed.parking,
-    furnished: parsed.furnished,
-    address: parsed.address,
-    description: parsed.description,
-    offer: parsed.offer,
-    regularPrice: parsed.regularPrice,
-    discountedPrice: parsed.offer ? (parsed.discountedPrice ?? null) : null,
+    type: listing.type,
+    name: listing.name,
+    bedrooms: listing.bedrooms,
+    bathrooms: listing.bathrooms,
+    parking: listing.parking,
+    furnished: listing.furnished,
+    address: listing.address,
+    description: listing.description,
+    offer: listing.offer,
+    regularPrice: listing.regularPrice,
+    discountedPrice: listing.offer ? (listing.discountedPrice ?? null) : null,
     updatedAt: FieldValue.serverTimestamp()
   });
 
   revalidatePath('/profile');
+
+  return succeeded(undefined);
 };

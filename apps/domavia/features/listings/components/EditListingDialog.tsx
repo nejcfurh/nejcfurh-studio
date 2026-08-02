@@ -22,11 +22,13 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage
+  FormMessage,
+  FormRootError
 } from '@repo/ui/components/form';
 import { Input } from '@repo/ui/components/input';
 import { toast } from '@repo/ui/components/sonner';
 import { Textarea } from '@repo/ui/components/textarea';
+import { applyActionResult } from '@repo/ui/forms';
 import { Loader2, Save } from '@repo/ui/icons/lucide';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
@@ -72,8 +74,10 @@ export const EditListingDialog = ({ listing, open, onOpenChange }: Props) => {
   }, [open, listing, reset]);
 
   const onSubmit = async (values: EditListingValues) => {
+    form.clearErrors('root');
+
     try {
-      await updateListing(listing.id, {
+      const result = await updateListing(listing.id, {
         type: values.type,
         name: values.name,
         bedrooms: values.bedrooms,
@@ -86,13 +90,18 @@ export const EditListingDialog = ({ listing, open, onOpenChange }: Props) => {
         regularPrice: values.regularPrice,
         discountedPrice: values.discountedPrice ?? null
       });
+
+      if (!applyActionResult(form, result)) return;
+
       toast.success('Listing updated.');
       onOpenChange(false);
       router.refresh();
     } catch (err) {
-      toast.error(
-        err instanceof Error ? err.message : 'Failed to update listing.'
-      );
+      // The action never returned — transport failure, not a rejection.
+      form.setError('root', {
+        message:
+          err instanceof Error ? err.message : 'Failed to update listing.'
+      });
     }
   };
 
@@ -366,6 +375,8 @@ export const EditListingDialog = ({ listing, open, onOpenChange }: Props) => {
                 )}
               />
             ) : null}
+
+            <FormRootError />
 
             <DialogFooter>
               <Button

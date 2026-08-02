@@ -159,6 +159,30 @@ function FormMessage({ className, ...props }: React.ComponentProps<'p'>) {
   );
 }
 
+/**
+ * Renders the form-level error a server action reported — the failures that
+ * belong to no single field (a transport failure, a business rule, a whole-object
+ * refinement). Not part of the shadcn registry.
+ */
+function FormRootError({ className, ...props }: React.ComponentProps<'p'>) {
+  const { errors } = useFormState();
+  const message = errors.root?.message;
+
+  if (!message) return null;
+
+  return (
+    <p
+      data-slot="form-root-error"
+      role="alert"
+      aria-live="polite"
+      className={cn('text-destructive text-sm', className)}
+      {...props}
+    >
+      {String(message)}
+    </p>
+  );
+}
+
 export {
   Form,
   FormControl,
@@ -167,5 +191,6 @@ export {
   FormItem,
   FormLabel,
   FormMessage,
+  FormRootError,
   useFormField
 };
