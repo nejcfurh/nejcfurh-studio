@@ -143,9 +143,14 @@ function FormMessage({ className, ...props }: React.ComponentProps<'p'>) {
   if (!body) return null;
 
   return (
+    // Diverges from the shadcn registry: upstream renders a bare <p>, so a
+    // validation error appearing after submit is never announced. Re-running
+    // `shadcn add form` would silently drop this.
     <p
       data-slot="form-message"
       id={formMessageId}
+      role="alert"
+      aria-live="polite"
       className={cn('text-destructive text-xs', className)}
       {...props}
     >
