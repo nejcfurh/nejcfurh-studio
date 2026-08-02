@@ -27,11 +27,13 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage
+  FormMessage,
+  FormRootError
 } from '@repo/ui/components/form';
 import { Input } from '@repo/ui/components/input';
 import { toast } from '@repo/ui/components/sonner';
 import { Textarea } from '@repo/ui/components/textarea';
+import { applyActionResult } from '@repo/ui/forms';
 import { Loader2, Save, X } from '@repo/ui/icons/lucide';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -84,6 +86,8 @@ export const CreateListingForm = () => {
   );
 
   const onSubmit = async (data: ListingFormValues) => {
+    form.clearErrors('root');
+
     try {
       const mimeTypes = data.images.map((file) => file.type);
       const tickets = await requestListingUploadTickets(mimeTypes);
@@ -101,7 +105,7 @@ export const CreateListingForm = () => {
         })
       );
 
-      await createListing({
+      const result = await createListing({
         type: data.type,
         name: data.name,
         bedrooms: data.bedrooms,
@@ -115,14 +119,19 @@ export const CreateListingForm = () => {
         discountedPrice: data.discountedPrice,
         imagePaths: tickets.map((t) => t.path)
       });
+
+      if (!applyActionResult(form, result)) return;
+
       toast.success('Listing created.');
       router.push('/profile');
     } catch (err) {
-      toast.error(
-        err instanceof Error
-          ? err.message
-          : 'Something went wrong. Please try again.'
-      );
+      // The action never returned — upload or transport failure, not a rejection.
+      form.setError('root', {
+        message:
+          err instanceof Error
+            ? err.message
+            : 'Something went wrong. Please try again.'
+      });
     }
   };
 
@@ -503,6 +512,8 @@ export const CreateListingForm = () => {
             </FormItem>
           )}
         />
+
+        <FormRootError />
 
         <Button
           type="submit"
