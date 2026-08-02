@@ -33,6 +33,7 @@ const Form = ({
 }) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
+    mode: 'onTouched',
     defaultValues: {
       title: '',
       file: undefined

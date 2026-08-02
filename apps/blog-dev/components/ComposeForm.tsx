@@ -9,6 +9,7 @@ import { useForm } from 'react-hook-form';
 export default function ComposeForm() {
   const form = useForm<ComposeFormData>({
     resolver: zodResolver(composeSchema),
+    mode: 'onTouched',
     defaultValues: { title: '', author: '', content: '', imageLink: '' }
   });
   const {

@@ -71,12 +71,19 @@ export const EditListingDialog = ({ listing, open, onOpenChange }: Props) => {
 
   const form = useForm<EditListingValues>({
     resolver: zodResolver(editListingSchema),
+    mode: 'onTouched',
     defaultValues: toDefaults(listing)
   });
 
   const { control, handleSubmit, reset, formState } = form;
   const isSubmitting = formState.isSubmitting;
+  const type = useWatch({ control, name: 'type' });
+  const offer = useWatch({ control, name: 'offer' });
   const [discardPrompted, setDiscardPrompted] = useState(false);
+
+  useEffect(() => {
+    if (open) reset(toDefaults(listing));
+  }, [open, listing, reset]);
 
   // Esc and the overlay reach the same handler as Cancel, so all three routes
   // out of a half-finished edit are gated here rather than on the button.
@@ -93,12 +100,6 @@ export const EditListingDialog = ({ listing, open, onOpenChange }: Props) => {
     reset(toDefaults(listing));
     onOpenChange(false);
   };
-  const type = useWatch({ control, name: 'type' });
-  const offer = useWatch({ control, name: 'offer' });
-
-  useEffect(() => {
-    if (open) reset(toDefaults(listing));
-  }, [open, listing, reset]);
 
   const onSubmit = async (values: EditListingValues) => {
     form.clearErrors('root');
