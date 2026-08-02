@@ -18,6 +18,7 @@
     "type:check": "tsc --noEmit"
   },
   "dependencies": {
+    "@hookform/resolvers": "^5.4.0",
     "@repo/database": "workspace:*",
     "@repo/react-query": "workspace:*",
     "@repo/ui": "workspace:*",

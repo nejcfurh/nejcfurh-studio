@@ -1,23 +1,22 @@
 'use client';
 
 import useConversation from '@/app/hooks/useConversation';
+import { messageSchema, type MessageFormValues } from '@/app/schemas';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@repo/react-query';
 import { HiPaperAirplane, HiPhoto } from '@repo/ui/icons/react-icons/hi2';
 import axios from 'axios';
 import { CldUploadButton } from 'next-cloudinary';
-import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 
 import MessageInput from './MessageInput';
 
 const Form = () => {
   const { conversationId } = useConversation();
 
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    formState: { errors }
-  } = useForm<FieldValues>({
+  const { register, handleSubmit, setValue } = useForm<MessageFormValues>({
+    resolver: zodResolver(messageSchema),
+    mode: 'onTouched',
     defaultValues: { message: '' }
   });
 
@@ -26,7 +25,7 @@ const Form = () => {
       axios.post('/api/messages', payload)
   });
 
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+  const onSubmit: SubmitHandler<MessageFormValues> = (data) => {
     setValue('message', '', { shouldValidate: true });
     sendMessage.mutate({ ...data, conversationId });
   };
@@ -60,7 +59,6 @@ const Form = () => {
         <MessageInput
           id="message"
           register={register}
-          errors={errors}
           required
           placeholder="Write a message!"
         />

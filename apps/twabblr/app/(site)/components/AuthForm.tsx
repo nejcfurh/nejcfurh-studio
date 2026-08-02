@@ -3,9 +3,11 @@
 import Button from '@/app/components/Button';
 import Input from '@/app/components/inputs/Input';
 import LoadingModal from '@/app/components/LoadingModal';
+import { authSchema, type AuthFormValues } from '@/app/schemas';
 import { AnalyticsClientPageEvent } from '@/features/analytics/types.client';
 import { PageName } from '@/utils/constants/page.data';
 import { PageVisitTracker } from '@analytics/components/PageVisitTracker';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { signIn, useSession } from '@repo/auth/next-auth/react';
 import { useMutation } from '@repo/react-query';
 import { BsFacebook, BsGithub, BsGoogle } from '@repo/ui/icons/react-icons/bs';
@@ -16,9 +18,10 @@ import {
   SetStateAction,
   useCallback,
   useEffect,
+  useMemo,
   useState
 } from 'react';
-import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 
 import AuthSocialButton from './AuthSocialButton';
@@ -38,7 +41,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ setRegister }) => {
   const [socialLoading, setSocialLoading] = useState(false);
 
   const registerMutation = useMutation({
-    mutationFn: (data: FieldValues) => axios.post('/api/register', data),
+    mutationFn: (data: AuthFormValues) => axios.post('/api/register', data),
     onSuccess: (_result, data) => {
       signIn('credentials', {
         ...data,
@@ -77,11 +80,15 @@ const AuthForm: React.FC<AuthFormProps> = ({ setRegister }) => {
     }
   }, [variant, setRegister]);
 
+  const schema = useMemo(() => authSchema(variant), [variant]);
+
   const {
     register,
     handleSubmit,
     formState: { errors }
-  } = useForm<FieldValues>({
+  } = useForm<AuthFormValues>({
+    resolver: zodResolver(schema),
+    mode: 'onTouched',
     defaultValues: {
       name: '',
       email: '',
@@ -89,7 +96,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ setRegister }) => {
     }
   });
 
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+  const onSubmit: SubmitHandler<AuthFormValues> = (data) => {
     if (variant === 'REGISTER') {
       registerMutation.mutate(data);
     }

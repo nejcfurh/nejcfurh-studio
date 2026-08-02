@@ -1,30 +1,31 @@
 'use client';
 
-import { FieldErrors, FieldValues, UseFormRegister } from 'react-hook-form';
+import type { FieldValues, Path, UseFormRegister } from 'react-hook-form';
 
-interface MessageInputProps {
+interface MessageInputProps<TValues extends FieldValues> {
   placeholder?: string;
-  id: string;
+  /** Must name a field on the form, so a typo fails to compile. */
+  id: Path<TValues>;
   type?: string;
   required?: boolean;
-  register: UseFormRegister<FieldValues>;
-  errors: FieldErrors;
+  register: UseFormRegister<TValues>;
 }
 
-const MessageInput: React.FC<MessageInputProps> = ({
+const MessageInput = <TValues extends FieldValues>({
   placeholder,
   id,
   type,
   required,
   register
-}) => {
+}: MessageInputProps<TValues>) => {
   return (
     <div className="relative w-full">
       <input
         id={id}
         type={type}
         autoComplete={id}
-        {...register(id, { required: required })}
+        aria-label={placeholder}
+        {...register(id, { required })}
         placeholder={placeholder}
         className="w-full rounded-full bg-neutral-100 px-4 py-2 font-light text-black focus:outline-none"
       />
