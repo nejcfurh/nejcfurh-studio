@@ -30,7 +30,7 @@ import { Textarea } from '@repo/ui/components/textarea';
 import { Loader2, Save } from '@repo/ui/icons/lucide';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
 
 import type { Listing } from '../types';
 
@@ -62,10 +62,10 @@ export const EditListingDialog = ({ listing, open, onOpenChange }: Props) => {
     defaultValues: toDefaults(listing)
   });
 
-  const { control, handleSubmit, watch, reset, formState } = form;
+  const { control, handleSubmit, reset, formState } = form;
   const isSubmitting = formState.isSubmitting;
-  const type = watch('type');
-  const offer = watch('offer');
+  const type = useWatch({ control, name: 'type' });
+  const offer = useWatch({ control, name: 'offer' });
 
   useEffect(() => {
     if (open) reset(toDefaults(listing));

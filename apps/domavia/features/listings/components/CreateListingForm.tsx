@@ -35,8 +35,8 @@ import { Textarea } from '@repo/ui/components/textarea';
 import { Loader2, Save, X } from '@repo/ui/icons/lucide';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useEffect, useMemo } from 'react';
+import { useForm, useWatch } from 'react-hook-form';
 
 const ACCEPTED_MIME = Object.keys(ALLOWED_IMAGE_MIME);
 
@@ -59,25 +59,29 @@ const defaultValues: ListingFormValues = {
 
 export const CreateListingForm = () => {
   const router = useRouter();
-  const [previewURLs, setPreviewURLs] = useState<string[]>([]);
 
   const form = useForm<ListingFormValues>({
     resolver: zodResolver(createListingSchema),
     defaultValues
   });
 
-  const { control, handleSubmit, watch, setValue, formState } = form;
+  const { control, handleSubmit, setValue, formState } = form;
   const isSubmitting = formState.isSubmitting;
-  // eslint-disable-next-line react-hooks/incompatible-library
-  const type = watch('type');
-  const offer = watch('offer');
-  const images = watch('images');
+  const type = useWatch({ control, name: 'type' });
+  const offer = useWatch({ control, name: 'offer' });
+  const images = useWatch({ control, name: 'images' });
 
-  useEffect(() => {
-    const urls = images.map((file) => URL.createObjectURL(file));
-    setPreviewURLs(urls);
-    return () => urls.forEach((url) => URL.revokeObjectURL(url));
-  }, [images]);
+  const previewURLs = useMemo(
+    () => images.map((file) => URL.createObjectURL(file)),
+    [images]
+  );
+
+  // Revoke only — deriving the URLs above rather than storing them in state
+  // keeps this off the render path the compiler flags for cascading renders.
+  useEffect(
+    () => () => previewURLs.forEach((url) => URL.revokeObjectURL(url)),
+    [previewURLs]
+  );
 
   const onSubmit = async (data: ListingFormValues) => {
     try {
