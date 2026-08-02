@@ -14,6 +14,7 @@
     "format:prettier": "turbo format:prettier",
     "format:eslint": "turbo format:eslint",
     "type:check": "turbo type:check",
+    "test": "turbo test",
     "prepare": "husky",
     "design-lab": "turbo dev --filter=design-lab",
     "n-drive": "turbo dev --filter=n-drive",

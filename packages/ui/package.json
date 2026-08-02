@@ -22,18 +22,24 @@
     "format:eslint": "pnpm base:eslint --fix",
     "format": "pnpm format:prettier && pnpm format:eslint",
     "format-silent": "pnpm format:prettier --loglevel silent && pnpm format:eslint --quiet",
-    "type:check": "tsc --noEmit"
+    "type:check": "tsc --noEmit",
+    "test": "vitest run"
   },
   "peerDependencies": {
     "react": ">=19.2.0"
   },
   "devDependencies": {
+    "@testing-library/react": "^16.3.2",
     "@types/react": "19.2.14",
+    "@types/react-dom": "^19.2.4",
     "eslint-config-web": "workspace:*",
+    "jsdom": "^30.0.1",
     "prettier-config-web": "workspace:*",
     "react": "19.2.4",
+    "react-dom": "19.2.4",
     "tsconfig": "workspace:*",
-    "typescript": "5.9.3"
+    "typescript": "5.9.3",
+    "vitest": "^4.1.10"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.4.0",
