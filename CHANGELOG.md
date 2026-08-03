@@ -1,5 +1,37 @@
 # Changelog
 
+## v1.30.0 (2026-08-03)
+
+
+### Features
+
+- feat(nejcfurh-studio): Give server actions a typed result contract (0e4728c)
+
+
+### Bug Fixes & Improvements
+
+- fix(twabblr): Stop the login form enforcing a password length (#132) (af7d7cf)
+- fix(twabblr): Stop the login form enforcing a password length (fe4c61f)
+- fix(domavia): Recover cleanly from a failed listing submit (#127) (f2aac2b)
+- fix(ui): Announce form validation errors to assistive tech (#124) (ef12832)
+- fix(domavia): Recover cleanly from a failed listing submit (09a21b3)
+- fix(ui): Announce form validation errors to assistive tech (02a050e)
+
+
+### Performance & Refactoring
+
+- refactor(nejcfurh-studio): Type and schema the legacy forms (1784825)
+- refactor(nejcfurh-studio): State the validation timing every form relies on (22a2f68)
+- refactor(nejcfurh-studio): Drop the unused zod helper copies (df14931)
+
+
+### Other Changes
+
+- ci(nejcfurh-studio): Run the test suite in code-quality checks (842836e)
+- test(nejcfurh-studio): Add vitest to the shared packages (381a664)
+
+# Changelog
+
 ## v1.29.2 (2026-07-31)
 
 
