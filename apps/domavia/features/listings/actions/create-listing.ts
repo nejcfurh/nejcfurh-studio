@@ -6,6 +6,13 @@ import { listingServerSchema } from '@/features/listings/schemas';
 import { adminDb } from '@/lib/firebase/admin';
 import { supabaseAdmin } from '@/lib/supabase/admin';
 import { STORAGE_BUCKET } from '@/lib/supabase/constants';
+import {
+  failed,
+  invalid,
+  rejected,
+  succeeded,
+  type ActionResult
+} from '@repo/validation';
 import { FieldValue } from 'firebase-admin/firestore';
 import { revalidatePath } from 'next/cache';
 
@@ -48,6 +55,14 @@ const geocodeAddress = async (address: string): Promise<Geocode> => {
   }
 };
 
+/** The images live on the form as one field, so their rules report there. */
+const imagesRejected = (
+  message: string
+): ActionResult<CreateListingResult> => ({
+  status: 'invalid',
+  fieldErrors: { images: [message] }
+});
+
 const removeUploadedFiles = async (paths: string[]) => {
   if (paths.length === 0) return;
   await supabaseAdmin.storage
@@ -60,10 +75,10 @@ const removeUploadedFiles = async (paths: string[]) => {
 
 export const createListing = async (
   input: CreateListingInput
-): Promise<CreateListingResult> => {
+): Promise<ActionResult<CreateListingResult>> => {
   const uid = await requireUid();
 
-  const parsed = listingServerSchema.parse({
+  const parsed = listingServerSchema.safeParse({
     type: input.type,
     name: input.name,
     bedrooms: input.bedrooms,
@@ -77,17 +92,23 @@ export const createListing = async (
     discountedPrice: input.discountedPrice
   });
 
+  if (!parsed.success) {
+    return invalid(parsed.error);
+  }
+
+  const listing = parsed.data;
+
   if (!Array.isArray(input.imagePaths) || input.imagePaths.length === 0) {
-    throw new Error('Add at least one image.');
+    return imagesRejected('Add at least one image.');
   }
   if (input.imagePaths.length > MAX_IMAGES) {
-    throw new Error(`Up to ${MAX_IMAGES} images allowed.`);
+    return imagesRejected(`Up to ${MAX_IMAGES} images allowed.`);
   }
 
   const pendingPrefix = `_pending/${uid}/`;
   for (const path of input.imagePaths) {
     if (!path.startsWith(pendingPrefix) || path.includes('..')) {
-      throw new Error('Invalid upload path.');
+      return rejected('Invalid upload path.');
     }
   }
 
@@ -111,21 +132,21 @@ export const createListing = async (
           .publicUrl
     );
 
-    const geolocation = await geocodeAddress(parsed.address);
+    const geolocation = await geocodeAddress(listing.address);
 
     const docRef = await adminDb.collection(LISTINGS_COLLECTION).add({
       ownerUid: uid,
-      type: parsed.type,
-      name: parsed.name,
-      bedrooms: parsed.bedrooms,
-      bathrooms: parsed.bathrooms,
-      parking: parsed.parking,
-      furnished: parsed.furnished,
-      address: parsed.address,
-      description: parsed.description,
-      offer: parsed.offer,
-      regularPrice: parsed.regularPrice,
-      discountedPrice: parsed.offer ? (parsed.discountedPrice ?? null) : null,
+      type: listing.type,
+      name: listing.name,
+      bedrooms: listing.bedrooms,
+      bathrooms: listing.bathrooms,
+      parking: listing.parking,
+      furnished: listing.furnished,
+      address: listing.address,
+      description: listing.description,
+      offer: listing.offer,
+      regularPrice: listing.regularPrice,
+      discountedPrice: listing.offer ? (listing.discountedPrice ?? null) : null,
       imageUrls,
       coverImage: imageUrls[0],
       geolocation,
@@ -134,9 +155,17 @@ export const createListing = async (
     });
 
     revalidatePath('/profile');
-    return { listingId: docRef.id };
+    return succeeded({ listingId: docRef.id });
   } catch (err) {
-    await removeUploadedFiles(movedPaths);
-    throw err instanceof Error ? err : new Error('Failed to create listing.');
+    // Roll back both sides of the move: what already landed under `listings/`
+    // and what is still sitting in `_pending/`. Missing the latter is how a
+    // failed submit leaves orphans no later request will ever reference.
+    const unmoved = input.imagePaths.slice(movedPaths.length);
+    await removeUploadedFiles([...movedPaths, ...unmoved]);
+
+    // Retryable: the uploads were rolled back, so the same payload can be resent.
+    return failed(
+      err instanceof Error ? err.message : 'Failed to create listing.'
+    );
   }
 };

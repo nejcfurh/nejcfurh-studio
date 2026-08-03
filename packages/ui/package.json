@@ -8,6 +8,7 @@
     "./animation/lenis": "./animation/lenis.ts",
     "./animation/use-measure": "./animation/use-measure.ts",
     "./components/*": "./components/*.tsx",
+    "./forms": "./forms/index.ts",
     "./icons": "./icons/index.ts",
     "./icons/*": "./icons/*.ts",
     "./utils": "./utils/index.ts"
@@ -22,21 +23,26 @@
     "format:eslint": "pnpm base:eslint --fix",
     "format": "pnpm format:prettier && pnpm format:eslint",
     "format-silent": "pnpm format:prettier --loglevel silent && pnpm format:eslint --quiet",
-    "type:check": "tsc --noEmit"
+    "type:check": "tsc --noEmit",
+    "test": "vitest run"
   },
   "peerDependencies": {
     "react": ">=19.2.0"
   },
   "devDependencies": {
+    "@testing-library/react": "^16.3.2",
     "@types/react": "19.2.14",
+    "@types/react-dom": "^19.2.4",
     "eslint-config-web": "workspace:*",
+    "jsdom": "^30.0.1",
     "prettier-config-web": "workspace:*",
     "react": "19.2.4",
+    "react-dom": "19.2.4",
     "tsconfig": "workspace:*",
-    "typescript": "5.9.3"
+    "typescript": "5.9.3",
+    "vitest": "^4.1.10"
   },
   "dependencies": {
-    "@hookform/resolvers": "^5.4.0",
     "@radix-ui/react-alert-dialog": "^1.1.15",
     "@radix-ui/react-avatar": "^1.1.11",
     "@radix-ui/react-dialog": "^1.1.15",
@@ -46,6 +52,7 @@
     "@radix-ui/react-separator": "^1.1.8",
     "@radix-ui/react-slot": "^1.2.4",
     "@radix-ui/react-tabs": "^1.1.13",
+    "@repo/validation": "workspace:*",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "embla-carousel-react": "^8.6.0",

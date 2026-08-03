@@ -6,8 +6,11 @@ import Form from '@/components/admin/ui/Form';
 import FormRow from '@/components/admin/ui/FormRow';
 import Input from '@/components/admin/ui/Input';
 import Textarea from '@/components/admin/ui/Textarea';
-import { FieldErrors, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useMemo } from 'react';
+import { useForm } from 'react-hook-form';
 
+import { cabinSchema, type CabinFormValues } from './schemas';
 import { useCreateCabin } from './useCreateCabin';
 import { useEditCabin } from './useEditCabin';
 
@@ -19,15 +22,6 @@ interface Cabin {
   discount: number;
   description: string;
   image: string;
-}
-
-interface CabinFormValues {
-  name: string;
-  maxCapacity: number;
-  regularPrice: number;
-  discount: number;
-  description: string;
-  image: string | FileList;
 }
 
 interface CreateCabinFormProps {
@@ -49,10 +43,24 @@ function CreateCabinForm({
   const { id: editId, ...editValue } = cabinToEdit;
   const isEditSession = Boolean(editId);
 
-  const { register, handleSubmit, reset, getValues, formState } =
-    useForm<CabinFormValues>({
-      defaultValues: isEditSession ? editValue : {}
-    });
+  const schema = useMemo(() => cabinSchema(isEditSession), [isEditSession]);
+
+  const { register, handleSubmit, reset, formState } = useForm<CabinFormValues>(
+    {
+      resolver: zodResolver(schema),
+      mode: 'onTouched',
+      defaultValues: isEditSession
+        ? editValue
+        : {
+            name: '',
+            maxCapacity: 1,
+            regularPrice: 100,
+            discount: 0,
+            description: '',
+            image: ''
+          }
+    }
+  );
 
   const { errors } = formState;
 
@@ -82,13 +90,9 @@ function CreateCabinForm({
       );
   }
 
-  function onError(errors: FieldErrors<CabinFormValues>) {
-    console.log(errors);
-  }
-
   return (
     <Form
-      onSubmit={handleSubmit(onSubmit, onError)}
+      onSubmit={handleSubmit(onSubmit)}
       type={onCloseModal ? 'modal' : 'regular'}
     >
       <FormRow label="Cabin Name" error={errors?.name?.message}>
@@ -96,9 +100,7 @@ function CreateCabinForm({
           type="text"
           id="name"
           disabled={isWorking}
-          {...register('name', {
-            required: 'This field is required!'
-          })}
+          {...register('name')}
         />
       </FormRow>
 
@@ -107,13 +109,7 @@ function CreateCabinForm({
           type="number"
           id="maxCapacity"
           disabled={isWorking}
-          {...register('maxCapacity', {
-            required: 'This field is required!',
-            min: {
-              value: 1,
-              message: 'The minimum value for capacity should be 1!'
-            }
-          })}
+          {...register('maxCapacity', { valueAsNumber: true })}
         />
       </FormRow>
 
@@ -122,13 +118,7 @@ function CreateCabinForm({
           type="number"
           id="regularPrice"
           disabled={isWorking}
-          {...register('regularPrice', {
-            required: 'This field is required!',
-            min: {
-              value: 100,
-              message: 'The minimum price for the cabin is 100$!'
-            }
-          })}
+          {...register('regularPrice', { valueAsNumber: true })}
         />
       </FormRow>
 
@@ -138,12 +128,7 @@ function CreateCabinForm({
           id="discount"
           defaultValue={0}
           disabled={isWorking}
-          {...register('discount', {
-            required: 'This field is required!',
-            validate: (value: number) =>
-              +getValues().regularPrice > +value ||
-              'Discount must be lower than the regular price!'
-          })}
+          {...register('discount', { valueAsNumber: true })}
         />
       </FormRow>
 
@@ -152,20 +137,12 @@ function CreateCabinForm({
           id="description"
           defaultValue=""
           disabled={isWorking}
-          {...register('description', {
-            required: 'This field is required!'
-          })}
+          {...register('description')}
         />
       </FormRow>
 
       <FormRow label="Photo" error={errors?.image?.message}>
-        <FileInput
-          id="image"
-          accept="image/*"
-          {...register('image', {
-            required: isEditSession ? false : 'The image is required!'
-          })}
-        />
+        <FileInput id="image" accept="image/*" {...register('image')} />
       </FormRow>
 
       <FormRow>

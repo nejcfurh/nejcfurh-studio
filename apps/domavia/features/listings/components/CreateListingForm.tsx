@@ -1,7 +1,11 @@
 'use client';
 
 import { createListing } from '@/features/listings/actions/create-listing';
-import { requestListingUploadTickets } from '@/features/listings/actions/request-upload-tickets';
+import {
+  discardPendingUploads,
+  requestListingUploadTickets,
+  type UploadTicket
+} from '@/features/listings/actions/request-upload-tickets';
 import {
   ALLOWED_IMAGE_MIME,
   MAX_IMAGE_BYTES,
@@ -27,16 +31,18 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage
+  FormMessage,
+  FormRootError
 } from '@repo/ui/components/form';
 import { Input } from '@repo/ui/components/input';
 import { toast } from '@repo/ui/components/sonner';
 import { Textarea } from '@repo/ui/components/textarea';
+import { applyActionResult } from '@repo/ui/forms';
 import { Loader2, Save, X } from '@repo/ui/icons/lucide';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useEffect, useMemo } from 'react';
+import { useForm, useWatch } from 'react-hook-form';
 
 const ACCEPTED_MIME = Object.keys(ALLOWED_IMAGE_MIME);
 
@@ -59,30 +65,39 @@ const defaultValues: ListingFormValues = {
 
 export const CreateListingForm = () => {
   const router = useRouter();
-  const [previewURLs, setPreviewURLs] = useState<string[]>([]);
 
   const form = useForm<ListingFormValues>({
     resolver: zodResolver(createListingSchema),
+    mode: 'onTouched',
     defaultValues
   });
 
-  const { control, handleSubmit, watch, setValue, formState } = form;
+  const { control, handleSubmit, setValue, formState } = form;
   const isSubmitting = formState.isSubmitting;
-  // eslint-disable-next-line react-hooks/incompatible-library
-  const type = watch('type');
-  const offer = watch('offer');
-  const images = watch('images');
+  const type = useWatch({ control, name: 'type' });
+  const offer = useWatch({ control, name: 'offer' });
+  const images = useWatch({ control, name: 'images' });
 
-  useEffect(() => {
-    const urls = images.map((file) => URL.createObjectURL(file));
-    setPreviewURLs(urls);
-    return () => urls.forEach((url) => URL.revokeObjectURL(url));
-  }, [images]);
+  const previewURLs = useMemo(
+    () => images.map((file) => URL.createObjectURL(file)),
+    [images]
+  );
+
+  // Revoke only — deriving the URLs above rather than storing them in state
+  // keeps this off the render path the compiler flags for cascading renders.
+  useEffect(
+    () => () => previewURLs.forEach((url) => URL.revokeObjectURL(url)),
+    [previewURLs]
+  );
 
   const onSubmit = async (data: ListingFormValues) => {
+    form.clearErrors('root');
+
+    let tickets: UploadTicket[] = [];
+
     try {
       const mimeTypes = data.images.map((file) => file.type);
-      const tickets = await requestListingUploadTickets(mimeTypes);
+      tickets = await requestListingUploadTickets(mimeTypes);
 
       await Promise.all(
         data.images.map(async (file, i) => {
@@ -97,7 +112,7 @@ export const CreateListingForm = () => {
         })
       );
 
-      await createListing({
+      const result = await createListing({
         type: data.type,
         name: data.name,
         bedrooms: data.bedrooms,
@@ -111,14 +126,26 @@ export const CreateListingForm = () => {
         discountedPrice: data.discountedPrice,
         imagePaths: tickets.map((t) => t.path)
       });
+
+      if (!applyActionResult(form, result)) {
+        // createListing rolls back its own uploads before reporting.
+        return;
+      }
+
       toast.success('Listing created.');
       router.push('/profile');
     } catch (err) {
-      toast.error(
-        err instanceof Error
-          ? err.message
-          : 'Something went wrong. Please try again.'
-      );
+      // The action never returned — upload or transport failure, not a
+      // rejection. Release whatever reached `_pending/` so a retry does not
+      // leave a copy behind.
+      await discardPendingUploads(tickets.map((ticket) => ticket.path));
+
+      form.setError('root', {
+        message:
+          err instanceof Error
+            ? err.message
+            : 'Something went wrong. Please try again.'
+      });
     }
   };
 
@@ -499,6 +526,8 @@ export const CreateListingForm = () => {
             </FormItem>
           )}
         />
+
+        <FormRootError />
 
         <Button
           type="submit"

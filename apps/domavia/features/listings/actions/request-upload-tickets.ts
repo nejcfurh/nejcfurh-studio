@@ -53,3 +53,25 @@ export const requestAvatarUploadTicket = async (
   const uid = await requireUid();
   return mintTicket(uid, mimeType, 'avatar');
 };
+
+/**
+ * Releases pending uploads whose submission never completed. Without this a
+ * failed submit strands whatever it had already uploaded in `_pending/`, and
+ * the retry mints fresh paths rather than reusing them.
+ */
+export const discardPendingUploads = async (paths: string[]): Promise<void> => {
+  const uid = await requireUid();
+  const prefix = `_pending/${uid}/`;
+  const owned = paths.filter(
+    (path) => path.startsWith(prefix) && !path.includes('..')
+  );
+
+  if (owned.length === 0) return;
+
+  await supabaseAdmin.storage
+    .from(STORAGE_BUCKET)
+    .remove(owned)
+    .catch(() => {
+      // Best-effort — the caller is already handling a failure.
+    });
+};

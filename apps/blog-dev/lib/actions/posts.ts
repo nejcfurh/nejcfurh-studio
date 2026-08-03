@@ -3,30 +3,28 @@
 import { auth } from '@/auth';
 import { connectDB } from '@/lib/db';
 import { Post } from '@/lib/models/post';
+import { composeSchema } from '@/lib/schemas/post';
+import { invalid, type ActionResult } from '@repo/validation';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
-export async function createPost(formData: FormData) {
+export async function createPost(input: unknown): Promise<ActionResult<void>> {
   const session = await auth();
   if (!session) throw new Error('Unauthorized');
 
-  const title = formData.get('title') as string;
-  const content = formData.get('content') as string;
-  const author = formData.get('author') as string;
-  const imageLink = (formData.get('imageLink') as string) || '';
+  // A server action is a public endpoint — the client schema does not bind it,
+  // so the payload is re-validated here rather than trusted.
+  const parsed = composeSchema.safeParse(input);
 
-  if (!title || !content || !author) {
-    return { error: 'Title, content, and author are required.' };
+  if (!parsed.success) {
+    return invalid(parsed.error);
   }
 
   await connectDB();
 
   await Post.create({
-    title,
-    content,
-    date: Date.now(),
-    author,
-    imageLink
+    ...parsed.data,
+    date: Date.now()
   });
 
   revalidatePath('/');

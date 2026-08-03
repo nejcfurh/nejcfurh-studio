@@ -1,12 +1,14 @@
 'use client';
 
+import { settingsSchema, type SettingsFormValues } from '@/app/schemas';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { User } from '@prisma/client';
 import { useMutation } from '@repo/react-query';
 import axios from 'axios';
 import { CldUploadButton } from 'next-cloudinary';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+import { SubmitHandler, useForm, useWatch } from 'react-hook-form';
 import toast from 'react-hot-toast';
 
 import Button from '../Button';
@@ -27,7 +29,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
   const router = useRouter();
 
   const updateSettings = useMutation({
-    mutationFn: (data: FieldValues) => axios.post('/api/settings', data),
+    mutationFn: (data: SettingsFormValues) => axios.post('/api/settings', data),
     onSuccess: () => {
       toast.success('Information saved successfully!');
       router.refresh();
@@ -44,28 +46,30 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
     register,
     handleSubmit,
     setValue,
-    watch,
+    control,
     formState: { errors }
-  } = useForm<FieldValues>({
+  } = useForm<SettingsFormValues>({
+    resolver: zodResolver(settingsSchema),
+    mode: 'onTouched',
     defaultValues: {
-      name: currentUser?.name,
-      image: currentUser?.image
+      name: currentUser?.name ?? '',
+      image: currentUser?.image ?? null
     }
   });
 
-  const image = watch('image');
+  const image = useWatch({ control, name: 'image' });
 
   const handleUpload = (result: {
     info?: string | { secure_url?: string };
   }) => {
     const info = result?.info;
     const url = typeof info === 'object' ? info?.secure_url : undefined;
-    setValue('image', url, {
+    setValue('image', url ?? null, {
       shouldValidate: true
     });
   };
 
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+  const onSubmit: SubmitHandler<SettingsFormValues> = (data) => {
     updateSettings.mutate(data);
   };
 

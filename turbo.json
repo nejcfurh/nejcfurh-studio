@@ -57,6 +57,9 @@
     "type:check": {
       "dependsOn": ["^build"]
     },
+    "test": {
+      "dependsOn": ["^test"]
+    },
     "start": {
       "dependsOn": ["build"],
       "persistent": true

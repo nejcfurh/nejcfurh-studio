@@ -7,6 +7,16 @@ import {
 } from '@/features/listings/schemas';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { AnimatedDiv } from '@repo/ui/animation/core';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle
+} from '@repo/ui/components/alert-dialog';
 import { Button } from '@repo/ui/components/button';
 import {
   Dialog,
@@ -22,15 +32,17 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage
+  FormMessage,
+  FormRootError
 } from '@repo/ui/components/form';
 import { Input } from '@repo/ui/components/input';
 import { toast } from '@repo/ui/components/sonner';
 import { Textarea } from '@repo/ui/components/textarea';
+import { applyActionResult } from '@repo/ui/forms';
 import { Loader2, Save } from '@repo/ui/icons/lucide';
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
-import { useForm } from 'react-hook-form';
+import { useEffect, useState } from 'react';
+import { useForm, useWatch } from 'react-hook-form';
 
 import type { Listing } from '../types';
 
@@ -59,21 +71,41 @@ export const EditListingDialog = ({ listing, open, onOpenChange }: Props) => {
 
   const form = useForm<EditListingValues>({
     resolver: zodResolver(editListingSchema),
+    mode: 'onTouched',
     defaultValues: toDefaults(listing)
   });
 
-  const { control, handleSubmit, watch, reset, formState } = form;
+  const { control, handleSubmit, reset, formState } = form;
   const isSubmitting = formState.isSubmitting;
-  const type = watch('type');
-  const offer = watch('offer');
+  const type = useWatch({ control, name: 'type' });
+  const offer = useWatch({ control, name: 'offer' });
+  const [discardPrompted, setDiscardPrompted] = useState(false);
 
   useEffect(() => {
     if (open) reset(toDefaults(listing));
   }, [open, listing, reset]);
 
+  // Esc and the overlay reach the same handler as Cancel, so all three routes
+  // out of a half-finished edit are gated here rather than on the button.
+  const handleOpenChange = (next: boolean) => {
+    if (!next && formState.isDirty && !isSubmitting) {
+      setDiscardPrompted(true);
+      return;
+    }
+    onOpenChange(next);
+  };
+
+  const discardChanges = () => {
+    setDiscardPrompted(false);
+    reset(toDefaults(listing));
+    onOpenChange(false);
+  };
+
   const onSubmit = async (values: EditListingValues) => {
+    form.clearErrors('root');
+
     try {
-      await updateListing(listing.id, {
+      const result = await updateListing(listing.id, {
         type: values.type,
         name: values.name,
         bedrooms: values.bedrooms,
@@ -86,18 +118,23 @@ export const EditListingDialog = ({ listing, open, onOpenChange }: Props) => {
         regularPrice: values.regularPrice,
         discountedPrice: values.discountedPrice ?? null
       });
+
+      if (!applyActionResult(form, result)) return;
+
       toast.success('Listing updated.');
       onOpenChange(false);
       router.refresh();
     } catch (err) {
-      toast.error(
-        err instanceof Error ? err.message : 'Failed to update listing.'
-      );
+      // The action never returned — transport failure, not a rejection.
+      form.setError('root', {
+        message:
+          err instanceof Error ? err.message : 'Failed to update listing.'
+      });
     }
   };
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-2xl">
         <DialogHeader>
           <DialogTitle>Edit listing</DialogTitle>
@@ -367,11 +404,13 @@ export const EditListingDialog = ({ listing, open, onOpenChange }: Props) => {
               />
             ) : null}
 
+            <FormRootError />
+
             <DialogFooter>
               <Button
                 type="button"
                 variant="outline"
-                onClick={() => onOpenChange(false)}
+                onClick={() => handleOpenChange(false)}
                 disabled={isSubmitting}
               >
                 Cancel
@@ -384,6 +423,24 @@ export const EditListingDialog = ({ listing, open, onOpenChange }: Props) => {
           </form>
         </Form>
       </DialogContent>
+
+      <AlertDialog open={discardPrompted} onOpenChange={setDiscardPrompted}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Discard your changes?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This listing has edits you haven&apos;t saved. Closing now loses
+              them.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Keep editing</AlertDialogCancel>
+            <AlertDialogAction onClick={discardChanges}>
+              Discard
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </Dialog>
   );
 };
