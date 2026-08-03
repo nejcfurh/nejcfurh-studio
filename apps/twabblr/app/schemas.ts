@@ -1,8 +1,12 @@
 import { z } from '@repo/validation';
 
 /**
- * One form serves both variants, so the name requirement is conditional —
- * which is why this is a factory rather than a constant.
+ * One form serves both variants, so the requirements are conditional — which is
+ * why this is a factory rather than a constant.
+ *
+ * Signing in only checks the password is present: the length rule belongs to
+ * account creation, and enforcing it here would lock out any existing account
+ * whose password predates it, while telling the user the wrong thing.
  */
 export const authSchema = (variant: 'LOGIN' | 'REGISTER') =>
   z.object({
@@ -11,7 +15,10 @@ export const authSchema = (variant: 'LOGIN' | 'REGISTER') =>
         ? z.string().trim().min(1, 'Name is required')
         : z.string().optional(),
     email: z.email('Enter a valid email address'),
-    password: z.string().min(6, 'Password needs at least 6 characters')
+    password:
+      variant === 'REGISTER'
+        ? z.string().min(6, 'Password needs at least 6 characters')
+        : z.string().min(1, 'Password is required')
   });
 
 export type AuthFormValues = z.infer<ReturnType<typeof authSchema>>;
