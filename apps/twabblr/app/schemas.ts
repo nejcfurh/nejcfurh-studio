@@ -29,6 +29,17 @@ export const messageSchema = z.object({
 
 export type MessageFormValues = z.infer<typeof messageSchema>;
 
+// Body of POST /api/messages: Form sends either typed text or an uploaded image.
+export const newMessageSchema = z
+  .object({
+    conversationId: z.string().min(1),
+    message: z.string().trim().min(1).optional(),
+    image: z.url().optional()
+  })
+  .refine((data) => data.message !== undefined || data.image !== undefined, {
+    message: 'A message needs text or an image'
+  });
+
 export const groupChatSchema = z.object({
   name: z.string().trim().min(1, 'Name is required'),
   members: z

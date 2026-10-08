@@ -5,8 +5,8 @@ import Input from '@/app/components/inputs/Input';
 import Select from '@/app/components/inputs/Select';
 import Modal from '@/app/components/Modal';
 import { groupChatSchema, type GroupChatFormValues } from '@/app/schemas';
+import { SafeUser } from '@/app/types';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { User } from '@prisma/client';
 import { useMutation } from '@repo/react-query';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
@@ -16,7 +16,7 @@ import toast from 'react-hot-toast';
 interface GroupChatModalProps {
   isOpen?: boolean;
   onClose: () => void;
-  users: User[];
+  users: SafeUser[];
 }
 
 const GroupChatModal: React.FC<GroupChatModalProps> = ({

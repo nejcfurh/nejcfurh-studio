@@ -1,4 +1,5 @@
 import getCurrentUser from '@/app/actions/getCurrentUser';
+import { conversationChannel, userChannel } from '@/app/libs/channels';
 import prisma from '@/app/libs/prismadb';
 import { pusherServer } from '@/app/libs/pusher';
 import { NextResponse } from 'next/server';
@@ -16,9 +17,10 @@ export async function POST(
     }
 
     //find the existing conversation
-    const conversation = await prisma.conversation.findUnique({
+    const conversation = await prisma.conversation.findFirst({
       where: {
-        id: conversationId
+        id: conversationId,
+        userIds: { has: currentUser.id }
       },
       include: {
         messages: {
@@ -31,7 +33,7 @@ export async function POST(
     });
 
     if (!conversation) {
-      return new NextResponse('Invalid ID', { status: 400 });
+      return new NextResponse('Not Found', { status: 404 });
     }
 
     // find the last message
@@ -59,17 +61,21 @@ export async function POST(
       }
     });
 
-    await pusherServer.trigger(currentUser.email, 'conversation:update', {
-      id: conversation.id,
-      messages: [updatedMessage]
-    });
+    await pusherServer.trigger(
+      userChannel(currentUser.id),
+      'conversation:update',
+      {
+        id: conversation.id,
+        messages: [updatedMessage]
+      }
+    );
 
     if (lastMessage.seenIds.indexOf(currentUser.id) !== -1) {
       return NextResponse.json(conversation);
     }
 
     await pusherServer.trigger(
-      conversation.id!,
+      conversationChannel(conversation.id),
       'message:update',
       updatedMessage
     );

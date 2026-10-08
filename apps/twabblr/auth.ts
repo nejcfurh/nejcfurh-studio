@@ -1,11 +1,14 @@
 import prisma from '@/app/libs/prismadb';
 import { PrismaAdapter } from '@auth/prisma-adapter';
+import type { PrismaClient } from '@prisma/client';
 import { createAuth } from '@repo/auth/next-auth';
 import bcrypt from 'bcrypt';
 
 export const { handlers, auth, signIn, signOut } = createAuth({
   signInPath: '/',
-  adapter: PrismaAdapter(prisma),
+  // The adapter's parameter type does not accept a client built with a global
+  // `omit`; it never reads hashedPassword, so the omitting client works as is.
+  adapter: PrismaAdapter(prisma as unknown as PrismaClient),
   secret: process.env.AUTH_SECRET,
   debug: process.env.NODE_ENV === 'development',
   providers: ['google', 'facebook', 'github'],
@@ -16,7 +19,8 @@ export const { handlers, auth, signIn, signOut } = createAuth({
       }
 
       const user = await prisma.user.findUnique({
-        where: { email: credentials.email as string }
+        where: { email: credentials.email as string },
+        omit: { hashedPassword: false }
       });
 
       if (!user || !user?.hashedPassword) {

@@ -4,6 +4,7 @@ import { useSession } from '@repo/auth/next-auth/react';
 import { Channel, Members } from 'pusher-js';
 import { useEffect, useRef } from 'react';
 
+import { PRESENCE_CHANNEL } from '../libs/channels';
 import { pusherClient } from '../libs/pusher';
 import useActiveList from './useActiveList';
 
@@ -16,7 +17,7 @@ const useActiveChannel = () => {
     if (session?.status !== 'authenticated') return;
 
     if (!channelRef.current) {
-      channelRef.current = pusherClient.subscribe('presence-messenger');
+      channelRef.current = pusherClient.subscribe(PRESENCE_CHANNEL);
     }
 
     const channel = channelRef.current;
@@ -40,7 +41,7 @@ const useActiveChannel = () => {
 
     return () => {
       if (channelRef.current) {
-        pusherClient.unsubscribe('presence-messenger');
+        pusherClient.unsubscribe(PRESENCE_CHANNEL);
         channelRef.current = null;
       }
     };
