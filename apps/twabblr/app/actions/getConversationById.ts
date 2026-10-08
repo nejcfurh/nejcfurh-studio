@@ -6,13 +6,14 @@ const getConversationById = async (conversationId: string) => {
   try {
     const currentUser = await getCurrentUser();
 
-    if (!currentUser?.email) {
+    if (!currentUser?.id) {
       return null;
     }
 
-    const conversation = await prisma.conversation.findUnique({
+    const conversation = await prisma.conversation.findFirst({
       where: {
-        id: conversationId
+        id: conversationId,
+        userIds: { has: currentUser.id }
       },
       include: {
         users: true

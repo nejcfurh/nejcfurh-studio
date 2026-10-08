@@ -1,6 +1,7 @@
 'use client';
 
 import useConversation from '@/app/hooks/useConversation';
+import { conversationChannel } from '@/app/libs/channels';
 import { pusherClient } from '@/app/libs/pusher';
 import { FullMessageType } from '@/app/types';
 import axios from 'axios';
@@ -24,7 +25,8 @@ const Body: React.FC<BodyProps> = ({ initialMessages }) => {
   }, [conversationId]);
 
   useEffect(() => {
-    pusherClient.subscribe(conversationId);
+    const channel = conversationChannel(conversationId);
+    pusherClient.subscribe(channel);
     bottomRef?.current?.scrollIntoView();
 
     const messageHandler = (message: FullMessageType) => {
@@ -54,7 +56,7 @@ const Body: React.FC<BodyProps> = ({ initialMessages }) => {
     pusherClient.bind('message:update', updateMessageHandler);
 
     return () => {
-      pusherClient.unsubscribe(conversationId);
+      pusherClient.unsubscribe(channel);
       pusherClient.unbind('messages:new', messageHandler);
       pusherClient.unbind('message:update', updateMessageHandler);
     };
