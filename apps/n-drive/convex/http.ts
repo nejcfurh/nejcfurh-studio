@@ -55,6 +55,12 @@ http.route({
             }
           );
           break;
+        case 'organizationMembership.deleted':
+          await ctx.runMutation(internal.users.removeOrganizationIdFromUser, {
+            tokenIdentifier: `${CLERK_DOMAIN}|${result.data.public_user_data.user_id}`,
+            organizationId: result.data.organization.id
+          });
+          break;
       }
     } catch (error) {
       console.error(error);

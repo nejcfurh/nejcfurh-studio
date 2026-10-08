@@ -8,6 +8,7 @@ import {
   query,
   QueryCtx
 } from './_generated/server';
+import { CLERK_DOMAIN } from './auth.config';
 import { fileTypes } from './schema';
 
 const hasAccessToFile = async (
@@ -148,7 +149,7 @@ const hasAccessToOrg = async (
 
   const hasAccess =
     user.organizationIds.some((org) => org.organizationId === organizationId) ||
-    user.tokenIdentifier.includes(organizationId);
+    user.tokenIdentifier === `${CLERK_DOMAIN}|${organizationId}`;
 
   if (!hasAccess) {
     return null;
@@ -187,11 +188,16 @@ export const createFile = mutation({
 
 export const getStorage = query({
   args: {
-    fileId: v.id('_storage')
+    fileId: v.id('files')
   },
   handler: async (ctx, args) => {
-    const storageUrl = await ctx.storage.getUrl(args.fileId);
-    return storageUrl;
+    const access = await hasAccessToFile(ctx, args.fileId);
+
+    if (!access) {
+      return null;
+    }
+
+    return await ctx.storage.getUrl(access.file.fileId);
   }
 });
 

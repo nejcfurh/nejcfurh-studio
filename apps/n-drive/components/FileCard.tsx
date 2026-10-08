@@ -44,7 +44,7 @@ const FileCard = ({
     userId: file.userId
   });
 
-  const fileUrl = useQuery(api.files.getStorage, { fileId: file.fileId });
+  const fileUrl = useQuery(api.files.getStorage, { fileId: file._id });
 
   const isFavorite = (fileId: Id<'files'>) =>
     allFavorites.some((favorite) => favorite.fileId === fileId);

@@ -32,7 +32,7 @@ const UserCell = ({ userId }: { userId: Id<'users'> }) => {
 };
 
 const ActionsCell = ({ file }: { file: Doc<'files'> }) => {
-  const fileUrl = useQuery(api.files.getStorage, { fileId: file.fileId });
+  const fileUrl = useQuery(api.files.getStorage, { fileId: file._id });
   const allFavorites = useQuery(api.files.queryAllFavorites, {
     organizationId: file.organizationId ?? ''
   });
