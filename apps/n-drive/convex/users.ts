@@ -89,15 +89,37 @@ export const updateRoleInOrganizationForUser = internalMutation({
   handler: async (ctx, args) => {
     const user = await getUser(ctx, args.tokenIdentifier);
 
-    const organizationId = user.organizationIds.find(
+    const isMember = user.organizationIds.some(
       (org) => org.organizationId === args.organizationId
-    )?.organizationId;
+    );
 
-    if (!organizationId) {
+    if (!isMember) {
       throw new ConvexError('Organization not found');
     }
 
-    await ctx.db.patch(user._id, { organizationIds: user.organizationIds });
+    await ctx.db.patch(user._id, {
+      organizationIds: user.organizationIds.map((org) =>
+        org.organizationId === args.organizationId
+          ? { ...org, role: args.role }
+          : org
+      )
+    });
+  }
+});
+
+export const removeOrganizationIdFromUser = internalMutation({
+  args: {
+    tokenIdentifier: v.string(),
+    organizationId: v.string()
+  },
+  handler: async (ctx, args) => {
+    const user = await getUser(ctx, args.tokenIdentifier);
+
+    await ctx.db.patch(user._id, {
+      organizationIds: user.organizationIds.filter(
+        (org) => org.organizationId !== args.organizationId
+      )
+    });
   }
 });
 
@@ -106,7 +128,9 @@ export const getUserProfile = query({
     userId: v.id('users')
   },
   handler: async (ctx, args) => {
-    if (!args.userId) {
+    const identity = await ctx.auth.getUserIdentity();
+
+    if (!identity || !args.userId) {
       return null;
     }
 

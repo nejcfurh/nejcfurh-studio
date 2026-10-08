@@ -705,6 +705,9 @@ importers:
         specifier: ^1.84.1
         version: 1.86.0
     devDependencies:
+      '@edge-runtime/vm':
+        specifier: ^5.0.0
+        version: 5.0.0
       '@tailwindcss/postcss':
         specifier: ^4
         version: 4.2.1
@@ -717,6 +720,9 @@ importers:
       '@types/react-dom':
         specifier: ^19
         version: 19.2.3(@types/react@19.2.14)
+      convex-test:
+        specifier: ^0.0.52
+        version: 0.0.52(convex@1.32.0(@clerk/clerk-react@5.61.3(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react@19.2.4))
       eslint:
         specifier: ^9
         version: 9.39.2(jiti@2.6.1)
@@ -735,6 +741,9 @@ importers:
       typescript:
         specifier: ^5
         version: 5.9.3
+      vitest:
+        specifier: ^4.1.10
+        version: 4.1.10(@edge-runtime/vm@5.0.0)(@opentelemetry/api@1.9.0)(@types/node@20.19.35)(jsdom@30.0.1)(vite@8.2.0(@types/node@20.19.35)(esbuild@0.27.0)(jiti@2.6.1)(terser@5.46.0)(yaml@2.8.2))
 
   apps/to-do-cards:
     dependencies:
@@ -904,7 +913,7 @@ importers:
         version: 5.9.3
       vitest:
         specifier: ^4.1.10
-        version: 4.1.10(@opentelemetry/api@1.9.0)(@types/node@20.19.35)(jsdom@30.0.1)(vite@8.2.0(@types/node@20.19.35)(esbuild@0.27.0)(jiti@2.6.1)(terser@5.46.0)(yaml@2.8.2))
+        version: 4.1.10(@edge-runtime/vm@5.0.0)(@opentelemetry/api@1.9.0)(@types/node@20.19.35)(jsdom@30.0.1)(vite@8.2.0(@types/node@20.19.35)(esbuild@0.27.0)(jiti@2.6.1)(terser@5.46.0)(yaml@2.8.2))
 
   packages/ai-sdk:
     dependencies:
@@ -1165,7 +1174,7 @@ importers:
         version: 5.9.3
       vitest:
         specifier: ^4.1.10
-        version: 4.1.10(@opentelemetry/api@1.9.0)(@types/node@25.3.3)(jsdom@30.0.1)(vite@8.2.0(@types/node@25.3.3)(esbuild@0.27.0)(jiti@2.6.1)(terser@5.46.0)(yaml@2.8.2))
+        version: 4.1.10(@edge-runtime/vm@5.0.0)(@opentelemetry/api@1.9.0)(@types/node@25.3.3)(jsdom@30.0.1)(vite@8.2.0(@types/node@25.3.3)(esbuild@0.27.0)(jiti@2.6.1)(terser@5.46.0)(yaml@2.8.2))
 
   packages/utils:
     dependencies:
@@ -1227,7 +1236,7 @@ importers:
         version: 5.9.3
       vitest:
         specifier: ^4.1.10
-        version: 4.1.10(@opentelemetry/api@1.9.0)(@types/node@25.3.3)(jsdom@30.0.1)(vite@8.2.0(@types/node@25.3.3)(esbuild@0.27.0)(jiti@2.6.1)(terser@5.46.0)(yaml@2.8.2))
+        version: 4.1.10(@edge-runtime/vm@5.0.0)(@opentelemetry/api@1.9.0)(@types/node@25.3.3)(jsdom@30.0.1)(vite@8.2.0(@types/node@25.3.3)(esbuild@0.27.0)(jiti@2.6.1)(terser@5.46.0)(yaml@2.8.2))
 
   tooling/browserslist-config-web: {}
 
@@ -2234,6 +2243,14 @@ packages:
 
   '@dimforge/rapier3d-compat@0.12.0':
     resolution: {integrity: sha512-uekIGetywIgopfD97oDL5PfeezkFpNhwlzlaEYNOA0N6ghdsOvh/HYjSMek5Q2O1PYvRSDFcqFVJl4r4ZBwOow==}
+
+  '@edge-runtime/primitives@6.0.0':
+    resolution: {integrity: sha512-FqoxaBT+prPBHBwE1WXS1ocnu/VLTQyZ6NMUBAdbP7N2hsFTTxMC/jMu2D/8GAlMQfxeuppcPuCUk/HO3fpIvA==}
+    engines: {node: '>=18'}
+
+  '@edge-runtime/vm@5.0.0':
+    resolution: {integrity: sha512-NKBGBSIKUG584qrS1tyxVpX/AKJKQw5HgjYEnPLC0QsTw79JrGn+qUr8CXFb955Iy7GUdiiUv1rJ6JBGvaKb6w==}
+    engines: {node: '>=18'}
 
   '@egjs/hammerjs@2.0.17':
     resolution: {integrity: sha512-XQsZgjm2EcVUiZQf11UBJQfmZeEmOW8DpI1gsFeln6w0ae0ii4dMQEQ0kjl6DspdWX1aGY1/loyXnP0JS06e/A==}
@@ -5711,6 +5728,11 @@ packages:
 
   convert-source-map@2.0.0:
     resolution: {integrity: sha512-Kvp459HrV2FEJ1CAsi1Ku+MY3kasH19TFykTz2xWmMeq6bk2NU3XXvfJ+Q61m0xktWwt+1HSYf3JZsTms3aRJg==}
+
+  convex-test@0.0.52:
+    resolution: {integrity: sha512-C27plpAqg+5tT/whYaAoAAjSwl6bCNPZX/705nbijo1nu5L4Xnv1Ssd29KCvgM5liU5tvfo8Vz4o8Lu4wH+6fw==}
+    peerDependencies:
+      convex: ^1.32.0
 
   convex@1.32.0:
     resolution: {integrity: sha512-5FlajdLpW75pdLS+/CgGH5H6yeRuA+ru50AKJEYbJpmyILUS+7fdTvsdTaQ7ZFXMv0gE8mX4S+S3AtJ94k0mfw==}
@@ -11571,6 +11593,12 @@ snapshots:
 
   '@dimforge/rapier3d-compat@0.12.0': {}
 
+  '@edge-runtime/primitives@6.0.0': {}
+
+  '@edge-runtime/vm@5.0.0':
+    dependencies:
+      '@edge-runtime/primitives': 6.0.0
+
   '@egjs/hammerjs@2.0.17':
     dependencies:
       '@types/hammerjs': 2.0.46
@@ -16521,6 +16549,10 @@ snapshots:
   convert-source-map@1.9.0: {}
 
   convert-source-map@2.0.0: {}
+
+  convex-test@0.0.52(convex@1.32.0(@clerk/clerk-react@5.61.3(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react@19.2.4)):
+    dependencies:
+      convex: 1.32.0(@clerk/clerk-react@5.61.3(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react@19.2.4)
 
   convex@1.32.0(@clerk/clerk-react@5.61.3(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react@19.2.4):
     dependencies:
@@ -22195,7 +22227,7 @@ snapshots:
       terser: 5.46.0
       yaml: 2.8.2
 
-  vitest@4.1.10(@opentelemetry/api@1.9.0)(@types/node@20.19.35)(jsdom@30.0.1)(vite@8.2.0(@types/node@20.19.35)(esbuild@0.27.0)(jiti@2.6.1)(terser@5.46.0)(yaml@2.8.2)):
+  vitest@4.1.10(@edge-runtime/vm@5.0.0)(@opentelemetry/api@1.9.0)(@types/node@20.19.35)(jsdom@30.0.1)(vite@8.2.0(@types/node@20.19.35)(esbuild@0.27.0)(jiti@2.6.1)(terser@5.46.0)(yaml@2.8.2)):
     dependencies:
       '@vitest/expect': 4.1.10
       '@vitest/mocker': 4.1.10(vite@8.2.0(@types/node@20.19.35)(esbuild@0.27.0)(jiti@2.6.1)(terser@5.46.0)(yaml@2.8.2))
@@ -22218,13 +22250,14 @@ snapshots:
       vite: 8.2.0(@types/node@20.19.35)(esbuild@0.27.0)(jiti@2.6.1)(terser@5.46.0)(yaml@2.8.2)
       why-is-node-running: 2.3.0
     optionalDependencies:
+      '@edge-runtime/vm': 5.0.0
       '@opentelemetry/api': 1.9.0
       '@types/node': 20.19.35
       jsdom: 30.0.1
     transitivePeerDependencies:
       - msw
 
-  vitest@4.1.10(@opentelemetry/api@1.9.0)(@types/node@25.3.3)(jsdom@30.0.1)(vite@8.2.0(@types/node@25.3.3)(esbuild@0.27.0)(jiti@2.6.1)(terser@5.46.0)(yaml@2.8.2)):
+  vitest@4.1.10(@edge-runtime/vm@5.0.0)(@opentelemetry/api@1.9.0)(@types/node@25.3.3)(jsdom@30.0.1)(vite@8.2.0(@types/node@25.3.3)(esbuild@0.27.0)(jiti@2.6.1)(terser@5.46.0)(yaml@2.8.2)):
     dependencies:
       '@vitest/expect': 4.1.10
       '@vitest/mocker': 4.1.10(vite@8.2.0(@types/node@25.3.3)(esbuild@0.27.0)(jiti@2.6.1)(terser@5.46.0)(yaml@2.8.2))
@@ -22247,6 +22280,7 @@ snapshots:
       vite: 8.2.0(@types/node@25.3.3)(esbuild@0.27.0)(jiti@2.6.1)(terser@5.46.0)(yaml@2.8.2)
       why-is-node-running: 2.3.0
     optionalDependencies:
+      '@edge-runtime/vm': 5.0.0
       '@opentelemetry/api': 1.9.0
       '@types/node': 25.3.3
       jsdom: 30.0.1
