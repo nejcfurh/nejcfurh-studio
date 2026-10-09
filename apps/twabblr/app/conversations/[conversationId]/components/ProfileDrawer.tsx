@@ -4,13 +4,14 @@ import Avatar from '@/app/components/Avatar';
 import AvatarGroup from '@/app/components/AvatarGroup';
 import useActiveList from '@/app/hooks/useActiveList';
 import useOtherUser from '@/app/hooks/useOtherUser';
+import { SafeUser } from '@/app/types';
 import {
   Dialog,
   DialogPanel,
   Transition,
   TransitionChild
 } from '@headlessui/react';
-import { Conversation, User } from '@prisma/client';
+import { Conversation } from '@prisma/client';
 import { IoClose, IoTrash } from '@repo/ui/icons/react-icons/io5';
 import { format } from '@repo/utils/date-fns';
 import { Fragment, useMemo, useState } from 'react';
@@ -21,7 +22,7 @@ interface ProfileDrawerProps {
   isOpen: boolean;
   onClose: () => void;
   data: Conversation & {
-    users: User[];
+    users: SafeUser[];
   };
 }
 

@@ -1,4 +1,5 @@
 import getCurrentUser from '@/app/actions/getCurrentUser';
+import { userChannel } from '@/app/libs/channels';
 import prisma from '@/app/libs/prismadb';
 import { pusherServer } from '@/app/libs/pusher';
 import { NextResponse } from 'next/server';
@@ -15,13 +16,13 @@ export async function DELETE(
       return new NextResponse('Unauthorized', { status: 401 });
     }
 
-    const existingConversation = await prisma.conversation.findUnique({
-      where: { id: conversationId },
+    const existingConversation = await prisma.conversation.findFirst({
+      where: { id: conversationId, userIds: { has: currentUser.id } },
       include: { users: true }
     });
 
     if (!existingConversation) {
-      return new NextResponse('Invalid ID', { status: 400 });
+      return new NextResponse('Not Found', { status: 404 });
     }
 
     const deletedConversation = await prisma.conversation.deleteMany({
@@ -35,12 +36,11 @@ export async function DELETE(
 
     // pusher-async
     existingConversation.users.forEach(async (user) => {
-      if (user.email)
-        await pusherServer.trigger(
-          user.email,
-          'conversation:remove',
-          existingConversation
-        );
+      await pusherServer.trigger(
+        userChannel(user.id),
+        'conversation:remove',
+        existingConversation
+      );
     });
 
     return NextResponse.json(deletedConversation);

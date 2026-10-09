@@ -1,11 +1,10 @@
-import { User } from '@prisma/client';
 import { useSession } from '@repo/auth/next-auth/react';
 import { useMemo } from 'react';
 
-import { FullConversationType } from '../types';
+import { FullConversationType, SafeUser } from '../types';
 
 const useOtherUser = (
-  conversation: FullConversationType | { users: User[] }
+  conversation: FullConversationType | { users: SafeUser[] }
 ) => {
   const session = useSession();
   const otherUser = useMemo(() => {

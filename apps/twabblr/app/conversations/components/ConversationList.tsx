@@ -1,9 +1,9 @@
 'use client';
 
 import useConversation from '@/app/hooks/useConversation';
+import { userChannel } from '@/app/libs/channels';
 import { pusherClient } from '@/app/libs/pusher';
-import { FullConversationType } from '@/app/types';
-import { User } from '@prisma/client';
+import { FullConversationType, SafeUser } from '@/app/types';
 import { useSession } from '@repo/auth/next-auth/react';
 import { MdOutlineGroupAdd } from '@repo/ui/icons/react-icons/md';
 import { cn } from '@repo/ui/utils';
@@ -16,7 +16,7 @@ import GroupChatModal from './GroupChatModal';
 
 interface ConversationListProps {
   initialItems: FullConversationType[];
-  users: User[];
+  users: SafeUser[];
 }
 
 const ConversationList: React.FC<ConversationListProps> = ({
@@ -31,9 +31,11 @@ const ConversationList: React.FC<ConversationListProps> = ({
 
   const { conversationId, isOpen } = useConversation();
 
-  const pusherKey = useMemo(() => {
-    return session.data?.user?.email;
-  }, [session.data?.user?.email]);
+  const userId = session.data?.user?.id;
+  const pusherKey = useMemo(
+    () => (userId ? userChannel(userId) : undefined),
+    [userId]
+  );
 
   useEffect(() => {
     if (!pusherKey) {

@@ -30,8 +30,6 @@
 - ci(nejcfurh-studio): Run the test suite in code-quality checks (842836e)
 - test(nejcfurh-studio): Add vitest to the shared packages (381a664)
 
-# Changelog
-
 ## v1.29.2 (2026-07-31)
 
 
@@ -39,8 +37,6 @@
 
 - fix(design-lab): Replace the portrait photos (#121) (7d54a78)
 - fix(design-lab): Replace the portrait photos (2e082fa)
-
-# Changelog
 
 ## v1.29.1 (2026-07-25)
 
@@ -52,8 +48,6 @@
 - fix(desktop-weather): Always animate on the kiosk and restore the apple web-app tag (#118) (b180358)
 - fix(desktop-weather): Always animate, ignoring the OS reduced-motion setting (880b235)
 - fix(desktop-weather): Restore the apple web-app capable tag (4412902)
-
-# Changelog
 
 ## v1.29.0 (2026-07-25)
 
@@ -76,8 +70,6 @@
 - chore(desktop-weather): Align the metadata with the rest of the monorepo (c03c79e)
 - style(desktop-weather): Enlarge the forecast icons and drop the today accent (e8622dd)
 
-# Changelog
-
 ## v1.28.0 (2026-07-13)
 
 
@@ -93,8 +85,6 @@
 
 - chore(nejcfurh-studio): Update readme (3eb00e1)
 
-# Changelog
-
 ## v1.27.1 (2026-06-30)
 
 
@@ -102,8 +92,6 @@
 
 - fix(design-lab): Fix mobile display css-morphing (#111) (1ceb7c2)
 - fix(design-lab): Fix mobile display css-morphing (69ffe28)
-
-# Changelog
 
 ## v1.27.0 (2026-06-30)
 
@@ -113,8 +101,6 @@
 - feat(design-lab): Added CSS morphing animation (#109) (08d0565)
 - feat(design-lab): Added CSS morphing animation (b2892a2)
 
-# Changelog
-
 ## v1.26.1 (2026-06-29)
 
 
@@ -122,8 +108,6 @@
 
 - fix(blog-dev): Loading issues on mobile (#107) (ba7bab8)
 - fix(blog-dev): Loading issues on mobile (7cf96cd)
-
-# Changelog
 
 ## v1.26.0 (2026-06-28)
 
@@ -148,8 +132,6 @@
 
 - chore(nejcfurh-studio): Remove clsx and tailwind merge per app, use packages import (d773f7d)
 
-# Changelog
-
 ## v1.25.0 (2026-06-27)
 
 
@@ -170,8 +152,6 @@
 
 - fix(design-lab): Infinite scroll carousel hover effect slowdown fix (6fee7d0)
 
-# Changelog
-
 ## v1.24.1 (2026-06-22)
 
 
@@ -179,8 +159,6 @@
 
 - fix(nejcfurh-studio): Fix turbo.json and Readme.md (#96) (b2c8bd1)
 - fix(nejcfurh-studio): Fix turbo.json and Readme.md (a5d6a9d)
-
-# Changelog
 
 ## v1.24.0 (2026-06-21)
 
@@ -196,8 +174,6 @@
 
 - fix(design-lab): Animate the input field into view (6c18aa9)
 
-# Changelog
-
 ## v1.23.1 (2026-06-07)
 
 
@@ -207,8 +183,6 @@
 - fix(design-lab): Update year (9e5658b)
 - fix(design-lab): Unify styles in components and UI clones (e498bf6)
 - fix(design-lab): Make animations mobile friendly (a5d21a5)
-
-# Changelog
 
 ## v1.23.0 (2026-06-06)
 
@@ -229,8 +203,6 @@
 
 - chore(design-lab): Added proper metadata to each page (8c03de0)
 
-# Changelog
-
 ## v1.22.0 (2026-06-06)
 
 
@@ -247,8 +219,6 @@
 - chore(nejcfurh-studio): Add next-env.d.ts to gitignore (ff7c841)
 - chore(nejcfurh-studio): Remove unused next-auth package from apps (719d8ef)
 
-# Changelog
-
 ## v1.21.1 (2026-06-05)
 
 
@@ -256,8 +226,6 @@
 
 - fix(domavia): Register page styling fix (#82) (c85580d)
 - fix(domavia): Register page styling fix (b6f36e7)
-
-# Changelog
 
 ## v1.21.0 (2026-06-04)
 
@@ -268,8 +236,6 @@
 - feat(nejcfurh-studio): Changed domera app name to domavia (dbcf23c)
 - feat(domera): Added animations to the pages (609e84a)
 - feat(domera): Bring motion components into project (6e03aa6)
-
-# Changelog
 
 ## v1.20.0 (2026-06-04)
 
@@ -302,8 +268,6 @@
 - chore(nejcfurh-studio): Updated all apps to NextJS 16.2.6 (#74) (58d5bdc)
 - chore(nejcfurh-studio): Updated all apps to NextJS 16.2.6 (fd5107a)
 
-# Changelog
-
 ## v1.19.0 (2026-04-17)
 
 
@@ -318,8 +282,6 @@
 
 - fix(backyard-skies): Improve desktop paddings and margins (c482179)
 
-# Changelog
-
 ## v1.18.0 (2026-04-10)
 
 
@@ -327,8 +289,6 @@
 
 - feat(nejcfurh-studio): Update all monorepo apps to NextJS 16.2.3 (#70) (e56597f)
 - feat(nejcfurh-studio): Update all monorepo apps to NextJS 16.2.3 (f5ae780)
-
-# Changelog
 
 ## v1.17.2 (2026-04-08)
 
@@ -338,8 +298,6 @@
 - fix(nejcfurh-studio): Readme change (#68) (82f5294)
 - fix(nejcfurh-studio): Readme change (25ae1b9)
 
-# Changelog
-
 ## v1.17.1 (2026-04-03)
 
 
@@ -347,8 +305,6 @@
 
 - fix(nejcfurh-studio): Disable debug logs for Posthog (#66) (65d358f)
 - fix(nejcfurh-studio): Disable debug logs for Posthog (0654916)
-
-# Changelog
 
 ## v1.17.0 (2026-04-03)
 
@@ -364,8 +320,6 @@
 - fix(nejcfurh-studio): Fix typo in elysantium config (1c8c187)
 - fix(nejcfurh-studio): Fix deployment issues (e398266)
 
-# Changelog
-
 ## v1.16.0 (2026-04-02)
 
 
@@ -373,8 +327,6 @@
 
 - feat(design-lab): Added Posthog analytics (#62) (4d34c51)
 - feat(design-lab): Added Posthog analytics (7d9aea5)
-
-# Changelog
 
 ## v1.15.0 (2026-03-21)
 
@@ -402,8 +354,6 @@
 - chore(design-lab): Clean-up some duplicated items (#59) (b0792ac)
 - chore(design-lab): Clean-up some duplicated items (5f94d94)
 
-# Changelog
-
 ## v1.14.0 (2026-03-20)
 
 
@@ -419,8 +369,6 @@
 
 - fix(backyard-skies): Fix the drop-shadow on Safari (#52) (6356d38)
 - fix(backyard-skies): Fix the drop-shadow on Safari (b08bde6)
-
-# Changelog
 
 ## v1.13.0 (2026-03-19)
 
@@ -438,8 +386,6 @@
 - fix(backyard-skies): Double tap resolved on mobile (#48) (abf60da)
 - fix(backyard-skies): Double tap resolved on mobile (58cdf93)
 
-# Changelog
-
 ## v1.12.1 (2026-03-18)
 
 
@@ -456,8 +402,6 @@
 - chore(nejcfurh-studio): Add supabase and mongodb clients to packages/… (#46) (4e90fb0)
 - chore(nejcfurh-studio): Add supabase and mongodb clients to packages/database (8d5b0e9)
 
-# Changelog
-
 ## v1.12.0 (2026-03-15)
 
 
@@ -465,8 +409,6 @@
 
 - feat(nejcfurh-studio): Remove portfolio app due deployment limitations (#42) (cab24b3)
 - feat(nejcfurh-studio): Remove portfolio app due deployment limitations (7b85f31)
-
-# Changelog
 
 ## v1.11.0 (2026-03-15)
 
@@ -476,8 +418,6 @@
 - feat(nejcfurh-studio): Added portfolio to apps (#40) (726c361)
 - feat(nejcfurh-studio): Added portfolio to apps (6645b63)
 
-# Changelog
-
 ## v1.10.3 (2026-03-11)
 
 
@@ -485,8 +425,6 @@
 
 - fix(nejcfurh-studio): Unified favicon dimensions (#38) (65c7ba7)
 - fix(nejcfurh-studio): Unified favicon dimensions (3dd1937)
-
-# Changelog
 
 ## v1.10.2 (2026-03-11)
 
@@ -496,8 +434,6 @@
 - fix(nejcfurh-studio): Added favicons to all apps (#36) (1c3ebab)
 - fix(nejcfurh-studio): Added favicons to all apps (1def7a0)
 
-# Changelog
-
 ## v1.10.1 (2026-03-08)
 
 
@@ -505,8 +441,6 @@
 
 - fix(twabblr): Resolve deployment issues (#34) (9958473)
 - fix(twabblr): Resolve deployment issues (871bb65)
-
-# Changelog
 
 ## v1.10.0 (2026-03-07)
 
@@ -525,8 +459,6 @@
 - fix(twabblr): Fix auth redirect missing for social login (#32) (1e006fc)
 - fix(twabblr): Fix auth redirect missing for social login (7498595)
 
-# Changelog
-
 ## v1.9.2 (2026-03-06)
 
 
@@ -535,8 +467,6 @@
 - fix(to-do-cards): Another oauth fix (#28) (fc3c4c8)
 - fix(to-do-cards): Another oauth fix (dc5a669)
 
-# Changelog
-
 ## v1.9.1 (2026-03-06)
 
 
@@ -544,8 +474,6 @@
 
 - fix(to-do-cards): OAuth issues for X/Twitter (#26) (2b0a077)
 - fix(to-do-cards): OAuth issues for X/Twitter (f7dabc1)
-
-# Changelog
 
 ## v1.9.0 (2026-03-05)
 
@@ -562,8 +490,6 @@
 - chore(ci): Added env keys to turbo.json (94c75e6)
 - chore(nejcfurh-studio): Added readme files to root and to-do-cards (d1ad3cb)
 
-# Changelog
-
 ## v1.8.0 (2026-03-04)
 
 
@@ -571,8 +497,6 @@
 
 - feat(nejcfurh-studio): Add readme files to all apps (#21) (9b1f635)
 - feat(nejcfurh-studio): Add readme files to all apps (4895def)
-
-# Changelog
 
 ## v1.7.0 (2026-03-04)
 
@@ -588,8 +512,6 @@
 - chore(nejcfurh-studio): Renamed the folder blog-dev (#20) (b46cb29)
 - chore(nejcfurh-studio): Renamed the folder blog-dev (857eda0)
 
-# Changelog
-
 ## v1.6.0 (2026-03-04)
 
 
@@ -597,8 +519,6 @@
 
 - feat(nejcfurh-studio): Add Readme file (#16) (3033e68)
 - feat(nejcfurh-studio): Add Readme file (8889e75)
-
-# Changelog
 
 ## v1.5.0 (2026-03-03)
 
@@ -612,8 +532,6 @@
 ### Bug Fixes & Improvements
 
 - fix(ci): Code quality check fix (e4774da)
-
-# Changelog
 
 ## v1.4.0 (2026-03-03)
 
@@ -629,8 +547,6 @@
 - fix(ci): Deploy issues for reviews analyser (#13) (9781469)
 - fix(ci): Deploy issues for reviews analyser (0079d39)
 
-# Changelog
-
 ## v1.3.0 (2026-03-03)
 
 
@@ -645,8 +561,6 @@
 - fix(desktop-weather): Vercel deploy (#10) (093967f)
 - fix(desktop-weather): Vercel deploy (fac5cd1)
 
-# Changelog
-
 ## v1.2.0 (2026-03-03)
 
 
@@ -659,8 +573,6 @@
 ### Other Changes
 
 - chore(ci): Deployment issues (e209022)
-
-# Changelog
 
 ## v1.1.0 (2026-03-02)
 

@@ -2,14 +2,14 @@
 
 import Avatar from '@/app/components/Avatar';
 import LoadingModal from '@/app/components/LoadingModal';
-import { User } from '@prisma/client';
+import { SafeUser } from '@/app/types';
 import { useMutation } from '@repo/react-query';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { useCallback } from 'react';
 
 interface UserBoxProps {
-  data: User;
+  data: SafeUser;
 }
 
 const UserBox: React.FC<UserBoxProps> = ({ data }) => {

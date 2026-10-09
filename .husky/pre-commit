@@ -1,3 +1,2 @@
+pnpm exec lint-staged
 pnpm type:check
-pnpm format:prettier && git add -A
-pnpm lint:eslint

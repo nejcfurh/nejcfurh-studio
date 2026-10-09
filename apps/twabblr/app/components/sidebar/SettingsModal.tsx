@@ -1,8 +1,8 @@
 'use client';
 
 import { settingsSchema, type SettingsFormValues } from '@/app/schemas';
+import { SafeUser } from '@/app/types';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { User } from '@prisma/client';
 import { useMutation } from '@repo/react-query';
 import axios from 'axios';
 import { CldUploadButton } from 'next-cloudinary';
@@ -18,7 +18,7 @@ import Modal from '../Modal';
 interface SettingsModalProps {
   isOpen?: boolean;
   onClose: () => void;
-  currentUser: User;
+  currentUser: SafeUser;
 }
 
 const SettingsModal: React.FC<SettingsModalProps> = ({

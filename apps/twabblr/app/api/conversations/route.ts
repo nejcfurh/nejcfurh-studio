@@ -1,4 +1,5 @@
 import getCurrentUser from '@/app/actions/getCurrentUser';
+import { userChannel } from '@/app/libs/channels';
 import prisma from '@/app/libs/prismadb';
 import { pusherServer } from '@/app/libs/pusher';
 import { NextResponse } from 'next/server';
@@ -41,13 +42,11 @@ export async function POST(request: Request) {
 
       //async-pusher
       newConversation.users.forEach(async (user) => {
-        if (user.email) {
-          await pusherServer.trigger(
-            user.email,
-            'conversation:new',
-            newConversation
-          );
-        }
+        await pusherServer.trigger(
+          userChannel(user.id),
+          'conversation:new',
+          newConversation
+        );
       });
 
       return NextResponse.json(newConversation);
@@ -97,13 +96,11 @@ export async function POST(request: Request) {
 
     //pusher-async
     newConversation.users.forEach(async (user) => {
-      if (user.email) {
-        await pusherServer.trigger(
-          user.email,
-          'conversation:new',
-          newConversation
-        );
-      }
+      await pusherServer.trigger(
+        userChannel(user.id),
+        'conversation:new',
+        newConversation
+      );
     });
 
     return NextResponse.json(newConversation);
