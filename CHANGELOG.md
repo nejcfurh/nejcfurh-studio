@@ -1,5 +1,16 @@
 # Changelog
 
+## v1.30.1 (2026-10-09)
+
+### Bug Fixes & Improvements
+
+- fix(n-drive): Sync Clerk membership removal and role changes to Convex (#133) (6a5af92)
+- fix(twabblr): Enforce access control on realtime channels and conversations (#135) (eded4c0)
+
+### Other Changes
+
+- ci(nejcfurh-studio): Fix the release notes, build in CI and check only staged files (#134) (8f16647)
+
 ## v1.30.0 (2026-08-03)
 
 
