@@ -1,8 +1,11 @@
+import { PlanRequestSchema } from '@features/how-to-help-flow/schemas';
 import { generateObject, google } from '@repo/ai-sdk';
 import { z } from '@repo/validation';
 import { NextResponse } from 'next/server';
 
 export const maxDuration = 30;
+
+const MAX_OUTPUT_TOKENS = 8192;
 
 const TaskSchema = z.object({
   taskTitle: z.string(),
@@ -23,21 +26,11 @@ const ResponseSchema = z.object({
 
 export async function POST(request: Request): Promise<NextResponse> {
   try {
-    const {
-      locationCity,
-      locationState,
-      locationCountry,
-      timeInAWeek,
-      whatMattersMost
-    } = await request.json();
+    const parsed = PlanRequestSchema.safeParse(
+      await request.json().catch(() => null)
+    );
 
-    if (
-      !locationCity ||
-      !locationState ||
-      !locationCountry ||
-      !timeInAWeek ||
-      !whatMattersMost
-    ) {
+    if (!parsed.success) {
       return NextResponse.json(
         {
           error: 'Location, time commitment, and selected plants are required'
@@ -45,6 +38,8 @@ export async function POST(request: Request): Promise<NextResponse> {
         { status: 400 }
       );
     }
+
+    const { locationState, timeInAWeek, whatMattersMost } = parsed.data;
 
     const { object } = await generateObject({
       model: google('gemini-2.5-flash-lite'),
@@ -66,7 +61,8 @@ For each week, include:
 Include tasks that go beyond planting: taking pictures, looking for invasive plants, making fertilizer, reading "Nature's Best Hope", enjoying your garden, re-planting local plants, and planning for bigger changes.
 
 For Week 6, include a task about "Prepare for Next Steps" mentioning continued support.`,
-      schema: ResponseSchema
+      schema: ResponseSchema,
+      maxOutputTokens: MAX_OUTPUT_TOKENS
     });
 
     return NextResponse.json(object);
