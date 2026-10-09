@@ -15,7 +15,8 @@
     "format:eslint": "pnpm base:eslint --fix",
     "format": "pnpm format:prettier && pnpm format:eslint",
     "format-silent": "pnpm format:prettier --loglevel silent && pnpm format:eslint --quiet",
-    "type:check": "tsc --noEmit"
+    "type:check": "tsc --noEmit",
+    "test": "vitest run"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.4.0",
@@ -38,6 +39,7 @@
     "eslint-config-next": "16.2.3",
     "prettier-config-web": "workspace:*",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^4.1.10"
   }
 }
