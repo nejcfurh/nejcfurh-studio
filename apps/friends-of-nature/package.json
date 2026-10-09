@@ -16,7 +16,8 @@
     "format:eslint": "pnpm base:eslint --fix",
     "format": "pnpm format:prettier && pnpm format:eslint",
     "format-silent": "pnpm format:prettier --loglevel silent && pnpm format:eslint --quiet",
-    "type:check": "tsc --noEmit"
+    "type:check": "tsc --noEmit",
+    "test": "vitest run"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.0",
