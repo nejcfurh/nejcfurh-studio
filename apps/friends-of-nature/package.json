@@ -44,6 +44,7 @@
     "prettier-config-web": "workspace:*",
     "tailwindcss": "^4",
     "tsconfig": "workspace:*",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^4.1.10"
   }
 }
