@@ -1,5 +1,17 @@
 # Changelog
 
+## v1.30.2 (2026-10-10)
+
+### Bug Fixes & Improvements
+
+- fix(to-do-cards): Link OAuth sign-ins by provider id, not by email (#140) (b0ffe27)
+- fix(blog-dev): Fail closed and compare in constant time on admin login (#138) (b85d40a)
+- fix(design-lab, friends-of-nature): Bound the public Gemini routes (#139) (86ba43e)
+
+### Other Changes
+
+- chore(nejcfurh-studio): Ignore the pnpm store folder (#137) (8d16b1d)
+
 ## v1.30.1 (2026-10-09)
 
 ### Bug Fixes & Improvements
