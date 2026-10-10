@@ -27,7 +27,7 @@ export async function registerAction(formData: FormData) {
     return { error: 'Email already in use!' };
   }
 
-  const hashedPassword = await bcrypt.hash(password, 10);
+  const hashedPassword = await bcrypt.hash(password, 12);
 
   await User.create({
     name,

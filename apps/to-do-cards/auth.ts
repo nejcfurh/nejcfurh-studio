@@ -9,6 +9,21 @@ const DAILY_LIST = {
   body: 'Daily tasks!'
 };
 
+const PROVIDER_ID_FIELDS: Record<string, string> = {
+  google: 'googleId',
+  facebook: 'facebookId',
+  twitter: 'twitterXId',
+  github: 'gitHubId'
+};
+
+// Registration never verifies an email, so an account found by email alone may
+// belong to whoever registered it first. Refuse instead of linking to it.
+const assertEmailUnclaimed = async (email: string | null | undefined) => {
+  if (email && (await User.findOne({ email }))) {
+    throw new Error('An account with this email already exists.');
+  }
+};
+
 export const { handlers, auth, signIn, signOut } = createAuth({
   signInPath: '/login',
   providers: ['google', 'facebook', 'twitter', 'github'],
@@ -35,8 +50,11 @@ export const { handlers, auth, signIn, signOut } = createAuth({
     const provider = account?.provider;
 
     if (provider === 'google') {
-      const existingUser = await User.findOne({ email: user.email });
+      const existingUser = await User.findOne({
+        googleId: account?.providerAccountId
+      });
       if (!existingUser) {
+        await assertEmailUnclaimed(user.email);
         await User.create({
           googleId: account?.providerAccountId,
           name: user.name || profile?.name,
@@ -45,8 +63,11 @@ export const { handlers, auth, signIn, signOut } = createAuth({
         });
       }
     } else if (provider === 'facebook') {
-      const existingUser = await User.findOne({ email: user.email });
+      const existingUser = await User.findOne({
+        facebookId: account?.providerAccountId
+      });
       if (!existingUser) {
+        await assertEmailUnclaimed(user.email);
         await User.create({
           facebookId: account?.providerAccountId,
           name: user.name,
@@ -94,16 +115,11 @@ export const { handlers, auth, signIn, signOut } = createAuth({
       return user?.id;
     }
 
-    await connectDB();
-    let dbUser;
+    const idField = PROVIDER_ID_FIELDS[account.provider];
+    if (!idField || !account.providerAccountId) return undefined;
 
-    if (account.provider === 'twitter' || account.provider === 'github') {
-      const idField =
-        account.provider === 'twitter' ? 'twitterXId' : 'gitHubId';
-      dbUser = await User.findOne({ [idField]: account.providerAccountId });
-    } else {
-      dbUser = await User.findOne({ email: user?.email });
-    }
+    await connectDB();
+    const dbUser = await User.findOne({ [idField]: account.providerAccountId });
 
     return dbUser?._id.toString();
   }
