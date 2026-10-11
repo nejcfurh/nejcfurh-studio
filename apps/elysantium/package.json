@@ -27,10 +27,10 @@
     "next": "16.4.0",
     "react": "19.3.0",
     "react-dom": "19.3.0",
-    "react-error-boundary": "^5.0.0",
+    "react-error-boundary": "^6.1.6",
     "react-hook-form": "^7.90.0",
     "react-hot-toast": "^2.6.1",
-    "recharts": "^2.15.0"
+    "recharts": "^3.10.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.3.3",

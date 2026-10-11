@@ -26,7 +26,7 @@
     "@repo/ui": "workspace:*",
     "@repo/utils": "workspace:*",
     "@repo/validation": "workspace:*",
-    "@tanstack/react-table": "^8.21.3",
+    "@tanstack/react-table": "^9.2.8",
     "convex": "^1.46.0",
     "next": "16.4.0",
     "react": "19.3.0",
