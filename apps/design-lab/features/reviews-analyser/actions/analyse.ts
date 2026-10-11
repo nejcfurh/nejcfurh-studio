@@ -1,6 +1,6 @@
 'use server';
 
-import { generateObject, google } from '@repo/ai-sdk';
+import { generateText, google, Output } from '@repo/ai-sdk';
 import { z } from '@repo/validation';
 
 import { reviewAnalysisSchema } from './schema';
@@ -29,9 +29,9 @@ export async function analyseReview(
 
     const parsedContent = validationResult.data;
 
-    const { object } = await generateObject({
+    const { output } = await generateText({
       model: google('gemini-2.5-flash-lite'),
-      schema: reviewAnalysisSchema,
+      output: Output.object({ schema: reviewAnalysisSchema }),
       prompt: `Analyse this customer product review and categorise it according to the specified schema.
 
         Customer Review: "${parsedContent}"
@@ -62,7 +62,7 @@ export async function analyseReview(
 
     return {
       success: true,
-      result: object,
+      result: output,
       content: typeof content === 'string' ? content : ''
     };
   } catch (error) {

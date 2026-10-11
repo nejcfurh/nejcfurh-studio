@@ -7,7 +7,18 @@ vi.mock('@repo/ai-sdk', async (importOriginal) => ({
   ...(await importOriginal<typeof import('@repo/ai-sdk')>()),
   google: vi.fn((modelId: string) => modelId),
   streamText: vi.fn(async () => ({
-    toUIMessageStreamResponse: () => new Response('stream')
+    stream: new ReadableStream({
+      start(controller) {
+        controller.enqueue({ type: 'text-start', id: 't1' });
+        controller.enqueue({
+          type: 'text-delta',
+          id: 't1',
+          text: 'Mostly fine.'
+        });
+        controller.enqueue({ type: 'text-end', id: 't1' });
+        controller.close();
+      }
+    })
   }))
 }));
 
@@ -52,6 +63,8 @@ describe('POST /api/chat', () => {
     const response = await send(conversation);
 
     expect(response.status).toBe(200);
+    expect(response.headers.get('content-type')).toBe('text/event-stream');
+    expect(await response.text()).toContain('"delta":"Mostly fine."');
     expect(streamText).toHaveBeenCalledTimes(1);
 
     const options = vi.mocked(streamText).mock.calls[0]?.[0];
