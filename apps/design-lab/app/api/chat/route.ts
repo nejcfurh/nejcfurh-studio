@@ -37,11 +37,11 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: 'Invalid request' }, { status: 400 });
   }
 
-  const modelMessages = convertToModelMessages(parsed.data.messages);
+  const modelMessages = await convertToModelMessages(parsed.data.messages);
 
   const result = await streamText({
     model: google('gemini-2.5-flash-lite'),
-    system: 'You are a helpful assistant.',
+    instructions: 'You are a helpful assistant.',
     messages: modelMessages,
     maxOutputTokens: MAX_OUTPUT_TOKENS
   });

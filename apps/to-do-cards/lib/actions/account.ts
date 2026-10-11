@@ -29,7 +29,7 @@ export async function updateAvatar(avatarUrl: string) {
   const user = await User.findOneAndUpdate(
     { _id: session.user.id },
     { $set: { avatar: avatarUrl } },
-    { new: true, projection: OMIT_PASSWORD }
+    { returnDocument: 'after', projection: OMIT_PASSWORD }
   );
 
   if (!user) throw new Error('User not found');

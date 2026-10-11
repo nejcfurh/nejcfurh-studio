@@ -35,7 +35,7 @@
     "typescript": "6.0.3"
   },
   "dependencies": {
-    "@braze/web-sdk": "^6.5.0",
+    "@braze/web-sdk": "^7.0.0",
     "@next/third-parties": "^16.4.0",
     "@repo/utils": "workspace:*",
     "braze-api": "^2.13.4",

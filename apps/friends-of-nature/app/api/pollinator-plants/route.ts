@@ -34,7 +34,7 @@ export async function POST(request: Request): Promise<NextResponse> {
 
     const { object } = await generateObject({
       model: google('gemini-2.5-flash-lite'),
-      system:
+      instructions:
         'You are a horticultural expert specializing in native pollinator plants. Provide accurate, region-specific recommendations.',
       prompt: `Based on the location ${locationCity}, ${locationState}, ${locationCountry}, provide a list of 10 native pollinator plants that would thrive in this area. For each plant, include:
 1. Common name

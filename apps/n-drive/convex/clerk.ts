@@ -24,11 +24,12 @@ export const fulfill = internalAction({
   handler: async (ctx, args) => {
     const wh = new Webhook(webhookSecret);
 
-    const payload = wh.verify(args.payload, {
+    // svix 2 only verifies (throwing on a bad signature); it no longer returns the payload.
+    wh.verify(args.payload, {
       'svix-id': args.headers.svix_id,
       'svix-timestamp': args.headers.svix_timestamp,
       'svix-signature': args.headers.svix_signature
-    }) as WebhookEvent;
-    return payload;
+    });
+    return JSON.parse(args.payload) as WebhookEvent;
   }
 });
