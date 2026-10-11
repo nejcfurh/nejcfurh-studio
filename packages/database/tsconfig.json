@@ -2,10 +2,9 @@
   "extends": "tsconfig/react-library.json",
   "compilerOptions": {
     "types": ["node"],
-    "baseUrl": "./src",
     "paths": {
-      "@database-mongodb/*": ["mongodb/*"],
-      "@database-supabase/*": ["supabase/*"]
+      "@database-mongodb/*": ["./src/mongodb/*"],
+      "@database-supabase/*": ["./src/supabase/*"]
     }
   },
   "include": ["."],

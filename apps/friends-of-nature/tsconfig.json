@@ -2,12 +2,11 @@
   "extends": "tsconfig/nextjs.json",
   "compilerOptions": {
     "esModuleInterop": true,
-    "baseUrl": ".",
     "types": ["node", "react", "react-dom"],
     "paths": {
       "@components/*": ["./components/*"],
       "@features/*": ["./features/*"],
-      "@config/*": ["config/*"],
+      "@config/*": ["./config/*"],
       "@public/*": ["./public/*"],
       "@analytics/*": ["../../packages/analytics/src/*"],
       "@repo/analytics/*": ["../../packages/analytics/src/*"],

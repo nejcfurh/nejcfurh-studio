@@ -2,9 +2,8 @@
   "extends": "tsconfig/react-library.json",
   "compilerOptions": {
     "types": [],
-    "baseUrl": ".",
     "paths": {
-      "@ui-animation/*": ["animation/*"]
+      "@ui-animation/*": ["./animation/*"]
     }
   },
   "include": ["."],

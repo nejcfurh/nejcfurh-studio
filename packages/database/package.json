@@ -23,7 +23,7 @@
     "eslint-config-web": "workspace:*",
     "prettier-config-web": "workspace:*",
     "tsconfig": "workspace:*",
-    "typescript": "5.9.3"
+    "typescript": "6.0.3"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.117.3",

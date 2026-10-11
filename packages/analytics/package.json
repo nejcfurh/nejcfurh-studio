@@ -32,7 +32,7 @@
     "react": "19.3.0",
     "tailwind-config": "workspace:*",
     "tsconfig": "workspace:*",
-    "typescript": "5.9.3"
+    "typescript": "6.0.3"
   },
   "dependencies": {
     "@braze/web-sdk": "^6.5.0",

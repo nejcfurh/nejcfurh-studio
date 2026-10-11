@@ -28,7 +28,7 @@
     "prettier-config-web": "workspace:*",
     "react": "19.3.0",
     "tsconfig": "workspace:*",
-    "typescript": "5.9.3"
+    "typescript": "6.0.3"
   },
   "dependencies": {
     "@tanstack/react-query": "5.104.1"
