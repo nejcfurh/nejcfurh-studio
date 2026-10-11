@@ -1,5 +1,15 @@
 # Changelog
 
+## v1.30.3 (2026-10-11)
+
+### Bug Fixes & Improvements
+
+- fix(ai-sdk): Move off the AI SDK calls deprecated in v7 (#150) (692cc6b)
+
+### Other Changes
+
+- chore(deps): Upgrade jobs-react-native to Expo SDK 57 (#148) (a7f1ed9)
+
 ## v1.30.2 (2026-10-10)
 
 ### Bug Fixes & Improvements
