@@ -43,7 +43,8 @@
         "react": "19",
         "react-dom": "19",
         "next": "16",
-        "eslint": "10"
+        "eslint": "10",
+        "react-native-reanimated>react-native-worklets": "0.10"
       }
     },
     "onlyBuiltDependencies": [
