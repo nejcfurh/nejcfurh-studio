@@ -1,7 +1,7 @@
 import { AnalyticsClientPageEvent } from '@/features/analytics/types.client';
 import { PageName } from '@/utils/constants/page.data';
 import { PageVisitTracker } from '@analytics/components/PageVisitTracker';
-import { SignedIn, SignedOut, SignInButton } from '@clerk/nextjs';
+import { Show, SignInButton } from '@clerk/nextjs';
 import { Button } from '@repo/ui/components/button';
 import { ArrowRightIcon } from '@repo/ui/icons/lucide';
 import Image from 'next/image';
@@ -50,14 +50,14 @@ const HomePage = () => {
                 </p>
               </div>
               <div className="mt-12 flex justify-center gap-4">
-                <SignedIn>
+                <Show when="signed-in">
                   <Link href="/dashboard/files">
                     <Button className="inline-flex h-12 w-44 cursor-pointer items-center gap-x-3 rounded-lg bg-linear-to-r from-purple-600 to-blue-600 text-base font-medium text-white transition-all duration-300 ease-in-out hover:opacity-90 focus:outline-hidden disabled:pointer-events-none disabled:opacity-50 md:text-lg">
                       Dashboard <ArrowRightIcon className="size-5 md:size-6" />
                     </Button>
                   </Link>
-                </SignedIn>
-                <SignedOut>
+                </Show>
+                <Show when="signed-out">
                   <Button className="inline-flex cursor-pointer items-center gap-x-3 rounded-lg bg-linear-to-r from-purple-600 to-blue-600 px-8 py-6 text-base font-medium text-white transition-all duration-300 ease-in-out hover:opacity-90 focus:outline-hidden disabled:pointer-events-none disabled:opacity-50 md:text-lg">
                     <SignInButton mode="modal">
                       <div className="flex items-center gap-2">
@@ -79,7 +79,7 @@ const HomePage = () => {
                       </div>
                     </SignInButton>
                   </Button>
-                </SignedOut>
+                </Show>
               </div>
             </div>
           </div>
