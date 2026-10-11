@@ -106,7 +106,7 @@ export default function InstagramClonePage() {
       <main className="mx-auto grid grid-cols-1 md:max-w-6xl md:grid-cols-3">
         <section className="md:col-span-2">
           {/* STORIES */}
-          <div className="scrollbar-none flex space-x-2 overflow-x-scroll border-y border-gray-200 p-4 sm:rounded-sm sm:border sm:p-6">
+          <div className="flex scrollbar-none space-x-2 overflow-x-scroll border-y border-gray-200 p-4 sm:rounded-sm sm:border sm:p-6">
             {INSTAGRAM_STORIES.map((story) => (
               <div key={story.name} className="group relative cursor-pointer">
                 <Image
@@ -199,7 +199,7 @@ export default function InstagramClonePage() {
                 {post.caption}
               </p>
               {/* COMMENTS */}
-              <div className="scrollbar-none relative mx-4 max-h-28 overflow-y-scroll">
+              <div className="relative mx-4 max-h-28 scrollbar-none overflow-y-scroll">
                 {post.comments.map((comment) => (
                   <div
                     key={comment.user + comment.text}

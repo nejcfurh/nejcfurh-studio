@@ -55,7 +55,7 @@ export default function ScrollToUnblur({
   const revealDistance = words.length * pxPerWord;
 
   return (
-    <main ref={scrollRef} className="scrollbar-none h-screen overflow-y-scroll">
+    <main ref={scrollRef} className="h-screen scrollbar-none overflow-y-scroll">
       <div
         className="relative"
         style={{ height: `calc(${revealDistance}px + 100vh)` }}
