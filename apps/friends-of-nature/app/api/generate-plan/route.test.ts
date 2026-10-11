@@ -1,11 +1,12 @@
-import { generateObject } from '@repo/ai-sdk';
+import { generateText } from '@repo/ai-sdk';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { POST } from './route';
 
-vi.mock('@repo/ai-sdk', () => ({
+vi.mock('@repo/ai-sdk', async (importOriginal) => ({
+  ...(await importOriginal<typeof import('@repo/ai-sdk')>()),
   google: vi.fn((modelId: string) => modelId),
-  generateObject: vi.fn(async () => ({ object: { weeks: [] } }))
+  generateText: vi.fn(async () => ({ output: { weeks: [] } }))
 }));
 
 // The shape the how-to-help page sends.
@@ -27,7 +28,7 @@ const send = (body: unknown): Promise<Response> =>
 
 describe('POST /api/generate-plan', () => {
   beforeEach(() => {
-    vi.mocked(generateObject).mockClear();
+    vi.mocked(generateText).mockClear();
   });
 
   it('generates a plan for a normal request with capped output', async () => {
@@ -35,9 +36,10 @@ describe('POST /api/generate-plan', () => {
 
     expect(response.status).toBe(200);
     expect(await response.json()).toEqual({ weeks: [] });
-    expect(generateObject).toHaveBeenCalledTimes(1);
+    expect(generateText).toHaveBeenCalledTimes(1);
 
-    const options = vi.mocked(generateObject).mock.calls[0]?.[0];
+    const options = vi.mocked(generateText).mock.calls[0]?.[0];
+    expect(options?.output?.name).toBe('object');
     expect(options).toMatchObject({ maxOutputTokens: 8192 });
     expect(options?.prompt).toContain('["Common Yarrow","Wild Marjoram"]');
   });
@@ -82,11 +84,11 @@ describe('POST /api/generate-plan', () => {
     expect(await response.json()).toEqual({
       error: 'Location, time commitment, and selected plants are required'
     });
-    expect(generateObject).not.toHaveBeenCalled();
+    expect(generateText).not.toHaveBeenCalled();
   });
 
   it('returns a generic 500 when Gemini fails', async () => {
-    vi.mocked(generateObject).mockRejectedValueOnce(
+    vi.mocked(generateText).mockRejectedValueOnce(
       new Error('quota exceeded for key AIza-secret')
     );
     vi.spyOn(console, 'error').mockImplementation(() => undefined);

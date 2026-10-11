@@ -28,7 +28,7 @@ function TodayActivity(): React.ReactElement {
 
       {!isPendingTodayActivity ? (
         activities?.length && activities.length > 0 ? (
-          <ul className="overflow-x-hidden overflow-y-scroll [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:w-0!">
+          <ul className="[scrollbar-width:none] overflow-x-hidden overflow-y-scroll [-ms-overflow-style:none] [&::-webkit-scrollbar]:w-0!">
             {activities.map((activity) => (
               <TodayItem activity={activity} key={activity.id} />
             ))}

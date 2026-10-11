@@ -25,6 +25,7 @@ function CheckinBooking(): React.ReactElement | null {
 
   const bookingIsPaid = booking?.isPaid ?? false;
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setConfirmPaid(bookingIsPaid);
   }, [bookingIsPaid]);
 

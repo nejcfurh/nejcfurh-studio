@@ -1,7 +1,6 @@
 import {
   OrganizationSwitcher,
-  SignedIn,
-  SignedOut,
+  Show,
   SignInButton,
   UserButton
 } from '@clerk/nextjs';
@@ -26,15 +25,15 @@ const Header = () => {
         </Link>
 
         <div className="flex items-center gap-2">
-          <SignedIn>
+          <Show when="signed-in">
             <Link href="/dashboard/files">
               <Button variant="outline">Dashboard</Button>
             </Link>
-          </SignedIn>
+          </Show>
 
           <OrganizationSwitcher />
           <UserButton />
-          <SignedOut>
+          <Show when="signed-out">
             <Button variant="outline">
               <SignInButton mode="modal">
                 <div className="flex items-center gap-2">
@@ -43,7 +42,7 @@ const Header = () => {
                 </div>
               </SignInButton>
             </Button>
-          </SignedOut>
+          </Show>
         </div>
       </div>
     </div>

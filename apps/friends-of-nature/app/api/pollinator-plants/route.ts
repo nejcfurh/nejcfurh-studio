@@ -1,5 +1,5 @@
 import { LocationSchema } from '@features/how-to-help-flow/schemas';
-import { generateObject, google } from '@repo/ai-sdk';
+import { generateText, google, Output } from '@repo/ai-sdk';
 import { z } from '@repo/validation';
 import { NextResponse } from 'next/server';
 
@@ -32,19 +32,19 @@ export async function POST(request: Request): Promise<NextResponse> {
 
     const { locationCity, locationState, locationCountry } = parsed.data;
 
-    const { object } = await generateObject({
+    const { output } = await generateText({
       model: google('gemini-2.5-flash-lite'),
-      system:
+      instructions:
         'You are a horticultural expert specializing in native pollinator plants. Provide accurate, region-specific recommendations.',
       prompt: `Based on the location ${locationCity}, ${locationState}, ${locationCountry}, provide a list of 10 native pollinator plants that would thrive in this area. For each plant, include:
 1. Common name
 2. Scientific name
 3. A list of 2-4 specific pollinators it supports (from: bees, butterflies, hummingbirds, moths, beetles, wasps, flies)`,
-      schema: PlantsResponse,
+      output: Output.object({ schema: PlantsResponse }),
       maxOutputTokens: MAX_OUTPUT_TOKENS
     });
 
-    return NextResponse.json(object);
+    return NextResponse.json(output);
   } catch {
     return NextResponse.json(
       { error: 'Failed to fetch pollinator plants' },

@@ -52,6 +52,7 @@ export const FeaturedListingsCarousel = ({ listings }: Props) => {
       <Carousel
         setApi={setApi}
         opts={{ loop: true }}
+        // eslint-disable-next-line react-hooks/refs
         plugins={[autoplay.current]}
         className="h-full w-full"
       >
