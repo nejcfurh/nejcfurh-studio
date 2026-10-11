@@ -1,7 +1,7 @@
 import type { Product } from '@features/configurator/types/types';
 import type { AnalyticsClientPageEventBase } from '@repo/analytics/types.client';
-import type { PageName } from 'app/constants/data/page.data';
 
+import type { PageName } from '../../app/constants/data/page.data';
 import type { AnalyticsClientEventType } from './constants';
 
 export type EmailSubscriptionEvents = {

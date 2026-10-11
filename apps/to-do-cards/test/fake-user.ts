@@ -46,13 +46,18 @@ export const FakeUser = {
   async findOneAndUpdate(
     filter: Record<string, unknown>,
     update: { $set: Record<string, unknown> },
-    options: { new?: boolean; projection?: Record<string, 0> }
+    options: {
+      new?: boolean;
+      returnDocument?: 'before' | 'after';
+      projection?: Record<string, 0>;
+    }
   ) {
     const record = records.find((candidate) => matches(candidate, filter));
     if (!record) return null;
     const before = structuredClone(record);
     Object.assign(record, update.$set);
-    return project(options.new ? record : before, options.projection);
+    const returnAfter = options.returnDocument === 'after' || options.new;
+    return project(returnAfter ? record : before, options.projection);
   },
   async create(fields: Record<string, unknown>) {
     for (const key of UNIQUE_FIELDS) {

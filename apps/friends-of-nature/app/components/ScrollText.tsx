@@ -24,17 +24,11 @@ const AnimatedCharacter = ({
   const start = (index / total) * 0.6; // range for scroll for each character
   const end = start + 1 / total; // equal portion of the range for each character
 
-  const opacity = useTransform(
-    scrollYProgress,
-    [start, start + 0.05, end - 0.05, end],
-    [0, 10, 10, 0]
-  );
+  // Input ranges must increase: motion hands opacity to element.animate(),
+  // which throws on decreasing offsets and takes down the page.
+  const opacity = useTransform(scrollYProgress, [start, end], [0, 1]);
 
-  const y = useTransform(
-    scrollYProgress,
-    [start, start + 0.05, end - 0.05, end],
-    [10, 0, 0, 10]
-  );
+  const y = useTransform(scrollYProgress, [start, end], [10, 0]);
 
   return (
     <motion.span

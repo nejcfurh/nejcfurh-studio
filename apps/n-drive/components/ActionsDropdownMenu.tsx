@@ -2,7 +2,7 @@
 
 import { api } from '@/convex/_generated/api';
 import { Doc } from '@/convex/_generated/dataModel';
-import { Protect } from '@clerk/nextjs';
+import { Show } from '@clerk/nextjs';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -105,10 +105,10 @@ export const ActionsDropdownMenu = ({
         </DropdownMenuTrigger>
         <DropdownMenuContent>
           <DropdownMenuGroup>
-            <Protect
-              condition={(check) => {
+            <Show
+              when={(has) => {
                 return (
-                  check({
+                  has({
                     role: 'org:admin'
                   }) || file.userId === me?._id
                 );
@@ -133,7 +133,7 @@ export const ActionsDropdownMenu = ({
                 </DropdownMenuItem>
               )}
               <DropdownMenuSeparator />
-            </Protect>
+            </Show>
             {fileUrl && (
               <DropdownMenuItem className="flex cursor-pointer items-center justify-center gap-2">
                 <DownloadIcon className="size-4" />

@@ -148,7 +148,6 @@ function SalesChart({
               tickLine={{ stroke: colors.text }}
             />
             <CartesianGrid strokeDasharray="4" />
-            <Tooltip contentStyle={{ backgroundColor: colors.background }} />
             <Area
               dataKey="totalSales"
               type="monotone"
@@ -167,6 +166,7 @@ function SalesChart({
               name="Extras Sales"
               unit="$"
             />
+            <Tooltip contentStyle={{ backgroundColor: colors.background }} />
           </AreaChart>
         </ResponsiveContainer>
       </DashboardBox>

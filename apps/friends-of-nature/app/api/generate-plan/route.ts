@@ -43,7 +43,7 @@ export async function POST(request: Request): Promise<NextResponse> {
 
     const { object } = await generateObject({
       model: google('gemini-2.5-flash-lite'),
-      system:
+      instructions:
         'You are a horticultural and conservation planning expert specializing in native pollinator gardens and ecosystem restoration. Provide detailed, region-specific, and actionable conservation plans.',
       prompt: `Based on the details provided, please generate a customized 6‑week conservation plan for a ${locationState} backyard supporting native pollinators. The plan should consider the following:
 

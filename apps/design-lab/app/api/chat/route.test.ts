@@ -56,7 +56,7 @@ describe('POST /api/chat', () => {
 
     const options = vi.mocked(streamText).mock.calls[0]?.[0];
     expect(options).toMatchObject({
-      system: 'You are a helpful assistant.',
+      instructions: 'You are a helpful assistant.',
       maxOutputTokens: 1024
     });
     expect(options?.messages?.map((message) => message.role)).toEqual([

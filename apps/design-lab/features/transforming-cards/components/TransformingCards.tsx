@@ -56,6 +56,7 @@ export default function TransformingCards() {
       });
     }
 
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setCards(newCards);
   }, []);
 

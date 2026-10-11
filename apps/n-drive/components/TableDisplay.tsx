@@ -10,25 +10,35 @@ import {
 } from '@repo/ui/components/table';
 import {
   ColumnDef,
+  columnVisibilityFeature,
   flexRender,
-  getCoreRowModel,
-  useReactTable
+  rowSelectionFeature,
+  tableFeatures,
+  useTable,
+  type RowData
 } from '@tanstack/react-table';
 
-interface TableDisplayProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[];
+export const tableDisplayFeatures = tableFeatures({
+  columnVisibilityFeature,
+  rowSelectionFeature
+});
+
+export type TableDisplayFeatures = typeof tableDisplayFeatures;
+
+interface TableDisplayProps<TData extends RowData> {
+  columns: ColumnDef<TableDisplayFeatures, TData>[];
   data: TData[];
 }
 
-export function TableDisplay<TData, TValue>({
+export function TableDisplay<TData extends RowData>({
   columns,
   data
-}: TableDisplayProps<TData, TValue>) {
+}: TableDisplayProps<TData>) {
   // eslint-disable-next-line react-hooks/incompatible-library
-  const table = useReactTable({
+  const table = useTable({
+    features: tableDisplayFeatures,
     data,
-    columns,
-    getCoreRowModel: getCoreRowModel()
+    columns
   });
 
   return (

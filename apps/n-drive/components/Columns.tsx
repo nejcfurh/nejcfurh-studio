@@ -9,6 +9,7 @@ import { ColumnDef } from '@tanstack/react-table';
 import { useQuery } from 'convex/react';
 
 import ActionsDropdownMenu from './ActionsDropdownMenu';
+import type { TableDisplayFeatures } from './TableDisplay';
 
 const UserCell = ({ userId }: { userId: Id<'users'> }) => {
   const user = useQuery(api.users.getUserProfile, { userId });
@@ -49,7 +50,7 @@ const ActionsCell = ({ file }: { file: Doc<'files'> }) => {
   );
 };
 
-export const columns: ColumnDef<Doc<'files'>>[] = [
+export const columns: ColumnDef<TableDisplayFeatures, Doc<'files'>>[] = [
   {
     accessorKey: 'name',
     header: 'Name'

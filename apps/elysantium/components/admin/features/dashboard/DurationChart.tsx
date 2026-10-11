@@ -130,7 +130,6 @@ function DurationChart({
               />
             ))}
           </Pie>
-          <Tooltip />
           <Legend
             verticalAlign="middle"
             align="right"
@@ -142,6 +141,7 @@ function DurationChart({
               <span className="text-sm text-(--color-grey-600)">{value}</span>
             )}
           />
+          <Tooltip />
         </PieChart>
       </ResponsiveContainer>
     </AnimatedDiv>
