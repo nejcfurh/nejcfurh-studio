@@ -23,7 +23,7 @@
     "@auth/prisma-adapter": "^2.11.3",
     "@headlessui/react": "^2.2.10",
     "@hookform/resolvers": "^5.9.1",
-    "@prisma/client": "^6.19.0",
+    "@prisma/client": "^6.19.3",
     "@repo/auth": "workspace:*",
     "@repo/react-query": "workspace:*",
     "@repo/ui": "workspace:*",
@@ -54,7 +54,7 @@
     "eslint": "^10.12.0",
     "eslint-config-next": "16.4.0",
     "prettier-config-web": "workspace:*",
-    "prisma": "^6.19.0",
+    "prisma": "^6.19.3",
     "tailwindcss": "^4.3.3",
     "typescript": "~6.0.3",
     "vitest": "^5.0.3"
