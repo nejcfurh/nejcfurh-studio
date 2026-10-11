@@ -1,4 +1,10 @@
-import { convertToModelMessages, google, streamText } from '@repo/ai-sdk';
+import {
+  convertToModelMessages,
+  createUIMessageStreamResponse,
+  google,
+  streamText,
+  toUIMessageStream
+} from '@repo/ai-sdk';
 import { z } from '@repo/validation';
 import { NextResponse } from 'next/server';
 
@@ -46,5 +52,7 @@ export async function POST(req: Request) {
     maxOutputTokens: MAX_OUTPUT_TOKENS
   });
 
-  return result.toUIMessageStreamResponse();
+  return createUIMessageStreamResponse({
+    stream: toUIMessageStream({ stream: result.stream })
+  });
 }

@@ -1,10 +1,11 @@
 // Vercel AI SDK - core
 export {
-  generateObject,
   generateText,
   streamText,
-  streamObject,
-  convertToModelMessages
+  convertToModelMessages,
+  createUIMessageStreamResponse,
+  Output,
+  toUIMessageStream
 } from 'ai';
 
 // Vercel AI SDK - Google provider

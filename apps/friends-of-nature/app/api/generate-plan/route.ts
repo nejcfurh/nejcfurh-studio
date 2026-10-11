@@ -1,5 +1,5 @@
 import { PlanRequestSchema } from '@features/how-to-help-flow/schemas';
-import { generateObject, google } from '@repo/ai-sdk';
+import { generateText, google, Output } from '@repo/ai-sdk';
 import { z } from '@repo/validation';
 import { NextResponse } from 'next/server';
 
@@ -41,7 +41,7 @@ export async function POST(request: Request): Promise<NextResponse> {
 
     const { locationState, timeInAWeek, whatMattersMost } = parsed.data;
 
-    const { object } = await generateObject({
+    const { output } = await generateText({
       model: google('gemini-2.5-flash-lite'),
       instructions:
         'You are a horticultural and conservation planning expert specializing in native pollinator gardens and ecosystem restoration. Provide detailed, region-specific, and actionable conservation plans.',
@@ -61,11 +61,11 @@ For each week, include:
 Include tasks that go beyond planting: taking pictures, looking for invasive plants, making fertilizer, reading "Nature's Best Hope", enjoying your garden, re-planting local plants, and planning for bigger changes.
 
 For Week 6, include a task about "Prepare for Next Steps" mentioning continued support.`,
-      schema: ResponseSchema,
+      output: Output.object({ schema: ResponseSchema }),
       maxOutputTokens: MAX_OUTPUT_TOKENS
     });
 
-    return NextResponse.json(object);
+    return NextResponse.json(output);
   } catch (error) {
     console.error('Error generating conservation plan:', error);
 

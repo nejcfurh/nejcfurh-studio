@@ -1,11 +1,12 @@
-import { generateObject } from '@repo/ai-sdk';
+import { generateText } from '@repo/ai-sdk';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { POST } from './route';
 
-vi.mock('@repo/ai-sdk', () => ({
+vi.mock('@repo/ai-sdk', async (importOriginal) => ({
+  ...(await importOriginal<typeof import('@repo/ai-sdk')>()),
   google: vi.fn((modelId: string) => modelId),
-  generateObject: vi.fn(async () => ({ object: { plants: [] } }))
+  generateText: vi.fn(async () => ({ output: { plants: [] } }))
 }));
 
 // The shape the how-to-help page sends.
@@ -25,7 +26,7 @@ const send = (body: unknown): Promise<Response> =>
 
 describe('POST /api/pollinator-plants', () => {
   beforeEach(() => {
-    vi.mocked(generateObject).mockClear();
+    vi.mocked(generateText).mockClear();
   });
 
   it('lists plants for a normal request with capped output', async () => {
@@ -34,7 +35,8 @@ describe('POST /api/pollinator-plants', () => {
     expect(response.status).toBe(200);
     expect(await response.json()).toEqual({ plants: [] });
 
-    const options = vi.mocked(generateObject).mock.calls[0]?.[0];
+    const options = vi.mocked(generateText).mock.calls[0]?.[0];
+    expect(options?.output?.name).toBe('object');
     expect(options).toMatchObject({ maxOutputTokens: 2048 });
     expect(options?.prompt).toContain('Portland, Oregon, United States');
   });
@@ -56,6 +58,6 @@ describe('POST /api/pollinator-plants', () => {
     expect(await response.json()).toEqual({
       error: 'Location information is required'
     });
-    expect(generateObject).not.toHaveBeenCalled();
+    expect(generateText).not.toHaveBeenCalled();
   });
 });
