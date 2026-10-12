@@ -119,6 +119,7 @@ pnpm run jobs-react-native
 | `pnpm lint:prettier` | Check formatting with Prettier |
 | `pnpm lint:eslint`   | Check code quality with ESLint |
 | `pnpm type:check`    | Run TypeScript type checking   |
+| `pnpm test`          | Run Vitest test suites         |
 
 ### Formatting
 
@@ -132,10 +133,12 @@ pnpm run jobs-react-native
 
 - **Framework:** Next.js 16 with Turbopack
 - **UI:** React 19, Tailwind CSS 4
-- **Language:** TypeScript 5
-- **Monorepo:** Turborepo 2.8, pnpm workspaces
+- **Language:** TypeScript 6
+- **Monorepo:** Turborepo 2.11, pnpm workspaces
+- **AI:** Vercel AI SDK 7 with Google Gemini (via `@repo/ai-sdk`)
 - **Analytics:** PostHog (via `@repo/analytics`)
-- **Linting:** ESLint 9 (flat config), Prettier
+- **Testing:** Vitest 5
+- **Linting:** ESLint 10 (flat config), Prettier
 - **Git Hooks:** Husky (pre-commit: type check + format, commit-msg: commitlint)
 - **CI/CD:** GitHub Actions (code quality, auto-release PRs, semantic versioning)
 
