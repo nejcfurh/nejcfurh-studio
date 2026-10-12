@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.30.4 (2026-10-12)
+
+### Bug Fixes & Improvements
+
+- fix(docs): Update the README tech stack to the upgraded versions (#152) (0e1aa66)
+
 ## v1.30.3 (2026-10-11)
 
 ### Bug Fixes & Improvements
