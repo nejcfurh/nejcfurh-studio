@@ -1,39 +1,51 @@
 'use client';
 
+import { BIRD_MODEL, BIRD_SPECIES_TEXTURES } from '@/lib/assets';
 import { BirdSpeciesId } from '@/types';
 import { useGLTF, useTexture } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
-import { useCallback, useEffect, useMemo, useRef } from 'react';
+import {
+  MutableRefObject,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef
+} from 'react';
 import * as THREE from 'three';
 
-// MAP SPECIES ID TO TEXTURE FILE NAME
-const SPECIES_TEXTURE: Record<BirdSpeciesId, string> = {
-  cardinal: '/models/mybird/textures/lambert2_baseColor.png',
-  tanager: '/models/mybird/textures/lambert2_baseColor-scarlet.png',
-  bunting: '/models/mybird/textures/lambert2_baseColor-indigo.png',
-  starling: '/models/mybird/textures/lambert2_baseColor-starling.png'
-};
+/** Pose read every frame, so a 60 Hz source does not re-render the model. */
+export interface BirdPose {
+  /** Increments once per flap; each increase starts a wingbeat. */
+  flapId: number;
+  gliding: boolean;
+}
 
 interface GltfBirdModelProps {
   isFlapping: boolean;
   isPerched?: boolean;
   scale?: number;
   speciesId?: BirdSpeciesId;
+  /** When given, it replaces isFlapping as the source of wingbeats. */
+  poseRef?: MutableRefObject<BirdPose>;
 }
 
 const WING_THRESHOLD = 0.8;
 const FLAP_DURATION = 0.3;
 const FLAP_LIFT = 0.8; // MAX Y DISPLACEMENT AT WINGTIP
+const GLIDE_LIFT = 0.22; // WINGS HELD SLIGHTLY RAISED AND SPREAD
+const BASE_LIFT_DAMPING = 10; // 1/s
+const LIFT_EPSILON = 0.002;
 
 export default function GltfBirdModel({
   isFlapping,
   isPerched = false,
   scale = 1,
-  speciesId = 'cardinal'
+  speciesId = 'cardinal',
+  poseRef
 }: GltfBirdModelProps) {
-  const { scene } = useGLTF('/models/mybird/scene.gltf');
+  const { scene } = useGLTF(BIRD_MODEL);
   const speciesTexture = useTexture(
-    SPECIES_TEXTURE[speciesId] || SPECIES_TEXTURE.cardinal
+    BIRD_SPECIES_TEXTURES[speciesId] || BIRD_SPECIES_TEXTURES.cardinal
   );
 
   // DEEP CLONE INCLUDING GEOMETRY BUFFERS SO VERTEX EDITS DON'T CORRUPT THE CACHED ORIGINAL
@@ -42,6 +54,7 @@ export default function GltfBirdModel({
     clone.traverse((child) => {
       if (child instanceof THREE.Mesh && child.geometry) {
         child.geometry = child.geometry.clone();
+        child.castShadow = true;
       }
     });
     return clone;
@@ -64,7 +77,11 @@ export default function GltfBirdModel({
   }, [clonedScene, speciesTexture]);
   const groupRef = useRef<THREE.Group>(null);
   const flapTime = useRef(-1);
-  const flapActive = useRef(false);
+  const lastFlapId = useRef(0);
+  const wasFlapping = useRef(false);
+  const baseLift = useRef(0);
+  // NaN forces the first frame to write the buffer.
+  const appliedLift = useRef(Number.NaN);
   const originalPositions = useRef<Map<THREE.BufferGeometry, Float32Array>>(
     new Map()
   );
@@ -88,34 +105,39 @@ export default function GltfBirdModel({
     if (!groupRef.current) return;
     initOriginals();
 
-    // TRIGGER NEW FLAP
-    if (isFlapping && !flapActive.current) {
-      flapActive.current = true;
-      flapTime.current = 0;
+    const pose = poseRef?.current;
+    let startFlap = false;
+    if (pose) {
+      startFlap = pose.flapId > lastFlapId.current;
+      lastFlapId.current = pose.flapId;
+    } else {
+      startFlap = isFlapping && !wasFlapping.current;
+      wasFlapping.current = isFlapping;
+    }
+    if (startFlap && !isPerched) flapTime.current = 0;
+
+    const gliding = !isPerched && (pose?.gliding ?? false);
+    const baseTarget = isPerched ? -FLAP_LIFT : gliding ? GLIDE_LIFT : 0;
+    baseLift.current +=
+      (baseTarget - baseLift.current) *
+      (1 - Math.exp(-BASE_LIFT_DAMPING * Math.min(delta, 0.05)));
+    if (Math.abs(baseTarget - baseLift.current) < LIFT_EPSILON) {
+      baseLift.current = baseTarget;
     }
 
+    let lift = baseLift.current;
     if (flapTime.current >= 0) {
       flapTime.current += delta;
       const progress = Math.min(flapTime.current / FLAP_DURATION, 1);
       // SMOOTH UP-DOWN: SIN GIVES 0→1→0 OVER THE FLAP
-      const lift = Math.sin(progress * Math.PI) * FLAP_LIFT;
-
-      applyWingLift(clonedScene, originalPositions.current, lift);
-
-      if (progress >= 1) {
-        flapTime.current = -1;
-        flapActive.current = false;
-        resetVertices(clonedScene, originalPositions.current);
-      }
-    } else if (isPerched) {
-      // WINGS TUCKED DOWN WHEN PERCHED
-      flapActive.current = false;
-      applyWingLift(clonedScene, originalPositions.current, -FLAP_LIFT);
-    } else {
-      // NOT FLAPPING — KEEP WINGS IN ORIGINAL MODEL POSITION
-      flapActive.current = false;
-      resetVertices(clonedScene, originalPositions.current);
+      lift += Math.sin(progress * Math.PI) * FLAP_LIFT;
+      if (progress >= 1) flapTime.current = -1;
     }
+
+    // The buffer upload is the expensive part, so skip it while the pose holds still.
+    if (lift === appliedLift.current) return;
+    appliedLift.current = lift;
+    applyWingLift(clonedScene, originalPositions.current, lift);
   });
 
   return (
@@ -153,21 +175,5 @@ function applyWingLift(
   });
 }
 
-function resetVertices(
-  scene: THREE.Object3D,
-  originals: Map<THREE.BufferGeometry, Float32Array>
-) {
-  scene.traverse((child) => {
-    if (child instanceof THREE.Mesh && child.geometry) {
-      const posAttr = child.geometry.attributes.position;
-      const orig = originals.get(child.geometry);
-      if (posAttr && orig) {
-        (posAttr.array as Float32Array).set(orig);
-        posAttr.needsUpdate = true;
-      }
-    }
-  });
-}
-
 // PRELOAD ALL SPECIES TEXTURES
-Object.values(SPECIES_TEXTURE).forEach((url) => useTexture.preload(url));
+Object.values(BIRD_SPECIES_TEXTURES).forEach((url) => useTexture.preload(url));

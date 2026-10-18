@@ -1,12 +1,26 @@
 'use client';
 
+import {
+  CAT_STALK_YAW,
+  catPerchPosition,
+  catStalkPosition
+} from '@/components/scene/effects/catPlacement';
+import { CatModel } from '@/components/scene/Feeder';
 import { useGameStore } from '@/store/gameStore';
+import { FeederData } from '@/types';
 import { useFrame } from '@react-three/fiber';
-import { useRef } from 'react';
+import { Suspense, useRef } from 'react';
 import * as THREE from 'three';
 
+const CROUCH_TIME = 0.12;
+const LEAP_TIME = 0.28;
+const LEAP_ARC = 0.6;
+
+const POUNCE_START = catStalkPosition(1, new THREE.Vector3()).toArray();
+const _from = new THREE.Vector3();
+const _to = new THREE.Vector3();
+
 export default function DeathCat() {
-  const groupRef = useRef<THREE.Group>(null);
   const gameState = useGameStore((s) => s.gameState);
   const deathReason = useGameStore((s) => s.deathReason);
   const activeFeeder = useGameStore((s) => s.activeFeeder);
@@ -15,122 +29,56 @@ export default function DeathCat() {
   if (gameState !== 'dying' || deathReason !== 'cat' || !activeFeeder)
     return null;
 
-  const fx = activeFeeder.position[0];
-  const fy = activeFeeder.position[1];
-  const fz = activeFeeder.position[2];
-
-  // POSITION CAT ON THE FEEDER STRUCTURE, NEAR WHERE THE BIRD WAS PERCHED
-  const catY = activeFeeder.type === 'feeder' ? fy + 1.6 : fy + 2.1;
-  const catZ = fz + 0.5;
-
   return (
-    <group
-      ref={groupRef}
-      position={[fx, catY, catZ]}
-      rotation={[0, Math.PI * 0.8, 0]}
-    >
-      <CatModel />
+    <group position={activeFeeder.position}>
+      {/* OWN BOUNDARY: THIS COMPONENT SITS OUTSIDE THE SCENE'S SUSPENSE */}
+      <Suspense fallback={null}>
+        <PouncingCat type={activeFeeder.type} />
+      </Suspense>
     </group>
   );
 }
 
-function CatModel() {
+// Mounts when the death starts: crouch at the pole, leap onto the perch, sway.
+function PouncingCat({ type }: { type: FeederData['type'] }) {
   const groupRef = useRef<THREE.Group>(null);
+  const elapsed = useRef(0);
 
-  // SUBTLE IDLE SWAY
-  useFrame(({ clock }) => {
-    if (!groupRef.current) return;
-    const t = clock.getElapsedTime();
-    groupRef.current.rotation.z = Math.sin(t * 1.5) * 0.03;
+  useFrame(({ clock }, delta) => {
+    const group = groupRef.current;
+    if (!group) return;
+    elapsed.current += Math.min(delta, 0.05);
+    const t = elapsed.current;
+
+    catStalkPosition(1, _from);
+    catPerchPosition(type, _to);
+    group.rotation.y = CAT_STALK_YAW;
+
+    if (t < CROUCH_TIME) {
+      const k = t / CROUCH_TIME;
+      group.position.copy(_from);
+      group.scale.set(1.06, 0.72 - 0.08 * k, 1.1);
+      group.rotation.z = 0;
+      return;
+    }
+
+    const k = Math.min((t - CROUCH_TIME) / LEAP_TIME, 1);
+    group.position.lerpVectors(_from, _to, k);
+    group.position.y += 4 * k * (1 - k) * LEAP_ARC;
+    // Stretched mid-air, squashed on landing, then settles.
+    const stretch = Math.sin(k * Math.PI);
+    const settle = k < 1 ? 0 : Math.exp(-(t - CROUCH_TIME - LEAP_TIME) * 10);
+    group.scale.set(
+      1 - 0.06 * stretch + 0.06 * settle,
+      1 + 0.12 * stretch - 0.15 * settle,
+      1 + 0.15 * stretch
+    );
+    group.rotation.z = k < 1 ? 0 : Math.sin(clock.elapsedTime * 1.5) * 0.03;
   });
 
   return (
-    <group ref={groupRef} scale={0.55}>
-      {/* BODY - ELONGATED SITTING POSE */}
-      <mesh position={[0, 0.35, 0]}>
-        <capsuleGeometry args={[0.28, 0.3, 6, 10]} />
-        <meshStandardMaterial color="#3A3A3A" roughness={0.85} />
-      </mesh>
-
-      {/* HEAD */}
-      <mesh position={[0, 0.75, 0.25]}>
-        <sphereGeometry args={[0.22, 10, 8]} />
-        <meshStandardMaterial color="#3A3A3A" roughness={0.85} />
-      </mesh>
-
-      {/* SNOUT */}
-      <mesh position={[0, 0.7, 0.44]}>
-        <sphereGeometry args={[0.08, 8, 6]} />
-        <meshStandardMaterial color="#4A4A4A" roughness={0.9} />
-      </mesh>
-
-      {/* EARS */}
-      <mesh position={[0.12, 0.96, 0.22]} rotation={[0.2, 0, 0.25]}>
-        <coneGeometry args={[0.07, 0.14, 4]} />
-        <meshStandardMaterial color="#3A3A3A" roughness={0.85} />
-      </mesh>
-      <mesh position={[-0.12, 0.96, 0.22]} rotation={[0.2, 0, -0.25]}>
-        <coneGeometry args={[0.07, 0.14, 4]} />
-        <meshStandardMaterial color="#3A3A3A" roughness={0.85} />
-      </mesh>
-
-      {/* INNER EARS */}
-      <mesh position={[0.12, 0.93, 0.24]} rotation={[0.3, 0, 0.25]}>
-        <coneGeometry args={[0.04, 0.08, 4]} />
-        <meshStandardMaterial color="#D4837A" roughness={0.9} />
-      </mesh>
-      <mesh position={[-0.12, 0.93, 0.24]} rotation={[0.3, 0, -0.25]}>
-        <coneGeometry args={[0.04, 0.08, 4]} />
-        <meshStandardMaterial color="#D4837A" roughness={0.9} />
-      </mesh>
-
-      {/* EYES - GLOWING */}
-      <mesh position={[0.08, 0.78, 0.43]}>
-        <sphereGeometry args={[0.04, 8, 6]} />
-        <meshStandardMaterial
-          color="#CCFF00"
-          emissive="#AADD00"
-          emissiveIntensity={0.8}
-        />
-      </mesh>
-      <mesh position={[-0.08, 0.78, 0.43]}>
-        <sphereGeometry args={[0.04, 8, 6]} />
-        <meshStandardMaterial
-          color="#CCFF00"
-          emissive="#AADD00"
-          emissiveIntensity={0.8}
-        />
-      </mesh>
-
-      {/* PUPILS */}
-      <mesh position={[0.08, 0.78, 0.465]}>
-        <sphereGeometry args={[0.02, 6, 6]} />
-        <meshStandardMaterial color="#111111" />
-      </mesh>
-      <mesh position={[-0.08, 0.78, 0.465]}>
-        <sphereGeometry args={[0.02, 6, 6]} />
-        <meshStandardMaterial color="#111111" />
-      </mesh>
-
-      {/* FRONT LEGS */}
-      <mesh position={[0.12, 0.12, 0.15]}>
-        <capsuleGeometry args={[0.05, 0.2, 4, 6]} />
-        <meshStandardMaterial color="#3A3A3A" roughness={0.85} />
-      </mesh>
-      <mesh position={[-0.12, 0.12, 0.15]}>
-        <capsuleGeometry args={[0.05, 0.2, 4, 6]} />
-        <meshStandardMaterial color="#3A3A3A" roughness={0.85} />
-      </mesh>
-
-      {/* TAIL - CURVING UPWARD */}
-      <mesh position={[0, 0.5, -0.35]} rotation={[0.8, 0, 0]}>
-        <capsuleGeometry args={[0.035, 0.4, 4, 6]} />
-        <meshStandardMaterial color="#3A3A3A" roughness={0.85} />
-      </mesh>
-      <mesh position={[0, 0.85, -0.5]} rotation={[1.4, 0, 0]}>
-        <capsuleGeometry args={[0.03, 0.2, 4, 6]} />
-        <meshStandardMaterial color="#3A3A3A" roughness={0.85} />
-      </mesh>
+    <group ref={groupRef} position={POUNCE_START} rotation-y={CAT_STALK_YAW}>
+      <CatModel />
     </group>
   );
 }
