@@ -1,127 +1,114 @@
 'use client';
 
+import {
+  ParticleLook,
+  ParticlePool
+} from '@/components/scene/effects/particlePool';
 import { useGameStore } from '@/store/gameStore';
 import { useFrame } from '@react-three/fiber';
 import { useEffect, useMemo, useRef } from 'react';
 import * as THREE from 'three';
 
-const PARTICLE_COUNT = 12;
-const PARTICLE_LIFETIME = 0.5;
+// One pool serves the landing burst and the crumbs or droplets while eating.
+const POOL_SIZE = 32;
+const LANDING_COUNT = 12;
+// Matches the pecking rhythm in PlayerBird, which dips early in each cycle.
+const PECKS_PER_SECOND = 2.5;
+const PECK_HIT_PHASE = 0.15;
+const BEAK_FORWARD = 0.3;
+const BEAK_UP = 0.12;
 
-interface Particle {
-  position: THREE.Vector3;
-  velocity: THREE.Vector3;
-  age: number;
-  alive: boolean;
-}
+const LANDING: ParticleLook = { lifetime: 0.5, size: 0.08, gravity: 8 };
+const CRUMB: ParticleLook = { lifetime: 0.9, size: 0.045, gravity: 6 };
+const DROPLET: ParticleLook = { lifetime: 0.6, size: 0.035, gravity: 7 };
+
+const SEED_COLORS = ['#8B6914', '#C9A66B', '#E3CF9A'].map(
+  (c) => new THREE.Color(c)
+);
+const WATER_COLORS = ['#4A90D9', '#9AD2F5', '#D8F0FF'].map(
+  (c) => new THREE.Color(c)
+);
+
+const _position = new THREE.Vector3();
+const _velocity = new THREE.Vector3();
 
 export default function LandingParticles() {
   const meshRef = useRef<THREE.InstancedMesh>(null);
-  const particlesRef = useRef<Particle[]>([]);
-  const activeRef = useRef(false);
+  const pool = useMemo(() => new ParticlePool(POOL_SIZE), []);
   const prevGameState = useRef('');
-  const matrixHelper = useMemo(() => new THREE.Matrix4(), []);
-  const colorRef = useRef(new THREE.Color('#8B6914'));
+  const lastPeck = useRef(0);
 
-  // WATCH FOR LANDING TRANSITIONS
   useEffect(() => {
-    const unsub = useGameStore.subscribe((state) => {
-      const isLanding =
-        state.gameState === 'feeding' || state.gameState === 'drinking';
-      const wasFlying = prevGameState.current === 'flight';
+    if (meshRef.current) pool.init(meshRef.current, SEED_COLORS[0]);
+  }, [pool]);
 
-      if (isLanding && wasFlying) {
-        const pos = state.position;
-        const isWater = state.gameState === 'drinking';
+  useFrame(({ clock }, rawDelta) => {
+    const mesh = meshRef.current;
+    if (!mesh) return;
+    const delta = Math.min(rawDelta, 0.05);
+    const s = useGameStore.getState();
+    const perched = s.gameState === 'feeding' || s.gameState === 'drinking';
+    const isWater = s.gameState === 'drinking';
+    const palette = isWater ? WATER_COLORS : SEED_COLORS;
+    const [px, py, pz] = s.position;
 
-        // SET COLOR BASED ON TYPE
-        colorRef.current.set(isWater ? '#4A90D9' : '#8B6914');
-
-        particlesRef.current = Array.from({ length: PARTICLE_COUNT }, () => ({
-          position: new THREE.Vector3(
-            pos[0] + (Math.random() - 0.5) * 0.3,
-            pos[1],
-            pos[2] + (Math.random() - 0.5) * 0.3
+    if (perched && prevGameState.current === 'flight') {
+      for (let i = 0; i < LANDING_COUNT; i++) {
+        pool.spawn(mesh, {
+          position: _position.set(
+            px + (Math.random() - 0.5) * 0.3,
+            py,
+            pz + (Math.random() - 0.5) * 0.3
           ),
-          velocity: new THREE.Vector3(
+          velocity: _velocity.set(
             (Math.random() - 0.5) * 2,
             Math.random() * 3 + 1,
             (Math.random() - 0.5) * 2
           ),
-          age: 0,
-          alive: true
-        }));
-        activeRef.current = true;
-
-        // UPDATE MATERIAL COLOR
-        if (meshRef.current) {
-          const mat = meshRef.current.material as THREE.MeshBasicMaterial;
-          mat.color.copy(colorRef.current);
-        }
+          look: LANDING,
+          color: palette[i % palette.length]
+        });
       }
-
-      prevGameState.current = state.gameState;
-    });
-    return unsub;
-  }, []);
-
-  useFrame((_, delta) => {
-    if (!activeRef.current || !meshRef.current) return;
-
-    let anyAlive = false;
-    const particles = particlesRef.current;
-
-    for (let i = 0; i < particles.length; i++) {
-      const p = particles[i];
-      if (!p.alive) {
-        matrixHelper.makeScale(0, 0, 0);
-        meshRef.current.setMatrixAt(i, matrixHelper);
-        continue;
-      }
-
-      p.age += delta;
-      if (p.age > PARTICLE_LIFETIME) {
-        p.alive = false;
-        matrixHelper.makeScale(0, 0, 0);
-        meshRef.current.setMatrixAt(i, matrixHelper);
-        continue;
-      }
-
-      anyAlive = true;
-
-      // PHYSICS
-      p.velocity.y -= 8 * delta; // gravity
-      p.position.addScaledVector(p.velocity, delta);
-
-      // FADE OUT VIA SCALE
-      const life = 1 - p.age / PARTICLE_LIFETIME;
-      const scale = life * 0.08;
-
-      matrixHelper.makeTranslation(p.position.x, p.position.y, p.position.z);
-      matrixHelper.scale(new THREE.Vector3(scale, scale, scale));
-      meshRef.current.setMatrixAt(i, matrixHelper);
     }
+    prevGameState.current = s.gameState;
 
-    meshRef.current.instanceMatrix.needsUpdate = true;
-
-    if (!anyAlive) {
-      activeRef.current = false;
+    const peck = Math.floor(
+      clock.elapsedTime * PECKS_PER_SECOND - PECK_HIT_PHASE
+    );
+    if (perched && !s.isPaused && peck !== lastPeck.current) {
+      const beakX = px + Math.sin(s.rotation) * BEAK_FORWARD;
+      const beakZ = pz + Math.cos(s.rotation) * BEAK_FORWARD;
+      const count = isWater ? 1 : 2;
+      for (let i = 0; i < count; i++) {
+        pool.spawn(mesh, {
+          position: _position.set(
+            beakX + (Math.random() - 0.5) * 0.06,
+            py + BEAK_UP,
+            beakZ + (Math.random() - 0.5) * 0.06
+          ),
+          velocity: _velocity.set(
+            (Math.random() - 0.5) * 2,
+            isWater ? 1.4 + Math.random() * 0.8 : 0.9 + Math.random() * 0.9,
+            (Math.random() - 0.5) * 2
+          ),
+          look: isWater ? DROPLET : CRUMB,
+          color: palette[Math.floor(Math.random() * palette.length)]
+        });
+      }
     }
+    lastPeck.current = peck;
+
+    if (!s.isPaused) pool.update(mesh, delta);
   });
 
   return (
     <instancedMesh
       ref={meshRef}
-      args={[undefined, undefined, PARTICLE_COUNT]}
+      args={[undefined, undefined, POOL_SIZE]}
       frustumCulled={false}
     >
-      <sphereGeometry args={[1, 6, 6]} />
-      <meshBasicMaterial
-        // eslint-disable-next-line react-hooks/refs
-        color={colorRef.current}
-        transparent
-        opacity={0.7}
-      />
+      <icosahedronGeometry args={[1, 0]} />
+      <meshBasicMaterial transparent opacity={0.85} />
     </instancedMesh>
   );
 }
