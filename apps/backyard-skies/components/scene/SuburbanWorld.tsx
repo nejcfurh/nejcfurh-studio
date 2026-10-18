@@ -2,113 +2,141 @@
 
 import {
   CHUNK_SIZE,
-  GRASS_MODEL,
-  HOUSE_MODELS,
+  DETAIL_DISTANCE,
   RENDER_DISTANCE
 } from '@/lib/terrain/chunkConstants';
 import { generateChunkData } from '@/lib/terrain/chunkGenerator';
 import { useGameStore } from '@/store/gameStore';
-import { useGLTF } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
-import { Suspense, useMemo, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
+import * as THREE from 'three';
 
-import GardenBed from './terrain/GardenBed';
-import GrassField from './terrain/GrassField';
-import House from './terrain/House';
-import Patio from './terrain/Patio';
-import RoadX from './terrain/RoadX';
-import RoadZ from './terrain/RoadZ';
-import Tree from './terrain/Tree';
-import YardFence from './terrain/YardFence';
-
-useGLTF.preload(GRASS_MODEL);
-HOUSE_MODELS.forEach((url) => useGLTF.preload(url));
+import { GardenBedLayer } from './terrain/GardenBed';
+import {
+  GrassField,
+  grassUniforms,
+  LAWN_COLOR,
+  LAWN_TINT_GLSL
+} from './terrain/GrassField';
+import { HouseLayer } from './terrain/House';
+import { LoadedChunk } from './terrain/InstancedLayer';
+import { PatioLayer } from './terrain/Patio';
+import { RoadXLayer } from './terrain/RoadX';
+import { RoadZLayer } from './terrain/RoadZ';
+import { TreeLayer } from './terrain/Tree';
+import { YardFenceLayer } from './terrain/YardFence';
 
 function chunkKey(cx: number, cz: number) {
   return `${cx},${cz}`;
 }
 
+/**
+ * Chunk content is laid out around the chunk origin (cx * CHUNK_SIZE), so the
+ * chunk the bird is over is the nearest origin, not the floor.
+ */
+function loadChunks(cx: number, cz: number, previous: LoadedChunk[]) {
+  const cache = new Map(previous.map((c) => [c.key, c]));
+  const chunks: LoadedChunk[] = [];
+  for (let dx = -RENDER_DISTANCE; dx <= RENDER_DISTANCE; dx++) {
+    for (let dz = -RENDER_DISTANCE; dz <= RENDER_DISTANCE; dz++) {
+      const key = chunkKey(cx + dx, cz + dz);
+      const near =
+        Math.abs(dx) <= DETAIL_DISTANCE && Math.abs(dz) <= DETAIL_DISTANCE;
+      const cached = cache.get(key);
+      chunks.push(
+        cached
+          ? { ...cached, near }
+          : {
+              key,
+              ox: (cx + dx) * CHUNK_SIZE,
+              oz: (cz + dz) * CHUNK_SIZE,
+              near,
+              data: generateChunkData(cx + dx, cz + dz)
+            }
+      );
+    }
+  }
+  return chunks;
+}
+
+const groundMaterial = new THREE.MeshLambertMaterial({ color: LAWN_COLOR });
+groundMaterial.onBeforeCompile = (shader) => {
+  shader.vertexShader = shader.vertexShader
+    .replace(
+      '#include <common>',
+      /* glsl */ `#include <common>
+varying vec2 vLawnPosition;`
+    )
+    .replace(
+      '#include <project_vertex>',
+      /* glsl */ `#include <project_vertex>
+vLawnPosition = (modelMatrix * vec4(transformed, 1.0)).xz;`
+    );
+  shader.fragmentShader = shader.fragmentShader
+    .replace(
+      '#include <common>',
+      /* glsl */ `#include <common>
+varying vec2 vLawnPosition;
+${LAWN_TINT_GLSL}`
+    )
+    .replace(
+      '#include <color_fragment>',
+      /* glsl */ `#include <color_fragment>
+diffuseColor.rgb *= lawnTint(vLawnPosition, length(vViewPosition));`
+    );
+};
+
 export default function SuburbanWorld() {
-  const [activeChunks, setActiveChunks] = useState<Set<string>>(new Set());
+  const [chunks, setChunks] = useState<LoadedChunk[]>([]);
   const lastChunkRef = useRef('');
+  const groundRef = useRef<THREE.Mesh>(null);
 
-  useFrame(() => {
+  useFrame(({ clock }) => {
     const { position } = useGameStore.getState();
-    const cx = Math.floor(position[0] / CHUNK_SIZE);
-    const cz = Math.floor(position[2] / CHUNK_SIZE);
-    const key = chunkKey(cx, cz);
+    grassUniforms.uTime.value = clock.getElapsedTime();
+    grassUniforms.uPlayer.value.set(position[0], position[2]);
+    // The ground is a flat colour, so it can follow the bird and never end.
+    groundRef.current?.position.set(position[0], -0.05, position[2]);
 
+    const cx = Math.round(position[0] / CHUNK_SIZE);
+    const cz = Math.round(position[2] / CHUNK_SIZE);
+    const key = chunkKey(cx, cz);
     if (key === lastChunkRef.current) return;
     lastChunkRef.current = key;
-
-    const newChunks = new Set<string>();
-    for (let dx = -RENDER_DISTANCE; dx <= RENDER_DISTANCE; dx++) {
-      for (let dz = -RENDER_DISTANCE; dz <= RENDER_DISTANCE; dz++) {
-        newChunks.add(chunkKey(cx + dx, cz + dz));
-      }
-    }
-    setActiveChunks(newChunks);
+    setChunks((prev) => loadChunks(cx, cz, prev));
   });
-
-  const chunks = useMemo(() => Array.from(activeChunks), [activeChunks]);
 
   return (
     <group>
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.05, 0]}>
-        <planeGeometry args={[2000, 2000]} />
-        <meshStandardMaterial color="#4A8A50" roughness={0.92} />
+      <mesh
+        ref={groundRef}
+        rotation={[-Math.PI / 2, 0, 0]}
+        position={[0, -0.05, 0]}
+        material={groundMaterial}
+        receiveShadow
+      >
+        <planeGeometry args={[600, 600]} />
       </mesh>
 
-      {chunks.map((key) => {
-        const [cx, cz] = key.split(',').map(Number);
-        return <Chunk key={key} cx={cx} cz={cz} />;
-      })}
-    </group>
-  );
-}
+      <RoadXLayer chunks={chunks} />
+      <RoadZLayer chunks={chunks} />
+      <PatioLayer chunks={chunks} />
+      <GardenBedLayer chunks={chunks} />
+      <YardFenceLayer chunks={chunks} />
+      <TreeLayer chunks={chunks} />
+      <HouseLayer chunks={chunks} />
 
-function Chunk({ cx, cz }: { cx: number; cz: number }) {
-  const data = useMemo(() => generateChunkData(cx, cz), [cx, cz]);
-  const ox = cx * CHUNK_SIZE;
-  const oz = cz * CHUNK_SIZE;
-
-  return (
-    <group position={[ox, 0, oz]}>
-      {data.hasRoadX && <RoadX />}
-      {data.hasRoadZ && <RoadZ />}
-
-      <Suspense fallback={null}>
-        {data.houses.map((h, i) => (
-          <group key={`hg${i}`}>
-            <House {...h} />
-            <YardFence
-              x={h.x}
-              z={h.z}
-              w={h.w + 4}
-              d={h.d + 6}
-              rot={h.rot}
-              fenceColor={h.fenceColor}
+      {chunks
+        .filter((c) => c.near)
+        .map((c) => (
+          <group key={c.key} position={[c.ox, 0, c.oz]}>
+            <GrassField
+              houses={c.data.houses}
+              hasRoadX={c.data.hasRoadX}
+              hasRoadZ={c.data.hasRoadZ}
             />
-            {h.hasPatio && <Patio x={h.x} z={h.z} w={h.w} rot={h.rot} />}
           </group>
         ))}
-      </Suspense>
-
-      {data.trees.map((t, i) => (
-        <Tree key={`t${i}`} {...t} />
-      ))}
-
-      {data.gardenBeds.map((g, i) => (
-        <GardenBed key={`gb${i}`} {...g} />
-      ))}
-
-      <Suspense fallback={null}>
-        <GrassField
-          houses={data.houses}
-          hasRoadX={data.hasRoadX}
-          hasRoadZ={data.hasRoadZ}
-        />
-      </Suspense>
     </group>
   );
 }
