@@ -54,7 +54,7 @@ export interface FeederData {
   position: [number, number, number];
   hasCat: boolean;
   type: 'feeder' | 'birdbath';
-  lockedUntil?: number; // timestamp when feeder unlocks
+  lockedUntil?: number; // game-time seconds when the feeder unlocks
 }
 
 export interface LeaderboardEntry {
