@@ -1,35 +1,45 @@
 'use client';
 
 import { useGameStore } from '@/store/gameStore';
+import {
+  EAGLE_DODGE_TAPS,
+  EAGLE_DODGE_TURN_DEGREES,
+  GROUND_DEATH_TIME
+} from '@/utils/constants';
 
 export default function ThreatWarning() {
+  // Every selector returns a coarse primitive so the overlay re-renders on visible change, not per frame.
   const threatType = useGameStore((s) => s.threatType);
   const threatWarningActive = useGameStore((s) => s.threatWarningActive);
-  const eagleDodgeWindow = useGameStore((s) => s.eagleDodgeWindow);
+  const dodgeWindowOpen = useGameStore((s) => s.eagleDodgeWindow > 0);
   const eagleAltitudeHunt = useGameStore((s) => s.eagleAltitudeHunt);
-  const eagleTimer = useGameStore((s) => s.eagleTimer);
-  const eagleDodgeTaps = useGameStore((s) => s.eagleDodgeTaps);
-  const position = useGameStore((s) => s.position);
+  const huntCountdown = useGameStore((s) =>
+    s.eagleAltitudeHunt ? Math.ceil(Math.max(0, s.eagleTimer)) : 0
+  );
+  const tapsRemaining = useGameStore((s) =>
+    Math.max(0, EAGLE_DODGE_TAPS - s.eagleDodgeTaps)
+  );
+  const nearAltitudeLimit = useGameStore((s) => s.nearAltitudeLimit);
   const gameState = useGameStore((s) => s.gameState);
   const flyAway = useGameStore((s) => s.flyAway);
-  const groundTimer = useGameStore((s) => s.groundTimer);
+  const isOnGround = useGameStore((s) => s.groundTimer > 0);
+  const groundCountdown = useGameStore((s) =>
+    Math.ceil(Math.max(0, GROUND_DEATH_TIME - s.groundTimer))
+  );
 
-  const isOnGround = groundTimer > 0;
-
+  if (gameState === 'dying') return null;
   if (!threatWarningActive && !threatType && !isOnGround) return null;
 
   const isEagle = threatType === 'eagle';
   const isCat = threatType === 'cat';
   const isPerched = gameState === 'feeding' || gameState === 'drinking';
-  const isDodgePhase = isEagle && eagleDodgeWindow > 0;
-  const nearAltitudeLimit = position[1] > 20; // EAGLE_ALTITUDE_THRESHOLD(25) - 5
-  const tapsRemaining = Math.max(0, 3 - eagleDodgeTaps);
+  const isDodgePhase = isEagle && dodgeWindowOpen;
 
   return (
     <>
       {/* Predator detected — centered red text */}
       {isEagle && !isDodgePhase && !eagleAltitudeHunt && (
-        <div className="pointer-events-none absolute inset-0 z-30 flex items-center justify-center">
+        <div className="pointer-events-none absolute inset-x-0 top-[22%] z-30 flex justify-center">
           <span
             className="animate-[pulse_0.8s_ease-in-out_infinite] text-2xl font-black tracking-widest uppercase"
             style={{
@@ -50,13 +60,13 @@ export default function ThreatWarning() {
 
       {/* Altitude hunt countdown */}
       {isEagle && eagleAltitudeHunt && !isDodgePhase && (
-        <div className="pointer-events-none absolute inset-0 z-30 flex items-center justify-center">
+        <div className="pointer-events-none absolute inset-x-0 top-[22%] z-30 flex justify-center">
           <div className="flex flex-col items-center gap-2 rounded-[18px] border border-[rgba(255,61,0,0.3)] bg-black/65 px-9 py-6 backdrop-blur-xl">
             <span className="text-xs font-bold tracking-wider text-[#FF5252]">
               TOO HIGH
             </span>
             <span className="text-[48px] leading-none font-black text-white">
-              {Math.ceil(Math.max(0, eagleTimer))}
+              {huntCountdown}
             </span>
             <span className="text-sm font-semibold text-white/60">
               FLY LOWER TO ESCAPE
@@ -68,7 +78,7 @@ export default function ThreatWarning() {
 
       {/* Eagle dodge prompt */}
       {isDodgePhase && (
-        <div className="pointer-events-none absolute inset-0 z-30 flex items-center justify-center">
+        <div className="pointer-events-none absolute inset-x-0 top-[22%] z-30 flex justify-center">
           <div className="flex animate-[bounce-y_0.6s_ease-in-out_infinite] flex-col items-center gap-2 rounded-[18px] border border-[rgba(255,61,0,0.3)] bg-black/65 px-9 py-6 backdrop-blur-xl">
             <span className="text-xs font-bold tracking-wider text-[#FF5252]">
               ESCAPE NOW
@@ -82,16 +92,16 @@ export default function ThreatWarning() {
                   {tapsRemaining} {tapsRemaining === 1 ? 'tap' : 'taps'} left
                 </span>
                 <span className="text-[10px] text-white/40">
-                  FLAP RAPIDLY TO SCARE IT OFF
+                  FLAP RAPIDLY OR STOP FLAPPING TO DIVE
                 </span>
               </>
             ) : (
               <>
                 <span className="text-[26px] font-black text-white">
-                  TURN 90°
+                  TURN OR DIVE
                 </span>
                 <span className="text-[10px] text-white/40">
-                  CHANGE DIRECTION TO EVADE
+                  TURN {EAGLE_DODGE_TURN_DEGREES}° OR STOP FLAPPING TO DIVE
                 </span>
               </>
             )}
@@ -134,13 +144,13 @@ export default function ThreatWarning() {
       {isOnGround && !isPerched && (
         <>
           <div className="pointer-events-none absolute inset-0 z-20 animate-[pulse_1s_ease-in-out_infinite] bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(255,61,0,0.35)_100%)]" />
-          <div className="pointer-events-none absolute inset-0 z-30 flex items-center justify-center">
+          <div className="pointer-events-none absolute inset-x-0 top-[22%] z-30 flex justify-center">
             <div className="flex animate-[bounce-y_0.6s_ease-in-out_infinite] flex-col items-center gap-2 rounded-[18px] border border-[rgba(255,61,0,0.3)] bg-black/65 px-9 py-6 backdrop-blur-xl">
               <span className="text-xs font-bold tracking-wider text-[#FF5252]">
                 GROUNDED
               </span>
               <span className="text-[48px] leading-none font-black text-white">
-                {Math.ceil(Math.max(0, 3 - groundTimer))}
+                {groundCountdown}
               </span>
               <span className="text-sm font-semibold text-white/60">
                 TAP TO FLY

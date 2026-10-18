@@ -1,8 +1,10 @@
 'use client';
 
 import { BIRD_SPECIES } from '@/lib/birdSpecies';
+import { isFeederLocked } from '@/lib/feederManager';
 import { useGameStore } from '@/store/gameStore';
-import { useMemo } from 'react';
+import { FeederData } from '@/types';
+import { useEffect, useState } from 'react';
 
 function normalizeAngle(a: number): number {
   let r = a % (Math.PI * 2);
@@ -11,69 +13,94 @@ function normalizeAngle(a: number): number {
   return r;
 }
 
-export default function FeederDirectionHint() {
-  const position = useGameStore((s) => s.position);
-  const rotation = useGameStore((s) => s.rotation);
-  const feeders = useGameStore((s) => s.feeders);
-  const food = useGameStore((s) => s.food);
-  const water = useGameStore((s) => s.water);
-  const selectedSpecies = useGameStore((s) => s.selectedSpecies);
-  const gameState = useGameStore((s) => s.gameState);
+interface Hint {
+  color: string;
+  relAngle: number;
+  urgency: number;
+}
 
-  const species = BIRD_SPECIES[selectedSpecies];
+type GameSnapshot = ReturnType<typeof useGameStore.getState>;
 
-  const hints = useMemo(() => {
-    if (gameState !== 'flight') return [];
+const HINT_REFRESH_MS = 100;
 
-    const unlocked = feeders.filter(
-      (f) => !f.lockedUntil || f.lockedUntil <= new Date().getTime()
+function nearestOfType(
+  state: GameSnapshot,
+  type: FeederData['type']
+): FeederData | null {
+  const [px, , pz] = state.position;
+  let best: FeederData | null = null;
+  let bestDist = Infinity;
+  for (const f of state.feeders) {
+    if (f.type !== type || isFeederLocked(f, state.gameTime)) continue;
+    const d = Math.hypot(f.position[0] - px, f.position[2] - pz);
+    if (d < bestDist) {
+      bestDist = d;
+      best = f;
+    }
+  }
+  return best;
+}
+
+function computeHints(state: GameSnapshot): Hint[] {
+  if (state.gameState !== 'flight') return [];
+  const { attributes } = BIRD_SPECIES[state.selectedSpecies];
+  const [px, , pz] = state.position;
+
+  const toHint = (
+    feeder: FeederData | null,
+    color: string,
+    fill: number
+  ): Hint[] => {
+    if (!feeder) return [];
+    const worldAngle = Math.atan2(
+      feeder.position[0] - px,
+      feeder.position[2] - pz
     );
-    const nearestFeeder = unlocked
-      .filter((f) => f.type === 'feeder')
-      .reduce<{ dist: number; f: (typeof unlocked)[0] } | null>((best, f) => {
-        const dx = f.position[0] - position[0];
-        const dz = f.position[2] - position[2];
-        const d = Math.sqrt(dx * dx + dz * dz);
-        return !best || d < best.dist ? { dist: d, f } : best;
-      }, null);
+    return [
+      {
+        color,
+        relAngle: normalizeAngle(worldAngle - state.rotation),
+        urgency: 0.15 + 0.55 * (1 - fill)
+      }
+    ];
+  };
 
-    const nearestBath = unlocked
-      .filter((f) => f.type === 'birdbath')
-      .reduce<{ dist: number; f: (typeof unlocked)[0] } | null>((best, f) => {
-        const dx = f.position[0] - position[0];
-        const dz = f.position[2] - position[2];
-        const d = Math.sqrt(dx * dx + dz * dz);
-        return !best || d < best.dist ? { dist: d, f } : best;
-      }, null);
+  return [
+    ...toHint(
+      nearestOfType(state, 'feeder'),
+      '#4CAF50',
+      state.food / attributes.maxFood
+    ),
+    ...toHint(
+      nearestOfType(state, 'birdbath'),
+      '#00AEEF',
+      state.water / attributes.maxWater
+    )
+  ];
+}
 
-    const result: Array<{
-      color: string;
-      relAngle: number;
-      urgency: number;
-    }> = [];
+function hintsDiffer(a: Hint[], b: Hint[]): boolean {
+  if (a.length !== b.length) return true;
+  return a.some(
+    (h, i) =>
+      h.color !== b[i].color ||
+      Math.abs(h.relAngle - b[i].relAngle) > 0.03 ||
+      Math.abs(h.urgency - b[i].urgency) > 0.01
+  );
+}
 
-    if (nearestFeeder) {
-      const worldAngle = Math.atan2(
-        nearestFeeder.f.position[0] - position[0],
-        nearestFeeder.f.position[2] - position[2]
-      );
-      const relAngle = normalizeAngle(worldAngle - rotation);
-      const urgency = 0.15 + 0.55 * (1 - food / species.attributes.maxFood);
-      result.push({ color: '#4CAF50', relAngle, urgency });
-    }
+// Polled at 10 Hz instead of selecting position/rotation, which change every frame.
+export default function FeederDirectionHint() {
+  const gameState = useGameStore((s) => s.gameState);
+  const [hints, setHints] = useState<Hint[]>([]);
 
-    if (nearestBath) {
-      const worldAngle = Math.atan2(
-        nearestBath.f.position[0] - position[0],
-        nearestBath.f.position[2] - position[2]
-      );
-      const relAngle = normalizeAngle(worldAngle - rotation);
-      const urgency = 0.15 + 0.55 * (1 - water / species.attributes.maxWater);
-      result.push({ color: '#00AEEF', relAngle, urgency });
-    }
-
-    return result;
-  }, [gameState, feeders, position, rotation, food, water, species]);
+  useEffect(() => {
+    const id = setInterval(() => {
+      const next = computeHints(useGameStore.getState());
+      setHints((prev) => (hintsDiffer(prev, next) ? next : prev));
+    }, HINT_REFRESH_MS);
+    return () => clearInterval(id);
+  }, []);
 
   if (gameState !== 'flight' || hints.length === 0) return null;
 

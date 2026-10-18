@@ -7,26 +7,36 @@ import {
   RESOURCE_CRITICAL_THRESHOLD,
   RESOURCE_WARNING_THRESHOLD
 } from '@/utils/constants';
+import { AnimatePresence, useReducedMotion } from '@repo/ui/animation';
+import { AnimatedSpan } from '@repo/ui/animation/core';
 import { BsFillDropletFill } from '@repo/ui/icons/react-icons/bs';
 import { FaWheatAwn } from '@repo/ui/icons/react-icons/fa6';
 import { PiCompassBold } from '@repo/ui/icons/react-icons/pi';
+import { useEffect, useId, useState } from 'react';
 
 const FOOD_COLOR = '#b9f05a';
 const FOOD_DEEP = '#3a5a1a';
 const WATER_COLOR = '#65e7ff';
 const WATER_DEEP = '#0a4a6a';
+// Per-frame time and distance points stay far below this; only one-off bonuses reach it.
+const SCORE_BURST_MIN = 25;
+const SCORE_BURST_MS = 1100;
 
 export default function HUD() {
-  const food = useGameStore((s) => s.food);
-  const water = useGameStore((s) => s.water);
-  const score = useGameStore((s) => s.score);
-  const distance = useGameStore((s) => s.distance);
-  const selectedSpecies = useGameStore((s) => s.selectedSpecies);
+  // Selectors round to what is displayed so the HUD re-renders on visible change, not per frame.
+  const foodPct = useGameStore((s) =>
+    Math.round(
+      (s.food / BIRD_SPECIES[s.selectedSpecies].attributes.maxFood) * 100
+    )
+  );
+  const waterPct = useGameStore((s) =>
+    Math.round(
+      (s.water / BIRD_SPECIES[s.selectedSpecies].attributes.maxWater) * 100
+    )
+  );
+  const score = useGameStore((s) => Math.floor(s.score));
+  const distance = useGameStore((s) => Math.round(s.distance * 100) / 100);
   const gameState = useGameStore((s) => s.gameState);
-
-  const species = BIRD_SPECIES[selectedSpecies];
-  const foodPct = (food / species.attributes.maxFood) * 100;
-  const waterPct = (water / species.attributes.maxWater) * 100;
 
   const showFeedingState = gameState === 'feeding' || gameState === 'drinking';
 
@@ -44,13 +54,16 @@ export default function HUD() {
 
         {/* SCORE + DISTANCE */}
         <div className="mt-[-6px] flex flex-col items-center">
-          <span
-            className="font-display text-[42px] leading-none font-extrabold tracking-[-0.03em] text-white"
-            style={{
-              textShadow: `0 2px 20px rgba(0,0,0,0.8), 0 0 30px ${ACCENT.main}66`
-            }}
-          >
-            {Math.floor(score).toLocaleString()}
+          <span className="relative">
+            <span
+              className="font-display text-[42px] leading-none font-extrabold tracking-[-0.03em] text-white"
+              style={{
+                textShadow: `0 2px 20px rgba(0,0,0,0.8), 0 0 30px ${ACCENT.main}66`
+              }}
+            >
+              {score.toLocaleString()}
+            </span>
+            <ScoreBursts />
           </span>
           <span className="mt-1 flex items-center gap-1.5 rounded-full border border-white/10 bg-black/35 px-2.5 py-[3px] backdrop-blur-md">
             <PiCompassBold
@@ -74,6 +87,62 @@ export default function HUD() {
 
       {showFeedingState && <FeedingIndicator gameState={gameState} />}
     </div>
+  );
+}
+
+interface ScoreBurst {
+  id: number;
+  amount: number;
+}
+
+// Derived from score jumps so fly-away and dodge bonuses read as rewards, not a counter tick.
+function ScoreBursts() {
+  const [bursts, setBursts] = useState<ScoreBurst[]>([]);
+  const reduceMotion = useReducedMotion();
+
+  useEffect(() => {
+    let previous = useGameStore.getState().score;
+    let nextId = 0;
+    const timers = new Set<ReturnType<typeof setTimeout>>();
+    const unsubscribe = useGameStore.subscribe((s) => {
+      const delta = s.score - previous;
+      previous = s.score;
+      if (delta < SCORE_BURST_MIN) return;
+      const id = ++nextId;
+      setBursts((list) => [...list, { id, amount: Math.round(delta) }]);
+      const timer = setTimeout(() => {
+        timers.delete(timer);
+        setBursts((list) => list.filter((b) => b.id !== id));
+      }, SCORE_BURST_MS);
+      timers.add(timer);
+    });
+    return () => {
+      unsubscribe();
+      timers.forEach(clearTimeout);
+    };
+  }, []);
+
+  const rise = reduceMotion ? 0 : 1;
+
+  return (
+    <AnimatePresence>
+      {bursts.map((burst) => (
+        <AnimatedSpan
+          key={burst.id}
+          className="font-display absolute top-0 left-full ml-1.5 text-lg leading-none font-extrabold whitespace-nowrap"
+          style={{
+            color: ACCENT.main,
+            textShadow: '0 2px 10px rgba(0,0,0,0.8)'
+          }}
+          initial={{ opacity: 0, y: 6 * rise }}
+          animate={{ opacity: 1, y: -6 * rise }}
+          exit={{ opacity: 0, y: -20 * rise }}
+          transition={{ duration: 0.35, ease: 'easeOut' }}
+        >
+          +{burst.amount}
+        </AnimatedSpan>
+      ))}
+    </AnimatePresence>
   );
 }
 
@@ -101,6 +170,12 @@ function ResourceRing({
   const critical = pct < RESOURCE_CRITICAL_THRESHOLD;
   const warning = pct < RESOURCE_WARNING_THRESHOLD;
   const strokeColor = critical ? '#ff4d6d' : warning ? '#ff9800' : color;
+  // useId can contain characters that break a url(#id) reference.
+  const glowId = `ring-glow-${useId().replace(/[^\w-]/g, '')}`;
+  // Room around the ring for its glow; an SVG clips anything drawn past its box.
+  const pad = 8;
+  const box = size + pad * 2;
+  const centre = box / 2;
 
   return (
     <div className="flex flex-col items-center gap-1">
@@ -113,18 +188,40 @@ function ResourceRing({
           .join(' ')}
         style={{ width: size, height: size }}
       >
-        <svg width={size} height={size} className="-rotate-90">
+        <svg
+          width={box}
+          height={box}
+          viewBox={`0 0 ${box} ${box}`}
+          className="pointer-events-none absolute -rotate-90"
+          style={{ left: -pad, top: -pad }}
+        >
+          <defs>
+            <filter
+              id={glowId}
+              x={0}
+              y={0}
+              width={box}
+              height={box}
+              filterUnits="userSpaceOnUse"
+            >
+              <feGaussianBlur stdDeviation={2.5} result="blur" />
+              <feMerge>
+                <feMergeNode in="blur" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+          </defs>
           <circle
-            cx={size / 2}
-            cy={size / 2}
+            cx={centre}
+            cy={centre}
             r={r}
             fill="rgba(0,0,0,0.4)"
             stroke={deep}
             strokeWidth={sw}
           />
           <circle
-            cx={size / 2}
-            cy={size / 2}
+            cx={centre}
+            cy={centre}
             r={r}
             fill="none"
             stroke={strokeColor}
@@ -133,7 +230,7 @@ function ResourceRing({
             strokeDashoffset={c - (pct / 100) * c}
             strokeLinecap="round"
             className="transition-[stroke-dashoffset,stroke] duration-300"
-            style={{ filter: `drop-shadow(0 0 4px ${strokeColor})` }}
+            filter={`url(#${glowId})`}
           />
         </svg>
         <div
@@ -156,7 +253,7 @@ function ResourceRing({
 }
 
 function FeedingIndicator({ gameState }: { gameState: string }) {
-  const threatMeter = useGameStore((s) => s.threatMeter);
+  const threatMeter = useGameStore((s) => Math.round(s.threatMeter));
   const isFeeding = gameState === 'feeding';
   const label = isFeeding ? 'EATING' : 'DRINKING';
   const tone = isFeeding ? FOOD_COLOR : WATER_COLOR;

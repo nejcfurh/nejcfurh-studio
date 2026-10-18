@@ -2,10 +2,12 @@
 
 import { ACCENT, BG_IMAGE } from '@/lib/designTokens';
 import { useGameStore } from '@/store/gameStore';
-import { AnimatePresence } from '@repo/ui/animation';
-import { AnimatedDiv } from '@repo/ui/animation/core';
+import { AnimatePresence, useReducedMotion } from '@repo/ui/animation';
+import { AnimatedDiv, AnimatedSpan } from '@repo/ui/animation/core';
 import { BiChevronRight } from '@repo/ui/icons/react-icons/bi';
 import {
+  PiCheckBold,
+  PiHandTapBold,
   PiInfoBold,
   PiPlayFill,
   PiQuestionBold,
@@ -19,6 +21,7 @@ import PageHeader from './PageHeader';
 import { ArcadeButton, GlassCard } from './primitives';
 import TermsConditions from './TermsConditions';
 import Tips from './Tips';
+import { useTutorialDone, writeTutorialDone } from './Tutorial';
 
 const spring = { type: 'spring' as const, stiffness: 300, damping: 30 };
 
@@ -32,6 +35,7 @@ export default function SettingsScreen() {
   const [saved, setSaved] = useState(false);
   const [showTerms, setShowTerms] = useState(false);
   const [showTips, setShowTips] = useState(false);
+  const tutorialDone = useTutorialDone();
   const isFirstTime = !playerName;
 
   const handleSave = () => {
@@ -98,19 +102,9 @@ export default function SettingsScreen() {
                 }}
                 placeholder="Enter your name…"
                 maxLength={16}
-                className="font-display flex-1 rounded-[12px] border border-white/10 bg-white/5 px-3.5 py-3 text-[14px] text-white outline-none placeholder:text-white/30"
+                className="font-display min-w-0 flex-1 rounded-[12px] border border-white/10 bg-white/5 px-3.5 py-3 text-[14px] text-white outline-none placeholder:text-white/30"
               />
-              <button
-                onClick={handleSave}
-                className={[
-                  'font-display cursor-pointer rounded-[12px] border border-white/10 px-5 py-3 text-[13px] font-bold tracking-widest uppercase transition-colors',
-                  saved
-                    ? 'bg-[#4CAF50] text-[#0a0a0a]'
-                    : 'bg-white/10 text-white'
-                ].join(' ')}
-              >
-                {saved ? 'Saved' : 'Save'}
-              </button>
+              <SaveButton saved={saved} onClick={handleSave} />
             </div>
           </GlassCard>
         </AnimatedDiv>
@@ -128,6 +122,13 @@ export default function SettingsScreen() {
               title="Sound Effects"
               value={!isMuted}
               onToggle={() => setMuted(!isMuted)}
+            />
+            <SettingRow
+              Icon={PiHandTapBold}
+              accent={ACCENT.main}
+              title="Show Tutorial"
+              value={!tutorialDone}
+              onToggle={() => writeTutorialDone(!tutorialDone)}
             />
           </GlassCard>
         </AnimatedDiv>
@@ -199,6 +200,67 @@ export default function SettingsScreen() {
         )}
       </AnimatePresence>
     </AnimatedDiv>
+  );
+}
+
+const SAVE_SWAP = { duration: 0.3, ease: 'easeOut' } as const;
+
+function SaveButton({
+  saved,
+  onClick
+}: {
+  saved: boolean;
+  onClick: () => void;
+}) {
+  const reduceMotion = useReducedMotion();
+  const hidden = reduceMotion
+    ? { opacity: 0 }
+    : { opacity: 0, filter: 'blur(6px)', scale: 0.85 };
+  const shown = reduceMotion
+    ? { opacity: 1 }
+    : { opacity: 1, filter: 'blur(0px)', scale: 1 };
+
+  return (
+    <button
+      onClick={onClick}
+      aria-label={saved ? 'Saved' : 'Save'}
+      className={[
+        'font-display grid cursor-pointer place-items-center rounded-[12px] border border-white/10 px-5 py-3 text-[13px] font-bold tracking-widest uppercase transition-colors duration-300 ease-out',
+        saved ? 'bg-[#4CAF50] text-[#0a0a0a]' : 'bg-white/10 text-white'
+      ].join(' ')}
+    >
+      {/* Always in the cell, so the button keeps the width of its label. */}
+      <span aria-hidden className="invisible [grid-area:1/1]">
+        Save
+      </span>
+      <AnimatePresence initial={false}>
+        {saved ? (
+          <AnimatedSpan
+            key="saved"
+            aria-hidden
+            className="flex [grid-area:1/1]"
+            initial={hidden}
+            animate={shown}
+            exit={hidden}
+            transition={SAVE_SWAP}
+          >
+            <PiCheckBold className="text-[17px]" />
+          </AnimatedSpan>
+        ) : (
+          <AnimatedSpan
+            key="save"
+            aria-hidden
+            className="[grid-area:1/1]"
+            initial={hidden}
+            animate={shown}
+            exit={hidden}
+            transition={SAVE_SWAP}
+          >
+            Save
+          </AnimatedSpan>
+        )}
+      </AnimatePresence>
+    </button>
   );
 }
 

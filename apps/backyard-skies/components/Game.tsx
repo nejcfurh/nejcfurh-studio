@@ -9,17 +9,17 @@ import SettingsScreen from '@/components/ui/SettingsScreen';
 import SpeciesSelect from '@/components/ui/SpeciesSelect';
 import StartMenu from '@/components/ui/StartMenu';
 import ThreatWarning from '@/components/ui/ThreatWarning';
+import Tutorial from '@/components/ui/Tutorial';
 import { useGameStore } from '@/store/gameStore';
 import { AnimatePresence } from '@repo/ui/animation';
 import { AnimatedDiv } from '@repo/ui/animation/core';
 import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
 
-const GameCanvas = dynamic(() => import('@/components/GameCanvas'), {
-  ssr: false,
-  loading: () => (
+function LoadingScreen() {
+  return (
     <div
-      className="absolute inset-0 flex items-center justify-center"
+      className="absolute inset-0 z-60 flex items-center justify-center"
       style={{ background: '#0a1628' }}
     >
       <div className="flex flex-col items-center gap-4">
@@ -41,7 +41,12 @@ const GameCanvas = dynamic(() => import('@/components/GameCanvas'), {
         </p>
       </div>
     </div>
-  )
+  );
+}
+
+const GameCanvas = dynamic(() => import('@/components/GameCanvas'), {
+  ssr: false,
+  loading: LoadingScreen
 });
 
 const TIPS = [
@@ -51,7 +56,7 @@ const TIPS = [
     tips: [
       'Tap/click to flap and gain altitude',
       'Tap left to turn left, right to turn right',
-      'Stop flapping to glide and descend'
+      'Hold to glide, drag to steer, dive for speed'
     ]
   },
   {
@@ -76,8 +81,8 @@ const TIPS = [
     icon: '\u{1F985}',
     title: 'Eagle Evasion',
     tips: [
-      'Turn hard (90\u00B0) during the dodge window',
-      'Near altitude limit? Tap rapidly (3 taps)',
+      'Turn hard (70\u00B0) or dive during the dodge window',
+      'Near altitude limit? Tap rapidly (3 taps) or dive',
       'Dodging an eagle earns bonus points!'
     ]
   },
@@ -86,7 +91,7 @@ const TIPS = [
     title: 'Altitude',
     tips: [
       'Fly too high and an eagle hunts you',
-      '4 seconds to descend \u2014 stop flapping!',
+      '5 seconds to descend \u2014 stop flapping!',
       'Drop below warning level to escape'
     ]
   },
@@ -94,7 +99,7 @@ const TIPS = [
     icon: '\u{2B50}',
     title: 'Scoring',
     tips: [
-      'Score increases over time as you fly',
+      'Distance flown earns the most points',
       'Eating and drinking earns extra points',
       'Each bird species has different stats'
     ]
@@ -311,6 +316,7 @@ function IPhoneFrame({ children }: { children: React.ReactNode }) {
 
 function GameContent() {
   const gameState = useGameStore((s) => s.gameState);
+  const sceneReady = useGameStore((s) => s.sceneReady);
 
   const isPlaying =
     gameState === 'flight' ||
@@ -337,10 +343,13 @@ function GameContent() {
           <ThreatWarning />
           <BottomNav />
           <FeederDirectionHint />
+          <Tutorial />
         </>
       )}
 
       {gameState === 'dying' && <DeathTransition />}
+
+      {gameState === 'flight' && !sceneReady && <LoadingScreen />}
     </>
   );
 }
@@ -360,6 +369,12 @@ function useIsDesktop() {
 
 export default function Game() {
   const isDesktop = useIsDesktop();
+
+  // Start model downloads while the player is still on the menu; the dynamic
+  // import keeps three out of the menu bundle.
+  useEffect(() => {
+    void import('@/lib/assets').then((m) => m.preloadGameAssets());
+  }, []);
 
   const content = (
     <div className="absolute inset-0" style={{ transform: 'translateZ(0)' }}>
