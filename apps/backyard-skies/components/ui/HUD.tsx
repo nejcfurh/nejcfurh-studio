@@ -254,23 +254,37 @@ function ResourceRing({
 
 function FeedingIndicator({ gameState }: { gameState: string }) {
   const threatMeter = useGameStore((s) => Math.round(s.threatMeter));
+  const catNear = useGameStore((s) => s.threatType === 'cat');
   const isFeeding = gameState === 'feeding';
   const label = isFeeding ? 'EATING' : 'DRINKING';
   const tone = isFeeding ? FOOD_COLOR : WATER_COLOR;
 
+  const danger = catNear || threatMeter > 30;
+
+  // Sits just above the pause/exit row: in the feeding close-up the bird is in
+  // the upper half of the screen and the stalking cat in the middle.
   return (
-    <div className="absolute top-[110px] left-1/2 flex -translate-x-1/2 flex-col items-center gap-2.5">
-      <span
-        className="font-display rounded-full border px-4 py-1.5 text-sm font-extrabold tracking-[0.18em] uppercase backdrop-blur-2xl"
-        style={{
-          background: `${tone}26`,
-          borderColor: `${tone}66`,
-          color: tone
-        }}
-      >
-        {label}
-      </span>
-      <div className="h-3 w-64 overflow-hidden rounded-full bg-black/50 backdrop-blur-md">
+    <div
+      className="absolute left-1/2 flex -translate-x-1/2 flex-col items-center gap-2"
+      style={{ bottom: 'calc(max(30px, env(safe-area-inset-bottom)) + 58px)' }}
+    >
+      {danger ? (
+        <span className="font-display animate-[bounce-y_0.6s_ease-in-out_infinite] rounded-full border border-[rgba(255,61,0,0.45)] bg-[rgba(183,28,28,0.88)] px-4 py-1.5 text-[13px] font-extrabold tracking-[0.16em] whitespace-nowrap text-white uppercase shadow-[0_4px_18px_rgba(183,28,28,0.45)]">
+          {catNear ? 'Cat! Tap to fly away' : 'Danger — tap to fly away'}
+        </span>
+      ) : (
+        <span
+          className="font-display rounded-full border px-4 py-1.5 text-[13px] font-extrabold tracking-[0.18em] whitespace-nowrap uppercase backdrop-blur-2xl"
+          style={{
+            background: `${tone}26`,
+            borderColor: `${tone}66`,
+            color: tone
+          }}
+        >
+          {label}
+        </span>
+      )}
+      <div className="h-2.5 w-56 overflow-hidden rounded-full bg-black/50 backdrop-blur-md">
         <div
           className="h-full rounded-full transition-[width,background] duration-200"
           style={{
@@ -285,11 +299,6 @@ function FeedingIndicator({ gameState }: { gameState: string }) {
           }}
         />
       </div>
-      {threatMeter > 30 && (
-        <span className="font-display mt-1 animate-[pulse_0.8s_ease-in-out_infinite] text-base font-extrabold tracking-[0.22em] text-[#bc0a2b] uppercase [text-shadow:0_2px_12px_rgba(255,77,109,0.6),0_0_24px_rgba(0,0,0,0.8)]">
-          Danger — Fly Away
-        </span>
-      )}
     </div>
   );
 }

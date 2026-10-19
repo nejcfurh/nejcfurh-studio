@@ -126,6 +126,12 @@ export default function Tutorial() {
   const gameState = useGameStore((s) => s.gameState);
   const isPaused = useGameStore((s) => s.isPaused);
   const catThreat = useGameStore((s) => s.threatType === 'cat');
+  const perched = gameState === 'feeding' || gameState === 'drinking';
+  const flightWarning = useGameStore(
+    (s) =>
+      s.gameState === 'flight' &&
+      (s.threatType === 'eagle' || s.groundTimer > 0)
+  );
   const reduceMotion = useReducedMotion();
 
   const active = !doneAtStart && !skipped;
@@ -165,7 +171,10 @@ export default function Tutorial() {
   return (
     <div
       className="pointer-events-none absolute inset-x-0 z-40 flex justify-center px-4"
-      style={{ bottom: 'calc(max(30px, env(safe-area-inset-bottom)) + 60px)' }}
+      // The perch meter and the flight warning pill use the 60px slot; stack above them.
+      style={{
+        bottom: `calc(max(30px, env(safe-area-inset-bottom)) + ${perched || flightWarning ? 124 : 60}px)`
+      }}
     >
       <AnimatePresence mode="wait">
         {prompt && state.step && (

@@ -29,7 +29,8 @@ export default function BottomNav() {
   if (!isPlaying) return null;
 
   // First runs get the tutorial prompts in this hint's place instead.
-  const showHint = tutorialDone && flapsThisRun < FLAP_HINT_LIMIT;
+  const showHint =
+    tutorialDone && flapsThisRun < FLAP_HINT_LIMIT && gameState === 'flight';
 
   return (
     <div className="pointer-events-none absolute right-0 bottom-0 left-0 z-50 flex items-center justify-between gap-2 px-4 pb-[max(30px,env(safe-area-inset-bottom))]">
