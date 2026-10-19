@@ -98,8 +98,11 @@ export default function ThirdPersonCamera() {
       speed,
       selectedSpecies,
       gameTime,
-      lastBumpAt
+      lastBumpAt,
+      isPaused
     } = useGameStore.getState();
+    // Hold the frame still while paused; the scene behind it is frozen too.
+    if (isPaused) return;
     const dt = Math.min(delta, 0.05);
 
     const sinR = Math.sin(rotation);

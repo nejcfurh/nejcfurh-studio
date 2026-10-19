@@ -1,20 +1,22 @@
 'use client';
 
 import {
+  CAT_POUNCE_END,
+  CAT_POUNCE_LAND,
+  CAT_POUNCE_TAKEOFF,
   CAT_STALK_YAW,
   catPerchPosition,
   catStalkPosition
 } from '@/components/scene/effects/catPlacement';
-import { CatModel } from '@/components/scene/Feeder';
+import { CatAnimator, CatModel } from '@/components/scene/Feeder';
 import { useGameStore } from '@/store/gameStore';
 import { FeederData } from '@/types';
 import { useFrame } from '@react-three/fiber';
 import { Suspense, useRef } from 'react';
 import * as THREE from 'three';
 
-const CROUCH_TIME = 0.12;
-const LEAP_TIME = 0.28;
-const LEAP_ARC = 0.6;
+const LEAP_ARC = 0.5;
+const SETTLE_FADE = 0.3;
 
 const POUNCE_START = catStalkPosition(1, new THREE.Vector3()).toArray();
 const _from = new THREE.Vector3();
@@ -39,46 +41,53 @@ export default function DeathCat() {
   );
 }
 
-// Mounts when the death starts: crouch at the pole, leap onto the perch, sway.
+// Mounts when the death starts. The pounce clip animates the body in place;
+// this moves the cat along the leap arc between the clip's takeoff and landing
+// frames, so it lands on the perch where the bird was.
 function PouncingCat({ type }: { type: FeederData['type'] }) {
   const groupRef = useRef<THREE.Group>(null);
-  const elapsed = useRef(0);
+  const animatorRef = useRef<CatAnimator | null>(null);
+  const elapsed = useRef(-1);
 
-  useFrame(({ clock }, delta) => {
+  useFrame((_, delta) => {
     const group = groupRef.current;
-    if (!group) return;
-    elapsed.current += Math.min(delta, 0.05);
+    const animator = animatorRef.current;
+    if (!group || !animator || useGameStore.getState().isPaused) return;
+
+    // The mixer advances in CatModel's own frame callback; starting the clip
+    // here at t=0 keeps both clocks on the same frames.
+    if (elapsed.current < 0) {
+      animator.play('pounce', 0);
+      animator.update(0);
+      elapsed.current = 0;
+    } else {
+      elapsed.current += Math.min(delta, 0.05);
+    }
     const t = elapsed.current;
 
     catStalkPosition(1, _from);
     catPerchPosition(type, _to);
-    group.rotation.y = CAT_STALK_YAW;
+    const jumpYaw = Math.atan2(_to.x - _from.x, _to.z - _from.z);
+    group.rotation.y = THREE.MathUtils.lerp(
+      CAT_STALK_YAW,
+      jumpYaw,
+      THREE.MathUtils.smoothstep(t, 0, CAT_POUNCE_TAKEOFF)
+    );
 
-    if (t < CROUCH_TIME) {
-      const k = t / CROUCH_TIME;
-      group.position.copy(_from);
-      group.scale.set(1.06, 0.72 - 0.08 * k, 1.1);
-      group.rotation.z = 0;
-      return;
-    }
-
-    const k = Math.min((t - CROUCH_TIME) / LEAP_TIME, 1);
+    const k = THREE.MathUtils.clamp(
+      (t - CAT_POUNCE_TAKEOFF) / (CAT_POUNCE_LAND - CAT_POUNCE_TAKEOFF),
+      0,
+      1
+    );
     group.position.lerpVectors(_from, _to, k);
     group.position.y += 4 * k * (1 - k) * LEAP_ARC;
-    // Stretched mid-air, squashed on landing, then settles.
-    const stretch = Math.sin(k * Math.PI);
-    const settle = k < 1 ? 0 : Math.exp(-(t - CROUCH_TIME - LEAP_TIME) * 10);
-    group.scale.set(
-      1 - 0.06 * stretch + 0.06 * settle,
-      1 + 0.12 * stretch - 0.15 * settle,
-      1 + 0.15 * stretch
-    );
-    group.rotation.z = k < 1 ? 0 : Math.sin(clock.elapsedTime * 1.5) * 0.03;
+
+    if (t >= CAT_POUNCE_END) animator.play('idle', SETTLE_FADE);
   });
 
   return (
     <group ref={groupRef} position={POUNCE_START} rotation-y={CAT_STALK_YAW}>
-      <CatModel />
+      <CatModel animatorRef={animatorRef} frustumCulled={false} />
     </group>
   );
 }

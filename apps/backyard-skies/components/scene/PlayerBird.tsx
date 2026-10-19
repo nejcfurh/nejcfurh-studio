@@ -19,7 +19,7 @@ const _birdTarget = new THREE.Vector3();
  */
 export const renderedBirdPosition = new THREE.Vector3();
 
-const MAX_PITCH = THREE.MathUtils.degToRad(25);
+const MAX_PITCH = THREE.MathUtils.degToRad(20);
 const MAX_BANK = THREE.MathUtils.degToRad(35);
 
 // Damping rates (1/s); each matches the old per-frame lerp factor at 60 fps.
@@ -27,8 +27,12 @@ const POSITION_DAMPING = 10;
 const YAW_DAMPING = 6.3;
 const SCALE_DAMPING = 5;
 const BANK_DAMPING = 5;
-const PITCH_DAMPING = 6;
-const PECK_DAMPING = 17;
+// Each flap kicks the vertical speed up by several units at once; pitch follows a
+// low-passed copy so one tap tilts the nose gradually instead of snapping it.
+const CLIMB_DAMPING = 1.2;
+const PITCH_DAMPING = 3;
+// The heading jumps on a wall bounce; smooth the turn rate before it banks the bird.
+const TURN_RATE_DAMPING = 12;
 const DEATH_REST_HEIGHT = 0.3;
 const DEATH_MIN_DURATION = 1.2;
 
@@ -43,7 +47,13 @@ export default function PlayerBird() {
   const dyingFinalized = useRef(false);
   const runIdRef = useRef(-1);
   const lastRotation = useRef(0);
-  const poseRef = useRef<BirdPose>({ flapId: 0, gliding: false });
+  const climb = useRef(0);
+  const turnRate = useRef(0);
+  const poseRef = useRef<BirdPose>({
+    flapId: 0,
+    perched: false,
+    frozen: false
+  });
 
   const selectedSpecies = useGameStore((s) => s.selectedSpecies);
   const gameState = useGameStore((s) => s.gameState);
@@ -55,15 +65,18 @@ export default function PlayerBird() {
   // GltfBirdModel HAS BASE SCALE=5, OUTER GROUP MULTIPLIES ON TOP
   const targetScale = isPerched ? (gameState === 'feeding' ? 0.6 : 0.8) : 2.4;
 
-  useFrame(({ clock }, delta) => {
+  useFrame((_, delta) => {
     const group = groupRef.current;
     if (!group) return;
     const s = useGameStore.getState();
     const dt = Math.min(delta, 0.05);
     renderedBirdPosition.copy(group.position);
 
-    poseRef.current.flapId = s.flapsThisRun;
-    poseRef.current.gliding = s.isGliding && !isDying;
+    const pose = poseRef.current;
+    pose.flapId = s.flapsThisRun;
+    pose.perched = isPerched;
+    // The death tumble spins the bird as it is; the wings hold their last pose.
+    pose.frozen = s.isPaused || isDying;
 
     // A new run teleports the bird, so snap instead of flying across the map.
     if (runIdRef.current !== s.runId) {
@@ -71,6 +84,8 @@ export default function PlayerBird() {
       group.position.set(s.position[0], s.position[1], s.position[2]);
       group.rotation.set(0, s.rotation, 0);
       lastRotation.current = s.rotation;
+      climb.current = 0;
+      turnRate.current = 0;
     }
 
     // RESET DYING STATE WHEN STARTING A NEW GAME
@@ -121,37 +136,40 @@ export default function PlayerBird() {
     group.rotation.x = damp(group.rotation.x, 0, YAW_DAMPING, dt);
 
     // BANK INTO TURNS FROM THE ACTUAL TURN RATE (NO BANK WHEN PERCHED)
-    const turnRate = dt > 0 ? (s.rotation - lastRotation.current) / dt : 0;
+    const rawTurnRate = dt > 0 ? (s.rotation - lastRotation.current) / dt : 0;
     lastRotation.current = s.rotation;
+    turnRate.current = damp(
+      turnRate.current,
+      rawTurnRate,
+      TURN_RATE_DAMPING,
+      dt
+    );
     const bankTarget =
       gameState === 'flight'
-        ? -THREE.MathUtils.clamp(turnRate / TURN_SPEED, -1, 1) * MAX_BANK
+        ? -THREE.MathUtils.clamp(turnRate.current / TURN_SPEED, -1, 1) *
+          MAX_BANK
         : 0;
     group.rotation.z = damp(group.rotation.z, bankTarget, BANK_DAMPING, dt);
 
     const bird = birdRef.current;
     if (!bird) return;
-    if (isPerched) {
-      // PERCHED PECKING/BOBBING ANIMATION
-      const t = clock.getElapsedTime();
-      // HEAD-BOB: QUICK DIP DOWN THEN BACK UP, REPEATING
-      const bobCycle = (t * 2.5) % 1; // 2.5 bobs per second
-      const dip =
-        bobCycle < 0.3 ? Math.sin((bobCycle / 0.3) * Math.PI) * 0.15 : 0;
-      bird.rotation.x = damp(bird.rotation.x, dip, PECK_DAMPING, dt);
-      // SLIGHT SIDE-TO-SIDE LOOK BETWEEN BOBS
-      const look = Math.sin(t * 0.8) * 0.1;
-      bird.rotation.y = damp(bird.rotation.y, look, YAW_DAMPING, dt);
-    } else {
-      // NOSE UP WHEN CLIMBING, DOWN WHEN DIVING (POSITIVE X DIPS THE NOSE)
-      const pitchTarget = THREE.MathUtils.clamp(
-        -Math.atan2(s.velocity[1], Math.max(s.speed, 0.1)),
-        -MAX_PITCH,
-        MAX_PITCH
-      );
-      bird.rotation.x = damp(bird.rotation.x, pitchTarget, PITCH_DAMPING, dt);
-      bird.rotation.y = damp(bird.rotation.y, 0, POSITION_DAMPING, dt);
-    }
+    // The perched pose (standing, pecking) comes from the model's own clips.
+    climb.current = damp(
+      climb.current,
+      isPerched ? 0 : s.velocity[1],
+      CLIMB_DAMPING,
+      dt
+    );
+    // NOSE UP WHEN CLIMBING, DOWN WHEN DIVING (POSITIVE X DIPS THE NOSE)
+    const pitchTarget = isPerched
+      ? 0
+      : THREE.MathUtils.clamp(
+          -Math.atan2(climb.current, Math.max(s.speed, 0.1)),
+          -MAX_PITCH,
+          MAX_PITCH
+        );
+    bird.rotation.x = damp(bird.rotation.x, pitchTarget, PITCH_DAMPING, dt);
+    bird.rotation.y = damp(bird.rotation.y, 0, POSITION_DAMPING, dt);
   });
 
   return (
@@ -160,7 +178,6 @@ export default function PlayerBird() {
         <group ref={birdRef}>
           <GltfBirdModel
             isFlapping={false}
-            isPerched={isPerched}
             scale={5}
             speciesId={selectedSpecies}
             poseRef={poseRef}

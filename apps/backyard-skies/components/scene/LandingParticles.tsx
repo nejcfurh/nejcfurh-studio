@@ -4,6 +4,7 @@ import {
   ParticleLook,
   ParticlePool
 } from '@/components/scene/effects/particlePool';
+import { birdBeakTip, birdPecks } from '@/components/scene/GltfBirdModel';
 import { useGameStore } from '@/store/gameStore';
 import { useFrame } from '@react-three/fiber';
 import { useEffect, useMemo, useRef } from 'react';
@@ -12,11 +13,6 @@ import * as THREE from 'three';
 // One pool serves the landing burst and the crumbs or droplets while eating.
 const POOL_SIZE = 32;
 const LANDING_COUNT = 12;
-// Matches the pecking rhythm in PlayerBird, which dips early in each cycle.
-const PECKS_PER_SECOND = 2.5;
-const PECK_HIT_PHASE = 0.15;
-const BEAK_FORWARD = 0.3;
-const BEAK_UP = 0.12;
 
 const LANDING: ParticleLook = { lifetime: 0.5, size: 0.08, gravity: 8 };
 const CRUMB: ParticleLook = { lifetime: 0.9, size: 0.045, gravity: 6 };
@@ -36,13 +32,13 @@ export default function LandingParticles() {
   const meshRef = useRef<THREE.InstancedMesh>(null);
   const pool = useMemo(() => new ParticlePool(POOL_SIZE), []);
   const prevGameState = useRef('');
-  const lastPeck = useRef(0);
+  const lastPeck = useRef(birdPecks.count);
 
   useEffect(() => {
     if (meshRef.current) pool.init(meshRef.current, SEED_COLORS[0]);
   }, [pool]);
 
-  useFrame(({ clock }, rawDelta) => {
+  useFrame((_, rawDelta) => {
     const mesh = meshRef.current;
     if (!mesh) return;
     const delta = Math.min(rawDelta, 0.05);
@@ -72,19 +68,16 @@ export default function LandingParticles() {
     }
     prevGameState.current = s.gameState;
 
-    const peck = Math.floor(
-      clock.elapsedTime * PECKS_PER_SECOND - PECK_HIT_PHASE
-    );
+    // One burst each time the beak strikes the tray in the bird's peck clip.
+    const peck = birdPecks.count;
     if (perched && !s.isPaused && peck !== lastPeck.current) {
-      const beakX = px + Math.sin(s.rotation) * BEAK_FORWARD;
-      const beakZ = pz + Math.cos(s.rotation) * BEAK_FORWARD;
       const count = isWater ? 1 : 2;
       for (let i = 0; i < count; i++) {
         pool.spawn(mesh, {
           position: _position.set(
-            beakX + (Math.random() - 0.5) * 0.06,
-            py + BEAK_UP,
-            beakZ + (Math.random() - 0.5) * 0.06
+            birdBeakTip.x + (Math.random() - 0.5) * 0.06,
+            birdBeakTip.y,
+            birdBeakTip.z + (Math.random() - 0.5) * 0.06
           ),
           velocity: _velocity.set(
             (Math.random() - 0.5) * 2,

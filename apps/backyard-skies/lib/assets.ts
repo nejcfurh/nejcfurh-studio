@@ -48,6 +48,8 @@ function applyPhongShading(scene: THREE.Object3D, shading: PhongShading) {
         name: source.name,
         color: source.color,
         map: source.map,
+        // Merged props carry each part's colour per vertex.
+        vertexColors: source.vertexColors,
         side: source.side,
         specular: shading.specular,
         shininess: shading.shininess
@@ -72,6 +74,27 @@ export function usePhongModel(
 ): THREE.Object3D {
   const { scene } = useGLTF(url);
   return useMemo(() => applyPhongShading(scene, shading), [scene, shading]);
+}
+
+export interface AnimatedModel {
+  scene: THREE.Object3D;
+  animations: THREE.AnimationClip[];
+}
+
+/**
+ * usePhongModel for a skinned GLB, plus its animation clips. drei's <Clone>
+ * shares one skeleton between instances, so give each instance its own copy
+ * with SkeletonUtils.clone and its own AnimationMixer.
+ */
+export function useAnimatedPhongModel(
+  url: string,
+  shading: PhongShading
+): AnimatedModel {
+  const { scene, animations } = useGLTF(url);
+  return useMemo(
+    () => ({ scene: applyPhongShading(scene, shading), animations }),
+    [scene, animations, shading]
+  );
 }
 
 /** Starts downloading every model and texture the game scene uses. */

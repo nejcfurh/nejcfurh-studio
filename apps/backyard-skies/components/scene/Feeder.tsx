@@ -1,7 +1,9 @@
 'use client';
 
 import {
+  CAT_STALK_LENGTH,
   CAT_STALK_YAW,
+  CAT_WALK_SPEED,
   catStalkPosition
 } from '@/components/scene/effects/catPlacement';
 import { createWaterMaterial } from '@/components/scene/effects/waterMaterial';
@@ -12,6 +14,7 @@ import {
   GLOSSY_SHADING,
   MATTE_SHADING,
   SEEDS_TEXTURE,
+  useAnimatedPhongModel,
   usePhongModel,
   WATER_TEXTURE
 } from '@/lib/assets';
@@ -20,8 +23,9 @@ import { useGameStore } from '@/store/gameStore';
 import { FeederData } from '@/types';
 import { Clone, useGLTF, useTexture } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
-import { Suspense, useEffect, useMemo, useRef } from 'react';
+import { RefObject, Suspense, useEffect, useMemo, useRef } from 'react';
 import * as THREE from 'three';
+import { clone as cloneSkinned } from 'three/examples/jsm/utils/SkeletonUtils.js';
 
 const dangerGlowMaterial = new THREE.ShaderMaterial({
   uniforms: {
@@ -71,6 +75,18 @@ const MARKER_FADE_FAR = 45;
 // cat walks in from beyond the stalking path so the danger is visible.
 const STRAY_CAT_METER = 40;
 const STRAY_CAT_OFFSET = -0.7;
+// The cat reaches the pole before the meter fills, so it has time to crouch
+// and wiggle before the pounce.
+const CAT_ARRIVE_METER = 80;
+const STRAY_ARRIVE_METER = 90;
+const CROUCH_PROGRESS = 0.97;
+const STALK_RATE = 6;
+const RETREAT_RATE = 0.9;
+// Below this ground speed (units/s) the cat stands instead of walking.
+const WALK_MIN_SPEED = 0.06;
+const TURN_RATE = 8;
+// Cats beyond this distance from the bird hold their pose.
+const CAT_ANIMATE_DISTANCE = 45;
 
 interface FeederProps {
   data: FeederData;
@@ -82,8 +98,13 @@ export default function Feeder({ data }: FeederProps) {
   const markerRef = useRef<THREE.Group>(null);
   const markerMatRef = useRef<THREE.MeshStandardMaterial>(null);
   const catRef = useRef<THREE.Group>(null);
+  const catAnimator = useRef<CatAnimator | null>(null);
   const lockMix = useRef(0);
-  const stalk = useRef(data.hasCat ? 0 : STRAY_CAT_OFFSET);
+  const stalk = useRef<StalkState>({
+    progress: data.hasCat ? 0 : STRAY_CAT_OFFSET,
+    speed: 0,
+    yaw: CAT_STALK_YAW
+  });
 
   const isBirdbath = data.type === 'birdbath';
   const markerColor = isBirdbath ? BATH_MARKER : FEEDER_MARKER;
@@ -149,15 +170,17 @@ export default function Feeder({ data }: FeederProps) {
     }
 
     const cat = catRef.current;
-    if (cat) {
-      updateStalkingCat(cat, stalk, {
+    if (cat && !s.isPaused) {
+      const dx = s.position[0] - data.position[0];
+      const dz = s.position[2] - data.position[2];
+      updateStalkingCat(cat, catAnimator.current, stalk.current, {
         data,
-        t,
         delta,
         perchedHere,
         perched: perchedHere && s.gameState !== 'dying',
         threatMeter: s.threatMeter,
-        diedToCat: s.gameState === 'dying' && s.deathReason === 'cat'
+        diedToCat: s.gameState === 'dying' && s.deathReason === 'cat',
+        near: dx * dx + dz * dz < CAT_ANIMATE_DISTANCE * CAT_ANIMATE_DISTANCE
       });
     }
   });
@@ -195,7 +218,7 @@ export default function Feeder({ data }: FeederProps) {
       {/* STALKING CAT — CREEPS TOWARD THE POLE AS THE THREAT METER RISES */}
       <group ref={catRef} visible={false}>
         <Suspense fallback={null}>
-          <CatModel />
+          <CatModel animatorRef={catAnimator} />
         </Suspense>
       </group>
     </group>
@@ -204,35 +227,44 @@ export default function Feeder({ data }: FeederProps) {
 
 const _catPos = new THREE.Vector3();
 
+interface StalkState {
+  /** Position along the stalking path (see catStalkPosition). */
+  progress: number;
+  /** Smoothed ground speed, units per second. */
+  speed: number;
+  yaw: number;
+}
+
 function updateStalkingCat(
   cat: THREE.Group,
-  stalk: { current: number },
+  animator: CatAnimator | null,
+  st: StalkState,
   {
     data,
-    t,
     delta,
     perchedHere,
     perched,
     threatMeter,
-    diedToCat
+    diedToCat,
+    near
   }: {
     data: FeederData;
-    t: number;
     delta: number;
     perchedHere: boolean;
     perched: boolean;
     threatMeter: number;
     diedToCat: boolean;
+    near: boolean;
   }
 ) {
-  const meter = threatMeter / 100;
   let target: number;
   if (data.hasCat) {
-    target = perched ? meter : 0;
+    target = perched ? Math.min(1, threatMeter / CAT_ARRIVE_METER) : 0;
   } else {
-    const stray = Math.max(
+    const stray = THREE.MathUtils.clamp(
+      (threatMeter - STRAY_CAT_METER) / (STRAY_ARRIVE_METER - STRAY_CAT_METER),
       0,
-      (threatMeter - STRAY_CAT_METER) / (100 - STRAY_CAT_METER)
+      1
     );
     target = perched
       ? THREE.MathUtils.lerp(STRAY_CAT_OFFSET, 1, stray)
@@ -240,31 +272,52 @@ function updateStalkingCat(
   }
   if (perchedHere && diedToCat) target = 1;
 
-  const previous = stalk.current;
-  stalk.current = THREE.MathUtils.damp(
+  const previous = st.progress;
+  st.progress = THREE.MathUtils.damp(
     previous,
     target,
-    perched ? 6 : 1.2,
+    perched ? STALK_RATE : RETREAT_RATE,
     delta
   );
-  const progress = stalk.current;
+  const step = st.progress - previous;
 
   // DeathCat takes over for the pounce.
   cat.visible =
     !(perchedHere && diedToCat) &&
-    (data.hasCat || progress > STRAY_CAT_OFFSET + 0.02);
+    (data.hasCat || st.progress > STRAY_CAT_OFFSET + 0.02);
+  if (animator) animator.active = cat.visible && near;
   if (!cat.visible) return;
 
-  const speed = Math.abs(progress - previous) / Math.max(delta, 1e-4);
-  const walking = Math.min(1, speed * 4);
-  const crouch = THREE.MathUtils.smoothstep(progress, 0.65, 0.95);
+  const speed = (Math.abs(step) * CAT_STALK_LENGTH) / Math.max(delta, 1e-4);
+  st.speed = THREE.MathUtils.damp(st.speed, speed, 12, delta);
+  const walking = st.speed > WALK_MIN_SPEED;
+  const crouching = perched && st.progress > CROUCH_PROGRESS;
 
-  catStalkPosition(progress, _catPos);
+  // Walks face the way they go; standing and crouching cats watch the pole.
+  const yawTarget = CAT_STALK_YAW + (walking && step < 0 ? Math.PI : 0);
+  const turn = THREE.MathUtils.euclideanModulo(
+    yawTarget - st.yaw + Math.PI,
+    Math.PI * 2
+  );
+  st.yaw += (turn - Math.PI) * (1 - Math.exp(-TURN_RATE * delta));
+
+  catStalkPosition(st.progress, _catPos);
   cat.position.copy(_catPos);
-  cat.position.y += Math.abs(Math.sin(t * 9)) * 0.04 * walking;
-  // Low and wound up near the pole, with a pre-pounce wiggle.
-  cat.scale.set(1 + 0.06 * crouch, 1 - 0.28 * crouch, 1 + 0.1 * crouch);
-  cat.rotation.y = CAT_STALK_YAW + Math.sin(t * 16) * 0.07 * crouch;
+  cat.rotation.y = st.yaw;
+
+  if (!animator) return;
+  if (crouching) {
+    animator.play('crouch');
+  } else if (walking) {
+    animator.play('walk');
+    // Playback follows the ground speed so planted paws do not slide.
+    animator.setTimeScale(
+      'walk',
+      THREE.MathUtils.clamp(st.speed / CAT_WALK_SPEED, 0.3, 2.5)
+    );
+  } else {
+    animator.play('idle');
+  }
 }
 
 useGLTF.preload(FEEDER_MODEL);
@@ -273,21 +326,104 @@ useGLTF.preload(CAT_MODEL);
 useTexture.preload(SEEDS_TEXTURE);
 useTexture.preload(WATER_TEXTURE);
 
-// CAT MODEL STANDING UPRIGHT — SHARED BY CAT FEEDERS AND THE DEATH SCENE
+export type CatClip = 'idle' | 'walk' | 'crouch' | 'pounce';
+const CAT_FADE = 0.25;
+
+/** One cat's mixer, with cross-fades between the clips in cat.glb. */
+export class CatAnimator {
+  /** False holds the pose: hidden or distant cats skip their mixer update. */
+  active = true;
+  private readonly mixer: THREE.AnimationMixer;
+  private readonly actions: Record<CatClip, THREE.AnimationAction>;
+  private current: CatClip | null = null;
+
+  constructor(root: THREE.Object3D, clips: THREE.AnimationClip[]) {
+    this.mixer = new THREE.AnimationMixer(root);
+    const action = (name: CatClip) => {
+      const clip = THREE.AnimationClip.findByName(clips, name);
+      if (!clip) throw new Error(`cat.glb has no "${name}" clip`);
+      return this.mixer.clipAction(clip);
+    };
+    this.actions = {
+      idle: action('idle'),
+      walk: action('walk'),
+      crouch: action('crouch'),
+      pounce: action('pounce')
+    };
+    this.actions.pounce.setLoop(THREE.LoopOnce, 1);
+    this.actions.pounce.clampWhenFinished = true;
+  }
+
+  /** Starts a clip from its first frame, fading out the one playing. */
+  play(name: CatClip, fade = CAT_FADE) {
+    if (name === this.current) return;
+    const next = this.actions[name];
+    next.reset().setEffectiveTimeScale(1).setEffectiveWeight(1).play();
+    const prev = this.current ? this.actions[this.current] : null;
+    if (prev && fade > 0) next.crossFadeFrom(prev, fade, false);
+    else prev?.stop();
+    this.current = name;
+  }
+
+  setTimeScale(name: CatClip, timeScale: number) {
+    this.actions[name].setEffectiveTimeScale(timeScale);
+  }
+
+  update(delta: number) {
+    this.mixer.update(delta);
+  }
+
+  stop() {
+    this.mixer.stopAllAction();
+    this.current = null;
+  }
+}
+
+// Skinned meshes are culled against their bind-pose bounds; the clips reach a
+// little beyond them.
+const CAT_BOUNDS_MARGIN = 0.35;
+
+// RIGGED CAT (public/models/mycat/cat.glb) — CAT FEEDERS, THE DEATH SCENE AND /test
 export function CatModel({
-  position
+  position,
+  animatorRef,
+  frustumCulled = true
 }: {
   position?: [number, number, number];
+  /** Receives the cat's animator; without one the cat idles on its own. */
+  animatorRef?: RefObject<CatAnimator | null>;
+  frustumCulled?: boolean;
 }) {
-  const cat = usePhongModel(CAT_MODEL, MATTE_SHADING);
-  return (
-    <Clone
-      object={cat}
-      scale={0.03}
-      position={position}
-      rotation={[1.5, -3.15, -3]}
-    />
-  );
+  const { scene, animations } = useAnimatedPhongModel(CAT_MODEL, MATTE_SHADING);
+  const rig = useMemo(() => {
+    const root = cloneSkinned(scene);
+    root.traverse((child) => {
+      if (!(child instanceof THREE.SkinnedMesh)) return;
+      child.frustumCulled = frustumCulled;
+      child.computeBoundingSphere();
+      if (child.boundingSphere)
+        child.boundingSphere.radius += CAT_BOUNDS_MARGIN;
+    });
+    return { root, animator: new CatAnimator(root, animations) };
+  }, [scene, animations, frustumCulled]);
+
+  useEffect(() => {
+    const { animator } = rig;
+    animator.play('idle', 0);
+    if (animatorRef) animatorRef.current = animator;
+    return () => {
+      if (animatorRef?.current === animator) animatorRef.current = null;
+      animator.stop();
+    };
+  }, [rig, animatorRef]);
+
+  useFrame((_, delta) => {
+    const { animator } = rig;
+    if (!animator.active || useGameStore.getState().isPaused) return;
+    animator.update(Math.min(delta, 0.05));
+  });
+
+  return <primitive object={rig.root} position={position} />;
 }
 
 // BIRDBUDDY-STYLE SMART FEEDER — GLB MODEL ON POLE

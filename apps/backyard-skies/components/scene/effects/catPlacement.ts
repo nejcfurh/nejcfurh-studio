@@ -7,6 +7,17 @@ import * as THREE from 'three';
 const STALK_START = new THREE.Vector3(-2.8, 0, -0.75);
 const STALK_END = new THREE.Vector3(-0.75, 0, -0.2);
 
+export const CAT_STALK_LENGTH = STALK_START.distanceTo(STALK_END);
+
+// Clip timings baked into public/models/mycat/cat.glb by
+// scratchpad/blender/cat-build.py; keep them in step with that script.
+/** Ground speed at which the walk clip's planted paws hold still. */
+export const CAT_WALK_SPEED = 0.8;
+/** Pounce clip: the hind paws leave the ground, then all four land. */
+export const CAT_POUNCE_TAKEOFF = 5 / 30;
+export const CAT_POUNCE_LAND = 12 / 30;
+export const CAT_POUNCE_END = 17 / 30;
+
 /** Yaw that turns the cat to face along its stalking path, toward the pole. */
 export const CAT_STALK_YAW = Math.atan2(
   STALK_END.x - STALK_START.x,
