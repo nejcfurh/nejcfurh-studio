@@ -117,6 +117,8 @@ function useWebGLContextState() {
 // Development-only hook for measuring render cost from the browser console.
 function RenderInfoProbe() {
   const gl = useThree((s) => s.gl);
+  const scene = useThree((s) => s.scene);
+  const camera = useThree((s) => s.camera);
   // Post-processing renders several passes per frame; reset once per frame so
   // the counters hold the whole frame instead of the last fullscreen pass.
   useFrame((state) => {
@@ -126,7 +128,10 @@ function RenderInfoProbe() {
   });
   useEffect(() => {
     if (process.env.NODE_ENV !== 'development') return;
-    const w = window as unknown as { __renderInfo?: () => object };
+    const w = window as unknown as {
+      __renderInfo?: () => object;
+      __renderBreakdown?: () => object[];
+    };
     w.__renderInfo = () => ({
       ...gl.info.render,
       geometries: gl.info.memory.geometries,
@@ -134,10 +139,40 @@ function RenderInfoProbe() {
       programs: gl.info.programs?.length ?? 0,
       dpr: gl.getPixelRatio()
     });
+    // Per visible mesh in view: triangles drawn and whether it also draws into
+    // the shadow map, labelled by its material and its parents' names.
+    w.__renderBreakdown = () => {
+      const frustum = new THREE.Frustum().setFromProjectionMatrix(
+        new THREE.Matrix4().multiplyMatrices(
+          camera.projectionMatrix,
+          camera.matrixWorldInverse
+        )
+      );
+      const rows: object[] = [];
+      scene.traverseVisible((o) => {
+        if (!(o instanceof THREE.Mesh)) return;
+        if (o.frustumCulled && !frustum.intersectsObject(o)) return;
+        const index = o.geometry.index;
+        const verts = index
+          ? index.count
+          : (o.geometry.attributes.position?.count ?? 0);
+        const instances = o instanceof THREE.InstancedMesh ? o.count : 1;
+        const material = Array.isArray(o.material) ? o.material[0] : o.material;
+        let label = o.name;
+        for (let p = o.parent; p && !label; p = p.parent) label = p.name;
+        rows.push({
+          label: `${label || '?'}|${material.type}|${material.name}|v${verts}x${instances}`,
+          triangles: Math.round((verts / 3) * instances),
+          shadow: o.castShadow
+        });
+      });
+      return rows;
+    };
     return () => {
       delete w.__renderInfo;
+      delete w.__renderBreakdown;
     };
-  }, [gl]);
+  }, [gl, scene, camera]);
   return null;
 }
 
