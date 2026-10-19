@@ -35,7 +35,9 @@ const SECTIONS: Section[] = [
     items: [
       'Tap the screen to flap and gain altitude.',
       'Tap the left side to turn left, right to turn right, center to fly straight.',
-      'Stop flapping to glide and descend.',
+      'Hold anywhere to glide, and drag left or right to steer.',
+      'Dive to pick up speed.',
+      'Houses and trees bounce you back and cost stamina.',
       'Hit the ground and a cat catches you — game over.'
     ]
   },
@@ -59,6 +61,7 @@ const SECTIONS: Section[] = [
       'Fly near a feeder or birdbath to land automatically.',
       'You eat or drink while perched, earning score.',
       'The threat meter fills while perched — leave before it maxes out.',
+      'Perching also restores your stamina.',
       'Tap the screen to fly away after a short landing delay.'
     ]
   },
@@ -77,10 +80,10 @@ const SECTIONS: Section[] = [
     Icon: PiTargetBold,
     accent: '#ff9a3d',
     items: [
-      'Eagles hunt you periodically during flight.',
-      'Turn hard (90°) during the dodge window to evade.',
-      'Near the altitude limit? Tap rapidly (3 taps) instead.',
-      'Dodging an eagle earns bonus points.'
+      'The first eagle comes after about a minute, then they come more often.',
+      'Turn hard (70° or more) or dive during the dodge window to escape.',
+      'Near the altitude limit? Tap rapidly (3 taps) or dive instead.',
+      'Dodging eagles in a row multiplies the bonus.'
     ]
   },
   {
@@ -89,7 +92,7 @@ const SECTIONS: Section[] = [
     accent: '#9f6bff',
     items: [
       'Fly too high and an eagle starts hunting you.',
-      'You have 4 seconds to descend — stop flapping.',
+      'You have 5 seconds to descend — stop flapping.',
       'Drop below the warning level and the eagle backs off.'
     ]
   },
@@ -98,8 +101,8 @@ const SECTIONS: Section[] = [
     Icon: PiStarFill,
     accent: '#ffd24b',
     items: [
-      'Score increases over time as you fly.',
-      'Eating and drinking earns extra points.',
+      'Distance flown earns the most points.',
+      'Eating and drinking pays for what you restore, plus a fly-away bonus.',
       'Dodging eagles gives a big score bonus.'
     ]
   },

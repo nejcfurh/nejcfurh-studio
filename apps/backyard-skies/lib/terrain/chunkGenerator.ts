@@ -6,9 +6,11 @@ import {
   HOUSE_MODELS,
   HOUSES_PER_CHUNK,
   ROOF_COLORS,
+  STREET_HALF_WIDTH,
   TREES_PER_CHUNK,
   WALL_COLORS
 } from './chunkConstants';
+import { HOUSE_BOUNDS } from './houseBounds';
 
 export interface HouseData {
   x: number;
@@ -129,11 +131,52 @@ export function generateChunkData(cx: number, cz: number): ChunkData {
     }
   }
 
+  // Filtered only after every rng() draw, so the sequence (and with it the
+  // layout and feeder placement) is the same as before filtering existed.
+  const onStreet = (x: number, z: number, halfX: number, halfZ: number) =>
+    Math.abs(z) - halfZ < STREET_HALF_WIDTH ||
+    (hasRoadZ && Math.abs(x) - halfX < STREET_HALF_WIDTH);
+
+  for (const h of houses) {
+    // Patio is a (w + 1) x 2.5 slab 3.5 behind the house, see Patio.tsx.
+    const px = h.x - 3.5 * Math.sin(h.rot);
+    const pz = h.z - 3.5 * Math.cos(h.rot);
+    if (h.hasPatio && onStreet(px, pz, (h.w + 1) / 2, 1.25)) h.hasPatio = false;
+  }
+
   return {
     hasRoadX,
     hasRoadZ,
     houses,
-    trees,
-    gardenBeds
+    trees: trees.filter(
+      (t) =>
+        !onStreet(t.x, t.z, TREE_CLEARANCE, TREE_CLEARANCE) &&
+        !houses.some((h) => isInsideHouse(h, t.x, t.z, TREE_CLEARANCE))
+    ),
+    gardenBeds: gardenBeds.filter((g) => !onStreet(g.x, g.z, g.w / 2, 0.45))
   };
+}
+
+const TREE_CLEARANCE = 1.5;
+
+/** Whether a point lies within `margin` of a house's footprint. */
+export function isInsideHouse(
+  h: HouseData,
+  x: number,
+  z: number,
+  margin: number
+): boolean {
+  const b = HOUSE_BOUNDS[h.modelIndex % HOUSE_BOUNDS.length];
+  const dx = x - h.x;
+  const dz = z - h.z;
+  const cos = Math.cos(h.rot);
+  const sin = Math.sin(h.rot);
+  const lx = dx * cos - dz * sin;
+  const lz = dx * sin + dz * cos;
+  return (
+    lx > b.minX - margin &&
+    lx < b.maxX + margin &&
+    lz > b.minZ - margin &&
+    lz < b.maxZ + margin
+  );
 }

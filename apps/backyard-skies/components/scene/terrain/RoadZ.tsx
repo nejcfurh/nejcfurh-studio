@@ -1,20 +1,31 @@
 'use client';
 
-import { CHUNK_SIZE } from '@/lib/terrain/chunkConstants';
+import { useMemo } from 'react';
 
-export default function RoadZ() {
+import {
+  Instance,
+  InstancedLayer,
+  LoadedChunk,
+  unitPlaneGeometry
+} from './InstancedLayer';
+import { pushRoad, roadMaterial } from './RoadX';
+
+export function RoadZLayer({ chunks }: { chunks: LoadedChunk[] }) {
+  const instances = useMemo(() => {
+    const out: Instance[] = [];
+    for (const chunk of chunks) {
+      const { hasRoadX, hasRoadZ } = chunk.data;
+      if (hasRoadZ) pushRoad(out, chunk, Math.PI / 2, hasRoadX);
+    }
+    return out;
+  }, [chunks]);
+
   return (
-    <group rotation={[0, Math.PI / 2, 0]}>
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.02, 0]}>
-        <planeGeometry args={[CHUNK_SIZE, 4.5]} />
-        <meshStandardMaterial color="#484848" roughness={0.85} />
-      </mesh>
-      {[-16, -8, 0, 8, 16].map((x) => (
-        <mesh key={x} rotation={[-Math.PI / 2, 0, 0]} position={[x, 0.03, 0]}>
-          <planeGeometry args={[3, 0.12]} />
-          <meshStandardMaterial color="#D4C94A" roughness={0.5} />
-        </mesh>
-      ))}
-    </group>
+    <InstancedLayer
+      geometry={unitPlaneGeometry}
+      material={roadMaterial}
+      instances={instances}
+      receiveShadow
+    />
   );
 }

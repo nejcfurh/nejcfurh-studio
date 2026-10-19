@@ -3,7 +3,6 @@
 import { ACCENT, BG_IMAGE, SPECIES_ICON } from '@/lib/designTokens';
 import { useGameStore } from '@/store/gameStore';
 import { BirdSpeciesId, DeathReason } from '@/types';
-import { SCORE_EAGLE_DODGE_BONUS } from '@/utils/constants';
 import { BsFillDropletFill } from '@repo/ui/icons/react-icons/bs';
 import { FaWheatAwn } from '@repo/ui/icons/react-icons/fa6';
 import {
@@ -101,8 +100,10 @@ export default function GameOverScreen() {
   const leaderboard = useGameStore((s) => s.leaderboard);
   const setGameState = useGameStore((s) => s.setGameState);
   const startGame = useGameStore((s) => s.startGame);
-  const eagleDodges = useGameStore((s) => s.eagleDodges);
+  const timeScore = useGameStore((s) => s.timeScore);
+  const distanceScore = useGameStore((s) => s.distanceScore);
   const feedingScore = useGameStore((s) => s.feedingScore);
+  const dodgeScore = useGameStore((s) => s.dodgeScore);
   const loadLeaderboard = useGameStore((s) => s.loadLeaderboard);
   const playerName = useGameStore((s) => s.playerName);
 
@@ -111,7 +112,7 @@ export default function GameOverScreen() {
   }, [loadLeaderboard]);
 
   const death = (deathReason && DEATHS[deathReason]) || DEFAULT_DEATH;
-  const topPlayers = leaderboard.slice(0, 3);
+  const topPlayers = leaderboard.slice(0, 5);
 
   const myIndex = leaderboard.findIndex(
     (e) =>
@@ -120,15 +121,10 @@ export default function GameOverScreen() {
   );
   const rank = myIndex >= 0 ? myIndex + 1 : null;
 
-  const eagleBonus = eagleDodges * SCORE_EAGLE_DODGE_BONUS;
-  const flightScore = Math.max(
-    0,
-    Math.floor(score) - eagleBonus - Math.floor(feedingScore)
-  );
-
-  const flight = useCountUp(flightScore, 800, 300);
-  const feeding = useCountUp(Math.floor(feedingScore), 800, 600);
-  const eagles = useCountUp(eagleBonus, 800, 900);
+  const flight = useCountUp(Math.floor(timeScore), 800, 300);
+  const travel = useCountUp(Math.floor(distanceScore), 800, 500);
+  const feeding = useCountUp(Math.floor(feedingScore), 800, 700);
+  const eagles = useCountUp(Math.floor(dodgeScore), 800, 900);
   const total = useCountUp(Math.floor(score), 1000, 1400);
 
   const DeathIcon = death.Icon;
@@ -146,136 +142,142 @@ export default function GameOverScreen() {
       />
       <Particles count={20} color={death.color} />
 
-      <div className="relative z-10 mt-5 flex h-full flex-col gap-3 px-6 md:mt-10">
-        {/* Death card */}
-        <div className="text-center">
-          <div
-            className="mb-3 inline-flex h-[68px] w-[68px] items-center justify-center rounded-[20px] border"
-            style={{
-              background: `${death.color}22`,
-              borderColor: `${death.color}66`,
-              color: death.color
-            }}
-          >
-            <DeathIcon size={32} />
-          </div>
-          <h1 className="font-display text-[30px] font-extrabold tracking-[-0.02em] text-white">
-            {death.title}
-          </h1>
-          <p className="mt-1 text-[13px] text-white/50">{death.sub}</p>
-        </div>
-
-        {/* Flight log */}
-        <GlassCard className="px-[18px] py-4">
-          <div className="mb-3.5 flex items-center justify-between">
-            <span className="font-display text-[10px] font-bold tracking-[0.25em] text-white/50 uppercase">
-              Flight Log
-            </span>
-            {rank !== null && (
-              <div
-                className="flex items-center gap-1.5 rounded-[8px] px-2 py-[3px]"
-                style={{
-                  background: `${ACCENT.main}22`,
-                  color: ACCENT.main
-                }}
-              >
-                <PiMedalFill />
-                <span className="font-display text-[10px] font-extrabold tracking-widest uppercase">
-                  #{rank} Today
-                </span>
-              </div>
-            )}
-          </div>
-
-          <ScoreRow
-            label="Flight"
-            value={flight.value}
-            visible={flight.visible}
-          />
-          <ScoreRow
-            label="Feeding"
-            value={feeding.value}
-            visible={feeding.visible}
-          />
-          <ScoreRow
-            label="Eagle Dodges"
-            value={eagles.value}
-            visible={eagles.visible}
-          />
-          <div className="my-2.5 h-px w-full bg-white/10" />
-          <div
-            className="flex items-baseline justify-between transition-opacity duration-300"
-            style={{ opacity: total.visible ? 1 : 0 }}
-          >
-            <span className="font-display text-[11px] font-bold tracking-[0.25em] text-white/70 uppercase">
-              Total
-            </span>
-            <span
-              className="font-display bg-clip-text text-[32px] font-extrabold tracking-[-0.02em] text-transparent"
+      <div className="relative z-10 flex h-full flex-col px-6 pt-5 pb-[max(20px,env(safe-area-inset-bottom))] md:pt-9">
+        {/* Scrolls on very short screens so the buttons below stay reachable. */}
+        <div className="flex min-h-0 flex-1 flex-col gap-3 overflow-y-auto [mask-image:linear-gradient(to_bottom,black_calc(100%-20px),transparent)] pb-5">
+          {/* Death card */}
+          <div className="text-center">
+            <div
+              className="mb-2 inline-flex h-[52px] w-[52px] items-center justify-center rounded-[16px] border"
               style={{
-                background: `linear-gradient(180deg, #fff, ${ACCENT.main})`,
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent'
+                background: `${death.color}22`,
+                borderColor: `${death.color}66`,
+                color: death.color
               }}
             >
-              {total.value.toLocaleString()}
-            </span>
+              <DeathIcon size={26} />
+            </div>
+            <h1 className="font-display text-[26px] leading-tight font-extrabold tracking-[-0.02em] text-white">
+              {death.title}
+            </h1>
+            <p className="mt-0.5 text-[13px] text-white/50">{death.sub}</p>
           </div>
-          <div
-            className="mt-1 flex items-center justify-between transition-opacity duration-300"
-            style={{ opacity: total.visible ? 1 : 0 }}
-          >
-            <span className="text-[11px] text-white/40">Distance</span>
-            <span className="font-display text-[13px] font-bold text-white/70">
-              {distance.toFixed(1)} km
-            </span>
-          </div>
-        </GlassCard>
 
-        {/* Mini leaderboard */}
-        <GlassCard className="px-3.5 py-3">
-          <div className="mb-2 flex items-center gap-2">
-            <PiMedalFill
-              className="text-[13px]"
-              style={{ color: ACCENT.main }}
-            />
-            <span className="font-display text-lg font-bold tracking-[0.05em] text-white">
-              High Flyers
-            </span>
-          </div>
-          {topPlayers.length > 0 ? (
-            topPlayers.map((entry, i) => {
-              const icon = SPECIES_ICON[entry.species as BirdSpeciesId];
-              return (
-                <div key={i} className="flex items-center gap-2 py-1">
-                  <span className="font-display w-3.5 text-xs font-extrabold text-white/30">
-                    {i + 1}
-                  </span>
-                  {icon && (
-                    <Image
-                      src={icon}
-                      alt={entry.species}
-                      width={20}
-                      height={20}
-                      className="h-5 w-5 object-contain"
-                    />
-                  )}
-                  <span className="font-display flex-1 text-base font-bold text-white">
-                    {entry.name}
-                  </span>
-                  <span className="font-display text-base font-bold text-white">
-                    {Math.floor(entry.score).toLocaleString()}
+          {/* Flight log */}
+          <GlassCard className="px-[18px] py-4">
+            <div className="mb-3 flex items-center justify-between">
+              <span className="font-display text-[10px] font-bold tracking-[0.25em] text-white/50 uppercase">
+                Flight Log
+              </span>
+              {rank !== null && (
+                <div
+                  className="flex items-center gap-1.5 rounded-[8px] px-2 py-[3px]"
+                  style={{
+                    background: `${ACCENT.main}22`,
+                    color: ACCENT.main
+                  }}
+                >
+                  <PiMedalFill />
+                  <span className="font-display text-[10px] font-extrabold tracking-widest uppercase">
+                    #{rank} Today
                   </span>
                 </div>
-              );
-            })
-          ) : (
-            <p className="py-2 text-center text-[12px] text-white/40">
-              No flights yet.
-            </p>
-          )}
-        </GlassCard>
-        <div className="mt-3 flex gap-4 md:mt-2">
+              )}
+            </div>
+
+            <div className="grid grid-cols-2 gap-x-4 gap-y-2.5">
+              <ScoreStat
+                label="Flight"
+                value={flight.value}
+                visible={flight.visible}
+              />
+              <ScoreStat
+                label="Distance"
+                value={travel.value}
+                visible={travel.visible}
+              />
+              <ScoreStat
+                label="Feeding"
+                value={feeding.value}
+                visible={feeding.visible}
+              />
+              <ScoreStat
+                label="Eagle Dodges"
+                value={eagles.value}
+                visible={eagles.visible}
+              />
+            </div>
+            <div className="my-3 h-px w-full bg-white/10" />
+            <div
+              className="flex items-end justify-between transition-opacity duration-300"
+              style={{ opacity: total.visible ? 1 : 0 }}
+            >
+              <div className="flex flex-col gap-1">
+                <span className="font-display text-[11px] font-bold tracking-[0.25em] text-white/70 uppercase">
+                  Total
+                </span>
+                <span className="font-display text-[12px] font-bold text-white/45">
+                  {distance.toFixed(1)} km flown
+                </span>
+              </div>
+              <span
+                className="font-display bg-clip-text text-[32px] leading-none font-extrabold tracking-[-0.02em] text-transparent"
+                style={{
+                  background: `linear-gradient(180deg, #fff, ${ACCENT.main})`,
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent'
+                }}
+              >
+                {total.value.toLocaleString()}
+              </span>
+            </div>
+          </GlassCard>
+
+          {/* Mini leaderboard */}
+          <GlassCard className="px-3.5 py-3">
+            <div className="mb-2 flex items-center gap-2">
+              <PiMedalFill
+                className="text-[13px]"
+                style={{ color: ACCENT.main }}
+              />
+              <span className="font-display text-lg font-bold tracking-[0.05em] text-white">
+                High Flyers
+              </span>
+            </div>
+            {topPlayers.length > 0 ? (
+              topPlayers.map((entry, i) => {
+                const icon = SPECIES_ICON[entry.species as BirdSpeciesId];
+                return (
+                  <div key={i} className="flex items-center gap-2 py-0.5">
+                    <span className="font-display w-3.5 text-xs font-extrabold text-white/30">
+                      {i + 1}
+                    </span>
+                    {icon && (
+                      <Image
+                        src={icon}
+                        alt={entry.species}
+                        width={20}
+                        height={20}
+                        className="h-5 w-5 object-contain"
+                      />
+                    )}
+                    <span className="font-display flex-1 truncate text-[15px] font-bold text-white">
+                      {entry.name}
+                    </span>
+                    <span className="font-display text-[15px] font-bold text-white">
+                      {Math.floor(entry.score).toLocaleString()}
+                    </span>
+                  </div>
+                );
+              })
+            ) : (
+              <p className="py-2 text-center text-[12px] text-white/40">
+                No flights yet.
+              </p>
+            )}
+          </GlassCard>
+        </div>
+        <div className="mt-3 flex shrink-0 gap-4">
           <ArcadeButton accent={ACCENT.main} onClick={() => startGame()}>
             <PiArrowClockwiseBold className="text-sm" color="#0a0a0a" /> Fly
             Again
@@ -289,7 +291,7 @@ export default function GameOverScreen() {
   );
 }
 
-function ScoreRow({
+function ScoreStat({
   label,
   value,
   visible
@@ -300,16 +302,16 @@ function ScoreRow({
 }) {
   return (
     <div
-      className="flex items-center justify-between py-1 transition-all duration-300"
+      className="flex flex-col gap-0.5 transition-all duration-300"
       style={{
         opacity: visible ? 1 : 0,
         transform: visible ? 'translateY(0)' : 'translateY(8px)'
       }}
     >
-      <span className="font-display text-[11px] font-semibold tracking-[0.15em] text-white/45 uppercase">
+      <span className="font-display text-[10px] font-semibold tracking-[0.15em] text-white/45 uppercase">
         {label}
       </span>
-      <span className="font-display text-[16px] font-extrabold text-white">
+      <span className="font-display text-[18px] leading-tight font-extrabold text-white">
         {value.toLocaleString()}
       </span>
     </div>

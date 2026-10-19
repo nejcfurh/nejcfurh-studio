@@ -1,19 +1,44 @@
 'use client';
 
-export interface PatioProps {
-  x: number;
-  z: number;
-  w: number;
-  rot: number;
-}
+import { useMemo } from 'react';
+import * as THREE from 'three';
 
-export default function Patio({ x, z, w, rot }: PatioProps) {
+import {
+  Instance,
+  InstancedLayer,
+  LoadedChunk,
+  placeInGroup,
+  unitPlaneGeometry
+} from './InstancedLayer';
+
+const patioMaterial = new THREE.MeshStandardMaterial({
+  color: '#b0a898',
+  roughness: 0.85
+});
+
+export function PatioLayer({ chunks }: { chunks: LoadedChunk[] }) {
+  const instances = useMemo(() => {
+    const out: Instance[] = [];
+    for (const chunk of chunks) {
+      for (const h of chunk.data.houses) {
+        if (!h.hasPatio) continue;
+        out.push({
+          matrix: placeInGroup(
+            { x: chunk.ox + h.x, z: chunk.oz + h.z, rot: h.rot },
+            { y: 0.03, z: -3.5, sx: h.w + 1, sz: 2.5 }
+          )
+        });
+      }
+    }
+    return out;
+  }, [chunks]);
+
   return (
-    <group position={[x, 0, z]} rotation={[0, rot, 0]}>
-      <mesh position={[0, 0.03, -3.5]} rotation={[-Math.PI / 2, 0, 0]}>
-        <planeGeometry args={[w + 1, 2.5]} />
-        <meshStandardMaterial color="#B0A898" roughness={0.85} />
-      </mesh>
-    </group>
+    <InstancedLayer
+      geometry={unitPlaneGeometry}
+      material={patioMaterial}
+      instances={instances}
+      receiveShadow
+    />
   );
 }

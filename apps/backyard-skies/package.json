@@ -15,7 +15,8 @@
     "format:eslint": "pnpm base:eslint --fix",
     "format": "pnpm format:prettier && pnpm format:eslint",
     "format-silent": "pnpm format:prettier --loglevel silent && pnpm format:eslint --quiet",
-    "type:check": "tsc --noEmit"
+    "type:check": "tsc --noEmit",
+    "test": "vitest run"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.9",
@@ -41,6 +42,7 @@
     "eslint-config-next": "16.4.0",
     "prettier-config-web": "workspace:*",
     "tailwindcss": "^4.3.3",
-    "typescript": "~6.0.3"
+    "typescript": "~6.0.3",
+    "vitest": "^5.0.3"
   }
 }
