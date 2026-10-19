@@ -2,6 +2,8 @@ export const CHUNK_SIZE = 45;
 export const RENDER_DISTANCE = 3;
 // Chunks within this ring of the bird get grass and cast shadows.
 export const DETAIL_DISTANCE = 1;
+// Chunks within this ring get grass, so it reaches past the detail ring.
+export const GRASS_DISTANCE = 2;
 export const HOUSES_PER_CHUNK = 3;
 export const TREES_PER_CHUNK = 5;
 /** Half-width of a road with its sidewalks, from the road's centre line. */

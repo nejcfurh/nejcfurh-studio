@@ -3,6 +3,7 @@
 import {
   CHUNK_SIZE,
   DETAIL_DISTANCE,
+  GRASS_DISTANCE,
   RENDER_DISTANCE
 } from '@/lib/terrain/chunkConstants';
 import { generateChunkData } from '@/lib/terrain/chunkGenerator';
@@ -43,15 +44,18 @@ function loadChunks(cx: number, cz: number, previous: LoadedChunk[]) {
       const key = chunkKey(cx + dx, cz + dz);
       const near =
         Math.abs(dx) <= DETAIL_DISTANCE && Math.abs(dz) <= DETAIL_DISTANCE;
+      const grass =
+        Math.abs(dx) <= GRASS_DISTANCE && Math.abs(dz) <= GRASS_DISTANCE;
       const cached = cache.get(key);
       chunks.push(
         cached
-          ? { ...cached, near }
+          ? { ...cached, near, grass }
           : {
               key,
               ox: (cx + dx) * CHUNK_SIZE,
               oz: (cz + dz) * CHUNK_SIZE,
               near,
+              grass,
               data: generateChunkData(cx + dx, cz + dz)
             }
       );
@@ -129,7 +133,7 @@ export default function SuburbanWorld() {
       <HousePropsLayer chunks={chunks} />
 
       {chunks
-        .filter((c) => c.near)
+        .filter((c) => c.grass)
         .map((c) => (
           <group key={c.key} position={[c.ox, 0, c.oz]}>
             <GrassField

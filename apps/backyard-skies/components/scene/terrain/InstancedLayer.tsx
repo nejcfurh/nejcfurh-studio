@@ -8,8 +8,10 @@ export interface LoadedChunk {
   key: string;
   ox: number;
   oz: number;
-  /** Within DETAIL_DISTANCE of the bird: gets grass and casts shadows. */
+  /** Within DETAIL_DISTANCE of the bird: casts shadows. */
   near: boolean;
+  /** Within GRASS_DISTANCE of the bird: gets grass. */
+  grass: boolean;
   data: ChunkData;
 }
 
