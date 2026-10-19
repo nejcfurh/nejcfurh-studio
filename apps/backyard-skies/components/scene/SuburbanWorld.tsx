@@ -19,6 +19,7 @@ import {
   LAWN_TINT_GLSL
 } from './terrain/GrassField';
 import { HouseLayer } from './terrain/House';
+import { HousePropsLayer } from './terrain/HouseProps';
 import { LoadedChunk } from './terrain/InstancedLayer';
 import { PatioLayer } from './terrain/Patio';
 import { RoadXLayer } from './terrain/RoadX';
@@ -125,6 +126,7 @@ export default function SuburbanWorld() {
       <YardFenceLayer chunks={chunks} />
       <TreeLayer chunks={chunks} />
       <HouseLayer chunks={chunks} />
+      <HousePropsLayer chunks={chunks} />
 
       {chunks
         .filter((c) => c.near)

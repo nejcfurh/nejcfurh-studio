@@ -1,12 +1,14 @@
+import { treeVariantParts } from '@/components/scene/terrain/treeGeometry';
 import {
   BIRD_COLLISION_OFFSET_Y,
   BIRD_COLLISION_RADIUS
 } from '@/utils/constants';
 import { describe, expect, it } from 'vitest';
 
-import { CHUNK_SIZE, HOUSE_MODELS } from './chunkConstants';
+import { CHUNK_SIZE, HOUSE_MODELS, STREET_HALF_WIDTH } from './chunkConstants';
 import { generateChunkData, HouseData, TreeData } from './chunkGenerator';
 import { HOUSE_BOUNDS, HouseBounds, roofHeightAt } from './houseBounds';
+import { houseProps, PropObstacle, propObstacles } from './houseProps';
 import {
   chunkIndex,
   createObstacleHit,
@@ -14,7 +16,8 @@ import {
   isRoofHit,
   isSafeFeederPosition,
   reflectHeading,
-  resolveObstacleCollision
+  resolveObstacleCollision,
+  treeVariant
 } from './terrainCollision';
 
 /** A house of a generated chunk, with its frame as House.tsx renders it. */
@@ -287,6 +290,166 @@ describe('tree collision', () => {
   });
 });
 
+/**
+ * One tree of every type and variant, standing well clear of houses and other
+ * trees, with the stretch Tree.tsx gives it.
+ */
+function treeOfEveryShape() {
+  const houses: [number, number][] = [];
+  const trees: { x: number; z: number; t: TreeData }[] = [];
+  for (let cx = -8; cx <= 8; cx++) {
+    for (let cz = -8; cz <= 8; cz++) {
+      const data = generateChunkData(cx, cz);
+      for (const h of data.houses) {
+        houses.push([cx * CHUNK_SIZE + h.x, cz * CHUNK_SIZE + h.z]);
+      }
+      for (const t of data.trees) {
+        trees.push({ x: cx * CHUNK_SIZE + t.x, z: cz * CHUNK_SIZE + t.z, t });
+      }
+    }
+  }
+  const shapes = new Map<
+    string,
+    (typeof trees)[number] & { variant: number }
+  >();
+  for (const a of trees) {
+    const variant = treeVariant(a.x, a.z);
+    const key = `${a.t.type} ${variant}`;
+    if (shapes.has(key)) continue;
+    const clear =
+      houses.every(([hx, hz]) => Math.hypot(a.x - hx, a.z - hz) > 12) &&
+      trees.every((b) => b === a || Math.hypot(a.x - b.x, a.z - b.z) > 7);
+    if (clear) shapes.set(key, { ...a, variant });
+  }
+  return [...shapes.values()].map((a) => {
+    const sy = a.t.height / 5;
+    return { ...a, sy, sxz: 0.7 + 0.3 * sy };
+  });
+}
+
+/** Widest horizontal reach of the drawn triangles where they cross height y. */
+function widestAt(triangles: number[], y: number) {
+  let widest = 0;
+  for (let t = 0; t < triangles.length; t += 9) {
+    for (let e = 0; e < 3; e++) {
+      const a = t + e * 3;
+      const b = t + ((e + 1) % 3) * 3;
+      const ya = triangles[a + 1];
+      const yb = triangles[b + 1];
+      if ((ya - y) * (yb - y) > 0 || ya === yb) continue;
+      const k = (y - ya) / (yb - ya);
+      const px = triangles[a] + (triangles[b] - triangles[a]) * k;
+      const pz = triangles[a + 2] + (triangles[b + 2] - triangles[a + 2]) * k;
+      widest = Math.max(widest, Math.hypot(px, pz));
+    }
+  }
+  return widest;
+}
+
+describe('tree collision against the drawn trees', () => {
+  const hit = createObstacleHit();
+  const trees = treeOfEveryShape();
+
+  it('picks a variant from the position alone', () => {
+    for (const { x, z, variant } of trees) {
+      expect(treeVariant(x, z)).toBe(variant);
+      expect([0, 1, 2]).toContain(variant);
+    }
+  });
+
+  it('has a clear tree of every type and variant to test against', () => {
+    expect(trees.map((a) => `${a.t.type} ${a.variant}`).sort()).toEqual([
+      'oak 0',
+      'oak 1',
+      'oak 2',
+      'pine 0',
+      'pine 1',
+      'pine 2',
+      'round 0',
+      'round 1',
+      'round 2'
+    ]);
+  });
+
+  // The collision shapes are round about the trunk, so a drawn point is
+  // tested at its distance from the trunk, whatever the tree's yaw.
+  it('bounces a bird off every drawn foliage and trunk vertex', () => {
+    // The bird's sphere reaches the vertex from beside it, give or take
+    // lobe bumps the fitted shapes round off.
+    const gap = BIRD_COLLISION_RADIUS - 0.2;
+    for (const { x, z, t, variant, sy, sxz } of trees) {
+      const parts = treeVariantParts(t.type, variant, 'near');
+      for (const verts of [parts.foliage, parts.trunk]) {
+        for (let i = 0; i < verts.length; i += 3) {
+          const h = Math.hypot(verts[i], verts[i + 2]) * sxz;
+          const y = verts[i + 1] * sy;
+          if (y < 0.2) continue;
+          const touched = resolveObstacleCollision(
+            x + h + gap,
+            y - BIRD_COLLISION_OFFSET_Y,
+            z,
+            hit
+          );
+          if (!touched) {
+            throw new Error(`${t.type} ${variant}: missed (${h}, ${y})`);
+          }
+        }
+      }
+    }
+  });
+
+  it('lets a bird pass just beside the drawn canopy', () => {
+    // Fitted shapes may stand off a little where lobes leave gaps; beyond
+    // this the bird would bounce off thin air.
+    const slack = 0.3;
+    const r = BIRD_COLLISION_RADIUS;
+    for (const { x, z, t, variant, sy, sxz } of trees) {
+      const foliage = treeVariantParts(t.type, variant, 'near').foliage;
+      let bottom = Infinity;
+      let top = -Infinity;
+      for (let i = 1; i < foliage.length; i += 3) {
+        bottom = Math.min(bottom, foliage[i]);
+        top = Math.max(top, foliage[i]);
+      }
+      for (let k = 0; k <= 10; k++) {
+        const y = (bottom + ((top - bottom) * k) / 10) * sy;
+        // Where the bird's sphere first touches the drawn triangles when it
+        // comes in sideways at this height.
+        let touch = 0;
+        for (let s = -1; s <= 1; s += 0.1) {
+          const reach = widestAt(foliage, (y + s * r) / sy) * sxz;
+          if (reach > 0)
+            touch = Math.max(touch, reach + r * Math.sqrt(1 - s * s));
+        }
+        const h = touch + slack;
+        const blocked = resolveObstacleCollision(
+          x + h,
+          y - BIRD_COLLISION_OFFSET_Y,
+          z,
+          hit
+        );
+        if (blocked) {
+          throw new Error(`${t.type} ${variant}: blocked at (${h}, ${y})`);
+        }
+      }
+    }
+  });
+
+  it('lets a bird pass just over the drawn top', () => {
+    for (const { x, z, t, variant, sy } of trees) {
+      const foliage = treeVariantParts(t.type, variant, 'near').foliage;
+      let top = -Infinity;
+      for (let i = 1; i < foliage.length; i += 3) {
+        top = Math.max(top, foliage[i]);
+      }
+      const y = top * sy + BIRD_COLLISION_RADIUS + 0.3;
+      expect(
+        resolveObstacleCollision(x, y - BIRD_COLLISION_OFFSET_Y, z, hit)
+      ).toBe(false);
+    }
+  });
+});
+
 describe('open space', () => {
   const hit = createObstacleHit();
 
@@ -346,6 +509,86 @@ describe('isSafeFeederPosition', () => {
         }
         for (const t of data.trees) {
           expect(isSafeFeederPosition(ox + t.x, oz + t.z)).toBe(false);
+        }
+      }
+    }
+  });
+});
+
+describe('house prop collision', () => {
+  const hit = createObstacleHit();
+  const solidProps = () => {
+    const found: PropObstacle[] = [];
+    for (let cx = -3; cx <= 3 && found.length < 40; cx++) {
+      for (let cz = -3; cz <= 3; cz++) {
+        found.push(...propObstacles(houseProps(getChunkData(cx, cz), cx, cz)));
+      }
+    }
+    return found;
+  };
+
+  it('bumps a bird flying into the side of a car, hedge or bin', () => {
+    const props = solidProps();
+    expect(props.length).toBeGreaterThan(20);
+    for (const p of props) {
+      const midY = (p.bottom + p.top) / 2 - BIRD_COLLISION_OFFSET_Y;
+      expect(resolveObstacleCollision(p.x, midY, p.z, hit)).toBe(true);
+    }
+  });
+
+  it('lands a bird that drops onto a car roof on top of it', () => {
+    const car = solidProps().find((p) => p.top - p.bottom > 1.3);
+    expect(car).toBeDefined();
+    if (!car) return;
+    const y = car.top - BIRD_COLLISION_OFFSET_Y - 0.2;
+    expect(resolveObstacleCollision(car.x, y, car.z, hit)).toBe(true);
+    expect(isRoofHit(hit)).toBe(true);
+    expect(hit.y + BIRD_COLLISION_OFFSET_Y).toBeGreaterThanOrEqual(car.top);
+  });
+
+  it('lets a bird pass just above a prop', () => {
+    for (const p of solidProps()) {
+      const y = p.top + BIRD_COLLISION_RADIUS + 0.05 - BIRD_COLLISION_OFFSET_Y;
+      if (resolveObstacleCollision(p.x, y, p.z, hit)) {
+        // A house eave or tree may overhang the prop; only props must clear.
+        expect(hit.ny).toBeGreaterThan(-1);
+      }
+    }
+    const lone = solidProps()[0];
+    const yAbove = lone.top + 3;
+    expect(
+      resolveObstacleCollision(lone.x, yAbove, lone.z, hit) &&
+        hit.y > yAbove + 0.01
+    ).toBe(false);
+  });
+});
+
+describe('isSafeFeederPosition and the street furniture', () => {
+  it('rejects points on or beside a solid prop', () => {
+    for (let cx = -2; cx <= 2; cx++) {
+      for (let cz = -2; cz <= 2; cz++) {
+        for (const p of propObstacles(
+          houseProps(getChunkData(cx, cz), cx, cz)
+        )) {
+          expect(isSafeFeederPosition(p.x, p.z)).toBe(false);
+        }
+      }
+    }
+  });
+
+  it('rejects points on the road and the sidewalk', () => {
+    for (let cx = -3; cx <= 3; cx++) {
+      const oz = 0;
+      const ox = cx * CHUNK_SIZE;
+      for (let x = ox - 18; x <= ox + 18; x += 3) {
+        expect(isSafeFeederPosition(x, oz)).toBe(false);
+        expect(isSafeFeederPosition(x, oz + STREET_HALF_WIDTH - 0.2)).toBe(
+          false
+        );
+      }
+      if (getChunkData(cx, 0).hasRoadZ) {
+        for (let z = -18; z <= 18; z += 3) {
+          expect(isSafeFeederPosition(ox, z)).toBe(false);
         }
       }
     }

@@ -5,9 +5,13 @@ import {
   BIRD_COLLISION_RADIUS
 } from '@/utils/constants';
 
-import { CHUNK_SIZE } from './chunkConstants';
+import { CHUNK_SIZE, STREET_HALF_WIDTH } from './chunkConstants';
 import { ChunkData, generateChunkData, TreeData } from './chunkGenerator';
 import { cellIndex, HOUSE_BOUNDS, HouseBounds } from './houseBounds';
+import { houseProps, propObstacles } from './houseProps';
+
+// A feeder's base disc reaches ~0.6 from its pole; keep a little air beyond it.
+const FEEDER_CLEARANCE = 1.5;
 
 export function isSafeFeederPosition(wx: number, wz: number): boolean {
   const cx = Math.floor(wx / CHUNK_SIZE);
@@ -42,10 +46,32 @@ export function isSafeFeederPosition(wx: number, wz: number): boolean {
           return false;
         }
       }
+
+      for (const p of cachedChunk(chunkCx, chunkCz).props) {
+        local.x = (wx - p.x) * p.cos - (wz - p.z) * p.sin;
+        local.z = (wx - p.x) * p.sin + (wz - p.z) * p.cos;
+        if (
+          Math.abs(local.x) < p.halfX + FEEDER_CLEARANCE &&
+          Math.abs(local.z) < p.halfZ + FEEDER_CLEARANCE
+        ) {
+          return false;
+        }
+      }
     }
   }
 
-  return true;
+  return !isOnStreet(wx, wz, FEEDER_CLEARANCE);
+}
+
+/** Whether a point is on a road or sidewalk, or within `margin` of one. */
+function isOnStreet(wx: number, wz: number, margin: number): boolean {
+  const cx = chunkIndex(wx);
+  const cz = chunkIndex(wz);
+  const data = cachedChunk(cx, cz).data;
+  if (Math.abs(wz - cz * CHUNK_SIZE) < STREET_HALF_WIDTH + margin) return true;
+  return (
+    data.hasRoadZ && Math.abs(wx - cx * CHUNK_SIZE) < STREET_HALF_WIDTH + margin
+  );
 }
 
 // BIRD VS HOUSES AND TREES
@@ -63,6 +89,20 @@ interface HouseObstacle {
   shape: HouseBounds;
 }
 
+interface TreeCone {
+  baseY: number;
+  apexY: number;
+  radius: number;
+}
+
+interface TreeCrown {
+  y: number;
+  /** Horizontal radius. */
+  rx: number;
+  /** Vertical radius. */
+  ry: number;
+}
+
 interface TreeObstacle {
   x: number;
   z: number;
@@ -70,63 +110,162 @@ interface TreeObstacle {
   reach: number;
   trunkRadius: number;
   trunkTop: number;
-  pine: boolean;
-  /** Pine: cone base height. Others: canopy centre height. */
-  canopyY: number;
-  /** Pine: cone apex height. Others: vertical canopy radius. */
-  canopyTopOrRy: number;
-  canopyRadius: number;
+  /** Pine tiers, bottom first; empty for broadleaf trees. */
+  cones: TreeCone[];
+  crown: TreeCrown | null;
+}
+
+/** A solid house prop (car, hedge, bin, mailbox) as an oriented box. */
+interface PropBox {
+  x: number;
+  z: number;
+  cos: number;
+  sin: number;
+  halfX: number;
+  halfZ: number;
+  bottom: number;
+  top: number;
 }
 
 interface CachedChunk {
   data: ChunkData;
   houses: HouseObstacle[];
   trees: TreeObstacle[];
+  props: PropBox[];
 }
 
-// Tree shapes as components/scene/terrain/Tree.tsx models them at its base
-// height, before each instance stretches them. Canopy lobes are covered by
-// one sphere, so the tree's random yaw does not matter.
+// Tree shapes as components/scene/terrain/treeGeometry.ts models them at its
+// base height, before each instance stretches them: one entry per variant.
+// Pine tiers are cones with their drooping rim tips as the base. A broadleaf
+// crown is a rounded box (a superellipsoid, see collideCrown) around the
+// trunk, fitted to its lobes, so the tree's random yaw does not matter.
 const TREE_BASE_HEIGHT = 5;
-const TRUNK_RADIUS = 0.15;
-const TRUNK_TOP = 2.775;
-const PINE_CONE_BASE = 1.375;
-const PINE_CONE_TOP = 4.875;
-const PINE_CONE_RADIUS = 1.4;
-const CANOPY_SPHERES = {
-  round: { y: 3.5, radius: 1.7 },
-  oak: { y: 3.3, radius: 1.5 }
+
+interface TreeShape {
+  trunkRadius: number;
+  trunkTop: number;
+  cones: TreeCone[];
+  crown: TreeCrown | null;
+}
+
+const cone = (baseY: number, apexY: number, radius: number): TreeCone => ({
+  baseY,
+  apexY,
+  radius
+});
+
+const TREE_SHAPES: Record<TreeData['type'], TreeShape[]> = {
+  pine: [
+    {
+      trunkRadius: 0.15,
+      trunkTop: 2.2,
+      cones: [
+        cone(0.9, 3.4, 1.45),
+        cone(1.84, 4.0, 1.15),
+        cone(2.73, 4.5, 0.85),
+        cone(3.57, 4.95, 0.5)
+      ],
+      crown: null
+    },
+    {
+      trunkRadius: 0.13,
+      trunkTop: 2.0,
+      cones: [
+        cone(0.62, 2.8, 1.15),
+        cone(1.66, 3.6, 0.95),
+        cone(2.7, 4.4, 0.7),
+        cone(3.64, 5.05, 0.42)
+      ],
+      crown: null
+    },
+    {
+      trunkRadius: 0.17,
+      trunkTop: 2.3,
+      cones: [
+        cone(0.95, 3.55, 1.55),
+        cone(1.85, 4.05, 1.25),
+        cone(2.7, 4.45, 0.95),
+        cone(3.62, 4.95, 0.58)
+      ],
+      crown: null
+    }
+  ],
+  round: [
+    {
+      trunkRadius: 0.16,
+      trunkTop: 3.3,
+      cones: [],
+      crown: { y: 3.52, rx: 1.73, ry: 1.24 }
+    },
+    {
+      trunkRadius: 0.11,
+      trunkTop: 4.3,
+      cones: [],
+      crown: { y: 3.51, rx: 1.12, ry: 1.34 }
+    },
+    {
+      trunkRadius: 0.18,
+      trunkTop: 3.0,
+      cones: [],
+      crown: { y: 3.28, rx: 2.0, ry: 1.24 }
+    }
+  ],
+  oak: [
+    {
+      trunkRadius: 0.2,
+      trunkTop: 2.9,
+      cones: [],
+      crown: { y: 3.25, rx: 2.06, ry: 1.1 }
+    },
+    {
+      trunkRadius: 0.17,
+      trunkTop: 3.0,
+      cones: [],
+      crown: { y: 3.45, rx: 1.98, ry: 1.26 }
+    },
+    {
+      trunkRadius: 0.24,
+      trunkTop: 2.6,
+      cones: [],
+      crown: { y: 3.04, rx: 2.22, ry: 1.02 }
+    }
+  ]
 };
 
+/**
+ * Which of its type's shapes the tree at a world position has. Tree.tsx draws
+ * the same one, so it must stay a pure function of the position.
+ */
+export function treeVariant(x: number, z: number): number {
+  const h = Math.abs(Math.sin(x * 37.719 + z * 17.137) * 24634.6345) % 1;
+  return Math.min(2, Math.floor(h * 3));
+}
+
 function treeObstacle(t: TreeData, ox: number, oz: number): TreeObstacle {
+  const x = ox + t.x;
+  const z = oz + t.z;
   const sy = t.height / TREE_BASE_HEIGHT;
   const sxz = 0.7 + 0.3 * sy;
-  const base = {
-    x: ox + t.x,
-    z: oz + t.z,
-    trunkRadius: TRUNK_RADIUS * sxz,
-    trunkTop: TRUNK_TOP * sy
+  const shape = TREE_SHAPES[t.type][treeVariant(x, z)];
+  const cones = shape.cones.map((c) => ({
+    baseY: c.baseY * sy,
+    apexY: c.apexY * sy,
+    radius: c.radius * sxz
+  }));
+  const crown = shape.crown && {
+    y: shape.crown.y * sy,
+    rx: shape.crown.rx * sxz,
+    ry: shape.crown.ry * sy
   };
-  if (t.type === 'pine') {
-    const canopyRadius = PINE_CONE_RADIUS * sxz;
-    return {
-      ...base,
-      reach: canopyRadius + BIRD_COLLISION_RADIUS,
-      pine: true,
-      canopyY: PINE_CONE_BASE * sy,
-      canopyTopOrRy: PINE_CONE_TOP * sy,
-      canopyRadius
-    };
-  }
-  const sphere = CANOPY_SPHERES[t.type];
-  const canopyRadius = sphere.radius * sxz;
+  const widest = Math.max(crown?.rx ?? 0, ...cones.map((c) => c.radius));
   return {
-    ...base,
-    reach: canopyRadius + BIRD_COLLISION_RADIUS,
-    pine: false,
-    canopyY: sphere.y * sy,
-    canopyTopOrRy: sphere.radius * sy,
-    canopyRadius
+    x,
+    z,
+    reach: widest + BIRD_COLLISION_RADIUS,
+    trunkRadius: shape.trunkRadius * sxz,
+    trunkTop: shape.trunkTop * sy,
+    cones,
+    crown
   };
 }
 
@@ -143,7 +282,17 @@ function buildChunk(cx: number, cz: number): CachedChunk {
       sin: Math.sin(h.rot),
       shape: HOUSE_BOUNDS[h.modelIndex % HOUSE_BOUNDS.length]
     })),
-    trees: data.trees.map((t) => treeObstacle(t, ox, oz))
+    trees: data.trees.map((t) => treeObstacle(t, ox, oz)),
+    props: propObstacles(houseProps(data, cx, cz)).map((p) => ({
+      x: p.x,
+      z: p.z,
+      cos: Math.cos(p.rot),
+      sin: Math.sin(p.rot),
+      halfX: p.halfX,
+      halfZ: p.halfZ,
+      bottom: p.bottom,
+      top: p.top
+    }))
   };
 }
 
@@ -385,44 +534,141 @@ function pushOutOfTree(
   record(sideDepth, ux, 0, uz);
 }
 
-function collideCanopy(t: TreeObstacle, r: number, dx: number, dz: number) {
-  const h = Math.sqrt(dx * dx + dz * dz);
+function collideCone(t: TreeObstacle, c: TreeCone, r: number) {
   const y = probe.y;
-  if (t.pine) {
-    const base = t.canopyY - r;
-    const apex = t.canopyTopOrRy;
-    if (y <= base || y >= apex + r) return;
-    const k = t.canopyRadius / (apex - t.canopyY);
-    const radiusAt = (apex - Math.min(apex, Math.max(t.canopyY, y))) * k + r;
-    if (h >= radiusAt) return;
-    // Height at which the widened cone is only as wide as h.
-    const surfaceY = h > r ? apex - (h - r) / k : apex + r;
-    pushOutOfTree(t, h, dx, dz, radiusAt - h, surfaceY - y);
-    return;
-  }
-  const a = t.canopyRadius + r;
-  const b = t.canopyTopOrRy + r;
-  const dy = y - t.canopyY;
-  const q = (h * h) / (a * a) + (dy * dy) / (b * b);
-  if (q >= 1) return;
-  const sideDepth = a * Math.sqrt(1 - (dy * dy) / (b * b)) - h;
-  const upDepth = b * Math.sqrt(Math.max(0, 1 - (h * h) / (a * a))) - dy;
-  pushOutOfTree(t, h, dx, dz, sideDepth, upDepth);
+  if (y <= c.baseY - r || y >= c.apexY + r) return;
+  const dx = probe.x - t.x;
+  const dz = probe.z - t.z;
+  const h = Math.sqrt(dx * dx + dz * dz);
+  const k = c.radius / (c.apexY - c.baseY);
+  const radiusAt = (c.apexY - Math.min(c.apexY, Math.max(c.baseY, y))) * k + r;
+  if (h >= radiusAt) return;
+  // Height at which the widened cone is only as wide as h.
+  const surfaceY = h > r ? c.apexY - (h - r) / k : c.apexY + r;
+  pushOutOfTree(t, h, dx, dz, radiusAt - h, surfaceY - y);
 }
+
+// The crown is (h / rx)^3 + (|dy| / ry)^3 < 1: flatter on top and fuller at the
+// sides than an ellipsoid, like a cluster of lobes. The bird's sphere is added
+// by sampling across it, so the grown shape stays rounded at the rim instead
+// of reaching out where nothing is drawn.
+const SPHERE_SAMPLES = [-1, -0.6, 0, 0.6, 1].map((s) => ({
+  s,
+  w: Math.sqrt(1 - s * s)
+}));
+
+/** Crown radius at a height dy above its centre, or -Infinity outside it. */
+function crownRadius(c: TreeCrown, dy: number) {
+  const v = Math.abs(dy) / c.ry;
+  return v >= 1 ? -Infinity : c.rx * (1 - v ** 3) ** (1 / 3);
+}
+
+/** Crown half-height at a distance h from the trunk, or -Infinity outside. */
+function crownHalfHeight(c: TreeCrown, h: number) {
+  const u = Math.abs(h) / c.rx;
+  return u >= 1 ? -Infinity : c.ry * (1 - u ** 3) ** (1 / 3);
+}
+
+function collideCrown(t: TreeObstacle, c: TreeCrown, r: number) {
+  const dx = probe.x - t.x;
+  const dz = probe.z - t.z;
+  const h = Math.sqrt(dx * dx + dz * dz);
+  const dy = probe.y - c.y;
+  let side = -Infinity;
+  let half = -Infinity;
+  for (const { s, w } of SPHERE_SAMPLES) {
+    side = Math.max(side, crownRadius(c, dy + s * r) + w * r);
+    half = Math.max(half, crownHalfHeight(c, h + s * r) + w * r);
+  }
+  if (h >= side || Math.abs(dy) >= half) return;
+  pushOutOfTree(t, h, dx, dz, side - h, half - dy);
+}
+
+function collideTrunk(t: TreeObstacle, r: number) {
+  if (probe.y >= t.trunkTop) return;
+  const dx = probe.x - t.x;
+  const dz = probe.z - t.z;
+  const h = Math.sqrt(dx * dx + dz * dz);
+  const reach = t.trunkRadius + r;
+  if (h < reach) pushOutOfTree(t, h, dx, dz, reach - h, Infinity);
+}
+
+// Parts overlap (a trunk inside its crown, stacked pine tiers), so a push out
+// of one can land in another; a few passes settle it.
+const MAX_TREE_PASSES = 3;
 
 function collideTree(t: TreeObstacle, r: number) {
   const dx = probe.x - t.x;
   const dz = probe.z - t.z;
-  const h2 = dx * dx + dz * dz;
-  if (h2 >= t.reach * t.reach) return;
+  if (dx * dx + dz * dz >= t.reach * t.reach) return;
 
-  const trunkReach = t.trunkRadius + r;
-  if (probe.y < t.trunkTop && h2 < trunkReach * trunkReach) {
-    const h = Math.sqrt(h2);
-    pushOutOfTree(t, h, dx, dz, trunkReach - h, Infinity);
+  for (let pass = 0; pass < MAX_TREE_PASSES; pass++) {
+    const { x, y, z } = probe;
+    collideTrunk(t, r);
+    for (const c of t.cones) collideCone(t, c, r);
+    if (t.crown) collideCrown(t, t.crown, r);
+    if (probe.x === x && probe.y === y && probe.z === z) return;
+  }
+}
+
+/** Sphere against an oriented prop box; a centre inside leaves by the nearest face. */
+function collideProp(p: PropBox, r: number) {
+  const dx = probe.x - p.x;
+  const dz = probe.z - p.z;
+  local.x = dx * p.cos - dz * p.sin;
+  local.y = probe.y;
+  local.z = dx * p.sin + dz * p.cos;
+  if (
+    Math.abs(local.x) >= p.halfX + r ||
+    Math.abs(local.z) >= p.halfZ + r ||
+    local.y >= p.top + r ||
+    local.y <= p.bottom - r
+  ) {
     return;
   }
-  collideCanopy(t, r, dx, dz);
+
+  const qx = Math.min(p.halfX, Math.max(-p.halfX, local.x));
+  const qy = Math.min(p.top, Math.max(p.bottom, local.y));
+  const qz = Math.min(p.halfZ, Math.max(-p.halfZ, local.z));
+  let nx = local.x - qx;
+  let ny = local.y - qy;
+  let nz = local.z - qz;
+  const dist = Math.sqrt(nx * nx + ny * ny + nz * nz);
+  let depth: number;
+  if (dist > 1e-6) {
+    if (dist >= r) return;
+    nx /= dist;
+    ny /= dist;
+    nz /= dist;
+    depth = r - dist;
+  } else {
+    // Inside: take the face with the least way out (never down into the ground).
+    const up = p.top - local.y;
+    const sideX = p.halfX - Math.abs(local.x);
+    const sideZ = p.halfZ - Math.abs(local.z);
+    nx = 0;
+    ny = 0;
+    nz = 0;
+    if (up <= sideX && up <= sideZ) {
+      ny = 1;
+      depth = up + r;
+    } else if (sideX <= sideZ) {
+      nx = Math.sign(local.x) || 1;
+      depth = sideX + r;
+    } else {
+      nz = Math.sign(local.z) || 1;
+      depth = sideZ + r;
+    }
+  }
+
+  const push = depth + PUSH_MARGIN;
+  local.x += nx * push;
+  local.y += ny * push;
+  local.z += nz * push;
+  record(depth, nx * p.cos + nz * p.sin, ny, -nx * p.sin + nz * p.cos);
+  probe.x = p.x + local.x * p.cos + local.z * p.sin;
+  probe.y = local.y;
+  probe.z = p.z - local.x * p.sin + local.z * p.cos;
 }
 
 /**
@@ -449,6 +695,7 @@ export function resolveObstacleCollision(
       const chunk = cachedChunk(cx + i, cz + j);
       for (const h of chunk.houses) collideHouse(h, r);
       for (const t of chunk.trees) collideTree(t, r);
+      for (const p of chunk.props) collideProp(p, r);
     }
   }
 
