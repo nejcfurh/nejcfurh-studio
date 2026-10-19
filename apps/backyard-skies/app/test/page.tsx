@@ -1,9 +1,13 @@
 'use client';
 
-import { BirdbuddyBath, BirdbuddyFeeder } from '@/components/scene/Feeder';
+import {
+  BirdbuddyBath,
+  BirdbuddyFeeder,
+  CatModel
+} from '@/components/scene/Feeder';
 import GltfBirdModel from '@/components/scene/GltfBirdModel';
-import { ObjMtlModel } from '@/components/scene/ObjMtlModel';
-import { Grid, OrbitControls, useGLTF } from '@react-three/drei';
+import { EAGLE_MODEL, MATTE_SHADING, usePhongModel } from '@/lib/assets';
+import { Clone, Grid, OrbitControls, useGLTF } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import { Suspense, useMemo, useState } from 'react';
 
@@ -229,32 +233,33 @@ export default function TestPage() {
 
         {/* FEEDER - CENTERED AT ORIGIN */}
         {showFeeder && (
-          <group position={[-2, 0, 0]}>
-            <BirdbuddyFeeder />
-            {/* HEIGHT MARKERS */}
-            <HeightMarker y={1.6} />
-            <HeightMarker y={1.85} color="#ff6b6b" />
-            <HeightMarker y={2.2} color="#ffd43b" />
-          </group>
+          <Suspense fallback={null}>
+            <group position={[-2, 0, 0]}>
+              <BirdbuddyFeeder />
+              {/* HEIGHT MARKERS */}
+              <HeightMarker y={1.6} />
+              <HeightMarker y={1.85} color="#ff6b6b" />
+              <HeightMarker y={2.2} color="#ffd43b" />
+            </group>
+          </Suspense>
         )}
 
         {/* BIRDBATH - OFFSET TO THE RIGHT */}
         {showBath && (
-          <group position={[2, 0, 0]}>
-            <BirdbuddyBath />
-            <HeightMarker y={0.25} />
-            <HeightMarker y={0.35} color="#ff6b6b" />
-          </group>
+          <Suspense fallback={null}>
+            <group position={[2, 0, 0]}>
+              <BirdbuddyBath />
+              <HeightMarker y={0.25} />
+              <HeightMarker y={0.35} color="#ff6b6b" />
+            </group>
+          </Suspense>
         )}
 
-        {/* EAGLE - OBJ MODEL (BY ROBERT MIRABELLE [CC-BY] VIA POLY PIZZA) */}
+        {/* EAGLE - GLB MODEL (BY ROBERT MIRABELLE [CC-BY] VIA POLY PIZZA) */}
         {showEagle && (
-          <ObjMtlModel
-            baseUrl="/models/myeagle/wind_eagle"
-            scale={0.03}
-            position={[0, 3, -3]}
-            rotation={[0, Math.PI, 0]}
-          />
+          <Suspense fallback={null}>
+            <EagleTestModel />
+          </Suspense>
         )}
 
         {/* BIRD GLTF MODEL */}
@@ -266,14 +271,11 @@ export default function TestPage() {
           </Suspense>
         )}
 
-        {/* CAT OBJ/MTL MODEL - CENTER, SCALED TO FIT */}
+        {/* CAT GLB MODEL - CENTER, SCALED TO FIT */}
         {showCatModel && (
-          <ObjMtlModel
-            baseUrl="/models/mycat/model"
-            scale={0.03}
-            position={[3, 0, 4]}
-            rotation={[1.5, -3.15, -3]}
-          />
+          <Suspense fallback={null}>
+            <CatModel position={[3, 0, 4]} />
+          </Suspense>
         )}
 
         {/* GRASS TUFT GLB MODEL */}
@@ -291,6 +293,18 @@ export default function TestPage() {
         />
       </Canvas>
     </div>
+  );
+}
+
+function EagleTestModel() {
+  const eagle = usePhongModel(EAGLE_MODEL, MATTE_SHADING);
+  return (
+    <Clone
+      object={eagle}
+      scale={0.03}
+      position={[0, 3, -3]}
+      rotation={[0, Math.PI, 0]}
+    />
   );
 }
 

@@ -1,6 +1,11 @@
 // Pure resource depletion + replenishment — no store, no audio.
 
 import { BirdAttributes } from '@/types';
+import {
+  SCORE_PER_RESOURCE_RESTORED,
+  STAMINA_FLIGHT_REGEN,
+  STAMINA_REST_REGEN
+} from '@/utils/constants';
 
 export interface DepletionResult {
   food: number;
@@ -18,8 +23,10 @@ export function depleteResources(
 ): DepletionResult {
   const newFood = Math.max(0, food - attrs.foodDrain * delta);
   const newWater = Math.max(0, water - attrs.waterDrain * delta);
-  // Regenerate stamina slowly during flight
-  const newStamina = Math.min(attrs.stamina, stamina + 3 * delta);
+  const newStamina = Math.min(
+    attrs.stamina,
+    stamina + STAMINA_FLIGHT_REGEN * delta
+  );
 
   let depletedResource: 'food' | 'water' | null = null;
   if (newFood <= 0) depletedResource = 'food';
@@ -36,6 +43,8 @@ export function depleteResources(
 export interface ReplenishResult {
   food: number;
   water: number;
+  /** Units of food or water actually added this tick (zero once full). */
+  restored: number;
   scoreGained: number;
 }
 
@@ -47,18 +56,35 @@ export function replenishFromFeeder(
   delta: number
 ): ReplenishResult {
   if (feederType === 'feeder') {
-    const amount = attrs.feedRate * delta;
-    return {
-      food: Math.min(attrs.maxFood, food + amount),
-      water,
-      scoreGained: amount * 2
-    };
-  } else {
-    const amount = attrs.drinkRate * delta;
-    return {
+    const newFood = Math.max(
       food,
-      water: Math.min(attrs.maxWater, water + amount),
-      scoreGained: amount * 2
+      Math.min(attrs.maxFood, food + attrs.feedRate * delta)
+    );
+    const restored = newFood - food;
+    return {
+      food: newFood,
+      water,
+      restored,
+      scoreGained: restored * SCORE_PER_RESOURCE_RESTORED
     };
   }
+  const newWater = Math.max(
+    water,
+    Math.min(attrs.maxWater, water + attrs.drinkRate * delta)
+  );
+  const restored = newWater - water;
+  return {
+    food,
+    water: newWater,
+    restored,
+    scoreGained: restored * SCORE_PER_RESOURCE_RESTORED
+  };
+}
+
+export function restStamina(
+  stamina: number,
+  attrs: BirdAttributes,
+  delta: number
+): number {
+  return Math.min(attrs.stamina, stamina + STAMINA_REST_REGEN * delta);
 }

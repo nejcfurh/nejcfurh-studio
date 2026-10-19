@@ -2,13 +2,49 @@
 
 import { ThreatType } from '@/types';
 import {
+  EAGLE_ALTITUDE_HUNT_TIME,
+  EAGLE_ALTITUDE_LIMIT_MARGIN,
   EAGLE_ALTITUDE_THRESHOLD,
+  EAGLE_DODGE_DIVE_DEPTH,
+  EAGLE_DODGE_TAPS,
+  EAGLE_DODGE_TURN_DEGREES,
   EAGLE_DODGE_WINDOW,
+  EAGLE_FIRST_MIN_DELAY,
+  EAGLE_HUNT_RESUME_MIN,
+  EAGLE_INTERVAL_JITTER,
+  EAGLE_INTERVAL_MIN_BASE,
+  EAGLE_INTERVAL_RAMP,
+  EAGLE_INTERVAL_START,
   EAGLE_WARNING_TIME,
   THREAT_METER_BASE_RATE,
-  THREAT_METER_CAT_MULTIPLIER,
+  THREAT_METER_CAT_RATE,
   THREAT_METER_MAX
 } from '@/utils/constants';
+
+const DODGE_TURN_RADIANS = (EAGLE_DODGE_TURN_DEGREES * Math.PI) / 180;
+
+/** Seconds until the next eagle; the base shrinks as the run goes on. */
+export function computeEagleInterval(
+  elapsed: number,
+  random: () => number = Math.random
+): number {
+  const base = Math.max(
+    EAGLE_INTERVAL_MIN_BASE,
+    EAGLE_INTERVAL_START - EAGLE_INTERVAL_RAMP * elapsed
+  );
+  return base + (random() * 2 - 1) * EAGLE_INTERVAL_JITTER;
+}
+
+export function computeFirstEagleDelay(
+  random: () => number = Math.random
+): number {
+  return Math.max(EAGLE_FIRST_MIN_DELAY, computeEagleInterval(0, random));
+}
+
+/** Near the hunt threshold the dodge needs taps instead of a turn. */
+export function isNearAltitudeLimit(altitude: number): boolean {
+  return altitude > EAGLE_ALTITUDE_THRESHOLD - EAGLE_ALTITUDE_LIMIT_MARGIN;
+}
 
 export interface EagleThreatInput {
   altitude: number;
@@ -17,10 +53,16 @@ export interface EagleThreatInput {
   eagleTimer: number;
   eagleDodgeWindow: number;
   eagleDodgeStartRotation: number;
+  eagleDodgeStartAltitude: number;
   eagleDodgeTaps: number;
   eagleAltitudeHunt: boolean;
+  /** The regular countdown saved when the altitude hunt began. */
+  eagleResumeTimer: number;
   threatType: ThreatType;
   threatWarningActive: boolean;
+  /** Seconds of game time since the run started; drives the difficulty ramp. */
+  elapsed: number;
+  random?: () => number;
 }
 
 export type EagleAction =
@@ -37,6 +79,7 @@ export interface EagleThreatResult {
   action: EagleAction;
   eagleTimer: number;
   eagleDodgeWindow: number;
+  eagleResumeTimer: number;
 }
 
 export function tickEagleThreat(input: EagleThreatInput): EagleThreatResult {
@@ -45,10 +88,14 @@ export function tickEagleThreat(input: EagleThreatInput): EagleThreatResult {
     rotation,
     delta,
     eagleDodgeStartRotation,
+    eagleDodgeStartAltitude,
     eagleDodgeTaps,
     eagleAltitudeHunt,
+    eagleResumeTimer,
     threatType,
-    threatWarningActive
+    threatWarningActive,
+    elapsed,
+    random
   } = input;
   let { eagleTimer, eagleDodgeWindow } = input;
 
@@ -56,8 +103,10 @@ export function tickEagleThreat(input: EagleThreatInput): EagleThreatResult {
   if (altitude > EAGLE_ALTITUDE_THRESHOLD && !eagleAltitudeHunt) {
     return {
       action: { type: 'start_altitude_hunt' },
-      eagleTimer: 4,
-      eagleDodgeWindow
+      eagleTimer: EAGLE_ALTITUDE_HUNT_TIME,
+      // An open dodge window would block the hunt from ever ending.
+      eagleDodgeWindow: 0,
+      eagleResumeTimer: eagleTimer
     };
   }
 
@@ -66,10 +115,18 @@ export function tickEagleThreat(input: EagleThreatInput): EagleThreatResult {
     eagleAltitudeHunt &&
     eagleDodgeWindow <= 0
   ) {
+    // The regular countdown kept running during the hunt, so a quick climb
+    // above the threshold cannot push the next eagle further away.
+    const huntElapsed = EAGLE_ALTITUDE_HUNT_TIME - eagleTimer;
+    const resumed = Math.min(
+      eagleResumeTimer - huntElapsed,
+      computeEagleInterval(elapsed, random)
+    );
     return {
       action: { type: 'end_altitude_hunt' },
-      eagleTimer: 30 + Math.random() * 60,
-      eagleDodgeWindow
+      eagleTimer: Math.max(EAGLE_HUNT_RESUME_MIN, resumed),
+      eagleDodgeWindow,
+      eagleResumeTimer
     };
   }
 
@@ -81,7 +138,8 @@ export function tickEagleThreat(input: EagleThreatInput): EagleThreatResult {
     return {
       action: { type: 'altitude_caught' },
       eagleTimer,
-      eagleDodgeWindow
+      eagleDodgeWindow,
+      eagleResumeTimer
     };
   }
 
@@ -94,7 +152,8 @@ export function tickEagleThreat(input: EagleThreatInput): EagleThreatResult {
     return {
       action: { type: 'start_warning' },
       eagleTimer,
-      eagleDodgeWindow
+      eagleDodgeWindow,
+      eagleResumeTimer
     };
   }
 
@@ -104,32 +163,46 @@ export function tickEagleThreat(input: EagleThreatInput): EagleThreatResult {
       return {
         action: { type: 'start_dodge_window' },
         eagleTimer,
-        eagleDodgeWindow: EAGLE_DODGE_WINDOW
+        eagleDodgeWindow: EAGLE_DODGE_WINDOW,
+        eagleResumeTimer
       };
     }
 
-    const nearAltitudeLimit = altitude > EAGLE_ALTITUDE_THRESHOLD - 5;
-
-    if (nearAltitudeLimit) {
-      if (eagleDodgeTaps >= 3) {
-        return { action: { type: 'dodged' }, eagleTimer, eagleDodgeWindow };
-      }
-    } else {
-      let angleDiff =
-        Math.abs(rotation - eagleDodgeStartRotation) % (Math.PI * 2);
-      if (angleDiff > Math.PI) angleDiff = Math.PI * 2 - angleDiff;
-      if (angleDiff >= Math.PI / 2) {
-        return { action: { type: 'dodged' }, eagleTimer, eagleDodgeWindow };
-      }
+    const dived = eagleDodgeStartAltitude - altitude >= EAGLE_DODGE_DIVE_DEPTH;
+    const evaded = isNearAltitudeLimit(altitude)
+      ? eagleDodgeTaps >= EAGLE_DODGE_TAPS
+      : turnAngle(rotation, eagleDodgeStartRotation) >= DODGE_TURN_RADIANS;
+    if (dived || evaded) {
+      return {
+        action: { type: 'dodged' },
+        eagleTimer,
+        eagleDodgeWindow,
+        eagleResumeTimer
+      };
     }
 
     eagleDodgeWindow -= delta;
     if (eagleDodgeWindow <= 0) {
-      return { action: { type: 'caught' }, eagleTimer, eagleDodgeWindow };
+      return {
+        action: { type: 'caught' },
+        eagleTimer,
+        eagleDodgeWindow,
+        eagleResumeTimer
+      };
     }
   }
 
-  return { action: { type: 'none' }, eagleTimer, eagleDodgeWindow };
+  return {
+    action: { type: 'none' },
+    eagleTimer,
+    eagleDodgeWindow,
+    eagleResumeTimer
+  };
+}
+
+function turnAngle(rotation: number, startRotation: number): number {
+  const angle = Math.abs(rotation - startRotation) % (Math.PI * 2);
+  return angle > Math.PI ? Math.PI * 2 - angle : angle;
 }
 
 export interface CatThreatInput {
@@ -148,9 +221,7 @@ export interface CatThreatResult {
 export function tickCatThreat(input: CatThreatInput): CatThreatResult {
   const { hasCat, delta, threatWarningActive } = input;
 
-  const threatRate = hasCat
-    ? THREAT_METER_BASE_RATE * THREAT_METER_CAT_MULTIPLIER
-    : THREAT_METER_BASE_RATE;
+  const threatRate = hasCat ? THREAT_METER_CAT_RATE : THREAT_METER_BASE_RATE;
 
   const threatMeter = input.threatMeter + threatRate * delta;
   const caught = threatMeter >= THREAT_METER_MAX;

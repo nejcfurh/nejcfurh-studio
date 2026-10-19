@@ -3,8 +3,29 @@
 
 import { isSafeFeederPosition } from '@/lib/terrain/terrainCollision';
 import { FeederData } from '@/types';
-import { BIRDBATH_COUNT, FEEDER_COUNT } from '@/utils/constants';
+import {
+  BIRDBATH_COUNT,
+  FEEDER_COUNT,
+  FEEDER_LOCK_DURATION
+} from '@/utils/constants';
 import { seededRandom } from '@/utils/seededRandom';
+
+/** `lockedUntil` is in game-time seconds, so a pause never burns lock time. */
+export function isFeederLocked(feeder: FeederData, gameTime: number): boolean {
+  return feeder.lockedUntil !== undefined && feeder.lockedUntil > gameTime;
+}
+
+export function lockFeeder(
+  feeders: FeederData[],
+  feederId: number,
+  gameTime: number
+): FeederData[] {
+  return feeders.map((f) =>
+    f.id === feederId
+      ? { ...f, lockedUntil: gameTime + FEEDER_LOCK_DURATION }
+      : f
+  );
+}
 
 let feederIdCounter = 0;
 
