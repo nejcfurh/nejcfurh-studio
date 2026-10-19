@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.31.0 (2026-10-19)
+
+### Features
+
+- feat(backyard-skies): Overhaul gameplay, graphics, animation, assets and controls (#154) (a831699)
+
 ## v1.30.4 (2026-10-12)
 
 ### Bug Fixes & Improvements
